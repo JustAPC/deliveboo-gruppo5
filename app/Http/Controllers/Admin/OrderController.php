@@ -57,30 +57,36 @@ class OrderController extends Controller
 
         $request->validate(
             [
-            'customer_name' => 'required',
-            'customer_lastname' => 'required',
-            'customer_address' => 'required',
-            'customer_phone' => 'required',
-            'completed' => 'required | numeric',
-            'payment_received' => 'required',
+                'customer_name' => 'required',
+                'customer_lastname' => 'required',
+                'customer_address' => 'required',
+                'customer_phone' => 'required | numeric',
+                'completed' => 'required',
+                'payment_received' => 'required',
             ],
             [
-                'customer_name.required' -> 'Il campo "Nome" è obbligatorio',
-                'customer_lastname.required' -> 'Il campo "Cognome" è obbligatorio',
-                'customer_address.required' -> 'Il campo "Indirizzo" è obbligatorio',
-                'customer_phone.required' -> 'Il campo "Numero di telefono" è obbligatorio',
-                'completed.required' -> 'Il campo "Ordine completato" è obbligatorio',
-                'payment_received.required' -> 'Il campo "Pagamento ricevuto" è obbligatorio',
+                'customer_name.required' => 'Il campo "Nome" è obbligatorio',
+                'customer_lastname.required' => 'Il campo "Cognome" è obbligatorio',
+                'customer_address.required' => 'Il campo "Indirizzo" è obbligatorio',
+                'customer_phone.required' => 'Il campo "Numero di telefono" è obbligatorio',
+                'customer_phone.numeric' => 'Il campo "Numero di telefono" deve essere composto solamente da numeri',
+                'completed.required' => 'Il campo "Ordine completato" è obbligatorio',
+                'payment_received.required' => 'Il campo "Pagamento ricevuto" è obbligatorio',
             ]
-    );
+        );
 
         $data = $request->all();
+        dd($data);
         $currentUserId = Auth::id();
 
         $new_order = new Order();
         $new_order->fill($data);
         $new_order->user_id = $currentUserId;
         $new_order->save();
+
+        if (array_key_exists('dishes', $data)) {
+            $new_order->Dishesorder()->sync($data['dishes']);
+        };
 
         return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");
     }

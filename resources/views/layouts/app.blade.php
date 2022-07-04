@@ -47,6 +47,7 @@
                     <ul class="navbar-nav mr-auto">
                         <li><a href="{{ route('admin.dishes.index') }}">Piatti</a></li>
                         <li><a href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a></li>
+                        <li><a href="{{ route('admin.orders.index') }}">Ordini</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
