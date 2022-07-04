@@ -49,10 +49,10 @@
 
             <label for="dishcategory">Categoria Piatto:</label>
             <select name="dishcategory_id" id="dishcategory">
-                <option value="">Scegli una categoria...</option>
+                <option disabled>Scegli una categoria...</option>
                 @foreach ($dishcategories as $category)
-                    <option @if (old('dishcategory_id', $dish->dishcategory_id) == $category->id) selected @endif value="{{ $category->id }}"
-                        class="text-capitalize">{{ $category->name }}
+                    <option @if (old('dishcategory_id', $dish->dishcategory_id) == $category->id) selected @endif value="{{ $category->id }}">
+                        {{ $category->name }}
                     </option>
                 @endforeach
             </select>

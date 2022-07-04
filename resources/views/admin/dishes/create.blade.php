@@ -44,10 +44,10 @@
             <input type="text" id="description" name="description" value="{{ old('description') }}" class="mx-3">
 
             <span>Categoria Piatto:</span>
-            <select name="dishcategory_id" id="dishcategory">
-                <option value="">Scegli una categoria...</option>
+            <select name="dishcategory_id" id="dishcategory_id">
+                <option disabled selected>Scegli una categoria...</option>
                 @foreach ($dishcategories as $category)
-                    <option value="{{ $category->id }}" class="text-capitalize">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
 

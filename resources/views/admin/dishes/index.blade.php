@@ -39,7 +39,7 @@
                         @endif
 
                         <h5 class="card-title">{{ $dish->name }}</h5>
-                        <p class="text-capitalize">{{ $dish->Dishcategory->name }}</p>
+                        {{-- <p class="text-capitalize">{{ $dish->Dishcategory->name }}</p> --}}
 
                         @if ($dish->ingredients)
                             <h6 class="card-subtitle mb-2 text-muted">Ingredienti: {{ $dish->ingredients }}</h6>

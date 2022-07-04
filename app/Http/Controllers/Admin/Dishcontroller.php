@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -9,6 +11,7 @@ use App\Models\Dish;
 use App\Models\Dishcategory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 class Dishcontroller extends Controller
 {
@@ -61,6 +64,7 @@ class Dishcontroller extends Controller
                 'ingredients' => 'required',
                 'available' => 'required',
                 'price' => 'required',
+                'dishcategory_id' => 'required',
             ],
             [
                 'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
@@ -68,6 +72,7 @@ class Dishcontroller extends Controller
                 'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
                 'available.required' => 'Il campo "Disponibilità" è obbligatorio',
                 'price.required' => 'Il campo "Prezzo" è obbligatorio',
+                'dishcategory_id.required' => 'Il campo "Categoria Piatto" è obbligatorio',
             ]
         );
 
@@ -122,12 +127,19 @@ class Dishcontroller extends Controller
      */
     public function update(Request $request, Dish $dish)
     {
-        $request->validate(
+        $data = $request->all();
+
+        Validator::make(
+            $data,
             [
-                'name' => 'required | unique:dishes',
+                'name' => [
+                    'required',
+                    Rule::unique('dishes')->ignore($dish->id),
+                ],
                 'ingredients' => 'required',
                 'available' => 'required',
                 'price' => 'required',
+                'dishcategory_id' => 'required',
             ],
             [
                 'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
@@ -135,11 +147,11 @@ class Dishcontroller extends Controller
                 'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
                 'available.required' => 'Il campo "Disponibilità" è obbligatorio',
                 'price.required' => 'Il campo "Prezzo" è obbligatorio',
+                'dishcategory_id.required' => 'Il campo "Categoria Piatto" è obbligatorio',
             ]
         );
 
-        $data = $request->all();
-        dd($data);
+        // dd($data);
         if (array_key_exists('image', $data)) {
             if ($dish->image != null) Storage::delete($dish->image);
 
