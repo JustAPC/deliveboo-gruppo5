@@ -27,6 +27,7 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('dishes', 'DishController');
         Route::resource('openingdays', 'OpeningdayController');
+        Route::resource('orders', 'OrderController');
     });
 
 Route::get('{any?}', function () {
