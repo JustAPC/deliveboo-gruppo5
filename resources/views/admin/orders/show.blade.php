@@ -25,7 +25,14 @@
 
     <li>Cliente: {{ $order->customer_name }} {{ $order->customer_lastname }} </li>
     <li>Indirizzo: {{ $order->customer_address}}</li>
-    <li>Telefono: {{ $order->customer_customer_phone}}</li>
+    <li>Telefono: {{ $order->customer_phone}}</li>
+
+    <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form"
+        data-name="{{ $order->customer_name }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <input type="submit" class="btn btn-danger" value="Delete">
+    </form>
     
 </ul>
 

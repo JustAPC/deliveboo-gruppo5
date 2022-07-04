@@ -19,7 +19,7 @@ class OrderController extends Controller
     {
         $currentUserId = Auth::user()->id;
 
-        $orders = Order::where('user_id', '=', $currentUserId)->get();
+        $orders = Order::orderBy('updated_at', 'DESC')->where('user_id', '=', $currentUserId)->get();
 
         return view('admin.orders.index', compact('orders'));
     }
@@ -31,7 +31,7 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.orders.create');
     }
 
     /**
@@ -42,7 +42,15 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $currentUserId = Auth::id();
+
+        $new_order = new Order();
+        $new_order->fill($data);
+        $new_order->user_id = $currentUserId;
+        $new_order->save();
+
+        return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");
     }
 
     /**
@@ -62,9 +70,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Order $order)
     {
-        //
+        return view('admin.orders.edit', compact('order'));
     }
 
     /**
@@ -88,6 +96,7 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         $order->delete();
+
         return redirect()->route('admin.orders.index', compact('order'))->with('message-delete', "$order->costumer_name");
     }
 }
