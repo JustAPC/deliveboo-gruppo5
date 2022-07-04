@@ -6,6 +6,7 @@
 @endsection
 
 @section('content')
+    {{-- prova --}}
     @if (session('message-update'))
         <div class="alert alert-success">
             <span>Il piatto</span>
