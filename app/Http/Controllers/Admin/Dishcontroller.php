@@ -107,6 +107,20 @@ class Dishcontroller extends Controller
      */
     public function edit(Dish $dish)
     {
+        $dishcategories = Dishcategory::all();
+
+        return view('admin.dishes.edit', compact('dish', 'dishcategories'));
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, Dish $dish)
+    {
         $request->validate(
             [
                 'name' => 'required',
@@ -122,22 +136,8 @@ class Dishcontroller extends Controller
             ]
         );
 
-        $dishcategories = Dishcategory::all();
-
-        return view('admin.dishes.edit', compact('dish', 'dishcategories'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Dish $dish)
-    {
         $data = $request->all();
-        // dd($data);
+        dd($data);
         if (array_key_exists('image', $data)) {
             if ($dish->image != null) Storage::delete($dish->image);
 
