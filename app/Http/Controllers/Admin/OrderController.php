@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
 use App\Models\Order;
+use App\Models\Dishcategory;
+use App\Models\Dish;
 
 class OrderController extends Controller
 {
@@ -31,7 +32,18 @@ class OrderController extends Controller
      */
     public function create()
     {
-        return view('admin.orders.create');
+        $currentUserId = Auth::id();
+        $dishes = Dish::where('user_id', '=', $currentUserId)->get();
+        $dishcategoriesArray = [];
+
+        foreach ($dishes as $dish) {
+            if (!in_array($dish['dishcategory_id'], $dishcategoriesArray)) {
+                array_push($dishcategoriesArray, $dish['dishcategory_id']);
+            }
+        }
+
+        $dishcategories = Dishcategory::whereIn('id', $dishcategoriesArray)->get();
+        return view('admin.orders.create', compact('dishes', 'dishcategories'));
     }
 
     /**
@@ -42,6 +54,26 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+
+        $request->validate(
+            [
+            'customer_name' => 'required',
+            'customer_lastname' => 'required',
+            'customer_address' => 'required',
+            'customer_phone' => 'required',
+            'completed' => 'required | numeric',
+            'payment_received' => 'required',
+            ],
+            [
+                'customer_name.required' -> 'Il campo "Nome" è obbligatorio',
+                'customer_lastname.required' -> 'Il campo "Cognome" è obbligatorio',
+                'customer_address.required' -> 'Il campo "Indirizzo" è obbligatorio',
+                'customer_phone.required' -> 'Il campo "Numero di telefono" è obbligatorio',
+                'completed.required' -> 'Il campo "Ordine completato" è obbligatorio',
+                'payment_received.required' -> 'Il campo "Pagamento ricevuto" è obbligatorio',
+            ]
+    );
+
         $data = $request->all();
         $currentUserId = Auth::id();
 

@@ -1,33 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-    
     <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
-        
+
         @csrf
         @method('PUT')
 
         <div>
             <label for="name">Nome:</label>
-            <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name', $order->customer_name) }}" class="mx-3">
+            <input type="text" id="customer_name" name="customer_name"
+                value="{{ old('customer_name', $order->customer_name) }}" class="mx-3">
         </div>
 
         <div>
             <label for="name">Cognome:</label>
-            <input type="text" id="customer_lastname" name="customer_lastname" value="{{ old('customer_lastname', $order->customer_lastname) }}"
-                class="mx-3">
+            <input type="text" id="customer_lastname" name="customer_lastname"
+                value="{{ old('customer_lastname', $order->customer_lastname) }}" class="mx-3">
         </div>
 
         <div>
             <label for="name">Indirizzo:</label>
-            <input type="text" id="customer_address" name="customer_address" value="{{ old('customer_address', $order->address) }}"
-                class="mx-3">
+            <input type="text" id="customer_address" name="customer_address"
+                value="{{ old('customer_address', $order->address) }}" class="mx-3">
         </div>
 
         <div>
             <label for="name">Numero telefono:</label>
-            <input type="text" id="customer_phone" name="customer_phone" value="{{ old('customer_phone', $order->customer_phone) }}"
-                class="mx-3">
+            <input type="text" id="customer_phone" name="customer_phone"
+                value="{{ old('customer_phone', $order->customer_phone) }}" class="mx-3">
         </div>
 
         <div>
@@ -41,20 +41,18 @@
         <div>
             <span>Pagamento ricevuto:</span>
             <select name="payment_received" id="payment_received">
-                <option @if ( old('payment_received', $order->payment_received == 1) ) selected @endif 
-                value="1">Si</option>
-                <option @if ( old('payment_received', $order->payment_received == 0) ) selected @endif
-                value="0">No</option>
+                <option @if (old('payment_received', $order->payment_received == 1)) selected @endif value="1">Si</option>
+                <option @if (old('payment_received', $order->payment_received == 0)) selected @endif value="0">No</option>
             </select>
         </div>
 
         <div>
             <label for="name">Conto:</label>
-            <input type="text" id="total_price" name="total_price" value="{{ old('total_price', $order->total_price) }}" class="mx-3">
+            <input type="text" id="total_price" name="total_price"
+                value="{{ old('total_price', $order->total_price) }}" class="mx-3">
         </div>
 
         <button type="submit" class="mt-5">Invia</button>
-    
-    </form>
 
+    </form>
 @endsection

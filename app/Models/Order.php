@@ -21,4 +21,9 @@ class Order extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    public function Dishesorder()
+    {
+        return $this->belongsToMany('App\Models\Dish');
+    }
 }
