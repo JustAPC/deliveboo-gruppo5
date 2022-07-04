@@ -55,6 +55,21 @@ class Dishcontroller extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'ingredients' => 'required',
+                'available' => 'required',
+                'price' => 'required',
+            ],
+            [
+                'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
+                'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
+                'available.required' => 'Il campo "Disponibilità" è obbligatorio',
+                'price.required' => 'Il campo "Prezzo" è obbligatorio',
+            ]
+        );
+
         $data = $request->all();
         $currentUserId = Auth::id();
 
@@ -92,6 +107,21 @@ class Dishcontroller extends Controller
      */
     public function edit(Dish $dish)
     {
+        $request->validate(
+            [
+                'name' => 'required',
+                'ingredients' => 'required',
+                'available' => 'required',
+                'price' => 'required',
+            ],
+            [
+                'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
+                'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
+                'available.required' => 'Il campo "Disponibilità" è obbligatorio',
+                'price.required' => 'Il campo "Prezzo" è obbligatorio',
+            ]
+        );
+
         $dishcategories = Dishcategory::all();
 
         return view('admin.dishes.edit', compact('dish', 'dishcategories'));
