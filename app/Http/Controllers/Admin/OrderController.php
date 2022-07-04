@@ -76,16 +76,15 @@ class OrderController extends Controller
         );
 
         $data = $request->all();
-        dd($data);
         $currentUserId = Auth::id();
-
+        dd($data);
         $new_order = new Order();
         $new_order->fill($data);
         $new_order->user_id = $currentUserId;
         $new_order->save();
 
         if (array_key_exists('dishes', $data)) {
-            $new_order->Dishesorder()->sync($data['dishes']);
+            $new_order->Dishesorder()->attach($data['dishes']);
         };
 
         return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");
