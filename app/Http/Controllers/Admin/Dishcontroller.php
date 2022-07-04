@@ -80,15 +80,14 @@ class Dishcontroller extends Controller
         $currentUserId = Auth::id();
 
         $new_dish = new Dish();
-        if (Str::startsWith($data['image'], 'dish_images')) {
-            if (array_key_exists('image', $data)) {
-                $image_url = Storage::put('dish_images', $data['image']);
-                $data['image'] = $image_url;
-            }
+        // dd($data);
+        if ($request->hasFile('image')) {
+            $image_url = $request->image->store('dish_images');
+            $data['image'] = $image_url;
         }
+
         $new_dish->fill($data);
         $new_dish->user_id = $currentUserId;
-        $new_dish->image = $data['image'];
         $new_dish->save();
 
         return redirect()->route('admin.dishes.show', $new_dish)->with('message-create', "$new_dish->name");
@@ -152,14 +151,16 @@ class Dishcontroller extends Controller
         );
 
         // dd($data);
-        if (array_key_exists('image', $data)) {
+        if ($request->hasFile('image')) {
             if ($dish->image != null) Storage::delete($dish->image);
 
-            $image_url = Storage::put('dish_images', $data['image']);
+            $image_url = $request->image->store('dish_images');
             $data['image'] = $image_url;
             $dish->image = $data['image'];
+            $dish->update($data);
+        } else {
+            $dish->update($data);
         }
-        $dish->update($data);
 
 
         return redirect()->route('admin.dishes.show', $dish)->with('message-update', "$dish->name");
