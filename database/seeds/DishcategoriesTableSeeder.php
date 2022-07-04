@@ -13,9 +13,9 @@ class DishcategoriesTableSeeder extends Seeder
     public function run()
     {
         $categories = [
-            'nigiri', 'tempura', 'sashimi', 'antipasti', 'pizza',
-            'hamburger', 'zuppe', 'primi', 'secondi', 'contorni', 'fritti',
-            'dessert', 'gelati', 'pizza dolce', 'bevande', 'vini'
+            'Nigiri', 'Tempura', 'Sashimi', 'Antipasti', 'Pizza',
+            'Hamburger', 'Zuppe', 'Primi', 'Secondi', 'Contorni', 'Fritti',
+            'Dessert', 'Gelati', 'Pizza dolce', 'Bevande', 'Vini'
         ];
         foreach ($categories as $category) {
             $newCategory = new Dishcategory();
