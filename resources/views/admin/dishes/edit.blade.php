@@ -7,7 +7,6 @@
 
 @section('content')
     @if ($errors->any())
-        {{-- Se sono presenti errori backend --}}
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
