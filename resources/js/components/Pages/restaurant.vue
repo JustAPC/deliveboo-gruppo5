@@ -1,7 +1,7 @@
 <template>
     <div>
-        <div v-for="user in users" :key="user.id">
-            <p>{{user.name}}</p>
+        <div v-for="restaurant in restaurants" :key="restaurant.id">
+            <p>{{restaurant.name}}</p>
                 </div>
                 
     </div>
@@ -10,16 +10,16 @@
 <script>
 import axios from 'axios';
 export default{
-     name:"UsersList",
+     name:"Restaurants",
      
      data(){
         return{
-            users: [],
+            restaurants: [],
             
         }
      },
      methods: {
-        getUsers(){
+        getRestaurants(){
             axios.get('http://127.0.0.1:8000/api/restaurants')
             .then((res)=> {
                this.restaurants = res.data.restaurants;
@@ -27,7 +27,7 @@ export default{
         }
      },
      mounted(){
-        this.getUser();
+        this.getRestaurants();
      }
 }
 </script>

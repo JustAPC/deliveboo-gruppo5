@@ -7,6 +7,7 @@
              <main>
 
                 <Home/>
+                <Restaurants/>
              </main>
         </div>
         
@@ -16,12 +17,14 @@
 <script>
 
 import Home from "./Pages/Home.vue";
+import Restaurants from "./Pages/Restaurant.vue";
 import Header from "./Pages/Header.vue";
     export default{
         name:'App',
         components:{
             Home,
-            Header
+            Header,
+            Restaurants,
         }
     }
 </script>
