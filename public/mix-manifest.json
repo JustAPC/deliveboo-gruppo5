@@ -2,5 +2,7 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/deleteAlert.js": "/js/deleteAlert.js",
-    "/js/imageUpload.js": "/js/imageUpload.js"
+    "/js/front.js": "/js/front.js",
+    "/js/imageUpload.js": "/js/imageUpload.js",
+    "/js/routes.js": "/js/routes.js"
 }

@@ -1,23 +1,23 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">Example Component</div>
+    <div>
+        <div>
+         
+             <main>
 
-                    <div class="card-body">
-                        I'm an example component.
-                    </div>
-                </div>
-            </div>
+                <Home/>
+             </main>
         </div>
+        
     </div>
 </template>
 
 <script>
-    export default {
-        mounted() {
-            console.log('Component mounted.')
+
+import Home from "./Pages/Home.vue";
+    export default{
+        name:'App',
+        components:{
+            Home,
         }
     }
 </script>

@@ -82,12 +82,8 @@
             </div>
         @endif
 
-        <div class="content">
-            <div class="title m-b-md">
-                Welcome to DeliveBoo
-            </div>
-
-            <div class="links">
+        <div>
+            <div id="root">
 
             </div>
         </div>
