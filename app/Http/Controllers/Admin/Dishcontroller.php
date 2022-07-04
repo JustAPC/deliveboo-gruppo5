@@ -108,14 +108,16 @@ class Dishcontroller extends Controller
     {
         $data = $request->all();
         // dd($data);
-        if (array_key_exists('image', $data)) {
+        if ($request->hasFile('image')) {
             if ($dish->image != null) Storage::delete($dish->image);
 
-            $image_url = Storage::put('dish_images', $data['image']);
+            $image_url = $request->image->store('dish_images');
             $data['image'] = $image_url;
             $dish->image = $data['image'];
+            $dish->update($data);
+        } else {
+            $dish->update($data);
         }
-        $dish->update($data);
 
 
         return redirect()->route('admin.dishes.show', $dish)->with('message-update', "$dish->name");
