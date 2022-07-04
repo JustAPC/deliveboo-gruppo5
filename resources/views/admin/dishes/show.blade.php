@@ -32,6 +32,7 @@
         @endif
         <li>Prezzo: {{ $dish->price }}€</li>
         <li class="text-capitalize">Categoria: {{ $dish->Dishcategory->name }}</li>
+        <img src={{ asset("storage/$dish->image") }}" alt="">
 
         <a href="{{ route('admin.dishes.edit', $dish->id) }}" class="btn btn-primary">Edit</a>
         <form action="{{ route('admin.dishes.destroy', $dish->id) }}" class="d-inline-block delete-form"
