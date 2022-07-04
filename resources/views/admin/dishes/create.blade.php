@@ -53,7 +53,7 @@
 
             <div class="mt-5" style="padding-top: 200px">
                 <p>Immagine del piatto:</p>
-                <input id="myfiles" name="image" type="file" accept="image/*">
+                <input id="myfiles" name="image" type="file" accept="image/*" value="{{ old('image') }}">
                 <button id="file_remove" disabled>Rimuovi</button>
                 <div class="mt-5">
                     <label for="image_url">oppure</label>
