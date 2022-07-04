@@ -4,6 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
+use App\Models\Order;
 
 class OrderController extends Controller
 {
@@ -14,7 +17,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $currentUserId = Auth::user()->id;
+
+        $orders = Order::where('user_id', '=', $currentUserId)->get();
+
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -44,9 +51,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Order $order)
     {
-        //
+        return view('admin.orders.show', compact('order'));
     }
 
     /**
@@ -78,8 +85,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Order $order)
     {
-        //
+        $order->delete();
+        return redirect()->route('admin.orders.index', compact('order'))->with('message-delete', "$order->costumer_name");
     }
 }
