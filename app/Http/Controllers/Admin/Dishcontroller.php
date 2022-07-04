@@ -57,13 +57,14 @@ class Dishcontroller extends Controller
     {
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required | unique:dishes',
                 'ingredients' => 'required',
                 'available' => 'required',
                 'price' => 'required',
             ],
             [
                 'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
+                'name.unique' => 'Il piatto con questo nome è già presente',
                 'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
                 'available.required' => 'Il campo "Disponibilità" è obbligatorio',
                 'price.required' => 'Il campo "Prezzo" è obbligatorio',
@@ -123,13 +124,14 @@ class Dishcontroller extends Controller
     {
         $request->validate(
             [
-                'name' => 'required',
+                'name' => 'required | unique:dishes',
                 'ingredients' => 'required',
                 'available' => 'required',
                 'price' => 'required',
             ],
             [
                 'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
+                'name.unique' => 'Il piatto con questo nome è già presente',
                 'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
                 'available.required' => 'Il campo "Disponibilità" è obbligatorio',
                 'price.required' => 'Il campo "Prezzo" è obbligatorio',
