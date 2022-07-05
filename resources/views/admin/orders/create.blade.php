@@ -61,7 +61,7 @@
                             @if ($dish->dishcategory_id == $category->id)
                                 <div>
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
-                                        name="dishes[]" value="{{ $dish->id }}"
+                                        name="dishes[]" value="{{ $dish->id }}" onclick="dishSelection(e)"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     {{ $dish->name }}
                                     <span id="dish-price">{{ $dish->price }}€</span>
@@ -76,6 +76,7 @@
             </div>
             <button type="submit" class="mt-5">Invia</button>
         </form>
+        <div id="prova"></div>
     </div>
 @endsection
 
