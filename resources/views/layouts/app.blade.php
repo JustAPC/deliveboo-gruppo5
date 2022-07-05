@@ -82,9 +82,10 @@
 
                                     <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Riepilogo degli ordini</a>
 
-                                    <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Le mie statistiche</a>
+                                    <a class="dropdown-item" href="{{ route('admin.home') }}">Le mie statistiche</a>
 
-                                    <a class="dropdown-item" href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a>
+                                    {{-- OPZIONE PER GIORNI DI APERTURA, SE LI INSERIAMO --}}
+                                    {{-- <a class="dropdown-item" href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a> --}}
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
