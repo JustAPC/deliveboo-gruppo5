@@ -10678,3 +10678,63 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   bottom: 0;
   left: auto;
 }
+
+.nome-ristorante {
+  font-style: oblique;
+  font-weight: bolder;
+  font-size: 1.6em;
+  align-self: center;
+}
+
+.nome-piatto {
+  font-weight: bold;
+  list-style: none;
+  font-size: 1.1em;
+}
+
+.type-ristorante {
+  color: white;
+  padding: 8px;
+  border-radius: 15px;
+  margin: 3px;
+  background-color: rgb(171, 42, 7);
+}
+
+.verde-disponibile {
+  color: green;
+  font-weight: bold;
+}
+
+.rosso-non-disponibile {
+  color: red;
+  font-weight: bold;
+}
+
+.scheda-ristorante {
+  display: flex;
+  flex-direction: column;
+  width: 460px;
+  border: 2px solid black;
+  margin: 10px auto 10px auto;
+  padding: 10px;
+}
+
+.piatto-scheda {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.insieme-tipi {
+  align-self: center;
+  margin-bottom: 15px;
+}
+
+.pulsante-ordine {
+  align-self: center;
+  color: white;
+  padding: 8px;
+  border-radius: 15px;
+  margin: 3px;
+  background-color: rgb(7, 12, 171);
+}

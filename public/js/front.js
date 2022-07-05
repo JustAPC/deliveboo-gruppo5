@@ -2142,8 +2142,31 @@ var render = function render() {
 
   return _c("div", _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
-      key: restaurant.id
-    }, [_c("p", [_vm._v(_vm._s(restaurant.name))])]);
+      key: restaurant.id,
+      staticClass: "scheda-ristorante"
+    }, [_c("p", {
+      staticClass: "nome-ristorante"
+    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("div", {
+      staticClass: "insieme-tipi"
+    }, _vm._l(restaurant.user_type, function (item) {
+      return _c("span", {
+        key: item.id,
+        staticClass: "type-ristorante"
+      }, [_vm._v(_vm._s(item.name))]);
+    }), 0), _vm._v(" "), _vm._l(restaurant.dishes, function (item) {
+      return _c("div", {
+        key: item.id,
+        staticClass: "piatto-scheda"
+      }, [_c("ul", [_c("li", {
+        staticClass: "nome-piatto"
+      }, [_vm._v(_vm._s(item.name))]), _vm._v(" "), item.quantity >= 1 ? _c("li", {
+        staticClass: "verde-disponibile"
+      }, [_vm._v("Disponibile")]) : _c("li", {
+        staticClass: "rosso-non-disponibile"
+      }, [_vm._v('= 1">Non disponibile')]), _vm._v(" "), item.ingredients != null && item.ingredients != "" ? _c("li", [_vm._v("Ingredienti: " + _vm._s(item.ingredients) + ".")]) : _vm._e(), _vm._v(" "), item.description != null && item.description != "" ? _c("li", [_vm._v("Descrizione: " + _vm._s(item.description) + ".")]) : _vm._e(), _vm._v(" "), _c("li", [_vm._v("Categoria: " + _vm._s(item.dishcategory_id))]), _vm._v(" "), _c("li", [_vm._v("Prezzo: " + _vm._s(item.price) + "€")])]), _vm._v(" "), _c("span", {
+        staticClass: "pulsante-ordine"
+      }, [_vm._v("Aggiungi al carrello")])]);
+    })], 2);
   }), 0);
 };
 
@@ -17871,7 +17894,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\finale\deliveboo-gruppo5\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
