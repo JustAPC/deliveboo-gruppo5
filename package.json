@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "sweetalert2": "^11.4.19",
+        "vue-carousel": "^0.18.0",
         "vue-router": "^3.5.4"
     }
 }
