@@ -1919,7 +1919,7 @@ __webpack_require__.r(__webpack_exports__);
   components: {
     Home: _Pages_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
     Header: _Pages_Header_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
-    Restaurants: _Pages_Restaurant_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Restaurant: _Pages_Restaurant_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -1969,7 +1969,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-  name: "Restaurants",
+  name: "Restaurant",
   data: function data() {
     return {
       restaurants: []
@@ -2006,7 +2006,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", [_c("header", [_c("Header")], 1), _vm._v(" "), _c("main", [_c("Home"), _vm._v(" "), _c("Restaurants")], 1)])]);
+  return _c("div", [_c("div", [_c("header", [_c("Header")], 1), _vm._v(" "), _c("main", [_c("Home"), _vm._v(" "), _c("Restaurant")], 1)])]);
 };
 
 var staticRenderFns = [];
