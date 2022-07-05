@@ -1,7 +1,6 @@
 <template>
     <div class="px-5">
 
-
         <carousel class="mt-4" :per-page-custom="[[320,1],[481,2],[769,4],[1024,4],[1441,6]]" :navigationEnabled="true">
             <slide class="d-flex justify-content-center" v-for="type in types" :key="type.id">
                 <div class="card" style="width: 14rem;">
@@ -12,12 +11,6 @@
                 </div>
             </slide>
         </carousel>
-
-
-
-
-
-
 
     </div>
 

@@ -18687,7 +18687,7 @@ module.exports = "/images/hero-home.jpg?296b340239683246c368f4b69e5ee160";
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\finale\deliveboo-gruppo5\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
