@@ -60,9 +60,10 @@
                                         name="dishes[]" value="{{ $dish->id }}"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     {{ $dish->name }}
-                                    <select name="dishes[]" id="quantity">
-                                        @for ($i = 1; $i < 11; $i++)
-                                            <option value={{ $i }}>{{ $i }}</option>
+                                    <select name="quantity[]" id="quantity">
+                                        @for ($i = 0; $i < 11; $i++)
+                                            <option 
+                                            @if ( $i == 0) value="null" @endif value={{ $i }}>{{ $i }}</option>
                                         @endfor
                                     </select>
                                 @endif

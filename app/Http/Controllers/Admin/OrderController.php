@@ -77,14 +77,53 @@ class OrderController extends Controller
 
         $data = $request->all();
         $currentUserId = Auth::id();
-        dd($data);
+
+        // dd($data);
+        
+        $quantities = $data['quantity'];
+        foreach($quantities as $key => $quantity){
+            if($quantity == 'null'){
+                unset($quantities[$key]);
+            }
+        }
+        $quantities = array_values($quantities);
+
+        // dd($quantities);
+
         $new_order = new Order();
         $new_order->fill($data);
         $new_order->user_id = $currentUserId;
         $new_order->save();
 
         if (array_key_exists('dishes', $data)) {
-            $new_order->Dishesorder()->attach($data['dishes']);
+
+            // foreach($data['dishes'] as $key => $dish) {
+            //     $new_order->Dishesorder()->attach([
+            //         [
+            //             // '0' => 1,
+            //             // '1' => 5,
+            //             $key => $dish
+            //         ],
+            //         [
+            //             // 'quantity' => 3
+            //             'quantity' => $quantities[$key]
+            //         ]
+            //     ]);
+            // }
+
+            // dd($data['dishes']);
+            $new_order->Dishesorder()->attach( 
+                [ 
+                    // $data['dishes']
+                    '3' => 5,
+                    '9' => 8 
+                ], 
+                [
+                    'quantity' => 7
+                ]
+            );
+
+            // dd($new_order);
         };
 
         return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");
