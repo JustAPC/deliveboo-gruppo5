@@ -93,17 +93,16 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// window.onload = toggleSelect();
-var inputCheckbox = document.querySelectorAll(".form-check-input"); // const inputSelect = document.querySelectorAll(".input-select");
-// console.log(inputCheckbox[0]);
-// console.log(inputSelect[0]);
+var inputCheckbox = document.querySelectorAll(".form-check-input");
 
 var _loop = function _loop(i) {
-  document.getElementById('checkbox-' + i).addEventListener("change", function () {
-    if (document.getElementById('checkbox-' + i).checked) {
-      document.getElementById('select-' + i).removeAttribute('disabled');
+  var checkbox = document.getElementById("dish-checkbox-".concat(i));
+  var select = document.getElementById("dish-select-".concat(i));
+  checkbox.addEventListener("change", function () {
+    if (checkbox.checked) {
+      select.removeAttribute("disabled");
     } else {
-      document.getElementById('select-' + i).setAttribute('disabled', '');
+      select.setAttribute("disabled", "");
     }
   });
 };
@@ -121,7 +120,7 @@ for (var i = 1; i <= inputCheckbox.length; i++) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
 
 
 /***/ })
