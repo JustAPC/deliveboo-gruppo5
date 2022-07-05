@@ -96,13 +96,15 @@
 // window.onload = toggleSelect();
 var inputCheckbox = document.querySelectorAll(".form-check-input");
 var inputSelect = document.querySelectorAll(".input-select");
-console.log(inputCheckbox[0].id);
-
-for (var i = 0; i < inputCheckbox.length; i++) {
-  if (inputCheckbox[i].id == 10) {
-    console.log("ciao");
+console.log(inputCheckbox[0]);
+console.log(inputSelect[0]);
+inputCheckbox.addEventListener("change", function () {
+  for (var i = 0; i < inputCheckbox.length; i++) {
+    if (inputCheckbox[i].checked == true) {
+      inputSelect[i].disabled = false;
+    }
   }
-}
+});
 
 /***/ }),
 

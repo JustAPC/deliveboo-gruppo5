@@ -53,24 +53,23 @@
                     <option value="0">No</option>
                 </select>
             </div>
-            <div>
+            <div class="d-flex flex-wrap mt-5">
                 @foreach ($dishcategories as $category)
-                    <div>
-                        <p>{{ $category->name }}</p>
+                    <div class="col-4">
+                        <span class="text-capitalize">{{ $category->name }}</span>
                         @foreach ($dishes as $dish)
-                            <div class="form-check form-check-inline">
-                                @if ($dish->dishcategory_id == $category->id)
+                            @if ($dish->dishcategory_id == $category->id)
+                                <div>
                                     <input type="checkbox" class="form-check-input" id="{{ $dish->id }}" name="dishes[]"
-                                        value="{{ $dish->id }}" @if (in_array($dish->id, old('dishes', []))) checked @endif
-                                        onClick="toggleSelect()">
+                                        value="{{ $dish->id }}" @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     {{ $dish->name }}
-                                    <select name="quantity[]" id="{{ $dish->id }}" class="input-select">
+                                    <select name="quantity[]" id="{{ $dish->id }}" class="input-select" disabled>
                                         @for ($i = 1; $i < 11; $i++)
                                             <option value={{ $i }}>{{ $i }}</option>
                                         @endfor
                                     </select>
-                                @endif
-                            </div>
+                                </div>
+                            @endif
                         @endforeach
                     </div>
                 @endforeach
@@ -78,4 +77,5 @@
             <button type="submit" class="mt-5">Invia</button>
         </form>
     </div>
+
 @endsection
