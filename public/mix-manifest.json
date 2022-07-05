@@ -2,5 +2,6 @@
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
     "/js/deleteAlert.js": "/js/deleteAlert.js",
+    "/js/dishQuantity.js": "/js/dishQuantity.js",
     "/js/imageUpload.js": "/js/imageUpload.js"
 }

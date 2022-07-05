@@ -18,9 +18,8 @@ class Dish extends Model
         return $this->belongsTo('App\Models\Dishcategory');
     }
 
-    public function OrdersDish()
+    public function Ordersdish()
     {
-        return $this->belongsToMany('App\Models\Order')
-            ->withPivot('quantity');
+        return $this->belongsToMany('App\Models\Order');
     }
 }

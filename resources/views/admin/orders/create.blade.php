@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('optionalscripts')
+    <script defer src="{{ asset('js/dishQuantity.js') }}"></script>
+@endsection
+
 @section('content')
     @if ($errors->any())
         {{-- Se sono presenti errori backend --}}
@@ -56,14 +60,13 @@
                         @foreach ($dishes as $dish)
                             <div class="form-check form-check-inline">
                                 @if ($dish->dishcategory_id == $category->id)
-                                    <input type="checkbox" class="form-check-input" id="dish-{{ $dish->id }}"
-                                        name="dishes[]" value="{{ $dish->id }}"
-                                        @if (in_array($dish->id, old('dishes', []))) checked @endif>
+                                    <input type="checkbox" class="form-check-input" id="{{ $dish->id }}" name="dishes[]"
+                                        value="{{ $dish->id }}" @if (in_array($dish->id, old('dishes', []))) checked @endif
+                                        onClick="toggleSelect()">
                                     {{ $dish->name }}
-                                    <select name="quantity[]" id="quantity">
-                                        @for ($i = 0; $i < 11; $i++)
-                                            <option 
-                                            @if ( $i == 0) value="null" @endif value={{ $i }}>{{ $i }}</option>
+                                    <select name="quantity[]" id="{{ $dish->id }}" class="input-select">
+                                        @for ($i = 1; $i < 11; $i++)
+                                            <option value={{ $i }}>{{ $i }}</option>
                                         @endfor
                                     </select>
                                 @endif
@@ -71,11 +74,6 @@
                         @endforeach
                     </div>
                 @endforeach
-            </div>
-            <div>
-                <label for="name">Conto:</label>
-                <input type="text" id="total_price" name="total_price" value="{{ old('total_price') }}"
-                    class="mx-3">
             </div>
             <button type="submit" class="mt-5">Invia</button>
         </form>

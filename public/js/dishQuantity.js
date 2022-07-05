@@ -81,55 +81,39 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/deleteAlert.js":
-/*!*************************************!*\
-  !*** ./resources/js/deleteAlert.js ***!
-  \*************************************/
+/***/ "./resources/js/dishQuantity.js":
+/*!**************************************!*\
+  !*** ./resources/js/dishQuantity.js ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-var deleteForms = document.querySelectorAll(".delete-form");
-deleteForms.forEach(function (element) {
-  var name = element.getAttribute("data-name");
-  element.addEventListener("submit", function (e) {
-    e.preventDefault();
-    Swal.fire({
-      title: "\"".concat(name, "\" <br> Il piatto verr\xE0 eliminato."),
-      text: "Sei sicuro di procedere?",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3490dc",
-      cancelButtonColor: "#e3342f",
-      confirmButtonText: "Si, rimuovi il piatto",
-      cancelButtonText: "No, conserva il piatto"
-    }).then(function (result) {
-      if (result.isConfirmed) {
-        var sumbitFunction = function sumbitFunction() {
-          e.target.submit();
-        };
+// window.onload = toggleSelect();
+var inputCheckbox = document.querySelectorAll(".form-check-input");
+var inputSelect = document.querySelectorAll(".input-select");
+console.log(inputCheckbox[0].id);
 
-        Swal.fire("Successo!", "Il tuo piatto è stato eliminato", "success");
-        var myTimeout = setTimeout(sumbitFunction, 3000);
-      }
-    });
-  });
-});
+for (var i = 0; i < inputCheckbox.length; i++) {
+  if (inputCheckbox[i].id == 10) {
+    console.log("ciao");
+  }
+}
 
 /***/ }),
 
-/***/ 2:
-/*!*******************************************!*\
-  !*** multi ./resources/js/deleteAlert.js ***!
-  \*******************************************/
+/***/ 3:
+/*!********************************************!*\
+  !*** multi ./resources/js/dishQuantity.js ***!
+  \********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
 
 
 /***/ })

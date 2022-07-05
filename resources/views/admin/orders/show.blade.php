@@ -28,6 +28,7 @@
 
         @foreach ($order->Dishesorder as $dish)
             <li>{{ $dish->name }}</li>
+            <span class="ms-4">{{ $dish->quantity }}</span>
         @endforeach
 
         <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form"
