@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $restaurants = User::with('Dishes')->get();
+        $restaurants = User::with('Dishes','Type')->get();
 
         return response()->json(compact('restaurants'));
     }

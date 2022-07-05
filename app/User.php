@@ -52,7 +52,7 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Dish');
     }
 
-    public function TypeUser()
+    public function UserType()
     {
         return $this->belongsToMany('App\Models\Type');
     }
