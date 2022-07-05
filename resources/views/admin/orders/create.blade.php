@@ -64,7 +64,7 @@
                                         name="dishes[]" value="{{ $dish->id }}"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     {{ $dish->name }}
-                                    <span>{{ $dish->price }}€</span>
+                                    <span id="dish-price">{{ $dish->price }}€</span>
                                     <input type="number" name="quantity[]" id="dish-select-{{ $dish->id }}" disabled
                                         style="width: 60px" min="1" value="1">
                                     </select>
@@ -77,5 +77,8 @@
             <button type="submit" class="mt-5">Invia</button>
         </form>
     </div>
-
 @endsection
+
+<script>
+    var dishes = {!! json_encode($dishes->toArray(), JSON_HEX_TAG) !!};
+</script>
