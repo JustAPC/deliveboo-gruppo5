@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,9 +79,8 @@ class OrderController extends Controller
 
         $data = $request->all();
         $currentUserId = Auth::id();
-
-        // dd($data);
         
+        // Creo un array di quantità private di tutti i null
         $quantities = $data['quantity'];
         foreach($quantities as $key => $quantity){
             if($quantity == 'null'){
@@ -88,8 +89,6 @@ class OrderController extends Controller
         }
         $quantities = array_values($quantities);
 
-        // dd($quantities);
-
         $new_order = new Order();
         $new_order->fill($data);
         $new_order->user_id = $currentUserId;
@@ -97,33 +96,16 @@ class OrderController extends Controller
 
         if (array_key_exists('dishes', $data)) {
 
-            // foreach($data['dishes'] as $key => $dish) {
-            //     $new_order->Dishesorder()->attach([
-            //         [
-            //             // '0' => 1,
-            //             // '1' => 5,
-            //             $key => $dish
-            //         ],
-            //         [
-            //             // 'quantity' => 3
-            //             'quantity' => $quantities[$key]
-            //         ]
-            //     ]);
-            // }
+            foreach($data['dishes'] as $key => $dish) {
+                DB::table('dish_order')->insert(
+                    [
+                        'dish_id' => $dish,
+                        'order_id'=> $new_order->id,
+                        'quantity' => $quantities[$key]
+                    ]
+                );
+            }
 
-            // dd($data['dishes']);
-            $new_order->Dishesorder()->attach( 
-                [ 
-                    // $data['dishes']
-                    '3' => 5,
-                    '9' => 8 
-                ], 
-                [
-                    'quantity' => 7
-                ]
-            );
-
-            // dd($new_order);
         };
 
         return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");
