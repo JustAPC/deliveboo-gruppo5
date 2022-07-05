@@ -1,5 +1,8 @@
 import  Vue from "vue";
 import  VueRouter from "vue-router";
+import VueCarousel from 'vue-carousel';
+
+Vue.use(VueCarousel);
 
 Vue.use(VueRouter)
 import Home from "./components/Pages/Home.vue";
