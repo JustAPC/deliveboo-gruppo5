@@ -79,33 +79,27 @@ class OrderController extends Controller
 
         $data = $request->all();
         $currentUserId = Auth::id();
-        
+
         // Creo un array di quantità private di tutti i null
         $quantities = $data['quantity'];
-        foreach($quantities as $key => $quantity){
-            if($quantity == 'null'){
-                unset($quantities[$key]);
-            }
-        }
-        $quantities = array_values($quantities);
 
         $new_order = new Order();
         $new_order->fill($data);
         $new_order->user_id = $currentUserId;
+        $new_order->total_price = 10;
         $new_order->save();
+        dd($new_order);
 
         if (array_key_exists('dishes', $data)) {
-
-            foreach($data['dishes'] as $key => $dish) {
+            foreach ($data['dishes'] as $key => $dish) {
                 DB::table('dish_order')->insert(
                     [
                         'dish_id' => $dish,
-                        'order_id'=> $new_order->id,
+                        'order_id' => $new_order->id,
                         'quantity' => $quantities[$key]
                     ]
                 );
             }
-
         };
 
         return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");

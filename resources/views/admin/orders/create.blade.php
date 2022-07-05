@@ -64,12 +64,9 @@
                                         name="dishes[]" value="{{ $dish->id }}"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     {{ $dish->name }}
-                                    {{-- <select name="quantity[]" id="dish-select-{{ $dish->id }}" disabled>
-                                        @for ($i = 1; $i < 11; $i++)
-                                            <option value={{ $i }}>{{ $i }}</option>
-                                        @endfor --}}
+                                    <span>{{ $dish->price }}€</span>
                                     <input type="number" name="quantity[]" id="dish-select-{{ $dish->id }}" disabled
-                                        style="width: 60px">
+                                        style="width: 60px" min="1" value="1">
                                     </select>
                                 </div>
                             @endif
