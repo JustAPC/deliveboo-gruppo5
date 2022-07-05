@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
+use App\Models\Type;
 
 class UserController extends Controller
 {
@@ -15,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        $restaurants = User::with('Dishes','Type')->get();
+        $restaurants = User::with('Dishes', 'UserType')->get();
 
         return response()->json(compact('restaurants'));
     }
