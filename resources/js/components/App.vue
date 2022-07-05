@@ -7,7 +7,7 @@
              <main>
 
                 <Home/>
-                <Restaurants/>
+                <Restaurant/>
              </main>
         </div>
         
@@ -24,7 +24,7 @@ import Header from "./Pages/Header.vue";
         components:{
             Home,
             Header,
-            Restaurants,
+            Restaurant,
         }
     }
 </script>
