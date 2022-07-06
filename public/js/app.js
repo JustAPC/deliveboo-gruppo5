@@ -37329,19 +37329,31 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed (from ./node_modules/css-loader/index.js):\nModuleBuildError: Module build failed (from ./node_modules/sass-loader/dist/cjs.js):\nSassError: expected \"{\".\n   ╷\n15 │ @import \"create.dishes\";\r\n   │                        ^\n   ╵\n  C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\resources\\sass\\app.scss 15:24  root stylesheet\n    at C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\webpack\\lib\\NormalModule.js:316:20\n    at C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\loader-runner\\lib\\LoaderRunner.js:367:11\n    at C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\loader-runner\\lib\\LoaderRunner.js:233:18\n    at context.callback (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\loader-runner\\lib\\LoaderRunner.js:111:13)\n    at C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass-loader\\dist\\index.js:73:7\n    at Function.call$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:99696:16)\n    at render_closure1.call$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:85096:12)\n    at _RootZone.runBinary$3$3 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:29643:18)\n    at _FutureListener.handleError$1 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28163:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28470:49)\n    at Object._Future__propagateToListeners (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:3899:77)\n    at _Future._completeError$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28316:9)\n    at _AsyncAwaitCompleter.completeError$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:27964:12)\n    at Object._asyncRethrow (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:3701:17)\n    at C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:19854:20\n    at _wrapJsFunctionForAsync_closure.$protected (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:3726:15)\n    at _wrapJsFunctionForAsync_closure.call$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:27983:12)\n    at _awaitOnObject_closure0.call$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:27977:25)\n    at _RootZone.runBinary$3$3 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:29643:18)\n    at _FutureListener.handleError$1 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28163:21)\n    at _Future__propagateToListeners_handleError.call$0 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28470:49)\n    at Object._Future__propagateToListeners (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:3899:77)\n    at _Future._completeError$2 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28316:9)\n    at _Future__asyncCompleteError_closure.call$0 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:28400:18)\n    at Object._microtaskLoop (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:3955:24)\n    at StaticClosure._startMicrotaskLoop (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:3961:11)\n    at _AsyncRun__scheduleImmediateJsOverride_internalCallback.call$0 (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:27884:21)\n    at invokeClosure (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:1435:26)\n    at Immediate.<anonymous> (C:\\Users\\cater\\Desktop\\Boolean\\deliveboo-gruppo5-1\\node_modules\\sass\\sass.dart.js:1456:18)\n    at processImmediate (node:internal/timers:466:21)");
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/orderIndex.scss":
+/*!****************************************!*\
+  !*** ./resources/sass/orderIndex.scss ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
 /***/ 0:
-/*!*************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
-  \*************************************************************/
+/*!**********************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/orderIndex.scss ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\sass\app.scss */"./resources/sass/app.scss");
+module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\sass\orderIndex.scss */"./resources/sass/orderIndex.scss");
 
 
 /***/ })
