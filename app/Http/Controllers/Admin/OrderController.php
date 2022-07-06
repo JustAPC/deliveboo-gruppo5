@@ -67,6 +67,7 @@ class OrderController extends Controller
                 'customer_phone' => 'required | numeric',
                 'completed' => 'required',
                 'payment_received' => 'required',
+                'quantity' => 'required',
             ],
             [
                 'customer_name.required' => 'Il campo "Nome" è obbligatorio',
@@ -76,6 +77,7 @@ class OrderController extends Controller
                 'customer_phone.numeric' => 'Il campo "Numero di telefono" deve essere composto solamente da numeri',
                 'completed.required' => 'Il campo "Ordine completato" è obbligatorio',
                 'payment_received.required' => 'Il campo "Pagamento ricevuto" è obbligatorio',
+                'quantity.required' => 'É necessario selezionare almeno un piatto',
             ]
         );
 
@@ -101,6 +103,7 @@ class OrderController extends Controller
                     ]
                 );
             }
+        } else {
         };
 
         return redirect()->route('admin.orders.show', $new_order)->with('message-create', "$new_order->customer_name");

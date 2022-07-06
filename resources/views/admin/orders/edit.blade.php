@@ -14,47 +14,53 @@
         @csrf
         @method('PUT')
         <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <div>
+                        <label for="name">Nome:</label>
+                        <input type="text" id="customer_name" name="customer_name"
+                            value="{{ old('customer_name', $order->customer_name) }}" class="mx-3">
+                    </div>
 
-            <div>
-                <label for="name">Nome:</label>
-                <input type="text" id="customer_name" name="customer_name"
-                    value="{{ old('customer_name', $order->customer_name) }}" class="mx-3">
+                    <div>
+                        <label for="name">Cognome:</label>
+                        <input type="text" id="customer_lastname" name="customer_lastname"
+                            value="{{ old('customer_lastname', $order->customer_lastname) }}" class="mx-3">
+                    </div>
+
+                    <div>
+                        <label for="name">Indirizzo:</label>
+                        <input type="text" id="customer_address" name="customer_address"
+                            value="{{ old('customer_address', $order->customer_address) }}" class="mx-3">
+                    </div>
+
+                    <div>
+                        <label for="name">Numero telefono:</label>
+                        <input type="text" id="customer_phone" name="customer_phone"
+                            value="{{ old('customer_phone', $order->customer_phone) }}" class="mx-3">
+                    </div>
+
+                    <div>
+                        <span>Ordine completato:</span>
+                        <select name="completed" id="completed">
+                            <option value="1">Si</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <span>Pagamento ricevuto:</span>
+                        <select name="payment_received" id="payment_received">
+                            <option @if (old('payment_received', $order->payment_received == 1)) selected @endif value="1">Si</option>
+                            <option @if (old('payment_received', $order->payment_received == 0)) selected @endif value="0">No</option>
+                        </select>
+                    </div>
+
+                </div>
+                <div class="col-4 offset-1 border border-dark cart">
+
+                </div>
             </div>
-
-            <div>
-                <label for="name">Cognome:</label>
-                <input type="text" id="customer_lastname" name="customer_lastname"
-                    value="{{ old('customer_lastname', $order->customer_lastname) }}" class="mx-3">
-            </div>
-
-            <div>
-                <label for="name">Indirizzo:</label>
-                <input type="text" id="customer_address" name="customer_address"
-                    value="{{ old('customer_address', $order->customer_address) }}" class="mx-3">
-            </div>
-
-            <div>
-                <label for="name">Numero telefono:</label>
-                <input type="text" id="customer_phone" name="customer_phone"
-                    value="{{ old('customer_phone', $order->customer_phone) }}" class="mx-3">
-            </div>
-
-            <div>
-                <span>Ordine completato:</span>
-                <select name="completed" id="completed">
-                    <option value="1">Si</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-            <div>
-                <span>Pagamento ricevuto:</span>
-                <select name="payment_received" id="payment_received">
-                    <option @if (old('payment_received', $order->payment_received == 1)) selected @endif value="1">Si</option>
-                    <option @if (old('payment_received', $order->payment_received == 0)) selected @endif value="0">No</option>
-                </select>
-            </div>
-
             <div class="d-flex flex-wrap mt-5">
 
                 @foreach ($dishcategories as $category)
@@ -71,7 +77,7 @@
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
                                         name="dishes[]" value="{{ $dish->id }}"
                                         @if (in_array($dish->id, old('dishes', $dishesChecked))) checked @endif>
-                                    {{ $dish->name }}
+                                    <span id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
 
                                     <span id="dish-price">{{ $dish->price }}€</span>
 

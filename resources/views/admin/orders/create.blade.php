@@ -3,7 +3,10 @@
 @section('optionalscripts')
     <script defer src="{{ asset('js/dishQuantity.js') }}"></script>
     <style>
-
+        .cart {
+            height: 200px;
+            overflow: auto;
+        }
     </style>
 @endsection
 
@@ -21,6 +24,7 @@
 
     <form action="{{ route('admin.orders.store') }}" method="POST">
         @csrf
+
         <div class="container position-relative">
             <div class="row">
                 <div class="col-7">
@@ -66,8 +70,13 @@
 
                 </div>
 
-                <div class="col-4 offset-1 border border-dark">
+                <div class="col-4 offset-1">
+                    <div class="cart border border-dark">
 
+                    </div>
+                    <div class="border border-dark">
+                        <p id="prezzoTotale"></p>
+                    </div>
                 </div>
             </div>
 
@@ -86,7 +95,7 @@
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
                                         name="dishes[]" value="{{ $dish->id }}"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
-                                    {{ $dish->name }}
+                                    <span id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
 
                                     <span id="dish-price">{{ $dish->price }}€</span>
 
@@ -102,8 +111,7 @@
 
             </div>
 
-            {{-- Conto che si aggiorna in tempo reale --}}
-            <h1 id="prezzoTotale"></h1>
+
             <input type="text" name="total_price" id="prezzoTotaleDB" value="" style="display: none">
 
             <button type="submit" class="mt-5">Invia</button>

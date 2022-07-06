@@ -13,18 +13,19 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
     // Singola select
     let select = document.getElementById(`dish-quantity-${i}`);
     // Quantità selezionata
-    let dishNumber = "";
+    let dishNumber = 1;
+    let dishName = document.getElementById(`dish-${i}`).textContent;
 
     checkbox.addEventListener("change", () => {
         // Se attivo la checkbox...
         if (checkbox.checked) {
             // attivo anche la select
             select.removeAttribute("disabled");
-
+            addToCart(dishName, i, dishNumber);
             // Creo il singolo piatto
             let singleDish = {
                 dish_id: checkbox.id,
-                quantity: 1,
+                quantity: dishNumber,
                 total_price: dishes[i - 1].price,
             };
             // Push il piatto nell'array
@@ -36,17 +37,20 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             // Se cambio il valore 1 nella select...
             select.addEventListener("change", () => {
                 // La nuova quantità sarà il value della select
+                dishNumber = "";
                 dishNumber = select.value;
                 // Modifico la quantità del singolo piatto
                 singleDish.quantity = dishNumber;
                 // Modifico il il prezzo totale del singolo piatto
                 singleDish.total_price = dishes[i - 1].price * dishNumber;
                 // Stampo il prezzo
+                updateCart(dishName, i, dishNumber);
                 prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
                 prezzoTotaleDB.value = sumArray(selectedDishes);
             });
             // Se disattivo la checkbox...
         } else {
+            removeFromCart(i);
             // Disattivo anche la select
             select.setAttribute("disabled", "");
             // Riporto il valore della select a 1
@@ -63,6 +67,7 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
 
     // Al caricamento dell'edit riprendo i vecchi valori
     if (checkbox.checked) {
+        addToCart(dishName, i, dishNumber);
         // attivo anche la select
         select.removeAttribute("disabled");
         // Quanitità del value della select
@@ -88,6 +93,7 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             // Modifico il il prezzo totale del singolo piatto
             singleDish.total_price = dishes[i - 1].price * dishNumber;
             // Stampo il prezzo
+            updateCart(dishName, i, dishNumber);
             prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
             prezzoTotaleDB.value = sumArray(selectedDishes);
         });
@@ -103,4 +109,23 @@ function sumArray(array) {
     }
 
     return totalPrice.toFixed(2);
+}
+
+function addToCart(nome, e, quantity) {
+    document.querySelector(
+        ".cart"
+    ).innerHTML += `<div class="cart-item" id="item-${e}">
+            <p class="dish-name">Piatto: ${nome}</p>
+            <p class="dish-quantity">Quantità: ${quantity}</p>
+            <p class="dish-price">${dishes[e - 1].price}</p>
+            </div>`;
+}
+
+function removeFromCart(e) {
+    document.getElementById(`item-${e}`).remove();
+}
+
+function updateCart(nome, e, quantity) {
+    removeFromCart(e);
+    addToCart(nome, e, quantity);
 }
