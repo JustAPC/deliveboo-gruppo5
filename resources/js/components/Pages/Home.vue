@@ -1,6 +1,7 @@
 <template>
     <div>
         <Header />
+        <Ricerca />
         <Restaurants />
     </div>
 </template>
