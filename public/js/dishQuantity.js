@@ -146,7 +146,35 @@ var _loop = function _loop(i) {
 
       prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
     }
-  });
+  }); // Al caricamento dell'edit riprendo i vecchi valori
+
+  if (checkbox.checked) {
+    // attivo anche la select
+    select.removeAttribute("disabled"); // Quanitità del value della select
+
+    dishNumber = select.value; // Creo il singolo piatto
+
+    var singleDish = {
+      dish_id: checkbox.id,
+      quantity: dishNumber,
+      total_price: dishes[i - 1].price * dishNumber
+    }; // Push il piatto nell'array
+
+    selectedDishes.push(singleDish); // Stampo il prezzo
+
+    prezzoTotale.innerHTML = sumArray(selectedDishes) + "$"; // Se cambio il valore 1 nella select...
+
+    select.addEventListener("change", function () {
+      // La nuova quantità sarà il value della select
+      dishNumber = select.value; // Modifico la quantità del singolo piatto
+
+      singleDish.quantity = dishNumber; // Modifico il il prezzo totale del singolo piatto
+
+      singleDish.total_price = dishes[i - 1].price * dishNumber; // Stampo il prezzo
+
+      prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+    });
+  }
 };
 
 for (var i = 1; i <= inputCheckbox.length; i++) {

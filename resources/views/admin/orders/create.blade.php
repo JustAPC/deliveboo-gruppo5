@@ -73,6 +73,7 @@
                             @if ($dish->dishcategory_id == $category->id)
 
                                 <div>
+
                                     <input type="checkbox" 
                                     class="form-check-input" 
                                     id="dish-checkbox-{{ $dish->id }}"
@@ -88,7 +89,6 @@
                                     name="quantity[]" 
                                     id="dish-select-{{ $dish->id }}" disabled
                                     style="width: 60px" min="1" value="1">
-                                    {{-- </select> --}}
 
                                 </div>
 

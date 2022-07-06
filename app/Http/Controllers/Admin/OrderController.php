@@ -35,9 +35,11 @@ class OrderController extends Controller
     public function create()
     {
         $currentUserId = Auth::id();
+        // Lista dei piatti del ristorante loggato
         $dishes = Dish::where('user_id', '=', $currentUserId)->get();
         $dishcategoriesArray = [];
 
+        // Pusho solo le categorie dei piatti che possiede il ristorante
         foreach ($dishes as $dish) {
             if (!in_array($dish['dishcategory_id'], $dishcategoriesArray)) {
                 array_push($dishcategoriesArray, $dish['dishcategory_id']);
@@ -140,7 +142,26 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        return view('admin.orders.edit', compact('order'));
+        $currentUserId = Auth::id();
+        // Lista dei piatti del ristorante loggato
+        $dishes = Dish::where('user_id', '=', $currentUserId)->get();
+        $dishcategoriesArray = [];
+
+        // Pusho solo le categorie dei piatti che possiede il ristorante
+        foreach ($dishes as $dish) {
+            if (!in_array($dish['dishcategory_id'], $dishcategoriesArray)) {
+                array_push($dishcategoriesArray, $dish['dishcategory_id']);
+            }
+        }
+
+        $dishcategories = Dishcategory::whereIn('id', $dishcategoriesArray)->get();
+
+        // Array con lista dei piatti dell'ordine
+        $dishesChecked = $order->Dishesorder->pluck('id')->toArray();
+
+        // dd($order->Dishesorder[0]->pivot->quantity);
+
+        return view('admin.orders.edit', compact('order', 'dishes', 'dishcategories', 'dishesChecked'));
     }
 
     /**

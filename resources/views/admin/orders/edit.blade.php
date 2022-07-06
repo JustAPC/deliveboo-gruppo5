@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
+@section('optionalscripts')
+    <script defer src="{{ asset('js/dishQuantity.js') }}"></script>
+@endsection
+
+
 @section('content')
+{{-- Variabile per ciclare le quantità --}}
+@php
+$i = 0
+@endphp
     <form action="{{ route('admin.orders.update', $order->id) }}" method="POST">
 
         @csrf
@@ -46,13 +55,64 @@
             </select>
         </div>
 
+        <div class="d-flex flex-wrap mt-5">
+
+            @foreach ($dishcategories as $category)
+                <div class="col-4">
+
+                    {{-- Nome della categoria dei piatti --}}
+                    <span class="text-capitalize">{{ $category->name }}</span>
+                    {{-- Stampo tutti i piatti della categoria --}}
+                    @foreach ($dishes as $dish)
+
+                        @if ($dish->dishcategory_id == $category->id)
+                        {{-- @dd($dish) --}}
+                            <div>
+
+                                <input type="checkbox" 
+                                class="form-check-input" 
+                                id="dish-checkbox-{{ $dish->id }}"
+                                name="dishes[]" 
+                                value="{{ $dish->id }}"
+                                @if (in_array($dish->id, old('dishes', $dishesChecked))) checked @endif
+                                >
+                                {{ $dish->name }}
+
+                                <span id="dish-price">{{ $dish->price }}€</span>
+
+                                <input type="number" 
+                                name="quantity[]" 
+                                id="dish-select-{{ $dish->id }}" disabled
+                                style="width: 60px" min="1"
+                                @if ( in_array($dish->id, $dishesChecked) )
+                                    value="{{$order->Dishesorder[$i++]->pivot->quantity}}"
+                                @else
+                                    value="1"
+                                @endif>
+
+                            </div>
+
+                        @endif
+
+                    @endforeach
+
+                </div>
+            @endforeach
+
+        </div>
+
+        {{-- Prezzo totale --}}
         <div>
             <label for="name">Conto:</label>
-            <input type="text" id="total_price" name="total_price"
-                value="{{ old('total_price', $order->total_price) }}" class="mx-3">
+            <h1 id="prezzoTotale"></h1>
         </div>
 
         <button type="submit" class="mt-5">Invia</button>
 
     </form>
 @endsection
+
+<script>
+    var dishes = {!! json_encode($dishes->toArray(), JSON_HEX_TAG) !!};
+</script>
+
