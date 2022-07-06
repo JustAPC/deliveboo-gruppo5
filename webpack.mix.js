@@ -11,6 +11,7 @@ const mix = require("laravel-mix");
  |
  */
 
+<<<<<<< HEAD
 mix.js("resources/js/app.js", "public/js")
     .js("resources/js/imageUpload.js", "public/js")
     .js("resources/js/deleteAlert.js", "public/js")
@@ -21,3 +22,14 @@ mix.js("resources/js/app.js", "public/js")
     .options({
         processCssUrls: false,
     });
+=======
+ mix.js("resources/js/app.js", "public/js")
+ .js('resources/js/front.js', 'public/js')
+ .js('resources/js/routes.js', 'public/js')
+ .js("resources/js/imageUpload.js", "public/js")
+ .js("resources/js/deleteAlert.js", "public/js")
+ .sass("resources/sass/app.scss", "public/css")
+ .options({
+     processCssUrls: false,
+ });
+>>>>>>> frontend-vue
