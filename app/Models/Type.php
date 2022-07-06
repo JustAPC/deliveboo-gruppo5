@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    public function Type()
+    public function TypeUsers()
     {
         return $this->belongsToMany('App\User');
     }

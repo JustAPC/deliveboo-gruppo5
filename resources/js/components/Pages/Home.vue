@@ -1,23 +1,16 @@
 <template>
-    <div >
-
-        
-
+    <div>
+        <Header />
+        <Restaurants />
     </div>
-
-
-
-
 </template>
 
 <script>
-    
-   
-    export default {
-        name: 'Home',
-        
-        
+import Header from "./Header.vue";
+import Restaurants from "./Restaurants.vue";
 
-    }
-
+export default {
+    name: "Home",
+    components: { Header, Restaurants },
+};
 </script>
