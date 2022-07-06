@@ -61,6 +61,7 @@
                 <p>Immagine del piatto:</p>
                 <input id="myfiles" name="image" type="file" accept="image/*">
                 <button id="file_remove" disabled>Rimuovi</button>
+                <div id="img-preview"></div>
                 <div class="mt-5">
                     <label for="image_url">oppure</label>
                     <input type="url" name="image" id="image_url" class="mx-3">
