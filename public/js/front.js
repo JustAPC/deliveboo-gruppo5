@@ -1995,18 +1995,25 @@ __webpack_require__.r(__webpack_exports__);
         console.log(_this.types);
       });
     },
-    getRestaurants: function getRestaurants() {
+    funzRicerca: function funzRicerca() {
       var _this2 = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca).then(function (res) {
-        _this2.restaurants = res.data.types;
-        console.log(_this2.restaurants);
-      });
+      if (this.ricerca == '') {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
+          _this2.restaurants = res.data.restaurants;
+          console.log(_this2.restaurants);
+        });
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca).then(function (res) {
+          _this2.restaurants = res.data.types;
+          console.log(_this2.restaurants);
+        });
+      }
     }
   },
   mounted: function mounted() {
     this.getType();
-    this.getRestaurants();
+    this.funzRicerca();
   }
 });
 
@@ -2175,7 +2182,7 @@ var render = function render() {
       value: _vm.ricerca,
       expression: "ricerca"
     }],
-    staticClass: "my-3 mx-5",
+    staticClass: "my-4",
     attrs: {
       name: "",
       id: ""
@@ -2189,7 +2196,7 @@ var render = function render() {
           return val;
         });
         _vm.ricerca = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.getRestaurants]
+      }, _vm.funzRicerca]
     }
   }, [_c("option", {
     attrs: {
@@ -2202,7 +2209,24 @@ var render = function render() {
         value: type.id
       }
     }, [_vm._v(_vm._s(type.name))]);
-  })], 2)]), _vm._v(" "), _c("div", _vm._l(_vm.restaurants.restaurants, function (restaurant) {
+  })], 2)]), _vm._v(" "), _c("div", [_vm._l(_vm.restaurants, function (restaurant) {
+    return restaurant.id ? _c("div", {
+      key: restaurant.id,
+      staticClass: "card mb-3"
+    }, [_c("img", {
+      staticClass: "card-img-top img-fluid",
+      attrs: {
+        src: restaurant.restaurant_img,
+        alt: "..."
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "card-body"
+    }, [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
+  }), _vm._v(" "), _vm._l(_vm.restaurants.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card mb-3"
@@ -2218,11 +2242,20 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(0, true)])]);
-  }), 0)]);
+    }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(1, true)])]);
+  })], 2)]);
 };
 
 var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("p", {
+    staticClass: "card-text"
+  }, [_c("small", {
+    staticClass: "text-muted"
+  }, [_vm._v("Last updated 3 mins ago")])]);
+}, function () {
   var _vm = this,
       _c = _vm._self._c;
 
