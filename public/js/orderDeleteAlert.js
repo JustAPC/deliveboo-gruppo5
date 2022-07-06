@@ -81,39 +81,39 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 4);
+/******/ 	return __webpack_require__(__webpack_require__.s = 5);
 /******/ })
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/deleteAlert.js":
-/*!*************************************!*\
-  !*** ./resources/js/deleteAlert.js ***!
-  \*************************************/
+/***/ "./resources/js/orderDeleteAlert.js":
+/*!******************************************!*\
+  !*** ./resources/js/orderDeleteAlert.js ***!
+  \******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 var deleteForms = document.querySelectorAll(".delete-form");
 deleteForms.forEach(function (element) {
-  var name = element.getAttribute("data-name");
+  var orderID = element.getAttribute("data-name");
   element.addEventListener("submit", function (e) {
     e.preventDefault();
     Swal.fire({
-      title: "\"".concat(name, "\" <br> Il piatto verr\xE0 eliminato."),
+      title: "\"Ordine ID:".concat(orderID, "\" <br> L'ordine verr\xE0 eliminato."),
       text: "Sei sicuro di procedere?",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3490dc",
       cancelButtonColor: "#e3342f",
-      confirmButtonText: "Si, rimuovi il piatto",
-      cancelButtonText: "No, conserva il piatto"
+      confirmButtonText: "Si, rimuovi l'ordine",
+      cancelButtonText: "No, conserva l'ordine"
     }).then(function (result) {
       if (result.isConfirmed) {
         var sumbitFunction = function sumbitFunction() {
           e.target.submit();
         };
 
-        Swal.fire("Successo!", "Il tuo piatto è stato eliminato", "success");
+        Swal.fire("Successo!", "L'ordine è stato eliminato", "success");
         var myTimeout = setTimeout(sumbitFunction, 3000);
       }
     });
@@ -122,14 +122,14 @@ deleteForms.forEach(function (element) {
 
 /***/ }),
 
-/***/ 4:
-/*!*******************************************!*\
-  !*** multi ./resources/js/deleteAlert.js ***!
-  \*******************************************/
+/***/ 5:
+/*!************************************************!*\
+  !*** multi ./resources/js/orderDeleteAlert.js ***!
+  \************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\orderDeleteAlert.js */"./resources/js/orderDeleteAlert.js");
 
 
 /***/ })

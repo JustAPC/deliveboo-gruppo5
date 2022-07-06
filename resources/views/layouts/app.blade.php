@@ -51,7 +51,8 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    {{-- <ul class="navbar-nav mr-auto">
+                    <ul class="navbar-nav mr-auto">
+                        <li><a href="{{ route('admin.orders.index') }}">Ordini</a></li>
                         <li><a href="{{ route('admin.dishes.index') }}">Piatti</a></li>
                         <li><a href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a></li>
                     </ul> --}}
