@@ -105,7 +105,8 @@ var _loop = function _loop(i) {
 
   var select = document.getElementById("dish-select-".concat(i)); // Div che mostra prezzo totale
 
-  var prezzoTotale = document.getElementById("prezzoTotale"); // Quantità selezionata
+  var prezzoTotale = document.getElementById("prezzoTotale");
+  var prezzoTotaleDB = document.getElementById("prezzoTotaleDB"); // Quantità selezionata
 
   var dishNumber = "";
   checkbox.addEventListener("change", function () {
@@ -122,7 +123,8 @@ var _loop = function _loop(i) {
 
       selectedDishes.push(singleDish); // Stampo il prezzo
 
-      prezzoTotale.innerHTML = sumArray(selectedDishes) + "$"; // Se cambio il valore 1 nella select...
+      prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+      prezzoTotaleDB.value = sumArray(selectedDishes); // Se cambio il valore 1 nella select...
 
       select.addEventListener("change", function () {
         // La nuova quantità sarà il value della select
@@ -132,7 +134,8 @@ var _loop = function _loop(i) {
 
         singleDish.total_price = dishes[i - 1].price * dishNumber; // Stampo il prezzo
 
-        prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+        prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+        prezzoTotaleDB.value = sumArray(selectedDishes);
       }); // Se disattivo la checkbox...
     } else {
       // Disattivo anche la select
@@ -144,7 +147,8 @@ var _loop = function _loop(i) {
         return data.dish_id != checkbox.id;
       }); // Stampo il nuovo prezzo
 
-      prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+      prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+      prezzoTotaleDB.value = sumArray(selectedDishes);
     }
   }); // Al caricamento dell'edit riprendo i vecchi valori
 
@@ -162,7 +166,8 @@ var _loop = function _loop(i) {
 
     selectedDishes.push(singleDish); // Stampo il prezzo
 
-    prezzoTotale.innerHTML = sumArray(selectedDishes) + "$"; // Se cambio il valore 1 nella select...
+    prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+    prezzoTotaleDB.value = sumArray(selectedDishes); // Se cambio il valore 1 nella select...
 
     select.addEventListener("change", function () {
       // La nuova quantità sarà il value della select
@@ -172,7 +177,8 @@ var _loop = function _loop(i) {
 
       singleDish.total_price = dishes[i - 1].price * dishNumber; // Stampo il prezzo
 
-      prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+      prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+      prezzoTotaleDB.value = sumArray(selectedDishes);
     });
   }
 };
@@ -189,7 +195,7 @@ function sumArray(array) {
     totalPrice += parseFloat(array[_i].total_price);
   }
 
-  return totalPrice;
+  return totalPrice.toFixed(2);
 }
 
 /***/ }),
@@ -201,7 +207,7 @@ function sumArray(array) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
 
 
 /***/ })

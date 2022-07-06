@@ -81,30 +81,13 @@ class OrderController extends Controller
 
         $data = $request->all();
         $currentUserId = Auth::id();
-        // Array che contiente i singoli prezzi dei dish selezionati
-        $pricesDish = [];
         // Array con le quantità selezionate
         $quantities = $data['quantity'];
-        // Prezzo totale
-        $totalPrice = 0;
-
-        // Riempio l'array con i prezzi desiderati
-        foreach ($data['dishes'] as $key => $dish){
-            $new_price = Dish::where('id', '=', $dish)->get();
-            array_push($pricesDish, $new_price[0]['price']);
-        }        
-
-        // Calcolo il prezzo totale dell'ordine
-        for($i = 0; $i < count($quantities); $i++){
-            $totalPrice += $quantities[$i] * $pricesDish[$i];
-        }
 
         $new_order = new Order();
         $new_order->fill($data);
         // Assegno l'id del ristorante loggato
         $new_order->user_id = $currentUserId;
-        // Assegno il prezzo totale calcolato precedentemente
-        $new_order->total_price = $totalPrice;
         $new_order->save();
 
         // Scrivo sulla tabella ponte dish_order

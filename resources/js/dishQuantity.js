@@ -13,6 +13,7 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
     let select = document.getElementById(`dish-select-${i}`);
     // Div che mostra prezzo totale
     let prezzoTotale = document.getElementById("prezzoTotale");
+    let prezzoTotaleDB = document.getElementById("prezzoTotaleDB");
     // Quantità selezionata
     let dishNumber = "";
 
@@ -32,7 +33,8 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             // Push il piatto nell'array
             selectedDishes.push(singleDish);
             // Stampo il prezzo
-            prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+            prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+            prezzoTotaleDB.value = sumArray(selectedDishes);
 
             // Se cambio il valore 1 nella select...
             select.addEventListener("change", () => {
@@ -44,7 +46,8 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
                 // Modifico il il prezzo totale del singolo piatto
                 singleDish.total_price = dishes[i - 1].price * dishNumber;
                 // Stampo il prezzo
-                prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+                prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+                prezzoTotaleDB.value = sumArray(selectedDishes);
 
             });
         // Se disattivo la checkbox...
@@ -59,7 +62,8 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
                 (data) => data.dish_id != checkbox.id
             );
             // Stampo il nuovo prezzo
-            prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+            prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+            prezzoTotaleDB.value = sumArray(selectedDishes);
 
         }
 
@@ -80,7 +84,8 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
         // Push il piatto nell'array
         selectedDishes.push(singleDish);
         // Stampo il prezzo
-        prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+        prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+        prezzoTotaleDB.value = sumArray(selectedDishes);
 
         // Se cambio il valore 1 nella select...
         select.addEventListener("change", () => {
@@ -92,7 +97,8 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             // Modifico il il prezzo totale del singolo piatto
             singleDish.total_price = dishes[i - 1].price * dishNumber;
             // Stampo il prezzo
-            prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+            prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
+            prezzoTotaleDB.value = sumArray(selectedDishes);
 
         });
     }
@@ -107,6 +113,6 @@ function sumArray(array){
         totalPrice += parseFloat(array[i].total_price);
     }
 
-    return totalPrice;
+    return totalPrice.toFixed(2);
 }
 

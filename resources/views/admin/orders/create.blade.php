@@ -74,10 +74,10 @@
 
                                 <div>
 
-                                    <input type="checkbox" 
-                                    class="form-check-input" 
+                                    <input type="checkbox"
+                                    class="form-check-input"
                                     id="dish-checkbox-{{ $dish->id }}"
-                                    name="dishes[]" 
+                                    name="dishes[]"
                                     value="{{ $dish->id }}"
                                     @if (in_array($dish->id, old('dishes', []))) checked @endif
                                     >
@@ -85,8 +85,8 @@
 
                                     <span id="dish-price">{{ $dish->price }}€</span>
 
-                                    <input type="number" 
-                                    name="quantity[]" 
+                                    <input type="number"
+                                    name="quantity[]"
                                     id="dish-select-{{ $dish->id }}" disabled
                                     style="width: 60px" min="1" value="1">
 
@@ -102,6 +102,7 @@
 
             {{-- Conto che si aggiorna in tempo reale --}}
             <h1 id="prezzoTotale"></h1>
+            <input type="text" name="total_price" id="prezzoTotaleDB" value="" style="display: none">
 
             <button type="submit" class="mt-5">Invia</button>
 
