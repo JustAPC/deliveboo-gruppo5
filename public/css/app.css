@@ -10854,14 +10854,19 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   height: 70px;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+#price::-webkit-outer-spin-button,
+#price::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
 
-input[type=number] {
+#price[type=number] {
   -moz-appearance: textfield;
+}
+
+.img-preview {
+  height: 100px;
+  width: 100px;
 }
 
 .menu-card:hover {

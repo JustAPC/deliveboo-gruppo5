@@ -17411,7 +17411,7 @@ function getImgData() {
     fileReader.readAsDataURL(files);
     fileReader.addEventListener("load", function () {
       imgPreview.style.display = "block";
-      imgPreview.innerHTML = "<img src=\"" + this.result + "\"/>";
+      imgPreview.innerHTML = "<img src=\"" + this.result + "\" class=\"img-preview\"/>";
     });
   }
 }
@@ -17425,7 +17425,7 @@ function getImgData() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
 
 
 /***/ })

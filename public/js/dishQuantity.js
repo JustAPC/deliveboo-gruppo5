@@ -226,7 +226,7 @@ function updateCart(nome, e, quantity) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
 
 
 /***/ })

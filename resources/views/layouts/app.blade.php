@@ -83,7 +83,7 @@
                                     <a class="dropdown-item" href="{{ route('admin.dishes.create') }}">Aggiungi un nuovo
                                         piatto</a>
 
-                                    <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Riepilogo degli
+                                    <a class="dropdown-item" href="{{ route('admin.orders.index') }}">Riepilogo degli
                                         ordini</a>
 
                                     <a class="dropdown-item" href="{{ route('admin.home') }}">Le mie statistiche</a>

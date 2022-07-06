@@ -1,5 +1,4 @@
-
-.form-group.floating>label {
+.form-group.floating > label {
     bottom: 34px;
     left: 8px;
     position: relative;
@@ -12,9 +11,9 @@
     transform-origin: bottom left;
 }
 
-.form-control.floating:focus~label{
-    transform: translate(1px,-85%) scale(0.80);
-    opacity: .8;
+.form-control.floating:focus ~ label {
+    transform: translate(1px, -85%) scale(0.8);
+    opacity: 0.8;
     color: #00ccbc;
 }
 
@@ -23,10 +22,10 @@
     box-shadow: 0 0 0 0.2rem rgba(88, 177, 189, 0.336);
 }
 
-.form-control.floating~label{
+.form-control.floating ~ label {
     transform-origin: bottom left;
-    transform: translate(1px,-85%) scale(0.80);
-    opacity: .8;
+    transform: translate(1px, -85%) scale(0.8);
+    opacity: 0.8;
 }
 
 .form-group {
@@ -34,12 +33,17 @@
     height: 70px;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
+#price::-webkit-outer-spin-button,
+#price::-webkit-inner-spin-button {
     -webkit-appearance: none;
     margin: 0;
 }
 
-input[type=number] {
+#price[type="number"] {
     -moz-appearance: textfield;
+}
+
+.img-preview {
+    height: 100px;
+    width: 100px;
 }
