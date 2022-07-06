@@ -1,6 +1,6 @@
 <template>
     <div>
-        <Ricerca />
+        <Ricerca @getRestaurantsType="getRestaurants" />
 
         <div
             v-for="restaurant in restaurants"
@@ -52,10 +52,12 @@ export default {
         };
     },
     methods: {
-        getRestaurants() {
-            axios.get("http://127.0.0.1:8000/api/types/").then((res) => {
-                this.restaurants = res.data.restaurants;
-            });
+        getRestaurants(restaurant) {
+            axios
+                .get(`http://127.0.0.1:8000/api/types/` + restaurant)
+                .then((res) => {
+                    this.restaurants = res.data.restaurants;
+                });
         },
     },
     mounted() {

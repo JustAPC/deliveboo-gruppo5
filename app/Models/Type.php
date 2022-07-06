@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Type extends Model
 {
-    public function TypeUsers()
+    public function Restaurants()
     {
         return $this->belongsToMany('App\User');
     }
