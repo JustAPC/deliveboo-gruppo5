@@ -1,67 +1,61 @@
 <template>
     <div>
-        <Ricerca @getRestaurantsType="getRestaurants" />
+     <carousel class="mt-4" :per-page-custom="[[320, 1],[481, 2],[769, 4],[1024, 4],[1441, 6],]"
+            >
+            <slide class="d-flex justify-content-center" v-for="type in types" :key="type.id">
+                <div class="card" style="width: 14rem" >
+                    <img class="img-fluid card-img-top"
+                    src="../../../../public/storage/img/hamburger.jpg" alt="..."/>
+                    <div class="card-body">
+                        <h3 class="card-title text-center" :id="type.id">
+                            {{ type.name }}
+                        </h3>
+                    </div>
+                </div>
+            </slide>
+        </carousel>
 
-        <div
-            v-for="restaurant in restaurants"
-            :key="restaurant.id"
-            class="scheda-ristorante"
-        >
-            <p class="nome-ristorante">{{ restaurant.name }}</p>
-
-            <div class="insieme-tipi">
-                <span
-                    v-for="item in restaurant.user_type"
-                    :key="item.id"
-                    class="type-ristorante"
-                    >{{ item.name }}</span
-                >
-            </div>
-
-            <!-- <div v-for="item in restaurant.dishes" :key="item.id" class="piatto-scheda">
-
-                    <ul>
-
-                        <li class="nome-piatto">{{item.name}}</li>
-                        <li v-if="item.quantity >= 1" class="verde-disponibile">Disponibile</li>
-                        <li v-else class="rosso-non-disponibile">= 1">Non disponibile</li>
-                        <li v-if="(item.ingredients != null) && (item.ingredients != '')">Ingredienti: {{item.ingredients}}.</li>
-                        <li v-if="(item.description != null) && (item.description != '')">Descrizione: {{item.description}}.</li>
-                        <li>Categoria: {{item.dishcategory_id}}</li>
-                        <li>Prezzo: {{item.price}}€</li>
-
-                    </ul>
-                    <span class="pulsante-ordine">Aggiungi al carrello</span>
-                </div> -->
+        <div>
+            <p v-for="element in types" :key="element.id">{{element.restaurants.name}}</p>
         </div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
-import Ricerca from "./Ricerca.vue";
+import { Carousel, Slide, Navigation } from "vue-carousel";
+
 export default {
     name: "Restaurant",
     components: {
-        Ricerca,
+     Carousel,
+        Slide,
+        Navigation,
     },
     data() {
         return {
-            restaurants: [],
-            ricerca: "",
+            types:[],
+     
         };
     },
     methods: {
-        getRestaurants(restaurant) {
+        getRestaurants() {
             axios
-                .get(`http://127.0.0.1:8000/api/types/` + restaurant)
+                .get(`http://127.0.0.1:8000/api/types` )
                 .then((res) => {
-                    this.restaurants = res.data.restaurants;
+                    
+                    this.types = res.data.types;
+                    console.log(this.types);
+                    
                 });
+            
         },
+  
+
     },
     mounted() {
         this.getRestaurants();
+     
     },
 };
 </script>

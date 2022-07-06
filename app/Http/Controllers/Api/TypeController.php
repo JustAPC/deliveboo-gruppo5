@@ -15,7 +15,7 @@ class TypeController extends Controller
      */
     public function index()
     {
-        $types = Type::with('TypeUsers')->get();
+        $types = Type::with('Restaurants')->get();
         return response()->json(compact('types'));
     }
 
@@ -48,7 +48,7 @@ class TypeController extends Controller
      */
     public function show($id)
     {
-        $types = Type::with('TypeUsers')->find($id);
+        $types = Type::with('Restaurants')->find($id);
         return response()->json(compact('types'));
     }
 
