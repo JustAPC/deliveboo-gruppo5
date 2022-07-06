@@ -33,3 +33,4 @@ class CrateTypeUserTable extends Migration
         Schema::dropIfExists('type_user');
     }
 }
+
