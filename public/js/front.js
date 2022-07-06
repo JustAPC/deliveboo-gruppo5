@@ -2166,7 +2166,9 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", [_c("select", {
+  return _c("div", {
+    staticClass: "container"
+  }, [_c("div", [_c("select", {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -2201,14 +2203,35 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(type.name))]);
   })], 2)]), _vm._v(" "), _c("div", _vm._l(_vm.restaurants.restaurants, function (restaurant) {
-    return _c("h1", {
+    return _c("div", {
       key: restaurant.id,
-      staticClass: "text-center"
-    }, [_vm._v(_vm._s(restaurant.name))]);
+      staticClass: "card mb-3"
+    }, [_c("img", {
+      staticClass: "card-img-top img-fluid",
+      attrs: {
+        src: restaurant.restaurant_img,
+        alt: "..."
+      }
+    }), _vm._v(" "), _c("div", {
+      staticClass: "card-body"
+    }, [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(0, true)])]);
   }), 0)]);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("p", {
+    staticClass: "card-text"
+  }, [_c("small", {
+    staticClass: "text-muted"
+  }, [_vm._v("Last updated 3 mins ago")])]);
+}];
 render._withStripped = true;
 
 
