@@ -18,11 +18,20 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $currentUserId = Auth::user()->id;
 
-        $orders = Order::orderBy('updated_at', 'DESC')->where('user_id', '=', $currentUserId)->get();
+        if ($request->has('id')) {
+            $id = $request->query('id');
+            $orders = Order::orderBy('updated_at', 'DESC')->where([
+                ['id', 'like', '%' . $id . '%'],
+                ['user_id', '=', $currentUserId],
+            ])->get();
+        } else {
+
+            $orders = Order::orderBy('updated_at', 'DESC')->where('user_id', '=', $currentUserId)->get();
+        }
 
         return view('admin.orders.index', compact('orders'));
     }

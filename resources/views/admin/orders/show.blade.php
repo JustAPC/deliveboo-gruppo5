@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('optionalscripts')
-    <script defer src="{{ asset('js/deleteAlert.js') }}"></script>
+    <script defer src="{{ asset('js/orderDeleteAlert.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 @endsection
 
@@ -21,7 +21,7 @@
     @endif
 
     <ul>
-
+        <li>ID: {{ $order->id }}</li>
         <li>Cliente: {{ $order->customer_name }} {{ $order->customer_lastname }} </li>
         <li>Indirizzo: {{ $order->customer_address }}</li>
         <li>Telefono: {{ $order->customer_phone }}</li>
@@ -31,7 +31,7 @@
         @endforeach
         <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn btn-primary">Edit</a>
         <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form"
-            data-name="{{ $order->customer_name }}" method="POST">
+            data-name="{{ $order->id }}" method="POST">
             @csrf
             @method('DELETE')
             <input type="submit" class="btn btn-danger" value="Delete">

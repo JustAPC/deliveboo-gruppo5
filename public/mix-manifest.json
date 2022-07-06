@@ -1,7 +1,9 @@
 {
     "/js/app.js": "/js/app.js",
     "/css/app.css": "/css/app.css",
+    "/css/orderIndex.css": "/css/orderIndex.css",
     "/js/deleteAlert.js": "/js/deleteAlert.js",
     "/js/dishQuantity.js": "/js/dishQuantity.js",
-    "/js/imageUpload.js": "/js/imageUpload.js"
+    "/js/imageUpload.js": "/js/imageUpload.js",
+    "/js/orderDeleteAlert.js": "/js/orderDeleteAlert.js"
 }
