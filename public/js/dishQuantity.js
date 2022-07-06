@@ -105,8 +105,7 @@ var _loop = function _loop(i) {
   // Singola checkbox
   var checkbox = document.getElementById("dish-checkbox-".concat(i)); // Singola select
 
-  var select = document.getElementById("dish-select-".concat(i)); // Div che mostra prezzo totale
-  // Quantità selezionata
+  var select = document.getElementById("dish-quantity-".concat(i)); // Quantità selezionata
 
   var dishNumber = "";
   checkbox.addEventListener("change", function () {

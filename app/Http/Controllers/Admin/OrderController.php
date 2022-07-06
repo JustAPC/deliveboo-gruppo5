@@ -154,9 +154,49 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Order $order)
     {
-        //
+        $request->validate(
+            [
+                'customer_name' => 'required',
+                'customer_lastname' => 'required',
+                'customer_address' => 'required',
+                'customer_phone' => 'required | numeric',
+                'completed' => 'required',
+                'payment_received' => 'required',
+            ],
+            [
+                'customer_name.required' => 'Il campo "Nome" è obbligatorio',
+                'customer_lastname.required' => 'Il campo "Cognome" è obbligatorio',
+                'customer_address.required' => 'Il campo "Indirizzo" è obbligatorio',
+                'customer_phone.required' => 'Il campo "Numero di telefono" è obbligatorio',
+                'customer_phone.numeric' => 'Il campo "Numero di telefono" deve essere composto solamente da numeri',
+                'completed.required' => 'Il campo "Ordine completato" è obbligatorio',
+                'payment_received.required' => 'Il campo "Pagamento ricevuto" è obbligatorio',
+            ]
+        );
+
+        $data = $request->all();
+        $quantities = $data['quantity'];
+        $order->update($data);
+
+        DB::table('dish_order')
+            ->where('order_id', '=', $order->id)
+            ->delete();
+
+        if (array_key_exists('dishes', $data)) {
+            foreach ($data['dishes'] as $key => $dish) {
+                DB::table('dish_order')->insert(
+                    [
+                        'dish_id' => $dish,
+                        'order_id' => $order->id,
+                        'quantity' => $quantities[$key]
+                    ]
+                );
+            }
+        };
+
+        return redirect()->route('admin.orders.show', $order)->with('message-update', "$order->id");
     }
 
     /**

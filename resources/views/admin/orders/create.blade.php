@@ -2,6 +2,9 @@
 
 @section('optionalscripts')
     <script defer src="{{ asset('js/dishQuantity.js') }}"></script>
+    <style>
+
+    </style>
 @endsection
 
 @section('content')
@@ -16,52 +19,59 @@
         </div>
     @endif
 
-    <div class="container">
+    <form action="{{ route('admin.orders.store') }}" method="POST">
+        @csrf
+        <div class="container position-relative">
+            <div class="row">
+                <div class="col-7">
+                    <div>
+                        <label for="name">Nome:</label>
+                        <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name') }}"
+                            class="mx-3">
+                    </div>
 
-        <form action="{{ route('admin.orders.store') }}" method="POST">
-            @csrf
+                    <div>
+                        <label for="name">Cognome:</label>
+                        <input type="text" id="customer_lastname" name="customer_lastname"
+                            value="{{ old('customer_lastname') }}" class="mx-3">
+                    </div>
 
-            <div>
-                <label for="name">Nome:</label>
-                <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name') }}"
-                    class="mx-3">
+                    <div>
+                        <label for="name">Indirizzo:</label>
+                        <input type="text" id="customer_address" name="customer_address"
+                            value="{{ old('customer_address') }}" class="mx-3">
+                    </div>
+
+                    <div>
+                        <label for="name">Numero telefono:</label>
+                        <input type="text" id="customer_phone" name="customer_phone"
+                            value="{{ old('customer_phone') }}" class="mx-3">
+                    </div>
+
+                    <div>
+                        <span>Ordine completato:</span>
+                        <select name="completed" id="completed">
+                            <option value="1">Si</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <span>Pagamento ricevuto:</span>
+                        <select name="payment_received" id="payment_received">
+                            <option value="1">Si</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="col-4 offset-1 border border-dark">
+
+                </div>
             </div>
 
-            <div>
-                <label for="name">Cognome:</label>
-                <input type="text" id="customer_lastname" name="customer_lastname"
-                    value="{{ old('customer_lastname') }}" class="mx-3">
-            </div>
-
-            <div>
-                <label for="name">Indirizzo:</label>
-                <input type="text" id="customer_address" name="customer_address" value="{{ old('customer_address') }}"
-                    class="mx-3">
-            </div>
-
-            <div>
-                <label for="name">Numero telefono:</label>
-                <input type="text" id="customer_phone" name="customer_phone" value="{{ old('customer_phone') }}"
-                    class="mx-3">
-            </div>
-
-            <div>
-                <span>Ordine completato:</span>
-                <select name="completed" id="completed">
-                    <option value="1">Si</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-            <div>
-                <span>Pagamento ricevuto:</span>
-                <select name="payment_received" id="payment_received">
-                    <option value="1">Si</option>
-                    <option value="0">No</option>
-                </select>
-            </div>
-
-            <div class="d-flex flex-wrap mt-5">
+            <div class="d-flex flex-wrap mt-5 col-8">
 
                 @foreach ($dishcategories as $category)
                     <div class="col-4">
@@ -71,27 +81,19 @@
                         {{-- Stampo tutti i piatti della categoria --}}
                         @foreach ($dishes as $dish)
                             @if ($dish->dishcategory_id == $category->id)
-
                                 <div>
 
-                                    <input type="checkbox"
-                                    class="form-check-input"
-                                    id="dish-checkbox-{{ $dish->id }}"
-                                    name="dishes[]"
-                                    value="{{ $dish->id }}"
-                                    @if (in_array($dish->id, old('dishes', []))) checked @endif
-                                    >
+                                    <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
+                                        name="dishes[]" value="{{ $dish->id }}"
+                                        @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     {{ $dish->name }}
 
                                     <span id="dish-price">{{ $dish->price }}€</span>
 
-                                    <input type="number"
-                                    name="quantity[]"
-                                    id="dish-select-{{ $dish->id }}" disabled
-                                    style="width: 60px" min="1" value="1">
+                                    <input type="number" name="quantity[]" id="dish-quantity-{{ $dish->id }}" disabled
+                                        style="width: 60px" min="1" value="1">
 
                                 </div>
-
                             @endif
                         @endforeach
 
@@ -105,10 +107,8 @@
             <input type="text" name="total_price" id="prezzoTotaleDB" value="" style="display: none">
 
             <button type="submit" class="mt-5">Invia</button>
-
-        </form>
-
-    </div>
+        </div>
+    </form>
 @endsection
 
 <script>

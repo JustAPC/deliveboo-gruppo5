@@ -8,17 +8,14 @@ let prezzoTotale = document.getElementById("prezzoTotale");
 let prezzoTotaleDB = document.getElementById("prezzoTotaleDB");
 
 for (let i = 1; i <= inputCheckbox.length; i++) {
-
     // Singola checkbox
     let checkbox = document.getElementById(`dish-checkbox-${i}`);
     // Singola select
-    let select = document.getElementById(`dish-select-${i}`);
-    // Div che mostra prezzo totale
+    let select = document.getElementById(`dish-quantity-${i}`);
     // Quantità selezionata
     let dishNumber = "";
 
     checkbox.addEventListener("change", () => {
-
         // Se attivo la checkbox...
         if (checkbox.checked) {
             // attivo anche la select
@@ -38,7 +35,6 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
 
             // Se cambio il valore 1 nella select...
             select.addEventListener("change", () => {
-
                 // La nuova quantità sarà il value della select
                 dishNumber = select.value;
                 // Modifico la quantità del singolo piatto
@@ -48,11 +44,9 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
                 // Stampo il prezzo
                 prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
                 prezzoTotaleDB.value = sumArray(selectedDishes);
-
             });
-        // Se disattivo la checkbox...
+            // Se disattivo la checkbox...
         } else {
-
             // Disattivo anche la select
             select.setAttribute("disabled", "");
             // Riporto il valore della select a 1
@@ -64,13 +58,11 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             // Stampo il nuovo prezzo
             prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
             prezzoTotaleDB.value = sumArray(selectedDishes);
-
         }
-
     });
 
     // Al caricamento dell'edit riprendo i vecchi valori
-    if(checkbox.checked) {
+    if (checkbox.checked) {
         // attivo anche la select
         select.removeAttribute("disabled");
         // Quanitità del value della select
@@ -79,7 +71,7 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
         let singleDish = {
             dish_id: checkbox.id,
             quantity: dishNumber,
-            total_price: dishes[i - 1].price*dishNumber,
+            total_price: dishes[i - 1].price * dishNumber,
         };
         // Push il piatto nell'array
         selectedDishes.push(singleDish);
@@ -89,7 +81,6 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
 
         // Se cambio il valore 1 nella select...
         select.addEventListener("change", () => {
-
             // La nuova quantità sarà il value della select
             dishNumber = select.value;
             // Modifico la quantità del singolo piatto
@@ -99,20 +90,17 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             // Stampo il prezzo
             prezzoTotale.innerHTML = sumArray(selectedDishes) + "€";
             prezzoTotaleDB.value = sumArray(selectedDishes);
-
         });
     }
 }
 
 // Funzione per sommare il prezzo dell'array di oggetti dishes
-function sumArray(array){
-
+function sumArray(array) {
     let totalPrice = 0;
 
-    for(let i = 0; i < array.length; i++){
+    for (let i = 0; i < array.length; i++) {
         totalPrice += parseFloat(array[i].total_price);
     }
 
     return totalPrice.toFixed(2);
 }
-
