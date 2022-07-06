@@ -17,7 +17,9 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -40,7 +42,8 @@
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Deliveboo') }} --}}
-                    <img src="https://i.postimg.cc/ZYrqkY1k/Deliveboo-logo.png" alt="Deliveboo logo" width="25" height="25" class="d-inline-block align-text-top">
+                    <img src="https://i.postimg.cc/ZYrqkY1k/Deliveboo-logo.png" alt="Deliveboo logo" width="25"
+                        height="25" class="d-inline-block align-text-top">
                     <span id="logo-text">Deliveboo</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -52,10 +55,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a href="{{ route('admin.orders.index') }}">Ordini</a></li>
-                        <li><a href="{{ route('admin.dishes.index') }}">Piatti</a></li>
-                        <li><a href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a></li>
-                    </ul> --}}
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
@@ -77,12 +77,14 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    
+
                                     <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Il mio menu</a>
 
-                                    <a class="dropdown-item" href="{{ route('admin.dishes.create') }}">Aggiungi un nuovo piatto</a>
+                                    <a class="dropdown-item" href="{{ route('admin.dishes.create') }}">Aggiungi un nuovo
+                                        piatto</a>
 
-                                    <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Riepilogo degli ordini</a>
+                                    <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Riepilogo degli
+                                        ordini</a>
 
                                     <a class="dropdown-item" href="{{ route('admin.home') }}">Le mie statistiche</a>
 
