@@ -3583,12 +3583,9 @@ input[type=button].btn-block {
 .custom-file-input:lang(en) ~ .custom-file-label::after {
   content: "Browse";
 }
-<<<<<<< HEAD
 .custom-file-input:lang(it) ~ .custom-file-label::after {
   content: "Sfoglia...";
 }
-=======
->>>>>>> 09c1fec0df81cff19f3faae67c5e790c22680c9a
 .custom-file-input ~ .custom-file-label[data-browse]::after {
   content: attr(data-browse);
 }
@@ -10822,7 +10819,6 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   left: auto;
 }
 
-<<<<<<< HEAD
 .form-group.floating > label {
   bottom: 34px;
   left: 8px;
@@ -10872,7 +10868,8 @@ input[type=number] {
   transform: scale(1.05);
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
   transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12), 0.3s box-shadow;
-=======
+}
+
 .nome-ristorante {
   font-style: oblique;
   font-weight: bolder;
@@ -10931,5 +10928,4 @@ input[type=number] {
   border-radius: 15px;
   margin: 3px;
   background-color: rgb(7, 12, 171);
->>>>>>> 09c1fec0df81cff19f3faae67c5e790c22680c9a
 }
