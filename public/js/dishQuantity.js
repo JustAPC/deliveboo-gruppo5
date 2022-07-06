@@ -100,15 +100,16 @@ var inputCheckbox = document.querySelectorAll(".form-check-input"); // Array che
 var selectedDishes = [];
 var prezzoTotale = document.getElementById("prezzoTotale");
 var prezzoTotaleDB = document.getElementById("prezzoTotaleDB");
+var firstID = dishes[0].id;
 
 var _loop = function _loop(i) {
   // Singola checkbox
-  var checkbox = document.getElementById("dish-checkbox-".concat(i)); // Singola select
+  var checkbox = document.getElementById("dish-checkbox-".concat(firstID)); // Singola select
 
-  var select = document.getElementById("dish-quantity-".concat(i)); // Quantità selezionata
+  var select = document.getElementById("dish-quantity-".concat(firstID)); // Quantità selezionata
 
   var dishNumber = 1;
-  var dishName = document.getElementById("dish-".concat(i)).textContent;
+  var dishName = document.getElementById("dish-".concat(firstID)).textContent;
   checkbox.addEventListener("change", function () {
     // Se attivo la checkbox...
     if (checkbox.checked) {
@@ -157,7 +158,7 @@ var _loop = function _loop(i) {
   }); // Al caricamento dell'edit riprendo i vecchi valori
 
   if (checkbox.checked) {
-    addToCart(dishName, i, dishNumber); // attivo anche la select
+    addToCart(dishName, firstID, dishNumber); // attivo anche la select
 
     select.removeAttribute("disabled"); // Quanitità del value della select
 
@@ -187,6 +188,8 @@ var _loop = function _loop(i) {
       prezzoTotaleDB.value = sumArray(selectedDishes);
     });
   }
+
+  firstID = firstID + 1;
 };
 
 for (var i = 1; i <= inputCheckbox.length; i++) {

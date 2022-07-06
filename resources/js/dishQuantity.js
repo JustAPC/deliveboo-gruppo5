@@ -6,15 +6,16 @@ const inputCheckbox = document.querySelectorAll(".form-check-input");
 let selectedDishes = [];
 let prezzoTotale = document.getElementById("prezzoTotale");
 let prezzoTotaleDB = document.getElementById("prezzoTotaleDB");
+let firstID = dishes[0].id;
 
 for (let i = 1; i <= inputCheckbox.length; i++) {
     // Singola checkbox
-    let checkbox = document.getElementById(`dish-checkbox-${i}`);
+    let checkbox = document.getElementById(`dish-checkbox-${firstID}`);
     // Singola select
-    let select = document.getElementById(`dish-quantity-${i}`);
+    let select = document.getElementById(`dish-quantity-${firstID}`);
     // Quantità selezionata
     let dishNumber = 1;
-    let dishName = document.getElementById(`dish-${i}`).textContent;
+    let dishName = document.getElementById(`dish-${firstID}`).textContent;
 
     checkbox.addEventListener("change", () => {
         // Se attivo la checkbox...
@@ -67,7 +68,7 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
 
     // Al caricamento dell'edit riprendo i vecchi valori
     if (checkbox.checked) {
-        addToCart(dishName, i, dishNumber);
+        addToCart(dishName, firstID, dishNumber);
         // attivo anche la select
         select.removeAttribute("disabled");
         // Quanitità del value della select
@@ -98,6 +99,7 @@ for (let i = 1; i <= inputCheckbox.length; i++) {
             prezzoTotaleDB.value = sumArray(selectedDishes);
         });
     }
+    firstID = firstID + 1;
 }
 
 // Funzione per sommare il prezzo dell'array di oggetti dishes

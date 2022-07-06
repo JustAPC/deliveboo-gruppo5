@@ -20,7 +20,7 @@
 
 
 
-    <div class="container mt-5 pt-5">
+    <div class="container mt-5 pt-5 ">
 
         <h1 class="mb-5 pt-5">Inserisci un nuovo piatto</h1>
 
