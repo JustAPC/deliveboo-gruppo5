@@ -27,8 +27,8 @@
         <li>Telefono: {{ $order->customer_phone }}</li>
 
         @foreach ($order->Dishesorder as $dish)
-            <li>{{ $dish->name }}</li>
-            <span class="ms-4">{{ $dish->quantity }}</span>
+            <li><span class="ms-4">{{ $dish->pivot->quantity }}</span> {{ $dish->name }}</li>
+            
         @endforeach
 
         <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form"

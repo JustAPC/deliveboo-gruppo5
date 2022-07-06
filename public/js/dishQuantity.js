@@ -94,42 +94,74 @@
 /***/ (function(module, exports) {
 
 // const { filter } = require("lodash");
-// const inputCheckbox = document.querySelectorAll(".form-check-input");
-// let selectedDishes = [];
-// for (let i = 1; i <= inputCheckbox.length; i++) {
-//     console.log("ciao");
-//     let checkbox = document.getElementById(`dish-checkbox-${i}`);
-//     let select = document.getElementById(`dish-select-${i}`);
-//     let dishNumber = "";
-//     checkbox.addEventListener("change", () => {
-//         if (checkbox.checked) {
-//             select.removeAttribute("disabled");
-//             let singleDish = {
-//                 dish_id: checkbox.id,
-//                 quantity: 1,
-//                 total_price: dishes[i - 1].price,
-//             };
-//             selectedDishes.push(singleDish);
-//             console.log(selectedDishes);
-//             select.addEventListener("change", () => {
-//                 dishNumber = select.value;
-//                 singleDish.quantity = dishNumber;
-//                 singleDish.total_price = dishes[i - 1].price * dishNumber;
-//                 console.log(selectedDishes);
-//             });
-//         } else {
-//             select.setAttribute("disabled", "");
-//             selectedDishes = selectedDishes.filter(
-//                 (data) => data.dish_id != checkbox.id
-//             );
-//             console.log(selectedDishes);
-//         }
-//     });
-// }
+// Seleziono tutte le checkbox
+var inputCheckbox = document.querySelectorAll(".form-check-input"); // Array che contiene tutti i piatti e quantità selezionate
+
 var selectedDishes = [];
 
-function dishSelection(e) {
-  console.log(e);
+var _loop = function _loop(i) {
+  // Singola checkbox
+  var checkbox = document.getElementById("dish-checkbox-".concat(i)); // Singola select
+
+  var select = document.getElementById("dish-select-".concat(i)); // Div che mostra prezzo totale
+
+  var prezzoTotale = document.getElementById("prezzoTotale"); // Quantità selezionata
+
+  var dishNumber = "";
+  checkbox.addEventListener("change", function () {
+    // Se attivo la checkbox...
+    if (checkbox.checked) {
+      // attivo anche la select
+      select.removeAttribute("disabled"); // Creo il singolo piatto
+
+      var singleDish = {
+        dish_id: checkbox.id,
+        quantity: 1,
+        total_price: dishes[i - 1].price
+      }; // Push il piatto nell'array
+
+      selectedDishes.push(singleDish); // Stampo il prezzo
+
+      prezzoTotale.innerHTML = sumArray(selectedDishes) + "$"; // Se cambio il valore 1 nella select...
+
+      select.addEventListener("change", function () {
+        // La nuova quantità sarà il value della select
+        dishNumber = select.value; // Modifico la quantità del singolo piatto
+
+        singleDish.quantity = dishNumber; // Modifico il il prezzo totale del singolo piatto
+
+        singleDish.total_price = dishes[i - 1].price * dishNumber; // Stampo il prezzo
+
+        prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+      }); // Se disattivo la checkbox...
+    } else {
+      // Disattivo anche la select
+      select.setAttribute("disabled", ""); // Riporto il valore della select a 1
+
+      select.value = 1; // Tolgo il piatto selezionato dall'array
+
+      selectedDishes = selectedDishes.filter(function (data) {
+        return data.dish_id != checkbox.id;
+      }); // Stampo il nuovo prezzo
+
+      prezzoTotale.innerHTML = sumArray(selectedDishes) + "$";
+    }
+  });
+};
+
+for (var i = 1; i <= inputCheckbox.length; i++) {
+  _loop(i);
+} // Funzione per sommare il prezzo dell'array di oggetti dishes
+
+
+function sumArray(array) {
+  var totalPrice = 0;
+
+  for (var _i = 0; _i < array.length; _i++) {
+    totalPrice += parseFloat(array[_i].total_price);
+  }
+
+  return totalPrice;
 }
 
 /***/ }),
@@ -141,7 +173,7 @@ function dishSelection(e) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
+module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
 
 
 /***/ })

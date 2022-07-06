@@ -21,7 +21,7 @@
         <div>
             <label for="name">Indirizzo:</label>
             <input type="text" id="customer_address" name="customer_address"
-                value="{{ old('customer_address', $order->address) }}" class="mx-3">
+                value="{{ old('customer_address', $order->customer_address) }}" class="mx-3">
         </div>
 
         <div>
