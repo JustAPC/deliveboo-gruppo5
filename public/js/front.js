@@ -1981,20 +1981,31 @@ __webpack_require__.r(__webpack_exports__);
   },
   data: function data() {
     return {
-      types: []
+      types: [],
+      restaurants: [],
+      ricerca: ''
     };
   },
   methods: {
-    getRestaurants: function getRestaurants() {
+    getType: function getType() {
       var _this = this;
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
         _this.types = res.data.types;
         console.log(_this.types);
       });
+    },
+    getRestaurants: function getRestaurants() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca).then(function (res) {
+        _this2.restaurants = res.data.types;
+        console.log(_this2.restaurants);
+      });
     }
   },
   mounted: function mounted() {
+    this.getType();
     this.getRestaurants();
   }
 });
@@ -2155,39 +2166,46 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("carousel", {
-    staticClass: "mt-4",
+  return _c("div", [_c("div", [_c("select", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.ricerca,
+      expression: "ricerca"
+    }],
+    staticClass: "my-3 mx-5",
     attrs: {
-      "per-page-custom": [[320, 1], [481, 2], [769, 4], [1024, 4], [1441, 6]]
+      name: "",
+      id: ""
+    },
+    on: {
+      change: [function ($event) {
+        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
+          return o.selected;
+        }).map(function (o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val;
+        });
+        _vm.ricerca = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
+      }, _vm.getRestaurants]
     }
-  }, _vm._l(_vm.types, function (type) {
-    return _c("slide", {
+  }, [_c("option", {
+    attrs: {
+      value: ""
+    }
+  }, [_vm._v("Seleziona un genere")]), _vm._v(" "), _vm._l(_vm.types, function (type) {
+    return _c("option", {
       key: type.id,
-      staticClass: "d-flex justify-content-center"
-    }, [_c("div", {
-      staticClass: "card",
-      staticStyle: {
-        width: "14rem"
+      domProps: {
+        value: type.id
       }
-    }, [_c("img", {
-      staticClass: "img-fluid card-img-top",
-      attrs: {
-        src: __webpack_require__(/*! ../../../../public/storage/img/hamburger.jpg */ "./storage/app/public/img/hamburger.jpg"),
-        alt: "..."
-      }
-    }), _vm._v(" "), _c("div", {
-      staticClass: "card-body"
-    }, [_c("h3", {
-      staticClass: "card-title text-center",
-      attrs: {
-        id: type.id
-      }
-    }, [_vm._v("\r\n                            " + _vm._s(type.name) + "\r\n                        ")])])])]);
-  }), 1), _vm._v(" "), _c("div", _vm._l(_vm.types, function (element) {
-    return _c("p", {
-      key: element.id
-    }, [_vm._v(_vm._s(element.restaurants.name))]);
-  }), 0)], 1);
+    }, [_vm._v(_vm._s(type.name))]);
+  })], 2)]), _vm._v(" "), _c("div", _vm._l(_vm.restaurants.restaurants, function (restaurant) {
+    return _c("h1", {
+      key: restaurant.id,
+      staticClass: "text-center"
+    }, [_vm._v(_vm._s(restaurant.name))]);
+  }), 0)]);
 };
 
 var staticRenderFns = [];
@@ -18615,17 +18633,6 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
-
-/***/ }),
-
-/***/ "./storage/app/public/img/hamburger.jpg":
-/*!**********************************************!*\
-  !*** ./storage/app/public/img/hamburger.jpg ***!
-  \**********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/hamburger.jpg?9365729e99a3afb410d5c67c4b8fa586";
 
 /***/ }),
 

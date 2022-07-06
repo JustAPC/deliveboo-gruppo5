@@ -1,22 +1,14 @@
 <template>
     <div>
-     <carousel class="mt-4" :per-page-custom="[[320, 1],[481, 2],[769, 4],[1024, 4],[1441, 6],]"
-            >
-            <slide class="d-flex justify-content-center" v-for="type in types" :key="type.id">
-                <div class="card" style="width: 14rem" >
-                    <img class="img-fluid card-img-top"
-                    src="../../../../public/storage/img/hamburger.jpg" alt="..."/>
-                    <div class="card-body">
-                        <h3 class="card-title text-center" :id="type.id">
-                            {{ type.name }}
-                        </h3>
-                    </div>
-                </div>
-            </slide>
-        </carousel>
 
         <div>
-            <p v-for="element in types" :key="element.id">{{element.restaurants.name}}</p>
+            <select class="my-3 mx-5" name="" id=""  v-model="ricerca" @change="getRestaurants">
+                <option value="">Seleziona un genere</option>
+                <option :value="type.id" v-for="type in types" :key="type.id">{{type.name}}</option>
+            </select>
+        </div>
+        <div>
+            <h1 class="text-center" v-for="restaurant in restaurants.restaurants" :key="restaurant.id">{{restaurant.name}}</h1>
         </div>
     </div>
 </template>
@@ -35,11 +27,12 @@ export default {
     data() {
         return {
             types:[],
-     
+            restaurants:[],
+            ricerca:''
         };
     },
     methods: {
-        getRestaurants() {
+        getType() {
             axios
                 .get(`http://127.0.0.1:8000/api/types` )
                 .then((res) => {
@@ -50,10 +43,23 @@ export default {
                 });
             
         },
-  
+        getRestaurants() {
+            axios
+                .get(`http://127.0.0.1:8000/api/types/`+this.ricerca )
+                .then((res) => {
+                    
+                    this.restaurants = res.data.types;
+                    console.log(this.restaurants);
+                    
+                });
+            
+        },
+
+    
 
     },
     mounted() {
+        this.getType();
         this.getRestaurants();
      
     },
