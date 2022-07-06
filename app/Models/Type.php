@@ -8,6 +8,6 @@ class Type extends Model
 {
     public function Restaurants()
     {
-        return $this->belongsToMany('App\Models\Restaurant');
+        return $this->belongsToMany('App\User');
     }
 }

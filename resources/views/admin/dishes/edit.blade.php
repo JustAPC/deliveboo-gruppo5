@@ -7,6 +7,7 @@
 
 @section('content')
     @if ($errors->any())
+        {{-- Se sono presenti errori backend --}}
         <div class="alert alert-danger">
             <ul>
                 @foreach ($errors->all() as $error)
@@ -48,10 +49,10 @@
 
             <label for="dishcategory">Categoria Piatto:</label>
             <select name="dishcategory_id" id="dishcategory">
-                <option value="">Scegli una categoria...</option>
+                <option disabled>Scegli una categoria...</option>
                 @foreach ($dishcategories as $category)
-                    <option @if (old('dishcategory_id', $dish->dishcategory_id) == $category->id) selected @endif value="{{ $category->id }}"
-                        class="text-capitalize">{{ $category->name }}
+                    <option @if (old('dishcategory_id', $dish->dishcategory_id) == $category->id) selected @endif value="{{ $category->id }}">
+                        {{ $category->name }}
                     </option>
                 @endforeach
             </select>
@@ -60,6 +61,7 @@
                 <p>Immagine del piatto:</p>
                 <input id="myfiles" name="image" type="file" accept="image/*">
                 <button id="file_remove" disabled>Rimuovi</button>
+                <div id="img-preview"></div>
                 <div class="mt-5">
                     <label for="image_url">oppure</label>
                     <input type="url" name="image" id="image_url" class="mx-3">

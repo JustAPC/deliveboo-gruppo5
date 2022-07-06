@@ -6,6 +6,18 @@
 
 
 @section('content')
+    @if ($errors->any())
+        {{-- Se sono presenti errori backend --}}
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+
     <div class="container">
         <form action="{{ route('admin.dishes.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
@@ -32,10 +44,10 @@
             <input type="text" id="description" name="description" value="{{ old('description') }}" class="mx-3">
 
             <span>Categoria Piatto:</span>
-            <select name="dishcategory_id" id="dishcategory">
-                <option value="">Scegli una categoria...</option>
+            <select name="dishcategory_id" id="dishcategory_id">
+                <option disabled selected>Scegli una categoria...</option>
                 @foreach ($dishcategories as $category)
-                    <option value="{{ $category->id }}" class="text-capitalize">{{ $category->name }}</option>
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
                 @endforeach
             </select>
 
@@ -43,6 +55,7 @@
                 <p>Immagine del piatto:</p>
                 <input id="myfiles" name="image" type="file" accept="image/*">
                 <button id="file_remove" disabled>Rimuovi</button>
+                <div id="img-preview"></div>
                 <div class="mt-5">
                     <label for="image_url">oppure</label>
                     <input type="url" name="image" id="image_url" class="mx-3">
