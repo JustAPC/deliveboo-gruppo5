@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -17418,14 +17418,14 @@ function getImgData() {
 
 /***/ }),
 
-/***/ 1:
+/***/ 3:
 /*!*******************************************!*\
   !*** multi ./resources/js/imageUpload.js ***!
   \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
 
 
 /***/ })
