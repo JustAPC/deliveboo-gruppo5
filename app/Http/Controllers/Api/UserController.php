@@ -52,7 +52,9 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $restaurants=User::with('Dishes', 'UserType')->find($id);
+        return response()->json(compact('restaurants'));
+        
     }
 
     /**
