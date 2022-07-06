@@ -93,7 +93,7 @@
                                 <div>
 
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
-                                        name="dishes[]" value="{{ $dish->id }}"
+                                        name="dishes[]" value="{{ $dish->id }}" onchange="prova()"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     <span id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
 

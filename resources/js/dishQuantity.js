@@ -1,3 +1,6 @@
+function prova() {
+    console.log("ciao");
+}
 // const { filter } = require("lodash");
 
 // Seleziono tutte le checkbox
