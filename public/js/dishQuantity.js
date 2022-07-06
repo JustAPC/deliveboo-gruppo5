@@ -98,15 +98,15 @@
 var inputCheckbox = document.querySelectorAll(".form-check-input"); // Array che contiene tutti i piatti e quantità selezionate
 
 var selectedDishes = [];
+var prezzoTotale = document.getElementById("prezzoTotale");
+var prezzoTotaleDB = document.getElementById("prezzoTotaleDB");
 
 var _loop = function _loop(i) {
   // Singola checkbox
   var checkbox = document.getElementById("dish-checkbox-".concat(i)); // Singola select
 
   var select = document.getElementById("dish-select-".concat(i)); // Div che mostra prezzo totale
-
-  var prezzoTotale = document.getElementById("prezzoTotale");
-  var prezzoTotaleDB = document.getElementById("prezzoTotaleDB"); // Quantità selezionata
+  // Quantità selezionata
 
   var dishNumber = "";
   checkbox.addEventListener("change", function () {
