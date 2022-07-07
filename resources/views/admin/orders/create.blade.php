@@ -4,7 +4,7 @@
     {{-- <script defer src="{{ asset('js/dishQuantity.js') }}"></script> --}}
     <style>
         .cart {
-            height: 200px;
+            height: 400px;
             overflow: auto;
         }
     </style>
@@ -28,8 +28,8 @@
                 document.querySelector(".cart").innerHTML +=
                     `<div class="cart-item" id="item-${e}">
                     <p class="dish-name-${e}">Piatto: ${dishName}</p>
-                    <p id="dish-quantity-${e}">Quantità: ${quantity}</p>
                     <p class="dish-price-${e}">${price}</p>
+                    <p class="dish-quantity-${e}">Quantità: ${quantity}</p>
                 </div>`;
                 stampaPrezzo.innerHTML = totalPrice(priceSum) + "€";
             } else {
@@ -52,15 +52,17 @@
         }
 
         function updateCart(e) {
-            const quantity = document.getElementById(`dish-quantity-${e}`).value;
+            let quantity = document.getElementById(`dish-quantity-${e}`).value;
             const checkbox = document.getElementById(`dish-checkbox-${e}`);
-            let dishquantity = document.getElementById(`dish-quantity-${e}`)
+            let dishquantity = document.querySelector(`.dish-quantity-${e}`)
+            let cartItem = document.getElementById(`item-${e}`);
 
             if (checkbox.checked) {
-                dishquantity.innerHTML =
-                    `<p id="dish-quantity-${e}">Quantità: ${quantity}</p>`;
+                dishquantity.remove();
+                cartItem.innerHTML +=
+                    `<p class="dish-quantity-${e}">Quantità: ${quantity}</p>`;
             } else {
-                dishquantity.innerHTML = ""
+                cartItem.innerHTML = ""
             }
         }
     </script>
