@@ -2203,7 +2203,7 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\n                        This is a wider card with supporting text below as a\n                        natural lead-in to additional content. This content is a\n                        little bit longer.\n                    ")]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
+    }), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
   }), 0)]);
 };
 
