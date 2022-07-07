@@ -31,10 +31,25 @@
                 </div>
             </div>
         </div>
+      </div>
     </div>
+    <div>
+      <div class="card mb-3" v-for="restaurant in restaurants" :key="restaurant.id" v-if="restaurant.id">
+        <img :src="restaurant.restaurant_img" class="card-img-top img-fluid" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title">{{ restaurant.name }}</h5>
+          <p class="card-text"></p>
+          <p class="card-text">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+<<<<<<< HEAD
     import axios from "axios";
     import {
         Carousel,
@@ -100,6 +115,60 @@
         },
     };
 
+=======
+  import axios from "axios";
+  import { Carousel, Slide, Navigation } from "vue-carousel";
+
+  export default {
+    name: "Restaurant",
+    components: {
+      Carousel,
+      Slide,
+      Navigation,
+    },
+    data() {
+      return {
+        types: [],
+        restaurants: [],
+        checkedCategories: [],
+      };
+    },
+    methods: {
+      getData() {
+        axios.get(`http://127.0.0.1:8000/api/restaurants`).then((res) => {
+          const { restaurants, types } = res.data;
+          this.restaurants = restaurants;
+          this.types = types;
+        });
+      },
+      typeFiltering(type) {
+        axios
+          .get("http://127.0.0.1:8000/api/restaurants", {
+            params: {
+              type: type,
+            },
+          })
+          .then((res) => {
+            const { restaurant } = res.data;
+            this.restaurants = restaurant;
+          });
+      },
+      check(event) {
+        if (event.target.checked) {
+          this.typeFiltering(this.checkedCategories);
+        } else if (this.checkedCategories == "") {
+          this.getData();
+        } else {
+          this.typeFiltering(this.checkedCategories);
+        }
+      },
+    },
+
+    beforeMount() {
+      this.getData();
+    },
+  };
+>>>>>>> f86c567832b7d3a6a7d293bd86a571274fb6aff3
 </script>
 
 

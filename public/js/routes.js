@@ -2209,7 +2209,11 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
+<<<<<<< HEAD
     }, [_vm._v("\r\n                        This is a wider card with supporting text below as a\r\n                        natural lead-in to additional content. This content is a\r\n                        little bit longer.\r\n                    ")]), _vm._v(" "), _vm._m(0, true)])]);
+=======
+    }), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
+>>>>>>> f86c567832b7d3a6a7d293bd86a571274fb6aff3
   }), 0)]);
 };
 
