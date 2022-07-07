@@ -2,7 +2,7 @@
     <div>
         <div class="hero">
             <nav
-                class="navbar navbar-expand-lg navbar-light bg-light sticky-top"
+                class="navbar navbar-expand-lg navbar-light bg-light fixed-top"
             >
                 <div class="d-flex align-items-center">
                     <img

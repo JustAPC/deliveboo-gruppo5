@@ -2072,7 +2072,7 @@ var render = function render() {
   return _c("div", [_c("div", {
     staticClass: "hero"
   }, [_c("nav", {
-    staticClass: "navbar navbar-expand-lg navbar-light bg-light sticky-top"
+    staticClass: "navbar navbar-expand-lg navbar-light bg-light fixed-top"
   }, [_c("div", {
     staticClass: "d-flex align-items-center"
   }, [_c("img", {
@@ -2186,9 +2186,7 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("div", [_c("div", {
-    staticClass: "drop-down-menu my-5"
-  }, [_c("div", {
+  }, [_c("div", {}, [_c("div", {
     "class": ["menu-item", _vm.active ? "block" : "hidden", "bg-color-full", "rounded-2xl"]
   }, [_c("ul", {
     staticClass: "ks-cboxtags text-stone-500"
@@ -2237,7 +2235,7 @@ var render = function render() {
         "for": type.name
       }
     }, [_vm._v(_vm._s(type.name))])]);
-  }), 0)])])]), _vm._v(" "), _c("div", _vm._l(_vm.restaurants, function (restaurant) {
+  }), 0)])]), _vm._v(" "), _c("div", _vm._l(_vm.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card mb-3"

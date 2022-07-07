@@ -1,18 +1,21 @@
 <template>
     <div class="container">
-        <div>
-            <div class="drop-down-menu my-5">
-                
-                <div :class="['menu-item', active ? 'block' : 'hidden', 'bg-color-full', 'rounded-2xl']">
-                    <ul class="ks-cboxtags text-stone-500">
-                        <li v-for="type in types" :key="type.id">
-                            <input type="checkbox" @change="check($event)" v-model="checkedCategories" :value="type.id"
-                                :id="type.name">
-                            <label :for="type.name">{{ type.name }}</label>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+        <div class="">
+
+          
+               
+                    <div :class="['menu-item', active ? 'block' : 'hidden', 'bg-color-full', 'rounded-2xl']">
+                        <ul class="ks-cboxtags text-stone-500">
+                            <li v-for="type in types" :key="type.id">
+                                <input type="checkbox" @change="check($event)" v-model="checkedCategories"
+                                    :value="type.id" :id="type.name">
+                                <label :for="type.name">{{ type.name }}</label>
+                            </li>
+                        </ul>
+                    </div>
+               
+   
+
 
         </div>
         <div>
