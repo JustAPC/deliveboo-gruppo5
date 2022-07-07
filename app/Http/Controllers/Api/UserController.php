@@ -19,7 +19,7 @@ class UserController extends Controller
         $parameters = $request->query('type');
 
         if ($parameters) {
-            $restaurants = User::with(['UsersType'])->whereHas('types', function ($q) use ($parameters) {
+            $restaurants = User::with(['UsersType'])->whereHas('UsersType', function ($q) use ($parameters) {
                 $q->whereIn('type_user.type_id', $parameters);
             })->get();
 
@@ -61,11 +61,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $restaurant = User::with(['types',])->where('id', $id)->first();
+        $restaurant = User::with(['UsersType',])->where('id', $id)->first();
 
         $dishes = $restaurant->Dishes()->where('available', 1)->get();
 
-        return response()->json(compact('restaurants', 'dishes'));
+        return response()->json(['restaurant' => $restaurant, 'dishes' => $dishes, 'success' => true,]);
     }
 
     /**

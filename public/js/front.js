@@ -2231,7 +2231,7 @@ var render = function render() {
         "for": type.id
       }
     }, [_vm._v(_vm._s(type.name))])]);
-  }), 0)]), _vm._v(" "), _c("div", [_vm._l(_vm.restaurants, function (restaurant) {
+  }), 0)]), _vm._v(" "), _c("div", _vm._l(_vm.restaurants, function (restaurant) {
     return restaurant.id ? _c("div", {
       key: restaurant.id,
       staticClass: "card mb-3"
@@ -2248,36 +2248,10 @@ var render = function render() {
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v("\n                        This is a wider card with supporting text below as a\n                        natural lead-in to additional content. This content is a\n                        little bit longer.\n                    ")]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
-  }), _vm._v("\n\n            //\n            "), _vm._l(_vm.restaurants.restaurants, function (restaurant) {
-    return _c("div", {
-      key: restaurant.id,
-      staticClass: "card mb-3"
-    }, [_vm._v("\n                //\n                "), _c("img", {
-      staticClass: "card-img-top img-fluid",
-      attrs: {
-        src: restaurant.restaurant_img,
-        alt: "..."
-      }
-    }), _vm._v("\n                //\n                "), _c("div", {
-      staticClass: "card-body"
-    }, [_vm._v("\n                    //\n                    "), _c("h5", {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(restaurant.restaurant_name))]), _vm._v("\n                    //\n                    "), _c("p", {
-      staticClass: "card-text"
-    }, [_vm._v("\n                        This is a wider card with supporting text below as a\n                        natural lead-in to // additional content. This content\n                        is a little bit longer.\n                    ")]), _vm._v("\n                    //\n                    "), _vm._m(1, true), _vm._v("\n                    //\n                ")]), _vm._v("\n                //\n            ")]);
-  })], 2)]);
+  }), 0)]);
 };
 
 var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("p", {
-    staticClass: "card-text"
-  }, [_c("small", {
-    staticClass: "text-muted"
-  }, [_vm._v("Last updated 3 mins ago")])]);
-}, function () {
   var _vm = this,
       _c = _vm._self._c;
 

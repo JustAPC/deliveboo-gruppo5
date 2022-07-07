@@ -54,6 +54,7 @@ class User extends Authenticatable
 
     public function UsersType()
     {
-        return $this->belongsToMany('App\Models\Type');
+        return $this->belongsToMany('App\Models\Type')
+            ->withPivot('type_id', 'user_id');
     }
 }
