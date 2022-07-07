@@ -23,13 +23,11 @@
                 <img :src="restaurant.restaurant_img" class="card-img-top img-fluid" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">{{ restaurant.name }}</h5>
-                    <p class="card-text">
-                        This is a wider card with supporting text below as a
-                        natural lead-in to additional content. This content is a
-                        little bit longer.
+                    <p class="card-text ">
+                       Indirizzo: {{restaurant.address}}, {{restaurant.zip}} ,{{restaurant.city}}
                     </p>
                     <p class="card-text">
-                        <small class="text-muted">Last updated 3 mins ago</small>
+                        <small class="text-muted">Contatti: {{restaurant.phone_number}}</small>
                     </p>
                 </div>
             </div>
@@ -93,9 +91,7 @@
                     this.typeFiltering(this.checkedCategories);
                 }
             },
-            setActive() {
-                this.active = !this.active;
-            }
+         
         },
 
         beforeMount() {

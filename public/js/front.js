@@ -2018,9 +2018,6 @@ __webpack_require__.r(__webpack_exports__);
       } else {
         this.typeFiltering(this.checkedCategories);
       }
-    },
-    setActive: function setActive() {
-      this.active = !this.active;
     }
   },
   beforeMount: function beforeMount() {
@@ -2251,20 +2248,15 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\r\n                        This is a wider card with supporting text below as a\r\n                        natural lead-in to additional content. This content is a\r\n                        little bit longer.\r\n                    ")]), _vm._v(" "), _vm._m(0, true)])]);
+    }, [_vm._v("\r\n                       Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\r\n                    ")]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_c("small", {
+      staticClass: "text-muted"
+    }, [_vm._v("Contatti: " + _vm._s(restaurant.phone_number))])])])]);
   }), 0)]);
 };
 
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("p", {
-    staticClass: "card-text"
-  }, [_c("small", {
-    staticClass: "text-muted"
-  }, [_vm._v("Last updated 3 mins ago")])]);
-}];
+var staticRenderFns = [];
 render._withStripped = true;
 
 
