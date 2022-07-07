@@ -1983,7 +1983,7 @@ __webpack_require__.r(__webpack_exports__);
     return {
       types: [],
       restaurants: [],
-      ricerca: ''
+      ricerca: []
     };
   },
   methods: {
@@ -2004,7 +2004,7 @@ __webpack_require__.r(__webpack_exports__);
           console.log(_this2.restaurants);
         });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca).then(function (res) {
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca[0]).then(function (res) {
           _this2.restaurants = res.data.types;
           console.log(_this2.restaurants);
         });
@@ -2175,41 +2175,53 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("div", [_c("select", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.ricerca,
-      expression: "ricerca"
-    }],
-    staticClass: "my-4",
-    attrs: {
-      name: "",
-      id: ""
-    },
-    on: {
-      change: [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.ricerca = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.funzRicerca]
-    }
-  }, [_c("option", {
-    attrs: {
-      value: ""
-    }
-  }, [_vm._v("Seleziona un genere")]), _vm._v(" "), _vm._l(_vm.types, function (type) {
-    return _c("option", {
-      key: type.id,
+  }, [_c("div", [_c("div", {
+    staticClass: "d-flex"
+  }, _vm._l(_vm.types, function (type) {
+    return _c("div", {
+      key: type.id
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.ricerca,
+        expression: "ricerca"
+      }],
+      attrs: {
+        type: "checkbox",
+        name: "",
+        id: type.id
+      },
       domProps: {
-        value: type.id
+        value: type.id,
+        checked: Array.isArray(_vm.ricerca) ? _vm._i(_vm.ricerca, type.id) > -1 : _vm.ricerca
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.ricerca,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = type.id,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && (_vm.ricerca = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.ricerca = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.ricerca = $$c;
+          }
+        }, _vm.funzRicerca]
       }
-    }, [_vm._v(_vm._s(type.name))]);
-  })], 2)]), _vm._v(" "), _c("div", [_vm._l(_vm.restaurants, function (restaurant) {
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": type.id
+      }
+    }, [_vm._v(_vm._s(type.name))])]);
+  }), 0)]), _vm._v(" "), _c("div", [_vm._l(_vm.restaurants, function (restaurant) {
     return restaurant.id ? _c("div", {
       key: restaurant.id,
       staticClass: "card mb-3"
@@ -18671,7 +18683,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })
