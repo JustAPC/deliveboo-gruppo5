@@ -58,7 +58,8 @@
             return {
                 types: [],
                 restaurants: [],
-                ricerca: []
+                ricerca: [],
+                filtred:[]
             };
         },
         methods: {
@@ -91,8 +92,13 @@
                         .get(`http://127.0.0.1:8000/api/types`)
                         .then((res) => {
 
-                            this.restaurants = res.data.types;
-                            console.log(this.restaurants);
+                            this.types = res.data.types;
+                            console.log(this.types);
+                            this.types.forEach(element, index => {
+                            if (element.id==this.ricerca[index]) {
+                                this.filtred.push(element);
+                            }
+                            });
                             
                         })
                 }

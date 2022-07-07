@@ -1963,7 +1963,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       types: [],
       restaurants: [],
-      ricerca: []
+      ricerca: [],
+      filtred: []
     };
   },
   methods: {
@@ -1972,7 +1973,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
         _this.types = res.data.types;
-        console.log(_this.types);
       });
     },
     funzRicerca: function funzRicerca() {
@@ -1981,12 +1981,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.ricerca == '') {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
           _this2.restaurants = res.data.restaurants;
-          console.log(_this2.restaurants);
         });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca[0]).then(function (res) {
-          _this2.restaurants = res.data.types;
-          console.log(_this2.restaurants);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
+          _this2.types = res.data.types;
+          console.log(_this2.types);
+
+          _this2.types.forEach(element, function (index) {
+            if (element.id == _this2.ricerca[index]) {
+              _this2.filtred.push(element);
+            }
+          });
         });
       }
     }
@@ -2208,7 +2213,7 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(restaurant.restaurant_name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(1, true)])]);
   })], 2)]);
