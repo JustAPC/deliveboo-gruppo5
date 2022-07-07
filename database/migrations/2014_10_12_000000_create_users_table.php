@@ -25,9 +25,9 @@ class CreateUsersTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('zip');
-            $table->string('vat');
-            $table->string('restaurant_name');
-            $table->string('restaurant_img');
+            $table->string('vat')->unique();
+            $table->string('restaurant_name')->unique();
+            $table->string('restaurant_img')->nullable();
             $table->timestamps();
         });
     }
