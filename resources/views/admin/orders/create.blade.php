@@ -1,13 +1,32 @@
 @extends('layouts.app')
 
 @section('optionalscripts')
-    <script defer src="{{ asset('js/dishQuantity.js') }}"></script>
+    {{-- <script defer src="{{ asset('js/dishQuantity.js') }}"></script> --}}
     <style>
         .cart {
             height: 200px;
             overflow: auto;
         }
     </style>
+    <script>
+        function prova(e) {
+            const checkbox = document.getElementById(`dish-checkbox-${e}`);
+            const select = document.getElementById(`dish-quantity-${e}`);
+            const quantity = select.value;
+            const dishName = document.getElementById(`dish-${e}`).textContent;
+            const price = document.getElementById(`dish-${e}-price`).textContent;
+            console.log(select);
+            console.log(quantity);
+            select.removeAttribute('disabled');
+            document.querySelector(
+                ".cart"
+            ).innerHTML += `<div class="cart-item" id="item-${e}">
+            <p class="dish-name">Piatto: ${dishName}</p>
+            <p class="dish-quantity">Quantità: ${quantity}</p>
+            <p class="dish-price">${price}</p>
+            </div>`;
+        }
+    </script>
 @endsection
 
 @section('content')
@@ -93,11 +112,11 @@
                                 <div>
 
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
-                                        name="dishes[]" value="{{ $dish->id }}" onchange="prova()"
+                                        name="dishes[]" value="{{ $dish->id }}" onchange="prova({{ $dish->id }})"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     <span id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
 
-                                    <span id="dish-price">{{ $dish->price }}€</span>
+                                    <span id="dish-{{ $dish->id }}-price">{{ $dish->price }}€</span>
 
                                     <input type="number" name="quantity[]" id="dish-quantity-{{ $dish->id }}" disabled
                                         style="width: 60px" min="1" value="1">

@@ -93,8 +93,12 @@
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-// const { filter } = require("lodash");
+function prova() {
+  console.log("ciao");
+} // const { filter } = require("lodash");
 // Seleziono tutte le checkbox
+
+
 var inputCheckbox = document.querySelectorAll(".form-check-input"); // Array che contiene tutti i piatti e quantità selezionate
 
 var selectedDishes = [];
