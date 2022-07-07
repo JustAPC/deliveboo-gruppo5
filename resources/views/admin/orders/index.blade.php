@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="col-4">
                                     @forelse ($order->Dishesorder as $dish)
-                                        <p>-</p>
+                                        <p>{{ $dish->getOriginal('pivot_quantity') }}</p>
                                     @empty
                                         -
                                     @endforelse

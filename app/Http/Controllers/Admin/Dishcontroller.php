@@ -174,7 +174,8 @@ class Dishcontroller extends Controller
      */
     public function destroy(Dish $dish)
     {
-        $dish->delete();
+        $dish->available = 0;
+        $dish->update();
 
         return redirect()->route('admin.dishes.index', compact('dish'))->with('message-delete', "$dish->name");
     }
