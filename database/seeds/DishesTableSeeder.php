@@ -20,7 +20,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa con Spaghetti di Soia';
         $dish->ingredients = 'spaghetti di soia, zaicai e cipolla';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -30,7 +31,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa con Pollo e Mais';
         $dish->ingredients = 'pollo e mais';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -39,7 +41,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa Agro Piccante';
         $dish->ingredients = 'bambu, funghi, tofu e uova';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -48,7 +51,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa di Miso';
         $dish->ingredients = 'cipolla e tofu';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -57,7 +61,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Ramen';
         $dish->ingredients = 'polpa di granchio, carote, alghe e uova';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 8;
         $dish->save();
 
@@ -66,7 +71,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Yaki Udon';
         $dish->ingredients = 'frutto di mare, uova e verdure';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 8;
         $dish->save();
 
@@ -76,7 +82,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '3';
         $dish->ingredients = 'scampi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 3;
         $dish->save();
 
@@ -86,7 +93,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '3';
         $dish->ingredients = 'gamberoni rossi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 3;
         $dish->save();
 
@@ -96,7 +104,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '3';
         $dish->ingredients = 'salmone';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 3;
         $dish->save();
 
@@ -106,7 +115,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '4';
         $dish->ingredients = 'salmone, arachidi, maionese e salsa teriyaki';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 1;
         $dish->save();
 
@@ -116,7 +126,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '4';
         $dish->ingredients = 'spigola';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 1;
         $dish->save();
 
@@ -125,7 +136,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Ebi Tempura';
         $dish->ingredients = 'gamberi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 2;
         $dish->save();
 
@@ -134,7 +146,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Yashi Tempura';
         $dish->ingredients = 'verdure miste';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 2;
         $dish->save();
 
@@ -143,7 +156,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Tiramisù';
         $dish->ingredients = 'mascarpone, savoiardi, uova, caffè, zucchero, cacao in polvere';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 12;
         $dish->save();
 
@@ -153,7 +167,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '6';
         $dish->ingredients = 'riso, banane e nutella';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 12;
         $dish->save();
 
@@ -274,7 +289,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa con Spaghetti di Soia';
         $dish->ingredients = 'spaghetti di soia; zaicai e cipolla';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -284,7 +300,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa con Pollo e Mais';
         $dish->ingredients = 'pollo e mais';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -293,7 +310,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa Agro Piccante';
         $dish->ingredients = 'bambu, funghi, tofu e uova';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -302,7 +320,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Zuppa di Miso';
         $dish->ingredients = 'cipolla e tofu';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 7;
         $dish->save();
 
@@ -311,7 +330,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Ramen';
         $dish->ingredients = 'polpa di granchio, carote, alghe e uova';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 8;
         $dish->save();
 
@@ -320,7 +340,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Yaki Udon';
         $dish->ingredients = 'frutto di mare, uova e verdure';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 8;
         $dish->save();
 
@@ -330,7 +351,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '3';
         $dish->ingredients = 'scampi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 3;
         $dish->save();
 
@@ -340,7 +362,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '3';
         $dish->ingredients = 'gamberoni rossi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 3;
         $dish->save();
 
@@ -350,7 +373,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '3';
         $dish->ingredients = 'salmone';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 3;
         $dish->save();
 
@@ -360,7 +384,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '4';
         $dish->ingredients = 'salmone, arachidi, maionese e salsa teriyaki';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 1;
         $dish->save();
 
@@ -370,7 +395,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '4';
         $dish->ingredients = 'spigola';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 1;
         $dish->save();
 
@@ -379,7 +405,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Ebi Tempura';
         $dish->ingredients = 'gamberi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 2;
         $dish->save();
 
@@ -388,7 +415,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Yashi Tempura';
         $dish->ingredients = 'verdure miste';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 2;
         $dish->save();
 
@@ -397,7 +425,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Tiramisù';
         $dish->ingredients = 'mascarpone, savoiardi, uova, caffè, zucchero, cacao in polvere';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 12;
         $dish->save();
 
@@ -407,7 +436,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '6';
         $dish->ingredients = 'riso, banane e nutella';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->dishcategory_id = 12;
         $dish->save();
 
@@ -668,7 +698,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Pizza Margherita';
         $dish->ingredients = 'pomodoro, fior di latte, basilico';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -679,7 +710,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Marinara';
         $dish->ingredients = 'pomodoro, origano, aglio';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -689,7 +721,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Diavola';
         $dish->ingredients = 'pomodoro, fior di latte, salame piccante';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -699,7 +732,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Boscaiola';
         $dish->ingredients = 'fior di latte, funghi, salsiccia';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -709,7 +743,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Capricciosa';
         $dish->ingredients = 'pomodoro, fior di latte, funghi, uovo, carciofini, olive, prosciutto crudo';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -719,7 +754,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Vegetale';
         $dish->ingredients = 'fior di latte, verdure grigliate';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -729,7 +765,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Crostino';
         $dish->ingredients = 'fior di latte, prosciutto cotto';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -739,7 +776,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Quattro Formaggi';
         $dish->ingredients = 'fior di latte, provola, gorgonzola, emmentall';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -749,7 +787,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Bresaola';
         $dish->ingredients = 'bresaola, rucola, scaglie di parmigiano';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -759,7 +798,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Napoli';
         $dish->ingredients = 'pomodoro, fior di latte, alici';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = 'verdure miste';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -771,7 +811,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '1';
         $dish->ingredients = 'riso, ragù alla bolognese, pangrattato';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 11;
         $dish->save();
@@ -782,7 +823,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '4';
         $dish->ingredients = 'carne bovina, alive verdi, pangrattato';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 11;
         $dish->save();
@@ -793,7 +835,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '2';
         $dish->ingredients = 'patate bollite, pangrattato';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 11;
         $dish->save();
@@ -803,7 +846,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Pizza con nutella';
         $dish->ingredients = 'nutella';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 14;
         $dish->save();
@@ -813,7 +857,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Tiramisù';
         $dish->ingredients = 'mascarpone, savoiardi, uova, caffè, zucchero, cacao in polvere';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 12;
         $dish->save();
@@ -926,7 +971,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Pizza Margherita';
         $dish->ingredients = 'pomodoro, fior di latte, basilico';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -937,7 +983,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Marinara';
         $dish->ingredients = 'pomodoro, origano, aglio';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -947,7 +994,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Diavola';
         $dish->ingredients = 'pomodoro, fior di latte, salame piccante';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -957,7 +1005,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Boscaiola';
         $dish->ingredients = 'fior di latte, funghi, salsiccia';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -967,7 +1016,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Capricciosa';
         $dish->ingredients = 'pomodoro, fior di latte, funghi, uovo, carciofini, olive, prosciutto crudo';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -977,7 +1027,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Vegetale';
         $dish->ingredients = 'fior di latte, verdure grigliate';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -987,7 +1038,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Crostino';
         $dish->ingredients = 'fior di latte, prosciutto cotto';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -997,7 +1049,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Quattro Formaggi';
         $dish->ingredients = 'fior di latte, provola, gorgonzola, emmentall';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -1007,7 +1060,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Bresaola';
         $dish->ingredients = 'bresaola, rucola, scaglie di parmigiano';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -1017,7 +1071,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Napoli';
         $dish->ingredients = 'pomodoro, fior di latte, alici';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = 'verdure miste';
         $dish->dishcategory_id = 5;
         $dish->save();
@@ -1029,7 +1084,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '1';
         $dish->ingredients = 'riso, ragù alla bolognese, pangrattato';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 11;
         $dish->save();
@@ -1040,7 +1096,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '4';
         $dish->ingredients = 'carne bovina, alive verdi, pangrattato';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 11;
         $dish->save();
@@ -1051,7 +1108,8 @@ class DishesTableSeeder extends Seeder
         $dish->quantity = '2';
         $dish->ingredients = 'patate bollite, pangrattato';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 11;
         $dish->save();
@@ -1061,7 +1119,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Pizza con nutella';
         $dish->ingredients = 'nutella';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 14;
         $dish->save();
@@ -1071,7 +1130,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Tiramisù';
         $dish->ingredients = 'mascarpone, savoiardi, uova, caffè, zucchero, cacao in polvere';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 12;
         $dish->save();
@@ -1757,7 +1817,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Risotto alla crema di scampi';
         $dish->ingredients = 'riso, scampi, panna, pomodoro, olio';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 8;
         $dish->save();
@@ -1768,7 +1829,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Spaghettoni cozze e pecorino';
         $dish->ingredients = 'spaghettoni, cozze, pecorino, olio';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 8;
         $dish->save();
@@ -1778,7 +1840,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Cacio e pepe e gamberi rossi';
         $dish->ingredients = 'pecorino romano, pepe, tartare gamberi rossi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 8;
         $dish->save();
@@ -1954,7 +2017,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Risotto alla crema di scampi';
         $dish->ingredients = 'riso, scampi, panna, pomodoro, olio';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 8;
         $dish->save();
@@ -1964,7 +2028,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Spaghettoni cozze e pecorino';
         $dish->ingredients = 'spaghettoni, cozze, pecorino, olio';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 8;
         $dish->save();
@@ -1974,7 +2039,8 @@ class DishesTableSeeder extends Seeder
         $dish->name = 'Cacio e pepe e gamberi rossi';
         $dish->ingredients = 'pecorino romano, pepe, tartare gamberi rossi';
         $dish->available = 1;
-        $dish->price = $faker->randomFloat(2, 3, 25);
+        $dish->price = 1;
+        // $dish->price = $faker->randomFloat(2, 3, 25);
         $dish->description = '';
         $dish->dishcategory_id = 8;
         $dish->save();
