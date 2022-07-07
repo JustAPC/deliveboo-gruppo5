@@ -130,10 +130,14 @@ deleteForms.forEach(function (element) {
 /***/ (function(module, exports, __webpack_require__) {
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
 =======
 module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
 >>>>>>> 57868de36c19b203a985a1788e3b0c71b2079522
+=======
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
+>>>>>>> f86c567832b7d3a6a7d293bd86a571274fb6aff3
 
 
 /***/ })
