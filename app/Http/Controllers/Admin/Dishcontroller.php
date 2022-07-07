@@ -23,7 +23,7 @@ class Dishcontroller extends Controller
     public function index(Request $request)
     {
         $currentUserId = Auth::user()->id;
-
+        
         if ($request->has('name')) {
             $name = $request->query('name');
 
@@ -101,7 +101,11 @@ class Dishcontroller extends Controller
      */
     public function show(Dish $dish)
     {
-        return view('admin.dishes.show', compact('dish'));
+        if(Auth::id() == $dish->user_id){
+            return view('admin.dishes.show', compact('dish'));
+        }else{
+            return view('errors.notFound');
+        }
     }
 
     /**
@@ -112,9 +116,13 @@ class Dishcontroller extends Controller
      */
     public function edit(Dish $dish)
     {
-        $dishcategories = Dishcategory::all();
-
-        return view('admin.dishes.edit', compact('dish', 'dishcategories'));
+        if(Auth::id() == $dish->user_id){
+            $dishcategories = Dishcategory::all();
+            return view('admin.dishes.edit', compact('dish', 'dishcategories'));
+        }else{
+            return view('errors.notFound');
+        }
+        
     }
 
     /**
