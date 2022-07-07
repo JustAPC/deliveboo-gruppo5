@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="form-group floating col-md-2">
-                    <input type="number" id="price" name="price" required value="{{ old('price') }}"
+                    <input type="number" step=".01" id="price" name="price" required value="{{ old('price') }}"
                         class="form-control floating">
                     <div class="invalid-feedback">
                         Inserisci il prezzo
@@ -81,13 +81,17 @@
                 </div>
 
                 <div class="form-group floating col-md-4">
-                    <select required name="dishcategory_id" id="dishcategory_id" class="form-control floating">
-                        <option required disabled selected>Scegli una categoria...</option>
+                    <select name="dishcategory_id" id="dishcategory_id" class="form-control floating" required>
+                        <option disabled selected value="">Scegli una categoria...</option>
                         @foreach ($dishcategories as $category)
-                            <option required value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <label for="dishcategory_id">Categoria piatto</label>
+                    <div class="invalid-feedback">
+                        Seleziona una categoria
+                    </div>
+
+                    
                 </div>
             </div>
 
