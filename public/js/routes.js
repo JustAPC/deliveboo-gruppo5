@@ -1963,42 +1963,45 @@ __webpack_require__.r(__webpack_exports__);
     return {
       types: [],
       restaurants: [],
-      ricerca: [],
-      filtred: []
+      checkedCategories: []
     };
   },
   methods: {
-    getType: function getType() {
+    getData: function getData() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
-        _this.types = res.data.types;
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
+        var _res$data = res.data,
+            restaurants = _res$data.restaurants,
+            types = _res$data.types;
+        _this.restaurants = restaurants;
+        _this.types = types;
       });
     },
-    funzRicerca: function funzRicerca() {
+    typeFiltering: function typeFiltering(type) {
       var _this2 = this;
 
-      if (this.ricerca == '') {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
-          _this2.restaurants = res.data.restaurants;
-        });
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants", {
+        params: {
+          type: type
+        }
+      }).then(function (res) {
+        var restaurant = res.data.restaurant;
+        _this2.restaurants = restaurant;
+      });
+    },
+    check: function check(event) {
+      if (event.target.checked) {
+        this.typeFiltering(this.checkedCategories);
+      } else if (this.checkedCategories == "") {
+        this.getData();
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
-          _this2.types = res.data.types;
-          console.log(_this2.types);
-
-          _this2.types.forEach(element, function (index) {
-            if (element.id == _this2.ricerca[index]) {
-              _this2.filtred.push(element);
-            }
-          });
-        });
+        this.typeFiltering(this.checkedCategories);
       }
     }
   },
-  mounted: function mounted() {
-    this.getType();
-    this.funzRicerca();
+  beforeMount: function beforeMount() {
+    this.getData();
   }
 });
 
@@ -2145,8 +2148,8 @@ var render = function render() {
       directives: [{
         name: "model",
         rawName: "v-model",
-        value: _vm.ricerca,
-        expression: "ricerca"
+        value: _vm.checkedCategories,
+        expression: "checkedCategories"
       }],
       attrs: {
         type: "checkbox",
@@ -2155,11 +2158,11 @@ var render = function render() {
       },
       domProps: {
         value: type.id,
-        checked: Array.isArray(_vm.ricerca) ? _vm._i(_vm.ricerca, type.id) > -1 : _vm.ricerca
+        checked: Array.isArray(_vm.checkedCategories) ? _vm._i(_vm.checkedCategories, type.id) > -1 : _vm.checkedCategories
       },
       on: {
         change: [function ($event) {
-          var $$a = _vm.ricerca,
+          var $$a = _vm.checkedCategories,
               $$el = $event.target,
               $$c = $$el.checked ? true : false;
 
@@ -2168,14 +2171,16 @@ var render = function render() {
                 $$i = _vm._i($$a, $$v);
 
             if ($$el.checked) {
-              $$i < 0 && (_vm.ricerca = $$a.concat([$$v]));
+              $$i < 0 && (_vm.checkedCategories = $$a.concat([$$v]));
             } else {
-              $$i > -1 && (_vm.ricerca = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+              $$i > -1 && (_vm.checkedCategories = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
             }
           } else {
-            _vm.ricerca = $$c;
+            _vm.checkedCategories = $$c;
           }
-        }, _vm.funzRicerca]
+        }, function ($event) {
+          return _vm.check($event);
+        }]
       }
     }), _vm._v(" "), _c("label", {
       attrs: {
@@ -2198,24 +2203,24 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
-  }), _vm._v(" "), _vm._l(_vm.restaurants.restaurants, function (restaurant) {
+    }, [_vm._v("\n                        This is a wider card with supporting text below as a\n                        natural lead-in to additional content. This content is a\n                        little bit longer.\n                    ")]), _vm._v(" "), _vm._m(0, true)])]) : _vm._e();
+  }), _vm._v("\n\n            //\n            "), _vm._l(_vm.restaurants.restaurants, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card mb-3"
-    }, [_c("img", {
+    }, [_vm._v("\n                //\n                "), _c("img", {
       staticClass: "card-img-top img-fluid",
       attrs: {
         src: restaurant.restaurant_img,
         alt: "..."
       }
-    }), _vm._v(" "), _c("div", {
+    }), _vm._v("\n                //\n                "), _c("div", {
       staticClass: "card-body"
-    }, [_c("h5", {
+    }, [_vm._v("\n                    //\n                    "), _c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(restaurant.restaurant_name))]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(restaurant.restaurant_name))]), _vm._v("\n                    //\n                    "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(1, true)])]);
+    }, [_vm._v("\n                        This is a wider card with supporting text below as a\n                        natural lead-in to // additional content. This content\n                        is a little bit longer.\n                    ")]), _vm._v("\n                    //\n                    "), _vm._m(1, true), _vm._v("\n                    //\n                ")]), _vm._v("\n                //\n            ")]);
   })], 2)]);
 };
 

@@ -16,11 +16,20 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $restaurants = User::with('Dishes', 'UsersType')->get();
-        return response()->json(compact('restaurants'));
+        $parameters = $request->query('type');
 
-        
+        if ($parameters) {
+            $restaurants = User::with(['UsersType'])->whereHas('types', function ($q) use ($parameters) {
+                $q->whereIn('type_user.type_id', $parameters);
+            })->get();
 
+            return response()->json(['restaurant' => $restaurants, 'success' => true]);
+        }
+
+        $restaurants = User::with(['UsersType'])->get();
+        $types = Type::all();
+
+        return response()->json(['restaurants' => $restaurants, 'types' => $types, 'success' => true,]);
     }
 
     /**
@@ -52,9 +61,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $restaurants=User::with('Dishes', 'UserType')->find($id);
-        return response()->json(compact('restaurants'));
-        
+        $restaurant = User::with(['types',])->where('id', $id)->first();
+
+        $dishes = $restaurant->Dishes()->where('available', 1)->get();
+
+        return response()->json(compact('restaurants', 'dishes'));
     }
 
     /**
