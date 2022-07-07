@@ -9,22 +9,59 @@
         }
     </style>
     <script>
-        function prova(e) {
+        let priceSum = [];
+
+        function addToCart(e) {
             const checkbox = document.getElementById(`dish-checkbox-${e}`);
             const select = document.getElementById(`dish-quantity-${e}`);
-            const quantity = select.value;
+            let quantity = select.value;
             const dishName = document.getElementById(`dish-${e}`).textContent;
             const price = document.getElementById(`dish-${e}-price`).textContent;
-            console.log(select);
-            console.log(quantity);
-            select.removeAttribute('disabled');
-            document.querySelector(
-                ".cart"
-            ).innerHTML += `<div class="cart-item" id="item-${e}">
-            <p class="dish-name">Piatto: ${dishName}</p>
-            <p class="dish-quantity">Quantità: ${quantity}</p>
-            <p class="dish-price">${price}</p>
-            </div>`;
+            const cartItem = document.getElementById(`item-${e}`);
+            const stampaPrezzo = document.getElementById("prezzoTotale");
+
+            if (checkbox.checked) {
+                priceSum.push(price);
+                console.log(`Array prezzi: ${priceSum}`);
+                console.log(`Quantità appena selezionato: ${quantity}`);
+                select.removeAttribute('disabled');
+                document.querySelector(".cart").innerHTML +=
+                    `<div class="cart-item" id="item-${e}">
+                    <p class="dish-name-${e}">Piatto: ${dishName}</p>
+                    <p id="dish-quantity-${e}">Quantità: ${quantity}</p>
+                    <p class="dish-price-${e}">${price}</p>
+                </div>`;
+                stampaPrezzo.innerHTML = totalPrice(priceSum) + "€";
+            } else {
+                select.setAttribute("disabled", "");
+                select.value = 1;
+                if (cartItem) {
+                    cartItem.remove();
+                }
+                priceSum = priceSum.filter((data) => data != price)
+                stampaPrezzo.innerHTML = totalPrice(priceSum) + "€";
+            }
+
+            function totalPrice(array) {
+                let prezzoTotale = 0;
+                array.forEach(price => {
+                    prezzoTotale += parseFloat(price);
+                });
+                return prezzoTotale.toFixed(2);
+            }
+        }
+
+        function updateCart(e) {
+            const quantity = document.getElementById(`dish-quantity-${e}`).value;
+            const checkbox = document.getElementById(`dish-checkbox-${e}`);
+            let dishquantity = document.getElementById(`dish-quantity-${e}`)
+
+            if (checkbox.checked) {
+                dishquantity.innerHTML =
+                    `<p id="dish-quantity-${e}">Quantità: ${quantity}</p>`;
+            } else {
+                dishquantity.innerHTML = ""
+            }
         }
     </script>
 @endsection
@@ -112,15 +149,16 @@
                                 <div>
 
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
-                                        name="dishes[]" value="{{ $dish->id }}" onchange="prova({{ $dish->id }})"
+                                        name="dishes[]" value="{{ $dish->id }}"
+                                        onchange="addToCart({{ $dish->id }})"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     <span id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
 
                                     <span id="dish-{{ $dish->id }}-price">{{ $dish->price }}€</span>
 
                                     <input type="number" name="quantity[]" id="dish-quantity-{{ $dish->id }}" disabled
-                                        style="width: 60px" min="1" value="1">
-
+                                        style="width: 60px" min="1" value="1"
+                                        onchange="updateCart({{ $dish->id }})">
                                 </div>
                             @endif
                         @endforeach
