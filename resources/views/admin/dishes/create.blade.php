@@ -103,7 +103,7 @@
                     <div id="img-preview" class="pt-5"></div>
                 </div>
                 <div class="form-group col-md-8">
-                    <input type="url" name="image" id="image_url" class="form-control">
+                    <input type="url" name="image" id="image_url" class="form-control" value="{{ old('image') }}">
                     <label for="image_url">oppure inserisci url</label>
                 </div>
             </div>
