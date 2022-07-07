@@ -233,7 +233,11 @@ function updateCart(nome, e, quantity) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
+=======
+module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\dishQuantity.js */"./resources/js/dishQuantity.js");
+>>>>>>> 57868de36c19b203a985a1788e3b0c71b2079522
 
 
 /***/ })

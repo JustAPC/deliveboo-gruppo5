@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="form-group floating col-md-2">
-                    <input type="number" id="price" name="price" required value="{{ old('price') }}"
+                    <input type="number" step=".01" id="price" name="price" required value="{{ old('price') }}"
                         class="form-control floating">
                     <div class="invalid-feedback">
                         Inserisci il prezzo
@@ -81,13 +81,17 @@
                 </div>
 
                 <div class="form-group floating col-md-4">
-                    <select required name="dishcategory_id" id="dishcategory_id" class="form-control floating">
-                        <option required disabled selected>Scegli una categoria...</option>
+                    <select name="dishcategory_id" id="dishcategory_id" class="form-control floating" required>
+                        <option disabled selected value="">Scegli una categoria...</option>
                         @foreach ($dishcategories as $category)
-                            <option required value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
                         @endforeach
                     </select>
-                    <label for="dishcategory_id">Categoria piatto</label>
+                    <div class="invalid-feedback">
+                        Seleziona una categoria
+                    </div>
+
+                    
                 </div>
             </div>
 
@@ -99,7 +103,7 @@
                     <div id="img-preview" class="pt-5"></div>
                 </div>
                 <div class="form-group col-md-8">
-                    <input type="url" name="image" id="image_url" class="form-control">
+                    <input type="url" name="image" id="image_url" class="form-control" value="{{ old('image') }}">
                     <label for="image_url">oppure inserisci url</label>
                 </div>
             </div>
@@ -109,53 +113,6 @@
                 <button type="submit" class="btn btn-deliveboo w-25 h-75">Invia</button>
             </div>
 
-
-
-            {{-- VECCHIO INPUT QUANTITà --}}
-            {{-- <label for="quantity">Quantità:</label>
-            <input type="number" id="quantity" name="quantity" min="1" value="1"
-                value="{{ old('quantity') }}" class="mx-3"> --}}
-
-            {{-- VECCHIO INPUT INGREDIENTI --}}
-            {{-- <label for="ingredients">Ingredienti:</label>
-            <input type="text" id="ingredients" name="ingredients" value="{{ old('ingredients') }}" class="mx-3"> --}}
-
-            {{-- VECCHIO INPUT DISPONIBILE --}}
-            {{-- <label for="available">Disponibile:</label>
-            <select name="available" id="available">
-                <option value="1">Si</option>
-                <option value="0">No</option>
-            </select> --}}
-
-            {{-- VECCHIO INPUT PREZZO --}}
-            {{-- <label for="name">Prezzo:</label>
-            <input type="text" id="price" name="price" value="{{ old('price') }}" class="mx-3"> --}}
-
-            {{-- VECCHIO INPUT DESCRIZIONE --}}
-            {{-- <label for="description">Descrizione:</label>
-            <input type="text" id="description" name="description" value="{{ old('description') }}" class="mx-3"> --}}
-
-            {{-- VECCHIO INPUT CATEGORIA --}}
-            {{-- <span>Categoria Piatto:</span>
-            <select name="dishcategory_id" id="dishcategory_id">
-                <option disabled selected>Scegli una categoria...</option>
-                @foreach ($dishcategories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select> --}}
-
-            {{-- <div class="mt-5" style="padding-top: 200px">
-                <p>Immagine del piatto:</p>
-                <input id="myfiles" name="image" type="file" accept="image/*">
-                <button id="file_remove" disabled>Rimuovi</button>
-                <div id="img-preview"></div>
-                <div class="mt-5">
-                    <label for="image_url">oppure</label>
-                    <input type="url" name="image" id="image_url" class="mx-3">
-                </div>
-            </div> --}}
-
-            {{-- <button type="submit" class="mt-5">Invia</button> --}}
         </form>
     </div>
 @endsection

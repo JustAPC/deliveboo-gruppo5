@@ -1963,7 +1963,8 @@ __webpack_require__.r(__webpack_exports__);
     return {
       types: [],
       restaurants: [],
-      ricerca: ''
+      ricerca: [],
+      filtred: []
     };
   },
   methods: {
@@ -1972,7 +1973,6 @@ __webpack_require__.r(__webpack_exports__);
 
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
         _this.types = res.data.types;
-        console.log(_this.types);
       });
     },
     funzRicerca: function funzRicerca() {
@@ -1981,12 +1981,17 @@ __webpack_require__.r(__webpack_exports__);
       if (this.ricerca == '') {
         axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants").then(function (res) {
           _this2.restaurants = res.data.restaurants;
-          console.log(_this2.restaurants);
         });
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types/" + this.ricerca).then(function (res) {
-          _this2.restaurants = res.data.types;
-          console.log(_this2.restaurants);
+        axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/types").then(function (res) {
+          _this2.types = res.data.types;
+          console.log(_this2.types);
+
+          _this2.types.forEach(element, function (index) {
+            if (element.id == _this2.ricerca[index]) {
+              _this2.filtred.push(element);
+            }
+          });
         });
       }
     }
@@ -2131,41 +2136,53 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("div", [_c("select", {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: _vm.ricerca,
-      expression: "ricerca"
-    }],
-    staticClass: "my-4",
-    attrs: {
-      name: "",
-      id: ""
-    },
-    on: {
-      change: [function ($event) {
-        var $$selectedVal = Array.prototype.filter.call($event.target.options, function (o) {
-          return o.selected;
-        }).map(function (o) {
-          var val = "_value" in o ? o._value : o.value;
-          return val;
-        });
-        _vm.ricerca = $event.target.multiple ? $$selectedVal : $$selectedVal[0];
-      }, _vm.funzRicerca]
-    }
-  }, [_c("option", {
-    attrs: {
-      value: ""
-    }
-  }, [_vm._v("Seleziona un genere")]), _vm._v(" "), _vm._l(_vm.types, function (type) {
-    return _c("option", {
-      key: type.id,
+  }, [_c("div", [_c("div", {
+    staticClass: "d-flex"
+  }, _vm._l(_vm.types, function (type) {
+    return _c("div", {
+      key: type.id
+    }, [_c("input", {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: _vm.ricerca,
+        expression: "ricerca"
+      }],
+      attrs: {
+        type: "checkbox",
+        name: "",
+        id: type.id
+      },
       domProps: {
-        value: type.id
+        value: type.id,
+        checked: Array.isArray(_vm.ricerca) ? _vm._i(_vm.ricerca, type.id) > -1 : _vm.ricerca
+      },
+      on: {
+        change: [function ($event) {
+          var $$a = _vm.ricerca,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false;
+
+          if (Array.isArray($$a)) {
+            var $$v = type.id,
+                $$i = _vm._i($$a, $$v);
+
+            if ($$el.checked) {
+              $$i < 0 && (_vm.ricerca = $$a.concat([$$v]));
+            } else {
+              $$i > -1 && (_vm.ricerca = $$a.slice(0, $$i).concat($$a.slice($$i + 1)));
+            }
+          } else {
+            _vm.ricerca = $$c;
+          }
+        }, _vm.funzRicerca]
       }
-    }, [_vm._v(_vm._s(type.name))]);
-  })], 2)]), _vm._v(" "), _c("div", [_vm._l(_vm.restaurants, function (restaurant) {
+    }), _vm._v(" "), _c("label", {
+      attrs: {
+        "for": type.id
+      }
+    }, [_vm._v(_vm._s(type.name))])]);
+  }), 0)]), _vm._v(" "), _c("div", [_vm._l(_vm.restaurants, function (restaurant) {
     return restaurant.id ? _c("div", {
       key: restaurant.id,
       staticClass: "card mb-3"
@@ -2196,7 +2213,7 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
+    }, [_vm._v(_vm._s(restaurant.restaurant_name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_vm._v("This is a wider card with supporting text below as a natural lead-in to\r\n                        additional content. This content is a little bit longer.")]), _vm._v(" "), _vm._m(1, true)])]);
   })], 2)]);
@@ -18531,7 +18548,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\routes.js */"./resources/js/routes.js");
+=======
+module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\routes.js */"./resources/js/routes.js");
+>>>>>>> 57868de36c19b203a985a1788e3b0c71b2079522
 
 
 /***/ })
