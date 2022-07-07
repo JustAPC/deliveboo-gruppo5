@@ -1,30 +1,34 @@
 <template>
-  <div class="container">
-    <div>
-      <div class="d-flex">
-        <div v-for="type in types" :key="type.id">
-          <input
-            type="checkbox"
-            name=""
-            :id="type.id"
-            :value="type.id"
-            @change="check($event)"
-            v-model="checkedCategories"
-          />
+  <div>
+    <div class="container pt-5">
+      <div :class="['menu-item', active ? 'block' : 'hidden', 'bg-color-full', 'rounded-2xl']">
+        <ul class="ks-cboxtags text-stone-500">
+          <li v-for="type in types" :key="type.id">
+            <input
+              type="checkbox"
+              @change="check($event)"
+              v-model="checkedTypes"
+              :value="type.id"
+              :id="type.name"
+            />
 
-          <label :for="type.id">{{ type.name }}</label>
-        </div>
+            <label :for="type.name">{{ type.name }}</label>
+          </li>
+        </ul>
       </div>
-    </div>
-    <div>
-      <div class="card mb-3" v-for="restaurant in restaurants" :key="restaurant.id" v-if="restaurant.id">
-        <img :src="restaurant.restaurant_img" class="card-img-top img-fluid" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">{{ restaurant.name }}</h5>
-          <p class="card-text"></p>
-          <p class="card-text">
-            <small class="text-muted">Last updated 3 mins ago</small>
-          </p>
+
+      <div>
+        <div class="card mb-3" v-for="restaurant in restaurants" :key="restaurant.id">
+          <img :src="restaurant.restaurant_img" class="card-img-top img-fluid" alt="..." />
+          <div class="card-body">
+            <h5 class="card-title">{{ restaurant.name }}</h5>
+            <p class="card-text">
+              Indirizzo: {{ restaurant.address }}, {{ restaurant.zip }} ,{{ restaurant.city }}
+            </p>
+            <p class="card-text">
+              <small class="text-muted">Contatti: {{ restaurant.phone_number }}</small>
+            </p>
+          </div>
         </div>
       </div>
     </div>
@@ -46,7 +50,7 @@
       return {
         types: [],
         restaurants: [],
-        checkedCategories: [],
+        checkedTypes: [],
       };
     },
     methods: {
@@ -71,11 +75,11 @@
       },
       check(event) {
         if (event.target.checked) {
-          this.typeFiltering(this.checkedCategories);
-        } else if (this.checkedCategories == "") {
+          this.typeFiltering(this.checkedTypes);
+        } else if (this.checkedTypes == "") {
           this.getData();
         } else {
-          this.typeFiltering(this.checkedCategories);
+          this.typeFiltering(this.checkedTypes);
         }
       },
     },
@@ -85,3 +89,106 @@
     },
   };
 </script>
+
+<style lang="scss" scoped>
+  .bg-color-full {
+    background-color: #e7ffbd;
+  }
+
+  .drop-down-menu button {
+    transition: all 0.3s ease-in-out;
+  }
+
+  .drop-down-menu div {
+    animation: opacity 0.5s linear;
+    box-shadow: 0px 15px 10px -10px rgba(127, 127, 127, 0.6);
+  }
+
+  .drop-down-menu li {
+    transition: transform 250ms;
+  }
+
+  .drop-down-menu li:hover {
+    transition: transform 250ms;
+    transform: translateY(-6px);
+  }
+
+  @keyframes opacity {
+    0% {
+      opacity: 0;
+    }
+
+    50% {
+      opacity: 0.5;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  ul.ks-cboxtags {
+    list-style: none;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 5px;
+  }
+
+  ul.ks-cboxtags li label {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.9);
+    border: 2px solid rgba(139, 139, 139, 0.3);
+    border-radius: 25px;
+    white-space: nowrap;
+    margin: 3px 0px;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 0.2s;
+  }
+
+  ul.ks-cboxtags li label {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+
+  ul.ks-cboxtags li label::before {
+    font-style: normal;
+    font-variant: normal;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    font-weight: 900;
+    font-size: 12px;
+    padding: 2px 6px 2px 2px;
+    content: "\292B";
+    transition: transform 0.3s ease-in-out;
+  }
+
+  ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+    content: "\2713";
+    transform: rotate(-360deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+    border: 2px solid #440063;
+    background-color: #00ccbc;
+    color: #fff;
+    transition: all 0.2s;
+  }
+
+  ul.ks-cboxtags li input[type="checkbox"] {
+    display: absolute;
+  }
+
+  ul.ks-cboxtags li input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+  }
+
+  ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+    border: 2px solid rgba(68, 0, 99, 0.6);
+  }
+</style>

@@ -85,6 +85,11 @@ class UserTypeSeeder extends Seeder
                 'type_id' => 9,
             ]
         );
+        DB::table('type_user')->insert(
+            [
+                'user_id' => 10,
+                'type_id' => 2,
+            ]
+        );
     }
 }
-
