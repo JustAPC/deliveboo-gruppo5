@@ -4,29 +4,10 @@
     {{-- <script defer src="{{ asset('js/dishQuantity.js') }}"></script> --}}
     <style>
         .cart {
-            height: 200px;
+            height: 400px;
             overflow: auto;
         }
     </style>
-    <script>
-        function prova(e) {
-            const checkbox = document.getElementById(`dish-checkbox-${e}`);
-            const select = document.getElementById(`dish-quantity-${e}`);
-            const quantity = select.value;
-            const dishName = document.getElementById(`dish-${e}`).textContent;
-            const price = document.getElementById(`dish-${e}-price`).textContent;
-            console.log(select);
-            console.log(quantity);
-            select.removeAttribute('disabled');
-            document.querySelector(
-                ".cart"
-            ).innerHTML += `<div class="cart-item" id="item-${e}">
-            <p class="dish-name">Piatto: ${dishName}</p>
-            <p class="dish-quantity">Quantità: ${quantity}</p>
-            <p class="dish-price">${price}</p>
-            </div>`;
-        }
-    </script>
 @endsection
 
 @section('content')
@@ -112,15 +93,16 @@
                                 <div>
 
                                     <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
-                                        name="dishes[]" value="{{ $dish->id }}" onchange="prova({{ $dish->id }})"
+                                        name="dishes[]" value="{{ $dish->id }}"
+                                        onchange="addToCart({{ $dish->id }})"
                                         @if (in_array($dish->id, old('dishes', []))) checked @endif>
                                     <span id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
 
                                     <span id="dish-{{ $dish->id }}-price">{{ $dish->price }}€</span>
 
                                     <input type="number" name="quantity[]" id="dish-quantity-{{ $dish->id }}" disabled
-                                        style="width: 60px" min="1" value="1">
-
+                                        style="width: 60px" min="1" value="1"
+                                        onchange="updateCart({{ $dish->id }})">
                                 </div>
                             @endif
                         @endforeach
@@ -136,6 +118,85 @@
             <button type="submit" class="mt-5">Invia</button>
         </div>
     </form>
+
+    <script>
+        let selectedDishes = [];
+        let totalPriceDB = document.getElementById("prezzoTotaleDB");
+        const stampaPrezzo = document.getElementById("prezzoTotale");
+
+        function addToCart(e) {
+            const checkbox = document.getElementById(`dish-checkbox-${e}`);
+            const select = document.getElementById(`dish-quantity-${e}`);
+            let quantity = select.value;
+            const dishName = document.getElementById(`dish-${e}`).textContent;
+            const singlePrice = document.getElementById(`dish-${e}-price`).textContent.slice(0, -1);
+            const cartItem = document.getElementById(`item-${e}`);
+
+            if (checkbox.checked) {
+                select.removeAttribute('disabled');
+                let singleDish = {
+                    dish_id: e,
+                    quantity: quantity,
+                    total_price: singlePrice * quantity,
+                }
+                selectedDishes.push(singleDish);
+                document.querySelector(".cart").innerHTML +=
+                    `<div class="cart-item" id="item-${e}">
+                    <p class="dish-name-${e}">Piatto: ${dishName}</p>
+                    <p class="dish-price-${e}">${singlePrice}</p>
+                    <p class="dish-quantity-${e}">Quantità: ${quantity}</p>
+                </div>`;
+                stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€";
+                totalPriceDB.value = totalPrice(selectedDishes);
+            } else {
+                select.setAttribute("disabled", "");
+                select.value = 1;
+                if (cartItem) {
+                    cartItem.remove();
+                }
+                selectedDishes = selectedDishes.filter((data) => data.dish_id != e)
+                stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€";
+                totalPriceDB.value = totalPrice(selectedDishes);
+            }
+        }
+
+        function updateCart(e) {
+            const checkbox = document.getElementById(`dish-checkbox-${e}`);
+            let dishquantity = document.querySelector(`.dish-quantity-${e}`)
+            let cartItem = document.getElementById(`item-${e}`);
+            const singlePrice = document.getElementById(`dish-${e}-price`).textContent.slice(0, -1);
+            let quantity = document.getElementById(`dish-quantity-${e}`).value;
+
+            if (checkbox.checked) {
+                let singleDish = {
+                    dish_id: e,
+                    quantity: quantity,
+                    total_price: singlePrice * quantity
+                }
+                for (let i = 0; i < selectedDishes.length; i++) {
+                    if (selectedDishes[i].dish_id == singleDish.dish_id) {
+                        selectedDishes[i] = singleDish;
+                    }
+                };
+
+                dishquantity.remove();
+                cartItem.innerHTML +=
+                    `<p class="dish-quantity-${e}">Quantità: ${quantity}</p>`;
+                stampaPrezzo.innerHTML = totalPrice(selectedDishes)
+                totalPriceDB.value = totalPrice(selectedDishes);
+            } else {
+                cartItem.innerHTML = ""
+            }
+        }
+
+        function totalPrice(array) {
+            let prezzoTotale = 0;
+            for (let i = 0; i < array.length; i++) {
+                prezzoTotale += parseFloat(array[i].total_price);
+            }
+            return prezzoTotale.toFixed(2);
+        }
+    </script>
 @endsection
 
 <script>
