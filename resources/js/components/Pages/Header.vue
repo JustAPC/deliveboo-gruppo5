@@ -5,7 +5,7 @@
         <div class="d-flex align-items-center">
           <img class="logo" src="https://i.postimg.cc/ZYrqkY1k/Deliveboo-logo.png" alt="" />
 
-          <router-link class="navbar-brand" to="/">Deliveboo</router-link>
+          <router-link class="navbar-brand text-logo" to="/">Deliveboo</router-link>
         </div>
 
         <button
@@ -46,5 +46,9 @@
 <style lang="scss" scoped>
   .logo {
     height: 50px;
+  }
+  .text-logo{
+    font-weight: bolder;
+    color: #00ccbc;
   }
 </style>

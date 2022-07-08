@@ -2039,7 +2039,7 @@ var render = function render() {
       alt: ""
     }
   }), _vm._v(" "), _c("router-link", {
-    staticClass: "navbar-brand",
+    staticClass: "navbar-brand text-logo",
     attrs: {
       to: "/"
     }
@@ -2250,7 +2250,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".logo[data-v-4faf797a] {\n  height: 50px;\n}", ""]);
+exports.push([module.i, ".logo[data-v-4faf797a] {\n  height: 50px;\n}\n.text-logo[data-v-4faf797a] {\n  font-weight: bolder;\n  color: #00ccbc;\n}", ""]);
 
 // exports
 
