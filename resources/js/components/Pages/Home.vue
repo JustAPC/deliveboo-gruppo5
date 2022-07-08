@@ -22,7 +22,7 @@
 
 <style lang="scss" scoped>
   .content {
-    width: 100vw;
+    width: 100%;
     position: absolute;
     z-index: 5;
   }
@@ -32,5 +32,6 @@
     background-position: center;
     background-size: cover;
     height: 450px;
+    box-shadow: 0px 0px 10px #34c0c9;
   }
 </style>

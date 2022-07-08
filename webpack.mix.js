@@ -11,16 +11,17 @@ const mix = require("laravel-mix");
  |
  */
 
-mix.js("resources/js/app.js", "public/js")
-    .js("resources/js/front.js", "public/js")
-    .js("resources/js/routes.js", "public/js")
-    .js("resources/js/imageUpload.js", "public/js")
-    .js("resources/js/deleteAlert.js", "public/js")
-    .js("resources/js/orderDeleteAlert.js", "public/js")
-    .js("resources/js/dishQuantity.js", "public/js")
-    .sass("resources/sass/app.scss", "public/css")
-    .sass("resources/sass/_create.dishes.scss", "public/css")
-    .sass("resources/sass/orderIndex.scss", "public/css")
-    .options({
-        processCssUrls: false,
-    });
+mix
+  .js("resources/js/app.js", "public/js")
+  .js("resources/js/front.js", "public/js")
+  .js("resources/js/routes.js", "public/js")
+  .js("resources/js/imageUpload.js", "public/js")
+  .js("resources/js/deleteAlert.js", "public/js")
+  .js("resources/js/orderDeleteAlert.js", "public/js")
+  .js("resources/js/dishQuantity.js", "public/js")
+  .sass("resources/sass/app.scss", "public/css")
+  .sass("resources/sass/_create.dishes.scss", "public/css")
+  .sass("resources/sass/orderIndex.scss", "public/css")
+  .options({
+    processCssUrls: false,
+  });

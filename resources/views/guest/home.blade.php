@@ -65,7 +65,8 @@
             margin-bottom: 30px;
         } */
         body {
-            background: #1a1e23;
+            /* background-image: url('https://img.freepik.com/free-vector/white-gray-geometric-pattern-background-vector_53876-136510.jpg?w=2000'); */
+            background-image: url('../../../public/asset/images/blob-scene-haikei.png');
             margin: 0;
         }
     </style>
@@ -86,13 +87,10 @@
                 @endauth
             </div>
         @endif --}}
+    <div id="root">
 
-    <div>
-        <div id="root">
+    </div>
 
-        </div>
-    </div>
-    </div>
     <script src="{{ asset('js/front.js') }}"></script>
     <script src="{{ asset('js/app.js') }}"></script>
 </body>

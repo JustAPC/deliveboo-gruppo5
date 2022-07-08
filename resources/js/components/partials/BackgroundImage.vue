@@ -82,7 +82,7 @@
   .bubbles {
     position: relative;
     width: 100%;
-    height: 200vh;
+    height: 230vh;
     overflow: hidden;
   }
 
@@ -124,7 +124,7 @@
 
   @keyframes float-up {
     to {
-      transform: translateY(-350vh);
+      transform: translateY(-400vh);
     }
   }
 

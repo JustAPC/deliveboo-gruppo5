@@ -9,10 +9,7 @@
         >
           Categorie
         </button>
-        <div
-          v-if="active"
-          :class="['menu-item', active ? 'block' : 'hidden', 'bg-color-full', 'rounded-2xl']"
-        >
+        <div v-if="active" class="bg-color-full">
           <ul class="ks-cboxtags text-stone-500">
             <li v-for="type in types" :key="type.id">
               <input
@@ -29,10 +26,11 @@
         </div>
       </div>
     </div>
-    <div class="container-fluid">
-      <div class="row justify-content-around">
+
+    <div class="container-fluid pt-5">
+      <div class="row justify-content-center">
         <div
-          class="card mx-4 my-4 restaurant-card col-s-12 col-md-4 col-lg-3"
+          class="card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
           v-for="restaurant in restaurants"
           :key="restaurant.id"
         >
@@ -114,6 +112,18 @@
   };
 </script>
 <style lang="scss" scoped>
+  a:hover {
+    text-decoration: none;
+    .card-title {
+      color: #34c0c9;
+      text-decoration: underline;
+    }
+  }
+  .button-colors {
+    background-color: #34c0c9;
+    color: white;
+    border: 0;
+  }
   .restaurant-card {
     transition: transform 350ms;
 
@@ -125,21 +135,12 @@
   .restaurant-card:hover {
     transform: scale(1.1);
     transition: transform 150ms;
-    box-shadow: 10px 10px 5px lightblue;
+    box-shadow: 0px 0px 25px #34c0c9;
   }
-
-  //** background home wave **/
-
-  #bkcg-home {
-    background-image: url("/img/wave44.svg");
-    background-size: cover;
-    background-repeat: repeat;
-    background-position: center;
-  }
-
   //** Checkboxstyle **/
   .bg-color-full {
-    background-color: #e7ffbd;
+    background-color: rgb(255, 221, 67);
+    border-radius: 1.3rem !important;
   }
 
   .drop-down-menu button {
@@ -148,7 +149,7 @@
 
   .drop-down-menu div {
     animation: opacity 0.5s linear;
-    box-shadow: 0px 15px 10px -10px rgba(127, 127, 127, 0.6);
+    box-shadow: 0px 15px 10px -10px #34c0c9;
   }
 
   .drop-down-menu li {
@@ -180,7 +181,7 @@
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    gap: 5px;
+    gap: 20px;
   }
 
   ul.ks-cboxtags li label {
