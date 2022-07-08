@@ -10,8 +10,8 @@
 </template>
 
 <script>
-  import Header from "./Header.vue";
-  import Restaurants from "./Restaurants.vue";
+  import Header from "../partials/Header.vue";
+  import Restaurants from "../partials/Restaurants.vue";
   import BackgroundImage from "../partials/BackgroundImage.vue";
 
   export default {

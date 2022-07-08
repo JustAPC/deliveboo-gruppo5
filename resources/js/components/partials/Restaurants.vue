@@ -37,7 +37,7 @@
           v-for="restaurant in restaurants"
           :key="restaurant.id"
         >
-          <router-link to="">
+          <router-link :to="{ name: 'RestaurantShow', params: { id: restaurant.id } }">
             <img :src="restaurant.restaurant_img" class="card-img-top img-fluid pt-2" alt="..." />
             <div class="card-body">
               <h5 class="card-title">{{ restaurant.name }}</h5>
