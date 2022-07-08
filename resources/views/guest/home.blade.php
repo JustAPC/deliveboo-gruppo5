@@ -9,7 +9,7 @@
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <!-- Styles -->
     <style>
@@ -64,6 +64,10 @@
         .m-b-md {
             margin-bottom: 30px;
         } */
+        body {
+            background: #1a1e23;
+            margin: 0;
+        }
     </style>
 </head>
 
@@ -83,14 +87,14 @@
             </div>
         @endif --}}
 
-        <div>
-            <div id="root">
+    <div>
+        <div id="root">
 
-            </div>
         </div>
     </div>
-    <script src="{{asset('js/front.js')}}"></script>
-    <script src="{{asset('js/app.js')}}"></script>
+    </div>
+    <script src="{{ asset('js/front.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
