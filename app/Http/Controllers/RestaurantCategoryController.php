@@ -1,35 +1,22 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
 use App\Models\Type;
+use App\User;
 
-class UserController extends Controller
+class RestaurantCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $parameters = $request->query('type');
-
-        if ($parameters) {
-            $restaurants = User::with(['UsersType'])->whereHas('UsersType', function ($q) use ($parameters) {
-                $q->whereIn('type_user.type_id', $parameters);
-            })->get();
-
-            return response()->json(['restaurant' => $restaurants, 'success' => true]);
-        }
-
-        $restaurants = User::with(['UsersType'])->get();
         $types = Type::all();
-
-        return response()->json(['restaurants' => $restaurants, 'types' => $types, 'success' => true,]);
+        return view('auth.register', compact('types'));
     }
 
     /**
@@ -39,9 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $types = Type::all();
-
-        return view('register', compact('types'));
+        //
     }
 
     /**
@@ -52,7 +37,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        dd($data);
     }
 
     /**
@@ -63,11 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $restaurant = User::with(['UsersType',])->where('id', $id)->first();
-
-        $dishes = $restaurant->Dishes()->where('available', 1)->get();
-
-        return response()->json(['restaurant' => $restaurant, 'dishes' => $dishes, 'success' => true,]);
+        //
     }
 
     /**
