@@ -1,14 +1,11 @@
 <template>
   <div>
+    <Header />
+    <div class="hero"></div>
     <div class="content">
-      <div>
-        <BackgroundImage />
-      </div>
-      <Header />
-      <div class="hero"></div>
-      <Restaurants />
+      <Restaurants class="ristoranti" />
+      <BackgroundImage class="bolle" />
     </div>
-    <!-- <BackgroundImage /> -->
   </div>
 </template>
 
@@ -24,19 +21,29 @@
 </script>
 
 <style lang="scss" scoped>
-  .content {
-    width: 100%;
+  .ristoranti {
     position: relative;
-    z-index: 5;
+    z-index: 3;
+  }
+
+  .bolle {
+    z-index: 2;
+  }
+  .content {
+    background-image: url("../../../images/BG-2.svg");
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    z-index: 1;
+    position: relative;
   }
   .hero {
-    position: relative;
-    background-image: url("https://i.ibb.co/CHwNDPX/123.png");
+    background-image: url("../../../images/123.png");
     background-repeat: no-repeat;
     background-position: center;
+    background-attachment: fixed;
     background-size: cover;
-    height: 450px;
+    height: 635px;
     box-shadow: 0px 0px 10px #34c0c9;
-    z-index: 100;
   }
 </style>

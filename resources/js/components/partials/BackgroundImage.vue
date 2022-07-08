@@ -84,8 +84,8 @@
     width: 100%;
     height: 100%;
     overflow: hidden;
-    top:0;
-    left:0;
+    top: 0;
+    left: 0;
   }
 
   .bubble {
@@ -115,10 +115,10 @@
       &:nth-child(#{$i}) {
         --bubble-left-offset: #{random_range(0vw, 100vw)};
         --bubble-radius: #{random_range(1vw, 10vw)};
-        --bubble-float-duration: #{random_range(8s, 14s)};
-        --bubble-sway-duration: #{random_range(4s, 8s)};
-        --bubble-float-delay: #{random_range(0s, 4s)};
-        --bubble-sway-delay: #{random_range(0s, 4s)};
+        --bubble-float-duration: #{random_range(10s, 50s)};
+        --bubble-sway-duration: #{random_range(1s, 10s)};
+        --bubble-float-delay: #{random_range(0s, 1s)};
+        --bubble-sway-delay: #{random_range(0s, 1s)};
         --bubble-sway-type: #{sample($sway-type)};
       }
     }
@@ -126,7 +126,7 @@
 
   @keyframes float-up {
     to {
-      transform: translateY(-400vh);
+      transform: translateY(-1000vh);
     }
   }
 

@@ -1,33 +1,36 @@
 <template>
   <div>
-    <div class="container pt-5">
-      <div class="drop-down-menu mb-10">
-        <button
-          @click="setActive()"
-          :class="active ? 'bg-viola text-white' : 'text-deliveroo'"
-          class="font-bold py-1 px-3 mb-3 border-2 button-colors rounded"
-        >
-          Categorie
-        </button>
-        <div v-if="active" class="bg-color-full">
-          <ul class="ks-cboxtags text-stone-500">
-            <li v-for="type in types" :key="type.id">
-              <input
-                type="checkbox"
-                @change="check($event)"
-                v-model="checkedTypes"
-                :value="type.id"
-                :id="type.name"
-              />
-
-              <label :for="type.name">{{ type.name }}</label>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
+    <div class="container pt-5"></div>
 
     <div class="container-fluid pt-5">
+      <div class="drop-down-menu mb-10 d-flex justify-content-between">
+        <div class="pl-5">
+          <button
+            @click="setActive()"
+            :class="active ? 'text-white' : 'text-deliveroo'"
+            class="font-bold py-1 px-3 mb-3 border-2 button-colors rounded"
+          >
+            Categorie
+          </button>
+        </div>
+        <div class="w-75 pr-5">
+          <div v-if="active" class="bg-color-full">
+            <ul class="ks-cboxtags text-stone-500">
+              <li v-for="type in types" :key="type.id">
+                <input
+                  type="checkbox"
+                  @change="check($event)"
+                  v-model="checkedTypes"
+                  :value="type.id"
+                  :id="type.name"
+                />
+
+                <label :for="type.name">{{ type.name }}</label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
       <div class="row justify-content-center">
         <div
           class="card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
@@ -139,8 +142,12 @@
     box-shadow: 0px 0px 25px #34c0c9;
   }
   //** Checkboxstyle **/
+
+  .drop-down-menu {
+    z-index: 3;
+  }
   .bg-color-full {
-    background-color: rgb(255, 221, 67);
+    background-color: white;
     border-radius: 1.3rem !important;
   }
 
@@ -150,7 +157,7 @@
 
   .drop-down-menu div {
     animation: opacity 0.5s linear;
-    box-shadow: 0px 15px 10px -10px #34c0c9;
+    // box-shadow: 0px 15px 10px -10px #34c0c9;
   }
 
   .drop-down-menu li {

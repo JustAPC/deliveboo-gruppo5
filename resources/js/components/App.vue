@@ -18,7 +18,7 @@
 <style scoped lang="scss">
   div {
     // background-image: url("../../images/blob-scene-haikei.svg");
-    background-image: url("../../images/BG-2.svg");
-    background-size: cover;
+    // background-image: url("../../images/BG-2.svg");
+    // background-size: cover;
   }
 </style>
