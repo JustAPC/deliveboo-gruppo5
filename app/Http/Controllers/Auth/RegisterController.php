@@ -8,6 +8,8 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
+use App\Models\Type;
 
 class RegisterController extends Controller
 {
@@ -52,7 +54,14 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'phone_number' => ['required', 'numeric', 'digits_between:9,10'],
+            'address' => ['required', 'string'],
+            'city' => ['required', 'string'],
+            'state' => ['required', 'string'],
+            'zip' => ['required', 'numeric', 'digits:5'],
+            'vat' => ['required', 'numeric', 'digits:11'],
+            'restaurant_name' => ['required', 'string'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
     }
 
@@ -63,11 +72,36 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
-        return User::create([
+    {   
+        $new_user = User::create(
+        [
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone_number' => $data['phone_number'],
+            'address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'zip' => $data['zip'],
+            'vat' => $data['vat'],
+            'restaurant_name' => $data['restaurant_name'],
+            'restaurant_img' => $data['restaurant_img'],
             'password' => Hash::make($data['password']),
-        ]);
+        ]
+        );
+
+        // Ultimo id dello user creata
+        $lastId = DB::table('users')->latest()->first()->id;
+        // Scrivo nella pivot type_user ed associa i tipi selezionati al nuovo ristorante
+        foreach ($data['types'] as $key => $type) {
+            DB::table('type_user')->insert(
+                [
+                    'user_id' => $lastId,
+                    'type_id' => $type,
+                ]
+            );
+        }
+
+        return $new_user;
+
     }
 }

@@ -17,7 +17,12 @@ Route::get('/', function () {
     return view('guest.home');
 });
 
+
+
 Auth::routes();
+
+Route::get('/register', 'RestaurantCategoryController@index')->name('register');
+
 
 Route::middleware('auth')
     ->prefix('admin')
@@ -28,8 +33,10 @@ Route::middleware('auth')
         Route::resource('dishes', 'DishController');
         Route::resource('openingdays', 'OpeningdayController');
         Route::resource('orders', 'OrderController');
+    
     });
 
 Route::get('{any?}', function () {
     return view('guest.home');
 })->where("any", ".*");
+
