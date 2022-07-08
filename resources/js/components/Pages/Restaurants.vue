@@ -20,12 +20,19 @@
             </div>
 
         </div>
-                <div class="container-fluid">
-                    <div class="row justify-content-around">
-                        <div class="card mx-4  my-4 restaurant-card col-s-12 col-md-4 col-lg-3 " v-for="restaurant in restaurants" :key="restaurant.id">
+        <div class="container-fluid">
+
+            <div class="row justify-content-around">
+
+                <div class="card mx-4  my-4 restaurant-card col-s-12 col-md-4 col-lg-3 "
+                    v-for="restaurant in restaurants" :key="restaurant.id">
+                    <router-link to="">
                         <img :src="restaurant.restaurant_img" class="card-img-top img-fluid pt-2" alt="..." />
                         <div class="card-body">
                             <h5 class="card-title">{{ restaurant.name }}</h5>
+                            <p v-for="type in restaurants.users_type" :key="type.id" class="card-text">
+                                {{type.name}}
+                            </p>
                             <p class="card-text">
                                 Indirizzo: {{ restaurant.address }}, {{ restaurant.zip }} ,{{ restaurant.city }}
                             </p>
@@ -33,11 +40,13 @@
                                 <small class="text-muted">Contatti: {{ restaurant.phone_number }}</small>
                             </p>
                         </div>
-                    </div>
-                    </div>
-                    
+                    </router-link>
                 </div>
-            
+
+            </div>
+
+        </div>
+
     </div>
 </template>
 
@@ -61,7 +70,7 @@
                 types: [],
                 restaurants: [],
                 checkedTypes: [],
-                active:false,
+                active: false,
             };
         },
         methods: {
@@ -99,8 +108,8 @@
                 }
             },
             setActive() {
-            this.active = !this.active;
-        }
+                this.active = !this.active;
+            }
         },
 
         beforeMount() {
@@ -111,10 +120,12 @@
 </script>
 
 <style lang="scss" scoped>
-   
-
     .restaurant-card {
         transition: transform 350ms;
+        div{
+            
+            color: black;
+        }
     }
 
     .restaurant-card:hover {
@@ -218,7 +229,7 @@
 
     ul.ks-cboxtags li input[type="checkbox"]:checked+label {
         border: 2px solid #440063;
-        background-color: #00CCBC;
+        background-color: #00ccbc;
         color: #fff;
         transition: all .2s;
     }
