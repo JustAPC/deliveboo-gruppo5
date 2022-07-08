@@ -41,6 +41,7 @@
               <p v-for="type in restaurants.users_type" :key="type.id" class="card-text">
                 {{ type.name }}
               </p>
+
               <p class="card-text">
                 Indirizzo: {{ restaurant.address }}, {{ restaurant.zip }} ,{{ restaurant.city }}
               </p>
