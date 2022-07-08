@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Models\Type;
 
 class RegisterController extends Controller
@@ -71,8 +72,9 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {
-        return User::create([
+    {   
+        $new_user = User::create(
+        [
             'name' => $data['name'],
             'email' => $data['email'],
             'phone_number' => $data['phone_number'],
@@ -84,7 +86,22 @@ class RegisterController extends Controller
             'restaurant_name' => $data['restaurant_name'],
             'restaurant_img' => $data['restaurant_img'],
             'password' => Hash::make($data['password']),
-        ]);
+        ]
+        );
+
+        // Ultimo id dello user creata
+        $lastId = DB::table('users')->latest()->first()->id;
+        // Scrivo nella pivot type_user ed associa i tipi selezionati al nuovo ristorante
+        foreach ($data['types'] as $key => $type) {
+            DB::table('type_user')->insert(
+                [
+                    'user_id' => $lastId,
+                    'type_id' => $type,
+                ]
+            );
+        }
+
+        return $new_user;
 
     }
 }
