@@ -2148,14 +2148,14 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "drop-down-menu mb-10"
   }, [_c("button", {
-    staticClass: "font-bold py-1 px-3 mb-3 border-2 border-viola rounded",
+    staticClass: "font-bold py-1 px-3 mb-3 border-2 button-colors rounded",
     "class": _vm.active ? "bg-viola text-white" : "text-deliveroo",
     on: {
       click: function click($event) {
         return _vm.setActive();
       }
     }
-  }, [_vm._v("\r\n                    Categorie\r\n                ")]), _vm._v(" "), _vm.active ? _c("div", {
+  }, [_vm._v("\n          Categorie\n        ")]), _vm._v(" "), _vm.active ? _c("div", {
     "class": ["menu-item", _vm.active ? "block" : "hidden", "bg-color-full", "rounded-2xl"]
   }, [_c("ul", {
     staticClass: "ks-cboxtags text-stone-500"
@@ -2224,7 +2224,7 @@ var render = function render() {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\r\n                                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\r\n                            ")]), _vm._v(" "), _c("p", {
+    }, [_vm._v("\n              Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\n            ")]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_c("small", {
       staticClass: "text-muted"
@@ -2288,7 +2288,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\n.restaurant-card[data-v-c3102ae0] {\n  transition: transform 350ms;\n}\n.restaurant-card[data-v-c3102ae0]:hover {\n  transform: scale(1.1);\n  transition: transform 150ms;\n  box-shadow: 10px 10px 5px lightblue;\n}\n#bkcg-home[data-v-c3102ae0] {\n  background-image: url(\"/img/wave44.svg\");\n  background-size: cover;\n  background-repeat: repeat;\n  background-position: center;\n}\n.bg-color-full[data-v-c3102ae0] {\n  background-color: #E7FFBD;\n}\n.drop-down-menu button[data-v-c3102ae0] {\n  transition: all 0.3s ease-in-out;\n}\n.drop-down-menu div[data-v-c3102ae0] {\n  -webkit-animation: opacity-c3102ae0 0.5s linear;\n          animation: opacity-c3102ae0 0.5s linear;\n  box-shadow: 0px 15px 10px -10px rgba(127, 127, 127, 0.6);\n}\n.drop-down-menu li[data-v-c3102ae0] {\n  transition: transform 250ms;\n}\n.drop-down-menu li[data-v-c3102ae0]:hover {\n  transition: transform 250ms;\n  transform: translateY(-6px);\n}\n@-webkit-keyframes opacity-c3102ae0 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes opacity-c3102ae0 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\nul.ks-cboxtags[data-v-c3102ae0] {\n  list-style: none;\n  padding: 20px;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 5px;\n}\nul.ks-cboxtags li label[data-v-c3102ae0] {\n  display: flex;\n  align-items: center;\n  background-color: rgba(255, 255, 255, 0.9);\n  border: 2px solid rgba(139, 139, 139, 0.3);\n  border-radius: 25px;\n  white-space: nowrap;\n  margin: 3px 0px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li label[data-v-c3102ae0] {\n  padding: 8px 12px;\n  cursor: pointer;\n}\nul.ks-cboxtags li label[data-v-c3102ae0]::before {\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  font-weight: 900;\n  font-size: 12px;\n  padding: 2px 6px 2px 2px;\n  content: \"\\292B\";\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-c3102ae0]::before {\n  content: \"\\2713\";\n  transform: rotate(-360deg);\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-c3102ae0] {\n  border: 2px solid #440063;\n  background-color: #00CCBC;\n  color: #fff;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-c3102ae0] {\n  display: absolute;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-c3102ae0] {\n  position: absolute;\n  opacity: 0;\n}\nul.ks-cboxtags li input[type=checkbox]:focus + label[data-v-c3102ae0] {\n  border: 2px solid rgba(68, 0, 99, 0.6);\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\n.button-colors[data-v-c3102ae0] {\n  background-color: #00ccbc;\n  color: white;\n  border: 1px solid #00ccbc;\n}\n.restaurant-card[data-v-c3102ae0] {\n  transition: transform 350ms;\n}\n.restaurant-card[data-v-c3102ae0]:hover {\n  transform: scale(1.1);\n  transition: transform 150ms;\n  box-shadow: 0px 10px 10px #00ccbc;\n}\n#bkcg-home[data-v-c3102ae0] {\n  background-image: url(\"/img/wave44.svg\");\n  background-size: cover;\n  background-repeat: repeat;\n  background-position: center;\n}\n.bg-color-full[data-v-c3102ae0] {\n  background-color: rgb(0, 18, 32);\n}\n.drop-down-menu button[data-v-c3102ae0] {\n  transition: all 0.3s ease-in-out;\n}\n.drop-down-menu div[data-v-c3102ae0] {\n  -webkit-animation: opacity-c3102ae0 0.5s linear;\n          animation: opacity-c3102ae0 0.5s linear;\n  box-shadow: 0px 15px 10px -10px rgba(127, 127, 127, 0.6);\n}\n.drop-down-menu li[data-v-c3102ae0] {\n  transition: transform 250ms;\n}\n.drop-down-menu li[data-v-c3102ae0]:hover {\n  transition: transform 250ms;\n  transform: translateY(-6px);\n}\n@-webkit-keyframes opacity-c3102ae0 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes opacity-c3102ae0 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\nul.ks-cboxtags[data-v-c3102ae0] {\n  list-style: none;\n  padding: 20px;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 5px;\n}\nul.ks-cboxtags li label[data-v-c3102ae0] {\n  display: flex;\n  align-items: center;\n  background-color: rgba(255, 255, 255, 0.9);\n  border: 2px solid rgba(139, 139, 139, 0.3);\n  border-radius: 25px;\n  white-space: nowrap;\n  margin: 3px 0px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li label[data-v-c3102ae0] {\n  padding: 8px 12px;\n  cursor: pointer;\n}\nul.ks-cboxtags li label[data-v-c3102ae0]::before {\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  font-weight: 900;\n  font-size: 12px;\n  padding: 2px 6px 2px 2px;\n  content: \"\\292B\";\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-c3102ae0]::before {\n  content: \"\\2713\";\n  transform: rotate(-360deg);\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-c3102ae0] {\n  border: 2px solid #440063;\n  background-color: #00ccbc;\n  color: #fff;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-c3102ae0] {\n  display: absolute;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-c3102ae0] {\n  position: absolute;\n  opacity: 0;\n}\nul.ks-cboxtags li input[type=checkbox]:focus + label[data-v-c3102ae0] {\n  border: 2px solid rgba(68, 0, 99, 0.6);\n}", ""]);
 
 // exports
 
@@ -18677,7 +18677,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\routes.js */"./resources/js/routes.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\routes.js */"./resources/js/routes.js");
 
 
 /***/ })
