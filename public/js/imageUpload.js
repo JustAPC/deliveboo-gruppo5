@@ -17425,7 +17425,7 @@ function getImgData() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
 
 
 /***/ })

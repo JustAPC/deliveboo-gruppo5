@@ -80,10 +80,12 @@
   }
 
   .bubbles {
-    position: relative;
+    position: absolute;
     width: 100%;
-    height: 230vh;
+    height: 100%;
     overflow: hidden;
+    top:0;
+    left:0;
   }
 
   .bubble {
