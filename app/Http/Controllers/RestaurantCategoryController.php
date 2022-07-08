@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\User;
 use App\Models\Type;
+use App\User;
 
-class UserController extends Controller
+class RestaurantCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,11 +15,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $restaurants = User::with('Dishes', 'UsersType')->get();
-        return response()->json(compact('restaurants'));
-
-        
-
+        $types = Type::all();
+        return view('auth.register', compact('types'));
     }
 
     /**
@@ -30,9 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        $types = Type::all();
-
-        return view('register', compact('types'));
+        //
     }
 
     /**
@@ -43,7 +37,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        dd($data);
     }
 
     /**
@@ -54,9 +49,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $restaurants=User::with('Dishes', 'UserType')->find($id);
-        return response()->json(compact('restaurants'));
-        
+        //
     }
 
     /**

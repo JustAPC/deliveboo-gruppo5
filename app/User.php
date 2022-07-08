@@ -27,6 +27,7 @@ class User extends Authenticatable
         'vat',
         'restaurant_name',
         'restaurant_img',
+        'type_id'
     ];
 
     /**

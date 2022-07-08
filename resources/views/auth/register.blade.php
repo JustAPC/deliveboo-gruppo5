@@ -13,7 +13,7 @@
 
                         {{-- Nome Utente --}}
                         <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
+                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Nome del ristoratore') }}</label>
 
                             <div class="col-md-6">
                                 <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
@@ -131,9 +131,19 @@
                             </div>
                         </div>
 
+                        {{-- Tipo di ristorante --}}
+                        <div class="form-group">
+                            @foreach ($types as $type)
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="checkbox" id="type-{{$type->id}}" value="{{$type->id}}" name="{{$type->name}}">
+                                    <label class="form-check-label" for="type-{{$type->id}}">{{$type->name}}</label>
+                                </div>
+                            @endforeach
+                        </div>
+
                         {{-- Immagine ristorante --}}
                         <div class="form-group row">
-                            <label for="restaurant_img" class="col-md-4 col-form-label text-md-right">{{ __('restaurant_img') }}</label>
+                            <label for="restaurant_img" class="col-md-4 col-form-label text-md-right">{{ __('Url immagine ristorante') }}</label>
 
                             <div class="col-md-6">
                                 <input id="restaurant_img" type="text" class="form-control @error('restaurant_img') is-invalid @enderror" name="restaurant_img" value="{{ old('restaurant_img') }}" autocomplete="restaurant_img" autofocus>
