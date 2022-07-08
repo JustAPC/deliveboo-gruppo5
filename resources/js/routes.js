@@ -13,7 +13,7 @@ const router = new VueRouter({
   linkActiveClass: "active",
   routes: [
     { path: "/", component: Home },
-    { path: "/restaurant/:id}", component: RestaurantShow, name: "restaurant-show" },
+    { path: "/restaurant/:id", component: RestaurantShow, name: "restaurant-show" },
     { path: "*", component: Home },
   ],
 });
