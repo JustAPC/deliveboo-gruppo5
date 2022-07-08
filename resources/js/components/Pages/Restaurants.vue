@@ -53,189 +53,340 @@
 </template>
 
 <script>
-  import axios from "axios";
-  import { Carousel, Slide, Navigation } from "vue-carousel";
+    import axios from "axios";
+    import { Carousel, Slide, Navigation } from "vue-carousel";
 
-  export default {
-    name: "Restaurant",
-    components: {
-      Carousel,
-      Slide,
-      Navigation,
-    },
-    data() {
-      return {
-        types: [],
-        restaurants: [],
-        checkedTypes: [],
-        active: false,
-      };
-    },
-    methods: {
-      getData() {
-        axios.get(`http://127.0.0.1:8000/api/restaurants`).then((res) => {
-          const { restaurants, types } = res.data;
-          this.restaurants = restaurants;
-          this.types = types;
-        });
+  <<<<<<< HEAD
+    export default {
+      name: "Restaurant",
+      components: {
+        Carousel,
+        Slide,
+        Navigation,
       },
-      typeFiltering(type) {
-        axios
-          .get("http://127.0.0.1:8000/api/restaurants", {
-            params: {
-              type: type,
-            },
-          })
-          .then((res) => {
-            const { restaurant } = res.data;
-            this.restaurants = restaurant;
+      data() {
+        return {
+          types: [],
+          restaurants: [],
+          checkedTypes: [],
+          active: false,
+        };
+      },
+      methods: {
+        getData() {
+          axios.get(`http://127.0.0.1:8000/api/restaurants`).then((res) => {
+            const { restaurants, types } = res.data;
+            this.restaurants = restaurants;
+            this.types = types;
           });
+        },
+        typeFiltering(type) {
+          axios
+            .get("http://127.0.0.1:8000/api/restaurants", {
+              params: {
+                type: type,
+              },
+            })
+            .then((res) => {
+              const { restaurant } = res.data;
+              this.restaurants = restaurant;
+            });
+        },
+        check(event) {
+          if (event.target.checked) {
+            this.typeFiltering(this.checkedTypes);
+          } else if (this.checkedTypes == "") {
+            this.getData();
+          } else {
+            this.typeFiltering(this.checkedTypes);
+          }
+        },
+        setActive() {
+          this.active = !this.active;
+        },
       },
-      check(event) {
-        if (event.target.checked) {
-          this.typeFiltering(this.checkedTypes);
-        } else if (this.checkedTypes == "") {
-          this.getData();
-        } else {
-          this.typeFiltering(this.checkedTypes);
-        }
-      },
-      setActive() {
-        this.active = !this.active;
-      },
-    },
+  =======
+      export default {
+          name: "Restaurant",
+          components: {
+              Carousel,
+              Slide,
+              Navigation,
+          },
+          data() {
+              return {
+                  types: [],
+                  restaurants: [],
+                  checkedTypes: [],
+                  active: false,
+              };
+          },
+          methods: {
+              getData() {
+                  axios.get(`http://127.0.0.1:8000/api/restaurants`).then((res) => {
+                      const {
+                          restaurants,
+                          types
+                      } = res.data;
+                      this.restaurants = restaurants;
+                      this.types = types;
+                  });
+              },
+              typeFiltering(type) {
+                  axios
+                      .get("http://127.0.0.1:8000/api/restaurants", {
+                          params: {
+                              type: type,
+                          },
+                      })
+                      .then((res) => {
+                          const {
+                              restaurant
+                          } = res.data;
+                          this.restaurants = restaurant;
+                      });
+              },
+              check(event) {
+                  if (event.target.checked) {
+                      this.typeFiltering(this.checkedTypes);
+                  } else if (this.checkedTypes == "") {
+                      this.getData();
+                  } else {
+                      this.typeFiltering(this.checkedTypes);
+                  }
+              },
+              setActive() {
+                  this.active = !this.active;
+              }
+          },
 
-    beforeMount() {
-      this.getData();
-    },
-  };
+          beforeMount() {
+              this.getData();
+          },
+      };
+  >>>>>>> 304698e1564d5d3447ad3c7db5ea406d088ec02a
+
+      beforeMount() {
+        this.getData();
+      },
+    };
 </script>
 
 <style lang="scss" scoped>
-  .button-colors {
-    background-color: #00ccbc;
-    color: white;
-    border: 1px solid #00ccbc;
-  }
-  .restaurant-card {
-    transition: transform 350ms;
-  }
+  <<<<<<< HEAD
+    .button-colors {
+      background-color: #00ccbc;
+      color: white;
+      border: 1px solid #00ccbc;
+    }
+    .restaurant-card {
+      transition: transform 350ms;
+    }
 
-  .restaurant-card:hover {
-    transform: scale(1.1);
-    transition: transform 150ms;
-    box-shadow: 0px 10px 10px #00ccbc;
-  }
+    .restaurant-card:hover {
+      transform: scale(1.1);
+      transition: transform 150ms;
+      box-shadow: 0px 10px 10px #00ccbc;
+    }
 
-  //** background home wave **/
+    //** background home wave **/
 
-  #bkcg-home {
-    background-image: url("/img/wave44.svg");
-    background-size: cover;
-    background-repeat: repeat;
-    background-position: center;
-  }
+    #bkcg-home {
+      background-image: url("/img/wave44.svg");
+      background-size: cover;
+      background-repeat: repeat;
+      background-position: center;
+    }
 
-  //** Checkboxstyle **/
+    //** Checkboxstyle **/
 
-  .bg-color-full {
-    background-color: rgb(0, 18, 32);
-  }
+    .bg-color-full {
+      background-color: rgb(0, 18, 32);
+    }
 
-  .drop-down-menu button {
-    transition: all 0.3s ease-in-out;
-  }
+    .drop-down-menu button {
+      transition: all 0.3s ease-in-out;
+    }
 
-  .drop-down-menu div {
-    animation: opacity 0.5s linear;
-    box-shadow: 0px 15px 10px -10px rgba(127, 127, 127, 0.6);
-  }
+    .drop-down-menu div {
+      animation: opacity 0.5s linear;
+      box-shadow: 0px 15px 10px -10px rgba(127, 127, 127, 0.6);
+    }
 
-  .drop-down-menu li {
-    transition: transform 250ms;
-  }
+    .drop-down-menu li {
+      transition: transform 250ms;
+    }
 
-  .drop-down-menu li:hover {
-    transition: transform 250ms;
-    transform: translateY(-6px);
-  }
+    .drop-down-menu li:hover {
+      transition: transform 250ms;
+      transform: translateY(-6px);
+    }
 
-  @keyframes opacity {
-    0% {
+    @keyframes opacity {
+      0% {
+        opacity: 0;
+  =======
+      .restaurant-card {
+          transition: transform 350ms;
+          div{
+
+              color: black;
+          }
+  >>>>>>> 304698e1564d5d3447ad3c7db5ea406d088ec02a
+      }
+
+      50% {
+        opacity: 0.5;
+      }
+
+      100% {
+        opacity: 1;
+      }
+    }
+
+    ul.ks-cboxtags {
+      list-style: none;
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+
+    ul.ks-cboxtags li label {
+      display: flex;
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 2px solid rgba(139, 139, 139, 0.3);
+      border-radius: 25px;
+      white-space: nowrap;
+      margin: 3px 0px;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+      transition: all 0.2s;
+    }
+
+    ul.ks-cboxtags li label {
+      padding: 8px 12px;
+      cursor: pointer;
+    }
+
+    ul.ks-cboxtags li label::before {
+      font-style: normal;
+      font-variant: normal;
+      text-rendering: auto;
+      -webkit-font-smoothing: antialiased;
+      font-weight: 900;
+      font-size: 12px;
+      padding: 2px 6px 2px 2px;
+      content: "\292B";
+      transition: transform 0.3s ease-in-out;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
+      content: "\2713";
+      transform: rotate(-360deg);
+      transition: transform 0.3s ease-in-out;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"]:checked + label {
+      border: 2px solid #440063;
+      background-color: #00ccbc;
+      color: #fff;
+      transition: all 0.2s;
+    }
+
+    ul.ks-cboxtags li input[type="checkbox"] {
+      display: absolute;
+    }
+
+  <<<<<<< HEAD
+    ul.ks-cboxtags li input[type="checkbox"] {
+      position: absolute;
       opacity: 0;
     }
+  =======
+      @keyframes opacity {
+          0% {
+              opacity: 0;
+          }
 
-    50% {
-      opacity: 0.5;
+          50% {
+              opacity: 0.5;
+          }
+
+          100% {
+              opacity: 1;
+          }
+      }
+
+      ul.ks-cboxtags {
+          list-style: none;
+          padding: 20px;
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 5px;
+      }
+
+      ul.ks-cboxtags li label {
+          display: flex;
+          align-items: center;
+          background-color: rgba(255, 255, 255, .9);
+          border: 2px solid rgba(139, 139, 139, .3);
+          border-radius: 25px;
+          white-space: nowrap;
+          margin: 3px 0px;
+          user-select: none;
+          -webkit-tap-highlight-color: transparent;
+          transition: all .2s;
+      }
+
+      ul.ks-cboxtags li label {
+          padding: 8px 12px;
+          cursor: pointer;
+      }
+
+      ul.ks-cboxtags li label::before {
+          font-style: normal;
+          font-variant: normal;
+          text-rendering: auto;
+          -webkit-font-smoothing: antialiased;
+          font-weight: 900;
+          font-size: 12px;
+          padding: 2px 6px 2px 2px;
+          content: "\292B";
+          transition: transform .3s ease-in-out;
+      }
+
+      ul.ks-cboxtags li input[type="checkbox"]:checked+label::before {
+          content: "\2713";
+          transform: rotate(-360deg);
+          transition: transform .3s ease-in-out;
+      }
+
+      ul.ks-cboxtags li input[type="checkbox"]:checked+label {
+          border: 2px solid #440063;
+          background-color: #00ccbc;
+          color: #fff;
+          transition: all .2s;
+      }
+
+      ul.ks-cboxtags li input[type="checkbox"] {
+          display: absolute;
+      }
+
+      ul.ks-cboxtags li input[type="checkbox"] {
+          position: absolute;
+          opacity: 0;
+      }
+
+      ul.ks-cboxtags li input[type="checkbox"]:focus+label {
+          border: 2px solid rgba(68, 0, 99, 0.6);
+      }
+  >>>>>>> 304698e1564d5d3447ad3c7db5ea406d088ec02a
+
+    ul.ks-cboxtags li input[type="checkbox"]:focus + label {
+      border: 2px solid rgba(68, 0, 99, 0.6);
     }
-
-    100% {
-      opacity: 1;
-    }
-  }
-
-  ul.ks-cboxtags {
-    list-style: none;
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 5px;
-  }
-
-  ul.ks-cboxtags li label {
-    display: flex;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    border: 2px solid rgba(139, 139, 139, 0.3);
-    border-radius: 25px;
-    white-space: nowrap;
-    margin: 3px 0px;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
-    transition: all 0.2s;
-  }
-
-  ul.ks-cboxtags li label {
-    padding: 8px 12px;
-    cursor: pointer;
-  }
-
-  ul.ks-cboxtags li label::before {
-    font-style: normal;
-    font-variant: normal;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    font-weight: 900;
-    font-size: 12px;
-    padding: 2px 6px 2px 2px;
-    content: "\292B";
-    transition: transform 0.3s ease-in-out;
-  }
-
-  ul.ks-cboxtags li input[type="checkbox"]:checked + label::before {
-    content: "\2713";
-    transform: rotate(-360deg);
-    transition: transform 0.3s ease-in-out;
-  }
-
-  ul.ks-cboxtags li input[type="checkbox"]:checked + label {
-    border: 2px solid #440063;
-    background-color: #00ccbc;
-    color: #fff;
-    transition: all 0.2s;
-  }
-
-  ul.ks-cboxtags li input[type="checkbox"] {
-    display: absolute;
-  }
-
-  ul.ks-cboxtags li input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-  }
-
-  ul.ks-cboxtags li input[type="checkbox"]:focus + label {
-    border: 2px solid rgba(68, 0, 99, 0.6);
-  }
 </style>
