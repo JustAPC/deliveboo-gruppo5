@@ -1,18 +1,21 @@
 <template>
   <div>
-    <Home />
+    <Header />
+    <router-view class="content"></router-view>
   </div>
 </template>
 
 <script>
-  import Home from "./Pages/Home.vue";
+  import Header from "./partials/Header.vue";
 
   export default {
     name: "App",
-    components: {
-      Home,
-    },
+    components: { Header },
   };
 </script>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+  .content {
+    margin-top: 66px;
+  }
+</style>

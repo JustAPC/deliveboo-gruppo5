@@ -1,6 +1,5 @@
 <template>
   <div>
-    <Header />
     <div class="hero"></div>
     <div class="content">
       <Restaurants class="ristoranti" />
@@ -10,13 +9,12 @@
 </template>
 
 <script>
-  import Header from "../partials/Header.vue";
   import Restaurants from "../partials/Restaurants.vue";
   import BackgroundImage from "../partials/BackgroundImage.vue";
 
   export default {
     name: "Home",
-    components: { Header, Restaurants, BackgroundImage },
+    components: { Restaurants, BackgroundImage },
   };
 </script>
 

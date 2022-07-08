@@ -63,7 +63,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $restaurant = User::with(['UsersType',])->where('id', $id)->first();
+        $restaurant = User::with(['UsersType'])->where('id', $id)->first();
 
         $dishes = $restaurant->Dishes()->where('available', 1)->get();
 

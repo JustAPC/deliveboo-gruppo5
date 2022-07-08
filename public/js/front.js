@@ -1908,12 +1908,12 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Pages_Home_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pages/Home.vue */ "./resources/js/components/Pages/Home.vue");
+/* harmony import */ var _partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./partials/Header.vue */ "./resources/js/components/partials/Header.vue");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "App",
   components: {
-    Home: _Pages_Home_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+    Header: _partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
   }
 });
 
@@ -1928,18 +1928,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../partials/Header.vue */ "./resources/js/components/partials/Header.vue");
-/* harmony import */ var _partials_Restaurants_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/Restaurants.vue */ "./resources/js/components/partials/Restaurants.vue");
-/* harmony import */ var _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../partials/BackgroundImage.vue */ "./resources/js/components/partials/BackgroundImage.vue");
-
+/* harmony import */ var _partials_Restaurants_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../partials/Restaurants.vue */ "./resources/js/components/partials/Restaurants.vue");
+/* harmony import */ var _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/BackgroundImage.vue */ "./resources/js/components/partials/BackgroundImage.vue");
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   components: {
-    Header: _partials_Header_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    Restaurants: _partials_Restaurants_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
-    BackgroundImage: _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Restaurants: _partials_Restaurants_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
+    BackgroundImage: _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
   }
 });
 
@@ -1965,7 +1962,9 @@ __webpack_require__.r(__webpack_exports__);
     return {
       restaurant: [],
       dishes: [],
-      carrello: []
+      carrello: [],
+      cartSelectedDishes: [],
+      totalPrice: ""
     };
   },
   methods: {
@@ -1981,17 +1980,37 @@ __webpack_require__.r(__webpack_exports__);
     },
     addToCart: function addToCart(e) {
       this.carrello.push(e);
-      var cartItem = document.querySelector(".cart-item");
-      cartItem.innerHTML += "\n          <p>Piatto: ".concat(e.name, "</p>\n          <p>Prezzo: ").concat(e.price, "\u20AC</p>\n          <div class=\"d-flex justify-content-between\">\n          <input type=\"number\" min=\"1\" value=\"1\" style=\"width: 50px;\">\n          <button class=\"btn btn-danger\" @click=\"removeFromCart(dish)\">Rimuovi</button>\n        ");
+      this.cartSelectedDishes.push({
+        dish_id: e.id,
+        quantity: 1,
+        price: e.price
+      });
+      var totalPriceText = document.getElementById("totalPrice");
+      totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
     },
     removeFromCart: function removeFromCart(e) {
-      this.carrello = this.carrello.filter(function (e) {
-        if (e.id != id) {
+      this.carrello = this.carrello.filter(function (element) {
+        if (element.id !== e) {
           return true;
         }
 
         return false;
       });
+    },
+    updatePrice: function updatePrice(price, id) {
+      var quantityText = document.getElementById("quantity-cart-item-".concat(id));
+      var quantity = document.getElementById("quantity-input-".concat(id)).value;
+      var totalPriceText = document.getElementById("totalPrice");
+      totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+    },
+    prezzoTotale: function prezzoTotale(array) {
+      var prezzoTotale = 0;
+
+      for (var i = 0; i < array.length; i++) {
+        prezzoTotale += parseFloat(array[i].price);
+      }
+
+      return prezzoTotale.toFixed(2);
     }
   },
   mounted: function mounted() {
@@ -2126,7 +2145,9 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("Home")], 1);
+  return _c("div", [_c("Header"), _vm._v(" "), _c("router-view", {
+    staticClass: "content"
+  })], 1);
 };
 
 var staticRenderFns = [];
@@ -2150,7 +2171,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("Header"), _vm._v(" "), _c("div", {
+  return _c("div", [_c("div", {
     staticClass: "hero"
   }), _vm._v(" "), _c("div", {
     staticClass: "content"
@@ -2158,7 +2179,7 @@ var render = function render() {
     staticClass: "ristoranti"
   }), _vm._v(" "), _c("BackgroundImage", {
     staticClass: "bolle"
-  })], 1)], 1);
+  })], 1)]);
 };
 
 var staticRenderFns = [];
@@ -2182,38 +2203,82 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", {
-    staticClass: "container"
-  }, [_c("h1", [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("div", {
-    staticClass: "d-flex"
+  return _c("div", [_c("div", {
+    staticClass: "hero",
+    style: {
+      backgroundImage: "url(" + _vm.restaurant.restaurant_img + ")"
+    }
+  }, [_c("div", {
+    staticClass: "restaurant-infos"
+  }, [_c("div", [_c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])])]), _vm._v(" "), _c("main", [_c("div", {
+    staticClass: "container mt-5"
+  }, [_c("div", {
+    staticClass: "d-flex pt-5"
   }, [_c("div", {
     staticClass: "col-8 border"
-  }, [_c("ul", _vm._l(_vm.dishes, function (dish) {
+  }, [_c("ul", _vm._l(_vm.dishes, function (dish, i) {
     return _c("li", {
+      key: i,
       staticClass: "my-3"
-    }, [_c("p", [_vm._v("Nome: " + _vm._s(dish.name))]), _vm._v(" "), _c("p", [_vm._v("Pezzi: " + _vm._s(dish.quantity))]), _vm._v(" "), _c("p", [_vm._v("Prezzo: " + _vm._s(dish.price) + "€")]), _vm._v(" "), _c("button", {
+    }, [_c("h5", [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.ingredients))]), _vm._v(" "), _c("p", {
+      staticClass: "price-menu"
+    }, [_vm._v(_vm._s(dish.price) + " €")]), _vm._v(" "), _c("button", {
       staticClass: "btn btn-primary",
       on: {
         click: function click($event) {
           return _vm.addToCart(dish);
         }
       }
-    }, [_vm._v("Aggiungi al carrello")])]);
-  }), 0)]), _vm._v(" "), _vm._m(0)])]);
-};
-
-var staticRenderFns = [function () {
-  var _vm = this,
-      _c = _vm._self._c;
-
-  return _c("div", {
+    }, [_vm._v("\n                  Aggiungi al carrello\n                ")])]);
+  }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-4 border"
   }, [_c("div", {
     staticClass: "cart"
-  }, [_c("div", {
-    staticClass: "cart-item"
-  })])]);
-}];
+  }, [_c("h2", {
+    staticClass: "text-center"
+  }, [_vm._v("Il tuo carrello")]), _vm._v(" "), _vm._l(_vm.carrello, function (item, i) {
+    return _c("div", {
+      key: i,
+      staticClass: "cart-item"
+    }, [_c("p", [_vm._v("\n                  Piatto:\n                  "), _c("span", [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c("p", [_vm._v("\n                  Quantità:\n                  "), _c("span", {
+      attrs: {
+        id: "quantity-cart-item-" + item.id
+      }
+    }, [_vm._v(_vm._s(item.quantity))])]), _vm._v(" "), _c("p", [_vm._v("\n                  Prezzo:\n                  "), _c("span", {
+      attrs: {
+        id: "price-cart-item- " + item.id
+      }
+    }, [_vm._v(_vm._s(item.price) + "€")])]), _vm._v(" "), _c("div", {
+      staticClass: "d-flex justify-content-between"
+    }, [_c("input", {
+      staticClass: "quantity",
+      attrs: {
+        id: "quantity-input-" + item.id,
+        type: "number",
+        min: "1",
+        value: "1"
+      },
+      on: {
+        change: function change($event) {
+          return _vm.updatePrice(item.price, item.id);
+        }
+      }
+    }), _vm._v(" "), _c("button", {
+      staticClass: "btn btn-danger",
+      on: {
+        click: function click($event) {
+          return _vm.removeFromCart(item.id);
+        }
+      }
+    }, [_vm._v("Rimuovi")])])]);
+  }), _vm._v(" "), _vm.cartSelectedDishes != 0 ? _c("h3", {
+    attrs: {
+      id: "totalPrice"
+    }
+  }) : _vm._e()], 2)])])])])]);
+};
+
+var staticRenderFns = [];
 render._withStripped = true;
 
 
@@ -2562,6 +2627,25 @@ render._withStripped = true;
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".content[data-v-332fccf4] {\n  margin-top: 66px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/Home.vue?vue&type=style&index=0&id=6f716c15&lang=scss&scoped=true&":
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pages/Home.vue?vue&type=style&index=0&id=6f716c15&lang=scss&scoped=true& ***!
@@ -2582,6 +2666,26 @@ exports.push([module.i, ".ristoranti[data-v-6f716c15] {\n  position: relative;\n
 
 /***/ }),
 
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var escape = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/url/escape.js */ "./node_modules/css-loader/lib/url/escape.js");
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, ".hero[data-v-18e02810] {\n  position: relative;\n  height: 590px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  position: absolute;\n  bottom: -100px;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/BG-3.svg */ "./resources/images/BG-3.svg")) + ");\n  background-size: cover;\n  padding-top: 100px;\n}\n.container[data-v-18e02810] {\n  background-color: white;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 20px 0;\n  margin-bottom: 20px;\n  border-bottom: 1px solid grey;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart[data-v-18e02810] {\n  max-height: 700px;\n  overflow: auto;\n}\n.cart-item[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/BackgroundImage.vue?vue&type=style&index=0&id=873eea0a&scoped=true&lang=scss&":
 /*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/BackgroundImage.vue?vue&type=style&index=0&id=873eea0a&scoped=true&lang=scss& ***!
@@ -2594,7 +2698,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 77vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 34vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 62vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 52vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 52vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 91vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 7vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 96vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 21s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 94vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 81vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 92vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 6vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 99vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 21s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 49vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 42vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 57vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 85vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 95vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 18vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 13vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 19s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 62vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 42vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 41vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 21vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 94vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 24s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 33vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 31vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 11s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 37vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 11s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 68vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 52vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 86vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 28vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 36s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 97vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 34vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 73vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 37vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 19s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 33vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
+exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 2vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 54vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 72vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 36s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 58vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 42vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 85vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 59vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 41vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 2vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 81vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 58vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 90vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 41vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 2vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 38vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 74vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 32vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 24s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 7vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 24vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 55vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 34vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 34vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 59vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 21vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 96vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 17vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 10vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 73vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 22vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 31vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 99vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 59vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 46vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 67vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 98vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 76vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
 
 // exports
 
@@ -3146,6 +3250,36 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--9-2!../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/Home.vue?vue&type=style&index=0&id=6f716c15&lang=scss&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pages/Home.vue?vue&type=style&index=0&id=6f716c15&lang=scss&scoped=true& ***!
@@ -3155,6 +3289,36 @@ process.umask = function() { return 0; };
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Home.vue?vue&type=style&index=0&id=6f716c15&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/Home.vue?vue&type=style&index=0&id=6f716c15&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -18807,7 +18971,9 @@ module.exports = "/images/BG-3.svg?4abc6a9be2a1f34fc90e4bbf966f7cf4";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _App_vue_vue_type_template_id_332fccf4_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./App.vue?vue&type=template&id=332fccf4&scoped=true& */ "./resources/js/components/App.vue?vue&type=template&id=332fccf4&scoped=true&");
 /* harmony import */ var _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./App.vue?vue&type=script&lang=js& */ "./resources/js/components/App.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _App_vue_vue_type_style_index_0_id_332fccf4_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss& */ "./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -18815,7 +18981,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _App_vue_vue_type_template_id_332fccf4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _App_vue_vue_type_template_id_332fccf4_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -18844,6 +19010,22 @@ component.options.__file = "resources/js/components/App.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss& ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_332fccf4_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/style-loader!../../../node_modules/css-loader!../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../node_modules/postcss-loader/src??ref--9-2!../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../node_modules/vue-loader/lib??vue-loader-options!./App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/App.vue?vue&type=style&index=0&id=332fccf4&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_332fccf4_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_332fccf4_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_332fccf4_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_App_vue_vue_type_style_index_0_id_332fccf4_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 
@@ -18963,7 +19145,9 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _RestaurantShow_vue_vue_type_template_id_18e02810_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./RestaurantShow.vue?vue&type=template&id=18e02810&scoped=true& */ "./resources/js/components/Pages/RestaurantShow.vue?vue&type=template&id=18e02810&scoped=true&");
 /* harmony import */ var _RestaurantShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./RestaurantShow.vue?vue&type=script&lang=js& */ "./resources/js/components/Pages/RestaurantShow.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* empty/unused harmony star reexport *//* harmony import */ var _RestaurantShow_vue_vue_type_style_index_0_id_18e02810_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss& */ "./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
 
 
 
@@ -18971,7 +19155,7 @@ __webpack_require__.r(__webpack_exports__);
 
 /* normalize component */
 
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
   _RestaurantShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
   _RestaurantShow_vue_vue_type_template_id_18e02810_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
   _RestaurantShow_vue_vue_type_template_id_18e02810_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
@@ -19000,6 +19184,22 @@ component.options.__file = "resources/js/components/Pages/RestaurantShow.vue"
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantShow.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/RestaurantShow.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss& ***!
+  \********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_style_index_0_id_18e02810_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/RestaurantShow.vue?vue&type=style&index=0&id=18e02810&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_style_index_0_id_18e02810_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_style_index_0_id_18e02810_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_style_index_0_id_18e02810_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_RestaurantShow_vue_vue_type_style_index_0_id_18e02810_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
 
 /***/ }),
 
@@ -19321,14 +19521,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
-/* harmony import */ var vue_carousel__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue-carousel */ "./node_modules/vue-carousel/dist/vue-carousel.min.js");
-/* harmony import */ var vue_carousel__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue_carousel__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Pages/Home.vue */ "./resources/js/components/Pages/Home.vue");
-/* harmony import */ var _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Pages/RestaurantShow.vue */ "./resources/js/components/Pages/RestaurantShow.vue");
+/* harmony import */ var _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Pages/Home.vue */ "./resources/js/components/Pages/Home.vue");
+/* harmony import */ var _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Pages/RestaurantShow.vue */ "./resources/js/components/Pages/RestaurantShow.vue");
 
+ // import VueCarousel from "vue-carousel";
+// Vue.use(VueCarousel);
 
-
-vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_carousel__WEBPACK_IMPORTED_MODULE_2___default.a);
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
 
 
@@ -19337,14 +19535,14 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   linkActiveClass: "active",
   routes: [{
     path: "/",
-    component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }, {
     path: "/restaurant/:id",
-    component: _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    component: _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
     name: "restaurant-show"
   }, {
     path: "*",
-    component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   }]
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
