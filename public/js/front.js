@@ -1980,12 +1980,33 @@ __webpack_require__.r(__webpack_exports__);
     },
     addToCart: function addToCart(e) {
       this.carrello.push(e);
-      this.cartSelectedDishes.push({
+      var singleDish = {
         dish_id: e.id,
         quantity: 1,
-        price: e.price
-      });
+        total_price: e.price
+      };
+      this.cartSelectedDishes.push(singleDish);
       var totalPriceText = document.getElementById("totalPrice");
+      console.log(this.cartSelectedDishes);
+      totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+    },
+    updatePrice: function updatePrice(price, id) {
+      var quantityText = document.getElementById("quantity-cart-item-".concat(id));
+      var quantity = document.getElementById("quantity-input-".concat(id)).value;
+      var totalPriceText = document.getElementById("totalPrice");
+      quantityText.innerHTML = quantity;
+      var singleDish = {
+        dish_id: id,
+        quantity: quantity,
+        total_price: price * quantity
+      };
+
+      for (var i = 0; i < this.cartSelectedDishes.length; i++) {
+        if (this.cartSelectedDishes[i].dish_id == singleDish.dish_id) {
+          this.cartSelectedDishes[i] = singleDish;
+        }
+      }
+
       totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
     },
     removeFromCart: function removeFromCart(e) {
@@ -1997,17 +2018,11 @@ __webpack_require__.r(__webpack_exports__);
         return false;
       });
     },
-    updatePrice: function updatePrice(price, id) {
-      var quantityText = document.getElementById("quantity-cart-item-".concat(id));
-      var quantity = document.getElementById("quantity-input-".concat(id)).value;
-      var totalPriceText = document.getElementById("totalPrice");
-      totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
-    },
     prezzoTotale: function prezzoTotale(array) {
       var prezzoTotale = 0;
 
       for (var i = 0; i < array.length; i++) {
-        prezzoTotale += parseFloat(array[i].price);
+        prezzoTotale += parseFloat(array[i].total_price);
       }
 
       return prezzoTotale.toFixed(2);
@@ -2271,11 +2286,11 @@ var render = function render() {
         }
       }
     }, [_vm._v("Rimuovi")])])]);
-  }), _vm._v(" "), _vm.cartSelectedDishes != 0 ? _c("h3", {
+  })], 2), _vm._v(" "), _c("h3", {
     attrs: {
       id: "totalPrice"
     }
-  }) : _vm._e()], 2)])])])])]);
+  })])])])])]);
 };
 
 var staticRenderFns = [];

@@ -55,8 +55,8 @@
                   <button class="btn btn-danger" @click="removeFromCart(item.id)">Rimuovi</button>
                 </div>
               </div>
-              <h3 id="totalPrice" v-if="cartSelectedDishes != 0"></h3>
             </div>
+            <h3 id="totalPrice"></h3>
           </div>
         </div>
       </div>
@@ -91,12 +91,33 @@
 
       addToCart(e) {
         this.carrello.push(e);
-        this.cartSelectedDishes.push({
+        let singleDish = {
           dish_id: e.id,
           quantity: 1,
-          price: e.price,
-        });
+          total_price: e.price,
+        };
+        this.cartSelectedDishes.push(singleDish);
         let totalPriceText = document.getElementById("totalPrice");
+        console.log(this.cartSelectedDishes);
+        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+      },
+
+      updatePrice(price, id) {
+        let quantityText = document.getElementById(`quantity-cart-item-${id}`);
+        let quantity = document.getElementById(`quantity-input-${id}`).value;
+        let totalPriceText = document.getElementById("totalPrice");
+        quantityText.innerHTML = quantity;
+        let singleDish = {
+          dish_id: id,
+          quantity: quantity,
+          total_price: price * quantity,
+        };
+
+        for (let i = 0; i < this.cartSelectedDishes.length; i++) {
+          if (this.cartSelectedDishes[i].dish_id == singleDish.dish_id) {
+            this.cartSelectedDishes[i] = singleDish;
+          }
+        }
         totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
       },
 
@@ -109,17 +130,10 @@
         });
       },
 
-      updatePrice(price, id) {
-        let quantityText = document.getElementById(`quantity-cart-item-${id}`);
-        let quantity = document.getElementById(`quantity-input-${id}`).value;
-        let totalPriceText = document.getElementById("totalPrice");
-        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
-      },
-
       prezzoTotale(array) {
         let prezzoTotale = 0;
         for (let i = 0; i < array.length; i++) {
-          prezzoTotale += parseFloat(array[i].price);
+          prezzoTotale += parseFloat(array[i].total_price);
         }
         return prezzoTotale.toFixed(2);
       },
