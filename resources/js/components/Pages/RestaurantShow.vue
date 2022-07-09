@@ -108,7 +108,8 @@
         };
         this.cartSelectedDishes.push(singleDish);
         let totalPriceText = document.getElementById("totalPrice");
-        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+        totalPriceText.innerHTML =
+          "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
       },
 
       updatePrice(price, id) {
@@ -127,7 +128,8 @@
             this.cartSelectedDishes[i] = singleDish;
           }
         }
-        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+        totalPriceText.innerHTML =
+          "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
       },
 
       removeFromCart(e) {
@@ -136,7 +138,12 @@
         let totalPriceText = document.getElementById("totalPrice");
         this.carrello = this.carrello.filter((data) => data.id != e);
         this.cartSelectedDishes = this.cartSelectedDishes.filter((data) => data.dish_id != e);
-        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+        if (this.carrello.length == 0) {
+          totalPriceText.innerHTML = "";
+        } else {
+          totalPriceText.innerHTML =
+            "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
+        }
       },
 
       prezzoTotale(array) {
