@@ -19,7 +19,11 @@
                 <h5>{{ dish.name }}</h5>
                 <p>{{ dish.ingredients }}</p>
                 <p class="price-menu">{{ dish.price }} €</p>
-                <button class="btn btn-primary" @click="addToCart(dish)">
+                <button
+                  class="btn btn-primary"
+                  :id="'add-to-cart-' + dish.id"
+                  @click="addToCart(dish)"
+                >
                   Aggiungi al carrello
                 </button>
               </li>
@@ -52,7 +56,13 @@
                     value="1"
                     @change="updatePrice(item.price, item.id)"
                   />
-                  <button class="btn btn-danger" @click="removeFromCart(item.id)">Rimuovi</button>
+                  <button
+                    class="btn btn-danger"
+                    :id="'remove-from-cart-' + item.id"
+                    @click="removeFromCart(item.id)"
+                  >
+                    Rimuovi
+                  </button>
                 </div>
               </div>
             </div>
@@ -84,13 +94,13 @@
         axios.get(`http://127.0.0.1:8000/api/restaurants/${this.$route.params.id}`).then((res) => {
           this.restaurant = res.data.restaurant;
           this.dishes = res.data.dishes;
-          console.log(this.restaurant);
-          console.log(this.dishes);
         });
       },
 
       addToCart(e) {
         this.carrello.push(e);
+        let addButton = document.getElementById(`add-to-cart-${e.id}`);
+        addButton.setAttribute("disabled", "");
         let singleDish = {
           dish_id: e.id,
           quantity: 1,
@@ -98,7 +108,6 @@
         };
         this.cartSelectedDishes.push(singleDish);
         let totalPriceText = document.getElementById("totalPrice");
-        console.log(this.cartSelectedDishes);
         totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
       },
 
@@ -122,12 +131,12 @@
       },
 
       removeFromCart(e) {
-        this.carrello = this.carrello.filter((element) => {
-          if (element.id !== e) {
-            return true;
-          }
-          return false;
-        });
+        let addButton = document.getElementById(`add-to-cart-${e}`);
+        addButton.removeAttribute("disabled");
+        let totalPriceText = document.getElementById("totalPrice");
+        this.carrello = this.carrello.filter((data) => data.id != e);
+        this.cartSelectedDishes = this.cartSelectedDishes.filter((data) => data.dish_id != e);
+        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
       },
 
       prezzoTotale(array) {
