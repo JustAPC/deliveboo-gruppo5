@@ -1,8 +1,8 @@
 window.Vue = require("vue");
 
 import Vue from "vue";
-import vue-braintree from 'vue-braintree';
-Vue.use(vue-braintree)
+import vueBraintree from 'vue-braintree';
+Vue.use(vueBraintree);
 
 import router from "./routes.js";
 import App from "./components/App.vue";
