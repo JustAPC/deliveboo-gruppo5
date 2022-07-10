@@ -2,12 +2,19 @@
   <div>
     <div class="hero" :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }">
       <div class="restaurant-infos">
-        <div>
+        <div class="text-center">
           <h2>{{ restaurant.name }}</h2>
-          <p>{{ restaurant.address }}, {{ restaurant.zip }}</p>
-          <p>{{ restaurant.city }}, {{ restaurant.state }}</p>
-          <p>{{ restaurant.phone_number }}</p>
+          <span
+            v-for="category in restaurant.users_type"
+            :key="category.id"
+            class="badge badge-pill badge-primary mx-2 mb-4"
+          >
+            {{ category.name }}
+          </span>
         </div>
+        <p>{{ restaurant.address }}, {{ restaurant.zip }}</p>
+        <p>{{ restaurant.city }}, {{ restaurant.state }}</p>
+        <p>{{ restaurant.phone_number }}</p>
       </div>
     </div>
     <main>
@@ -177,7 +184,12 @@
     background-color: white;
     padding: 50px;
     border-radius: 1.5rem;
-    p {
+    .text-center {
+      border-bottom: 1px solid grey;
+      margin-bottom: 20px;
+      span {
+        font-size: 1.1em;
+      }
     }
   }
 
@@ -193,9 +205,7 @@
 
   h2 {
     font-weight: 1000;
-    padding: 20px 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid grey;
+    padding: 10px 0;
   }
 
   ul li {
