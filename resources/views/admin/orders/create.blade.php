@@ -1,15 +1,5 @@
 @extends('layouts.app')
 
-@section('optionalscripts')
-    {{-- <script defer src="{{ asset('js/dishQuantity.js') }}"></script> --}}
-    <style>
-        .cart {
-            height: 400px;
-            overflow: auto;
-        }
-    </style>
-@endsection
-
 @section('content')
     @if ($errors->any())
         {{-- Se sono presenti errori backend --}}
@@ -182,7 +172,7 @@
                 dishquantity.remove();
                 cartItem.innerHTML +=
                     `<p class="dish-quantity-${e}">Quantità: ${quantity}</p>`;
-                stampaPrezzo.innerHTML = totalPrice(selectedDishes)
+                stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€"
                 totalPriceDB.value = totalPrice(selectedDishes);
             } else {
                 cartItem.innerHTML = ""

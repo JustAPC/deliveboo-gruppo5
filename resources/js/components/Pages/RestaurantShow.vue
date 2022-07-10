@@ -2,12 +2,19 @@
   <div>
     <div class="hero" :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }">
       <div class="restaurant-infos">
-        <div>
+        <div class="text-center">
           <h2>{{ restaurant.name }}</h2>
-          <p>{{ restaurant.address }}, {{ restaurant.zip }}</p>
-          <p>{{ restaurant.city }}, {{ restaurant.state }}</p>
-          <p>{{ restaurant.phone_number }}</p>
+          <span
+            v-for="category in restaurant.users_type"
+            :key="category.id"
+            class="badge badge-pill badge-primary mx-2 mb-4"
+          >
+            {{ category.name }}
+          </span>
         </div>
+        <p>{{ restaurant.address }}, {{ restaurant.zip }}</p>
+        <p>{{ restaurant.city }}, {{ restaurant.state }}</p>
+        <p>{{ restaurant.phone_number }}</p>
       </div>
     </div>
     <main>
@@ -19,7 +26,11 @@
                 <h5>{{ dish.name }}</h5>
                 <p>{{ dish.ingredients }}</p>
                 <p class="price-menu">{{ dish.price }} €</p>
-                <button class="btn btn-primary" @click="addToCart(dish)">
+                <button
+                  class="btn btn-primary"
+                  :id="'add-to-cart-' + dish.id"
+                  @click="addToCart(dish)"
+                >
                   Aggiungi al carrello
                 </button>
               </li>
@@ -52,11 +63,17 @@
                     value="1"
                     @change="updatePrice(item.price, item.id)"
                   />
-                  <button class="btn btn-danger" @click="removeFromCart(item.id)">Rimuovi</button>
+                  <button
+                    class="btn btn-danger"
+                    :id="'remove-from-cart-' + item.id"
+                    @click="removeFromCart(item.id)"
+                  >
+                    Rimuovi
+                  </button>
                 </div>
               </div>
-              <h3 id="totalPrice" v-if="cartSelectedDishes != 0"></h3>
             </div>
+            <h3 id="totalPrice"></h3>
           </div>
         </div>
       </div>
@@ -84,42 +101,62 @@
         axios.get(`http://127.0.0.1:8000/api/restaurants/${this.$route.params.id}`).then((res) => {
           this.restaurant = res.data.restaurant;
           this.dishes = res.data.dishes;
-          console.log(this.restaurant);
-          console.log(this.dishes);
         });
       },
 
       addToCart(e) {
         this.carrello.push(e);
-        this.cartSelectedDishes.push({
+        let addButton = document.getElementById(`add-to-cart-${e.id}`);
+        addButton.setAttribute("disabled", "");
+        let singleDish = {
           dish_id: e.id,
           quantity: 1,
-          price: e.price,
-        });
+          total_price: e.price,
+        };
+        this.cartSelectedDishes.push(singleDish);
         let totalPriceText = document.getElementById("totalPrice");
-        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
-      },
-
-      removeFromCart(e) {
-        this.carrello = this.carrello.filter((element) => {
-          if (element.id !== e) {
-            return true;
-          }
-          return false;
-        });
+        totalPriceText.innerHTML =
+          "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
       },
 
       updatePrice(price, id) {
         let quantityText = document.getElementById(`quantity-cart-item-${id}`);
         let quantity = document.getElementById(`quantity-input-${id}`).value;
         let totalPriceText = document.getElementById("totalPrice");
-        totalPriceText.innerHTML = this.prezzoTotale(this.cartSelectedDishes);
+        quantityText.innerHTML = quantity;
+        let singleDish = {
+          dish_id: id,
+          quantity: quantity,
+          total_price: price * quantity,
+        };
+
+        for (let i = 0; i < this.cartSelectedDishes.length; i++) {
+          if (this.cartSelectedDishes[i].dish_id == singleDish.dish_id) {
+            this.cartSelectedDishes[i] = singleDish;
+          }
+        }
+        totalPriceText.innerHTML =
+          "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
+      },
+
+      removeFromCart(e) {
+        let addButton = document.getElementById(`add-to-cart-${e}`);
+        addButton.removeAttribute("disabled");
+        let totalPriceText = document.getElementById("totalPrice");
+        this.carrello = this.carrello.filter((data) => data.id != e);
+        this.cartSelectedDishes = this.cartSelectedDishes.filter((data) => data.dish_id != e);
+        if (this.carrello.length == 0) {
+          totalPriceText.innerHTML = "";
+        } else {
+          totalPriceText.innerHTML =
+            "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
+        }
       },
 
       prezzoTotale(array) {
         let prezzoTotale = 0;
         for (let i = 0; i < array.length; i++) {
-          prezzoTotale += parseFloat(array[i].price);
+          prezzoTotale += parseFloat(array[i].total_price);
         }
         return prezzoTotale.toFixed(2);
       },
@@ -147,7 +184,12 @@
     background-color: white;
     padding: 50px;
     border-radius: 1.5rem;
-    p {
+    .text-center {
+      border-bottom: 1px solid grey;
+      margin-bottom: 20px;
+      span {
+        font-size: 1.1em;
+      }
     }
   }
 
@@ -163,9 +205,7 @@
 
   h2 {
     font-weight: 1000;
-    padding: 20px 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid grey;
+    padding: 10px 0;
   }
 
   ul li {
