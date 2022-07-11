@@ -98,11 +98,14 @@ class RegisterController extends Controller
                 [
                     'user_id' => $lastId,
                     'type_id' => $type,
-                ]
-            );
-        }
+                    ]
+                );
+            }
+            
+        $this->redirectTo = '/admin';
 
         return $new_user;
 
     }
+
 }
