@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="container">
+    <div class="container p-5">
         <div class="d-flex justify-content-between">
             <a href="{{ route('admin.orders.create') }}" class="btn btn-success">Aggiungi un nuovo ordine</a>
             <form class="form-inline mr-3" method="GET" action="{{ route('admin.orders.index') }}">
