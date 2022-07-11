@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div class="hero" :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }">
-      <div class="restaurant-infos">
+    <div class="hero d-flex justify-content-center align-items-end" :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }">
+      <div class="restaurant-infos ">
         <div class="text-center">
           <h2>{{ restaurant.name }}</h2>
           <span
@@ -169,24 +169,27 @@
 </script>
 
 <style scoped lang="scss">
+  
   .hero {
-    position: relative;
-    height: 590px;
+    
+    height: 400px;
     width: 100%;
     background-position: center;
     background-size: cover;
   }
 
   .restaurant-infos {
-    position: absolute;
-    bottom: -100px;
+    min-width: 35%;
+    max-width: 80%;
     left: 35%;
     background-color: white;
     padding: 50px;
     border-radius: 1.5rem;
+    margin-bottom: -80px;
+    box-shadow:2px 2px 10px black;
     .text-center {
       border-bottom: 1px solid grey;
-      margin-bottom: 20px;
+      
       span {
         font-size: 1.1em;
       }
