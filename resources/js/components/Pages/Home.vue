@@ -36,7 +36,7 @@
     position: relative;
   }
   .hero {
-    background-image: url("../../../images/123.png");
+    background-image: url("../../../images/FOODDELIVERY-thumb.png");
     background-repeat: no-repeat;
     background-position: center;
     background-attachment: fixed;
