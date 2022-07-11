@@ -1953,10 +1953,14 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _partials_OpeningDays_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/OpeningDays.vue */ "./resources/js/components/partials/OpeningDays.vue");
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RestaurantShow",
-  components: {},
+  components: {
+    OpeningDays: _partials_OpeningDays_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+  },
   props: {},
   data: function data() {
     return {
@@ -1967,6 +1971,7 @@ __webpack_require__.r(__webpack_exports__);
       dishCategories: [],
       uniqueDishCategory: [],
       unique: [],
+      switchPage: 1,
       totalPrice: ""
     };
   },
@@ -1998,12 +2003,13 @@ __webpack_require__.r(__webpack_exports__);
           return false;
         }
       });
-      console.log(this.uniqueDishCategory);
     },
     addToCart: function addToCart(e) {
       this.carrello.push(e);
       var addButton = document.getElementById("add-to-cart-".concat(e.id));
-      addButton.setAttribute("disabled", "");
+      addButton.style.opacity = 0.7;
+      addButton.style.pointerEvents = 'none';
+      addButton.style.backgroundColor = 'lightgrey';
       var singleDish = {
         dish_id: e.id,
         quantity: 1,
@@ -2034,7 +2040,9 @@ __webpack_require__.r(__webpack_exports__);
     },
     removeFromCart: function removeFromCart(e) {
       var addButton = document.getElementById("add-to-cart-".concat(e));
-      addButton.removeAttribute("disabled");
+      addButton.style.opacity = 1;
+      addButton.style.pointerEvents = 'auto';
+      addButton.style.backgroundColor = 'white';
       var totalPriceText = document.getElementById("totalPrice");
       this.carrello = this.carrello.filter(function (data) {
         return data.id != e;
@@ -2057,6 +2065,12 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       return prezzoTotale.toFixed(2);
+    },
+    showMenu: function showMenu() {
+      this.switchPage = 1;
+    },
+    showInfos: function showInfos() {
+      this.switchPage = 2;
     }
   },
   mounted: function mounted() {
@@ -2098,6 +2112,27 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Header"
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/OpeningDays.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "OpeningDays",
+  components: {},
+  props: {},
+  data: function data() {
+    return {};
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -2264,11 +2299,35 @@ var render = function render() {
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
     }, [_vm._v("\n            " + _vm._s(category.name) + "\n          ")]);
   })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", [_c("div", {
-    staticClass: "container mt-5"
+    staticClass: "container"
   }, [_c("div", {
-    staticClass: "d-flex pt-5"
+    staticClass: "pt-5"
   }, [_c("div", {
-    staticClass: "col-8 border"
+    staticClass: "switcher"
+  }, [_c("div", {
+    on: {
+      click: function click($event) {
+        return _vm.showMenu();
+      }
+    }
+  }, [_c("span", {
+    "class": {
+      activePage: _vm.switchPage == 1
+    }
+  }, [_vm._v("Menu")])]), _vm._v(" "), _c("div", {
+    on: {
+      click: function click($event) {
+        return _vm.showInfos();
+      }
+    }
+  }, [_c("span", {
+    "class": {
+      activePage: _vm.switchPage == 2
+    }
+  }, [_vm._v("Info")])])])]), _vm._v(" "), _vm.switchPage == 1 ? _c("div", {
+    staticClass: "d-flex"
+  }, [_c("div", {
+    staticClass: "col-8"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
     return _c("ul", {
       key: i
@@ -2277,11 +2336,7 @@ var render = function render() {
     }, [_vm._v(_vm._s(category.name))]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
-        staticClass: "my-3 d-flex justify-content-between"
-      }, [_c("div", [_c("h5", [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.ingredients))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.dishcategory.name))]), _vm._v(" "), _c("p", {
-        staticClass: "price-menu"
-      }, [_vm._v(_vm._s(dish.price) + " €")]), _vm._v(" "), _c("button", {
-        staticClass: "btn btn-primary",
+        staticClass: "dish-card",
         attrs: {
           id: "add-to-cart-" + dish.id
         },
@@ -2290,7 +2345,10 @@ var render = function render() {
             return _vm.addToCart(dish);
           }
         }
-      }, [_vm._v("\n                    Aggiungi al carrello\n                  ")])]), _vm._v(" "), _c("div", [_c("img", {
+      }, [_c("div", [_c("p"), _c("h5", [_vm._v(_vm._s(dish.name))]), _c("p"), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.ingredients))]), _vm._v(" "), _c("p", {
+        staticClass: "price-menu"
+      }, [_vm._v(_vm._s(dish.price) + "€")])]), _vm._v(" "), _c("div", [_c("img", {
+        staticClass: "p-3",
         attrs: {
           src: dish.image,
           alt: "",
@@ -2299,24 +2357,26 @@ var render = function render() {
       })])]) : _vm._e();
     })], 2);
   }), 0), _vm._v(" "), _c("div", {
-    staticClass: "col-4 border"
+    staticClass: "col-4"
   }, [_c("div", {
     staticClass: "cart"
   }, [_c("h2", {
-    staticClass: "text-center"
-  }, [_vm._v("Il tuo carrello")]), _vm._v(" "), _vm._l(_vm.carrello, function (item, i) {
+    staticClass: "text-center border-bottom border-dark"
+  }, [_vm._v("Il tuo carrello")]), _vm._v(" "), _c("div", {
+    staticClass: "cart-plates"
+  }, _vm._l(_vm.carrello, function (item, i) {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\n                  Piatto:\n                  "), _c("span", [_vm._v(_vm._s(item.name))])]), _vm._v(" "), _c("p", [_vm._v("\n                  Quantità:\n                  "), _c("span", {
+    }, [_c("p", [_vm._v(_vm._s(item.name)), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
-    }, [_vm._v(_vm._s(item.quantity))])]), _vm._v(" "), _c("p", [_vm._v("\n                  Prezzo:\n                  "), _c("span", {
+    }, [_vm._v(_vm._s(item.quantity))])]), _vm._v(" "), _c("p", {
       attrs: {
         id: "price-cart-item- " + item.id
       }
-    }, [_vm._v(_vm._s(item.price) + "€")])]), _vm._v(" "), _c("div", {
+    }, [_vm._v(_vm._s(item.price) + "€")]), _vm._v(" "), _c("div", {
       staticClass: "d-flex justify-content-between"
     }, [_c("input", {
       staticClass: "quantity",
@@ -2341,15 +2401,21 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\n                    Rimuovi\n                  ")])])]);
-  })], 2), _vm._v(" "), _c("h3", {
+    }, [_vm._v("\n                          Rimuovi\n                        ")])])]);
+  }), 0), _vm._v(" "), _vm._m(0)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)])]);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("h3", {
+    staticClass: "px-3 pb-3",
     attrs: {
       id: "totalPrice"
     }
-  })])])])])]);
-};
-
-var staticRenderFns = [];
+  })]);
+}];
 render._withStripped = true;
 
 
@@ -2564,6 +2630,51 @@ var staticRenderFns = [function () {
       href: "/admin"
     }
   }, [_vm._v("Sei un ristorante?")])]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true&":
+/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true& ***!
+  \*****************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _vm._m(0);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "text-center pt-5 mt-5 w-50 mx-auto"
+  }, [_c("h1", [_vm._v("Giorni di Apertura")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("ul", [_c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Lunedì")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Martedì")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Mercoledì")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Giovedì")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Venerdì")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Sabato")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
+    staticClass: "d-flex justify-content-between"
+  }, [_c("p", [_vm._v("Domenica")]), _vm._v(" "), _c("p", [_vm._v("Chiuso")])])])]);
 }];
 render._withStripped = true;
 
@@ -27163,7 +27274,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".ristoranti[data-v-6f716c15] {\n  position: relative;\n  z-index: 3;\n}\n.bolle[data-v-6f716c15] {\n  z-index: 2;\n}\n.content[data-v-6f716c15] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/BG-3.svg */ "./resources/images/BG-3.svg")) + ");\n  width: 100%;\n  height: 100%;\n  background-size: cover;\n  z-index: 1;\n  position: relative;\n}\n.hero[data-v-6f716c15] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/FOODDELIVERY-thumb.png */ "./resources/images/FOODDELIVERY-thumb.png")) + ");\n  background-repeat: no-repeat;\n  background-position: center;\n  background-attachment: fixed;\n  background-size: cover;\n  height: 635px;\n  box-shadow: 0px 0px 10px #34c0c9;\n}", ""]);
+exports.push([module.i, ".ristoranti[data-v-6f716c15] {\n  position: relative;\n  z-index: 3;\n}\n.bolle[data-v-6f716c15] {\n  z-index: 2;\n}\n.content[data-v-6f716c15] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/blob-scene-haikei.svg */ "./resources/images/blob-scene-haikei.svg")) + ");\n  width: 100%;\n  height: 100%;\n  background-size: cover;\n  z-index: 1;\n  position: relative;\n}\n.hero[data-v-6f716c15] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/FOODDELIVERY-thumb.png */ "./resources/images/FOODDELIVERY-thumb.png")) + ");\n  background-repeat: no-repeat;\n  background-position: center;\n  background-attachment: fixed;\n  background-size: cover;\n  height: 635px;\n  box-shadow: 0px 0px 10px #34c0c9;\n}", ""]);
 
 // exports
 
@@ -27183,7 +27294,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/BG-3.svg */ "./resources/images/BG-3.svg")) + ");\n  background-size: cover;\n  padding-top: 100px;\n}\n.container[data-v-18e02810] {\n  background-color: white;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart[data-v-18e02810] {\n  max-height: 700px;\n  overflow: auto;\n}\n.cart-item[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}", ""]);
+exports.push([module.i, ".hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.switcher[data-v-18e02810] {\n  display: flex;\n  justify-content: center;\n  width: 50%;\n  margin: 0 auto;\n  border: 1px solid black;\n  border-radius: 2rem;\n}\n.switcher div[data-v-18e02810] {\n  cursor: pointer;\n  padding: 15px 25%;\n  letter-spacing: 3px;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.switcher div:hover span[data-v-18e02810] {\n  border-bottom: 5px solid #34C0C9;\n  padding-bottom: 13px;\n  color: #34C0C9;\n}\n.activePage[data-v-18e02810] {\n  border-bottom: 5px solid #34C0C9;\n  padding-bottom: 13px;\n  color: #34C0C9;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/blob-scene-haikei.svg */ "./resources/images/blob-scene-haikei.svg")) + ");\n  background-size: cover;\n  padding-top: 100px;\n  min-height: 1000px;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  margin-top: 160px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34C0C9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}", ""]);
 
 // exports
 
@@ -27222,6 +27333,25 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 // module
 exports.push([module.i, ".logo[data-v-79cec062] {\n  height: 50px;\n}\n.text-logo[data-v-79cec062] {\n  font-weight: bolder;\n  color: #00ccbc;\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+
+
+// module
+exports.push([module.i, "p[data-v-db1edc06] {\n  margin: 0;\n  padding: 0;\n  font-weight: 1000;\n  font-size: 1.5rem;\n  padding: 20px 10px;\n}", ""]);
 
 // exports
 
@@ -27883,6 +28013,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Header.vue?vue&type=style&index=0&id=79cec062&lang=scss&scoped=true& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Header.vue?vue&type=style&index=0&id=79cec062&lang=scss&scoped=true&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--9-2!./node_modules/sass-loader/dist/cjs.js??ref--9-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -43742,17 +43902,6 @@ module.exports = g;
 
 /***/ }),
 
-/***/ "./resources/images/BG-3.svg":
-/*!***********************************!*\
-  !*** ./resources/images/BG-3.svg ***!
-  \***********************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-module.exports = "/images/BG-3.svg?4abc6a9be2a1f34fc90e4bbf966f7cf4";
-
-/***/ }),
-
 /***/ "./resources/images/FOODDELIVERY-thumb.png":
 /*!*************************************************!*\
   !*** ./resources/images/FOODDELIVERY-thumb.png ***!
@@ -43761,6 +43910,17 @@ module.exports = "/images/BG-3.svg?4abc6a9be2a1f34fc90e4bbf966f7cf4";
 /***/ (function(module, exports) {
 
 module.exports = "/images/FOODDELIVERY-thumb.png?001ed3ec7269df698bdc23d998d778ed";
+
+/***/ }),
+
+/***/ "./resources/images/blob-scene-haikei.svg":
+/*!************************************************!*\
+  !*** ./resources/images/blob-scene-haikei.svg ***!
+  \************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/blob-scene-haikei.svg?8b9f59bd98e6d5f0b696428dc951585f";
 
 /***/ }),
 
@@ -44195,6 +44355,93 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_79cec062_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Header_vue_vue_type_template_id_79cec062_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/OpeningDays.vue":
+/*!**********************************************************!*\
+  !*** ./resources/js/components/partials/OpeningDays.vue ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OpeningDays_vue_vue_type_template_id_db1edc06_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true& */ "./resources/js/components/partials/OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true&");
+/* harmony import */ var _OpeningDays_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OpeningDays.vue?vue&type=script&lang=js& */ "./resources/js/components/partials/OpeningDays.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _OpeningDays_vue_vue_type_style_index_0_id_db1edc06_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss& */ "./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _OpeningDays_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OpeningDays_vue_vue_type_template_id_db1edc06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OpeningDays_vue_vue_type_template_id_db1edc06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "db1edc06",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/partials/OpeningDays.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/OpeningDays.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************!*\
+  !*** ./resources/js/components/partials/OpeningDays.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./OpeningDays.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss&":
+/*!********************************************************************************************************************!*\
+  !*** ./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss& ***!
+  \********************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_style_index_0_id_db1edc06_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--9-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--9-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=style&index=0&id=db1edc06&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_style_index_0_id_db1edc06_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_style_index_0_id_db1edc06_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_style_index_0_id_db1edc06_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_9_2_node_modules_sass_loader_dist_cjs_js_ref_9_3_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_style_index_0_id_db1edc06_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true&":
+/*!*****************************************************************************************************!*\
+  !*** ./resources/js/components/partials/OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true& ***!
+  \*****************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_template_id_db1edc06_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../node_modules/vue-loader/lib??vue-loader-options!./OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/OpeningDays.vue?vue&type=template&id=db1edc06&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_template_id_db1edc06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_OpeningDays_vue_vue_type_template_id_db1edc06_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 

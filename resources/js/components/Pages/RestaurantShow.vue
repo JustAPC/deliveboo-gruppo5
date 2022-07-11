@@ -21,87 +21,86 @@
       </div>
     </div>
     <main>
-      <div class="container mt-5">
-        <div class="d-flex pt-5">
-          <div class="col-8 border">
+      <div class="container">
+        <div class="pt-5">
+            <div class="switcher">
+                <div @click="showMenu()">
+                <span :class="{'activePage': switchPage == 1}">Menu</span>
+                </div>
+                <div @click="showInfos()">
+                    <span :class="{'activePage': switchPage == 2}">Info</span>
+                </div>
+            </div>
+        </div>
+        <div class="d-flex" v-if="switchPage == 1">
+          <div class="col-8">
             <ul v-for="(category, i) in uniqueDishCategory" :key="i">
               <h1 class="py-5">{{ category.name }}</h1>
               <li
                 v-for="(dish, i) in dishes"
                 :key="i"
                 v-if="category.id == dish.dishcategory_id"
-                class="my-3 d-flex justify-content-between"
+                class="dish-card"
+                :id="'add-to-cart-' + dish.id"
+                @click="addToCart(dish)"
               >
                 <div>
-                  <h5>{{ dish.name }}</h5>
+                  <p><h5>{{ dish.name }}</h5></p>
                   <p>{{ dish.ingredients }}</p>
-                  <p>{{ dish.dishcategory.name }}</p>
-                  <p class="price-menu">{{ dish.price }} €</p>
-                  <button
-                    class="btn btn-primary"
-                    :id="'add-to-cart-' + dish.id"
-                    @click="addToCart(dish)"
-                  >
-                    Aggiungi al carrello
-                  </button>
+                  <p class="price-menu">{{ dish.price }}€</p>
                 </div>
                 <div>
-                  <img :src="dish.image" alt="" width="200px" />
+                  <img :src="dish.image" alt="" width="200px" class="p-3" />
                   <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
                 </div>
               </li>
             </ul>
           </div>
 
-          <div class="col-4 border">
+          <div class="col-4">
             <div class="cart">
-              <h2 class="text-center">Il tuo carrello</h2>
-
-              <div class="cart-item" v-for="(item, i) in carrello" :key="i">
-                <p>
-                  Piatto:
-                  <span>{{ item.name }}</span>
-                </p>
-                <p>
-                  Quantità:
-                  <span :id="'quantity-cart-item-' + item.id">{{ item.quantity }}</span>
-                </p>
-                <p>
-                  Prezzo:
-                  <span :id="'price-cart-item- ' + item.id">{{ item.price }}€</span>
-                </p>
-                <div class="d-flex justify-content-between">
-                  <input
-                    :id="'quantity-input-' + item.id"
-                    type="number"
-                    class="quantity"
-                    min="1"
-                    value="1"
-                    @change="updatePrice(item.price, item.id)"
-                  />
-                  <button
-                    class="btn btn-danger"
-                    :id="'remove-from-cart-' + item.id"
-                    @click="removeFromCart(item.id)"
-                  >
-                    Rimuovi
-                  </button>
+                <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
+                <div class="cart-plates">
+                    <div class="cart-item" v-for="(item, i) in carrello" :key="i">
+                      <p>{{ item.name }}<span :id="'quantity-cart-item-' + item.id">{{ item.quantity }}</span></p>
+                      <p :id="'price-cart-item- ' + item.id">{{ item.price }}€</p>
+                      <div class="d-flex justify-content-between">
+                        <input
+                          :id="'quantity-input-' + item.id"
+                          type="number"
+                          class="quantity"
+                          min="1"
+                          value="1"
+                          @change="updatePrice(item.price, item.id)"
+                        />
+                        <button
+                          class="btn btn-danger"
+                          :id="'remove-from-cart-' + item.id"
+                          @click="removeFromCart(item.id)"
+                        >
+                          Rimuovi
+                        </button>
+                      </div>
+                    </div>
                 </div>
-              </div>
+            <div><h3 id="totalPrice" class="px-3 pb-3"></h3></div>
             </div>
-            <h3 id="totalPrice"></h3>
           </div>
         </div>
+
+        <OpeningDays v-if="switchPage == 2" />
       </div>
     </main>
   </div>
 </template>
 
 <script>
-  import axios from "axios";
+import axios from "axios";
+import OpeningDays from "../partials/OpeningDays.vue";
+
   export default {
     name: "RestaurantShow",
-    components: {},
+    components: { OpeningDays },
     props: {},
     data() {
       return {
@@ -112,6 +111,7 @@
         dishCategories: [],
         uniqueDishCategory: [],
         unique: [],
+        switchPage: 1,
         totalPrice: "",
       };
     },
@@ -139,13 +139,14 @@
             return false;
           }
         });
-        console.log(this.uniqueDishCategory);
       },
 
       addToCart(e) {
         this.carrello.push(e);
         let addButton = document.getElementById(`add-to-cart-${e.id}`);
-        addButton.setAttribute("disabled", "");
+          addButton.style.opacity = 0.7;
+          addButton.style.pointerEvents = 'none';
+          addButton.style.backgroundColor = 'lightgrey';
         let singleDish = {
           dish_id: e.id,
           quantity: 1,
@@ -179,7 +180,9 @@
 
       removeFromCart(e) {
         let addButton = document.getElementById(`add-to-cart-${e}`);
-        addButton.removeAttribute("disabled");
+        addButton.style.opacity = 1;
+        addButton.style.pointerEvents = 'auto';
+        addButton.style.backgroundColor = 'white';
         let totalPriceText = document.getElementById("totalPrice");
         this.carrello = this.carrello.filter((data) => data.id != e);
         this.cartSelectedDishes = this.cartSelectedDishes.filter((data) => data.dish_id != e);
@@ -197,7 +200,15 @@
           prezzoTotale += parseFloat(array[i].total_price);
         }
         return prezzoTotale.toFixed(2);
-      },
+        },
+
+        showMenu() {
+            this.switchPage = 1;
+        },
+
+        showInfos() {
+            this.switchPage = 2;
+        }
     },
 
     mounted() {
@@ -232,14 +243,38 @@
     }
   }
 
+.switcher {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+    margin: 0 auto;
+    border: 1px solid black;
+    border-radius: 2rem;
+    div {
+        cursor: pointer;
+        padding: 15px 25%;
+        letter-spacing: 3px;
+        font-weight: bold;
+        font-size: 1.1rem;
+        &:hover span {
+            border-bottom: 5px solid #34C0C9;
+            padding-bottom: 13px;
+            color: #34C0C9;
+        }
+    }
+}
+
+.activePage {
+    border-bottom: 5px solid #34C0C9;
+    padding-bottom: 13px;
+    color: #34C0C9;
+}
+
   main {
-    background-image: url("../../../images/BG-3.svg");
+    background-image: url("../../../images/blob-scene-haikei.svg");
     background-size: cover;
     padding-top: 100px;
-  }
-
-  .container {
-    background-color: white;
+    min-height: 1000px;
   }
 
   h2 {
@@ -247,24 +282,60 @@
     padding: 10px 0;
   }
 
+  h1 {
+    font-weight: 1000;
+  }
+
   ul li {
     list-style-type: none;
+    cursor: pointer;
     h5 {
       font-weight: 1000;
     }
   }
 
+  .dish-card {
+    display: flex;
+    justify-content: space-between;
+    margin: 1.2rem 0;
+    padding: 1rem;
+    border: 1px solid grey;
+    background-color: white;
+    border-radius: 1.2rem;
+    box-shadow: 0 4px 6px 0 rgb(27 35 36 / 2%), 0 2px 12px -2px rgb(27 35 36 / 8%), 0 3px 6px 0 rgb(27 35 36 / 6%);
+  }
   .cart {
-    max-height: 700px;
-    overflow: auto;
+    margin-top: 160px;
+    max-height: 615px;
+    background-color: white;
+    border-radius: 1.2rem;
+    min-height: 200px;
+    box-shadow: 0 4px 6px 0 rgb(27 35 36 / 2%), 0 2px 12px -2px rgb(27 35 36 / 8%), 0 3px 6px 0 rgb(27 35 36 / 6%);
+  }
+  .cart-plates {
+     overflow: auto;
+     max-height: 495px;
+     overflow-y: scroll;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+        &::-webkit-scrollbar {
+    display: none;
+    }
   }
   .cart-item {
-    border-bottom: 1px solid grey;
+    padding: 0 1.2rem;
+    border-bottom: 1px solid black;
     padding-bottom: 20px;
     margin-bottom: 20px;
     font-size: 1.2em;
     p {
       font-weight: 1000;
+    }
+    span {
+        background-color: #34C0C9;
+        margin-left: 10px;
+        padding: 2px 6px;
+        border-radius: 50%;
     }
   }
   .price-menu {
@@ -274,27 +345,3 @@
     width: 50px;
   }
 </style>
-
-<!-- const arr = [
-  {id: 1, name: 'Tom'},
-  {id: 1, name: 'Tom'},
-  {id: 2, name: 'Nick'},
-  {id: 2, name: 'Nick'},
-];
-
-const uniqueIds = [];
-
-const unique = arr.filter(element => {
-  const isDuplicate = uniqueIds.includes(element.id);
-
-  if (!isDuplicate) {
-    uniqueIds.push(element.id);
-
-    return true;
-  }
-
-  return false;
-});
-
-// 👇️ [{id: 1, name: 'Tom'}, {id: 2, name: 'Nick'}]
-console.log(unique); -->

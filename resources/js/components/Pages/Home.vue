@@ -28,7 +28,7 @@
     z-index: 2;
   }
   .content {
-    background-image: url("../../../images/BG-3.svg");
+    background-image: url("../../../images/blob-scene-haikei.svg");
     width: 100%;
     height: 100%;
     background-size: cover;
