@@ -2085,6 +2085,9 @@ __webpack_require__.r(__webpack_exports__);
       dishes: [],
       carrello: [],
       cartSelectedDishes: [],
+      dishCategories: [],
+      uniqueDishCategory: [],
+      unique: [],
       totalPrice: ""
     };
   },
@@ -2095,7 +2098,28 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("http://127.0.0.1:8000/api/restaurants/".concat(this.$route.params.id)).then(function (res) {
         _this.restaurant = res.data.restaurant;
         _this.dishes = res.data.dishes;
+
+        _this.getCategories();
       });
+    },
+    getCategories: function getCategories() {
+      var _this2 = this;
+
+      this.dishes.forEach(function (e) {
+        _this2.dishCategories.push(e.dishcategory);
+      });
+      this.uniqueDishCategory = this.dishCategories.filter(function (element) {
+        var isDuplicate = _this2.unique.includes(element.id);
+
+        if (!isDuplicate) {
+          _this2.unique.push(element.id);
+
+          return true;
+        } else {
+          return false;
+        }
+      });
+      console.log(this.uniqueDishCategory);
     },
     addToCart: function addToCart(e) {
       this.carrello.push(e);
@@ -2406,24 +2430,36 @@ var render = function render() {
     staticClass: "d-flex pt-5"
   }, [_c("div", {
     staticClass: "col-8 border"
-  }, [_c("ul", _vm._l(_vm.dishes, function (dish, i) {
-    return _c("li", {
-      key: i,
-      staticClass: "my-3"
-    }, [_c("h5", [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.ingredients))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.dishcategory.name))]), _vm._v(" "), _c("p", {
-      staticClass: "price-menu"
-    }, [_vm._v(_vm._s(dish.price) + " €")]), _vm._v(" "), _c("button", {
-      staticClass: "btn btn-primary",
-      attrs: {
-        id: "add-to-cart-" + dish.id
-      },
-      on: {
-        click: function click($event) {
-          return _vm.addToCart(dish);
+  }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
+    return _c("ul", {
+      key: i
+    }, [_c("h1", {
+      staticClass: "py-5"
+    }, [_vm._v(_vm._s(category.name))]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+      return category.id == dish.dishcategory_id ? _c("li", {
+        key: i,
+        staticClass: "my-3 d-flex justify-content-between"
+      }, [_c("div", [_c("h5", [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.ingredients))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(dish.dishcategory.name))]), _vm._v(" "), _c("p", {
+        staticClass: "price-menu"
+      }, [_vm._v(_vm._s(dish.price) + " €")]), _vm._v(" "), _c("button", {
+        staticClass: "btn btn-primary",
+        attrs: {
+          id: "add-to-cart-" + dish.id
+        },
+        on: {
+          click: function click($event) {
+            return _vm.addToCart(dish);
+          }
         }
-      }
-    }, [_vm._v("\r\n                  Aggiungi al carrello\r\n                ")])]);
-  }), 0)]), _vm._v(" "), _c("div", {
+      }, [_vm._v("\r\n                    Aggiungi al carrello\r\n                  ")])]), _vm._v(" "), _c("div", [_c("img", {
+        attrs: {
+          src: dish.image,
+          alt: "",
+          width: "200px"
+        }
+      })])]) : _vm._e();
+    })], 2);
+  }), 0), _vm._v(" "), _c("div", {
     staticClass: "col-4 border"
   }, [_c("div", {
     staticClass: "cart"
