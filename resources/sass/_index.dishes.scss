@@ -3,3 +3,59 @@
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
     transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
 }
+
+.dettagli-show {
+    font-size: 1.3rem;
+}
+
+.edit-button {
+    background-color: #49afca!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
+}
+
+.delete-button {
+    background-color: #e98c22!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
+}
+
+.back-button {
+    background-color: #78d04f!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
+}
+
+.show-button {
+    background-color: #78d04f!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
+}
+
+.edit-button:hover {
+    background-color: transparent!important;
+    color: #49afca!important;
+    border-color: #49afca!important;
+}
+
+.delete-button:hover {
+    background-color: transparent!important;
+    color: #e98c22!important;
+    border-color: #e98c22!important;
+}
+
+.back-button:hover {
+    background-color: transparent!important;
+    color: #78d04f!important;
+    border-color: #78d04f!important;
+}
+
+.show-button:hover {
+    background-color: transparent!important;
+    color: #78d04f!important;
+    border-color: #78d04f!important;
+}
