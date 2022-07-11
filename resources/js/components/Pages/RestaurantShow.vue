@@ -25,6 +25,7 @@
               <li v-for="(dish, i) in dishes" :key="i" class="my-3">
                 <h5>{{ dish.name }}</h5>
                 <p>{{ dish.ingredients }}</p>
+                <p>{{dish.dishcategory.name}}</p>
                 <p class="price-menu">{{ dish.price }} €</p>
                 <button
                   class="btn btn-primary"
