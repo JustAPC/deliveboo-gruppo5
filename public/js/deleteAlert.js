@@ -109,13 +109,12 @@ deleteForms.forEach(function (element) {
       cancelButtonText: "No, conserva il piatto"
     }).then(function (result) {
       if (result.isConfirmed) {
-        var sumbitFunction = function sumbitFunction() {
-          e.target.submit();
-        };
-
         Swal.fire("Successo!", "Il tuo piatto è stato eliminato", "success");
-        var myTimeout = setTimeout(sumbitFunction, 3000);
       }
+
+      document.querySelector(".swal2-confirm").addEventListener("click", function () {
+        e.target.submit();
+      });
     });
   });
 });
