@@ -26,6 +26,11 @@
                 <h5>{{ dish.name }}</h5>
                 <p>{{ dish.ingredients }}</p>
                 <p class="price-menu">{{ dish.price }} €</p>
+                  <div v-if="dish.image.length >= 1">
+                    <img :src="dish.image" alt="" class="immagine-menu-vue">
+                  </div>
+                  
+                
                 <button
                   class="btn btn-primary"
                   :id="'add-to-cart-' + dish.id"
@@ -210,11 +215,19 @@
 
   ul li {
     list-style-type: none;
+    display: flex;
+    
+    justify-content: space-around;
+    flex-direction: column;
     h5 {
       font-weight: 1000;
     }
   }
-
+  button {
+    width: 100px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
   .cart {
     max-height: 700px;
     overflow: auto;
@@ -233,5 +246,8 @@
   }
   .quantity {
     width: 50px;
+  }
+  .immagine-menu-vue {
+    max-width: 200px;
   }
 </style>
