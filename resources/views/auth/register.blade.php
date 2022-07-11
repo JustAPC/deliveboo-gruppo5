@@ -8,7 +8,7 @@
                 <div class="card-header">{{ __('Register') }}</div>
 
                 <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" id="sectionForm">
                         @csrf
 
                         {{-- Nome Utente --}}
@@ -132,13 +132,24 @@
                         </div>
 
                         {{-- Tipo di ristorante --}}
-                        <div class="form-group">
+                        <div class="form-group form-control @error('types') is-invalid @enderror">
                             @foreach ($types as $type)
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="checkbox" id="type-{{$type->id}}" value="{{$type->id}}" name="types[]">
+                                    <input class="form-check-input" 
+                                    type="checkbox" 
+                                    id="type-{{$type->id}}" 
+                                    value="{{$type->id}}"
+                                    @if( in_array($type->id , old('types', []) ) ) checked @endif 
+                                    name="types[]"
+                                    >
                                     <label class="form-check-label" for="type-{{$type->id}}">{{$type->name}}</label>
                                 </div>
                             @endforeach
+                            @error('types')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>You need to check at leaone one box</strong>
+                                    </span>
+                            @enderror
                         </div>
 
                         {{-- Immagine ristorante --}}
@@ -208,4 +219,13 @@
         </div>
     </div>
 </div>
+
+
+<script>
+    // const form = document.querySelector('#sectionForm');
+    const checkboxes = document.querySelectorAll('input[type=checkbox]').checked;
+    console.log(checkboxes);
+
+    
+</script>
 @endsection
