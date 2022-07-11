@@ -1,7 +1,10 @@
 <template>
   <div>
-    <div class="hero d-flex justify-content-center align-items-end" :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }">
-      <div class="restaurant-infos ">
+    <div
+      class="hero d-flex justify-content-center align-items-end"
+      :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }"
+    >
+      <div class="restaurant-infos">
         <div class="text-center">
           <h2>{{ restaurant.name }}</h2>
           <span
@@ -21,19 +24,31 @@
       <div class="container mt-5">
         <div class="d-flex pt-5">
           <div class="col-8 border">
-            <ul>
-              <li v-for="(dish, i) in dishes" :key="i" class="my-3">
-                <h5>{{ dish.name }}</h5>
-                <p>{{ dish.ingredients }}</p>
-                <p>{{dish.dishcategory.name}}</p>
-                <p class="price-menu">{{ dish.price }} €</p>
-                <button
-                  class="btn btn-primary"
-                  :id="'add-to-cart-' + dish.id"
-                  @click="addToCart(dish)"
-                >
-                  Aggiungi al carrello
-                </button>
+            <ul v-for="(category, i) in uniqueDishCategory" :key="i">
+              <h1 class="py-5">{{ category.name }}</h1>
+              <li
+                v-for="(dish, i) in dishes"
+                :key="i"
+                v-if="category.id == dish.dishcategory_id"
+                class="my-3 d-flex justify-content-between"
+              >
+                <div>
+                  <h5>{{ dish.name }}</h5>
+                  <p>{{ dish.ingredients }}</p>
+                  <p>{{ dish.dishcategory.name }}</p>
+                  <p class="price-menu">{{ dish.price }} €</p>
+                  <button
+                    class="btn btn-primary"
+                    :id="'add-to-cart-' + dish.id"
+                    @click="addToCart(dish)"
+                  >
+                    Aggiungi al carrello
+                  </button>
+                </div>
+                <div>
+                  <img :src="dish.image" alt="" width="200px" />
+                  <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
+                </div>
               </li>
             </ul>
           </div>
@@ -94,6 +109,9 @@
         dishes: [],
         carrello: [],
         cartSelectedDishes: [],
+        dishCategories: [],
+        uniqueDishCategory: [],
+        unique: [],
         totalPrice: "",
       };
     },
@@ -102,7 +120,26 @@
         axios.get(`http://127.0.0.1:8000/api/restaurants/${this.$route.params.id}`).then((res) => {
           this.restaurant = res.data.restaurant;
           this.dishes = res.data.dishes;
+          this.getCategories();
         });
+      },
+
+      getCategories() {
+        this.dishes.forEach((e) => {
+          this.dishCategories.push(e.dishcategory);
+        });
+        this.uniqueDishCategory = this.dishCategories.filter((element) => {
+          const isDuplicate = this.unique.includes(element.id);
+
+          if (!isDuplicate) {
+            this.unique.push(element.id);
+
+            return true;
+          } else {
+            return false;
+          }
+        });
+        console.log(this.uniqueDishCategory);
       },
 
       addToCart(e) {
@@ -170,9 +207,7 @@
 </script>
 
 <style scoped lang="scss">
-  
   .hero {
-    
     height: 400px;
     width: 100%;
     background-position: center;
@@ -187,10 +222,10 @@
     padding: 50px;
     border-radius: 1.5rem;
     margin-bottom: -80px;
-    box-shadow:2px 2px 10px black;
+    box-shadow: 2px 2px 10px black;
     .text-center {
       border-bottom: 1px solid grey;
-      
+
       span {
         font-size: 1.1em;
       }
@@ -239,3 +274,27 @@
     width: 50px;
   }
 </style>
+
+<!-- const arr = [
+  {id: 1, name: 'Tom'},
+  {id: 1, name: 'Tom'},
+  {id: 2, name: 'Nick'},
+  {id: 2, name: 'Nick'},
+];
+
+const uniqueIds = [];
+
+const unique = arr.filter(element => {
+  const isDuplicate = uniqueIds.includes(element.id);
+
+  if (!isDuplicate) {
+    uniqueIds.push(element.id);
+
+    return true;
+  }
+
+  return false;
+});
+
+// 👇️ [{id: 1, name: 'Tom'}, {id: 2, name: 'Nick'}]
+console.log(unique); -->
