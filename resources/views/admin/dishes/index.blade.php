@@ -26,66 +26,96 @@
     @endif
 
     {{-- titolo nome ristorante --}}
-    <h1 class="text-center p-4">{{ Auth::user()->restaurant_name }}</h1>
-
+    <h1 class="text-center text-white p-4" style="font-size: 3.5rem">{{ Auth::user()->restaurant_name }}</h1>
 
     {{-- searchbar superiore --}}
-    <div class="d-flex row-cols-sm-12 flex-wrap justify-content-between w-50 mx-auto mb-4">
-        <a href="{{ route('admin.dishes.create') }}" class="btn btn-deliveboo col-sm-12 col-md-3">Aggiungi un nuovo
+    <div class="d-flex flex-wrap row-cols-md-2 w-75 mx-auto flex-wrap justify-content-around align-items-center mb-4">
+        <a id="new-dish-btn" href="{{ route('admin.dishes.create') }}" class="btn col-sm-1 col-md-2">Aggiungi un nuovo
             piatto</a>
-        <form class="d-flex justify-content-between col-sm-8" method="GET" action="{{ route('admin.dishes.index') }}">
-            <input class="form-control col-sm-8 col-xs-12" type="search" placeholder="Cerca un piatto..." name="name">
-            <button class="btn btn-outline-deliveboo col-md-2 ml-2" type="submit">Cerca</button>
-            <button class="btn btn-outline-primary col-md-2 ml-2" type="submit" name="">Vedi tutti</button>
+        <form class="d-flex justify-content-between align-items-center my-auto" method="GET" action="{{ route('admin.dishes.index') }}">
+            <input class="form-control col-md-7 col-sm-12" type="search" placeholder="Cerca un piatto..." name="name">
+            <button class="btn-cerca-vedi col-md-2 col-sm-12 ml-2" type="submit">Cerca</button>
+            <button class="btn-cerca-vedi col-md-2 col-sm-12 ml-2" type="submit" name="">Vedi tutti</button>
         </form>
     </div>
 
+    <div class="container-fluid">
 
+        {{-- background animato --}}
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
 
-    <div class="container">
-        <div class="row-cols-4 d-flex flex-wrap justify-content-around">
+        <div class="row-cols-3 w-75 mx-auto d-flex flex-wrap justify-content-around">
 
             @forelse ($dishes as $dish)
                 @if ($dish->available == 1)
+
                     {{-- card --}}
-                    <div class="card menu-card col-auto my-3" style="width: 18rem;">
-                        <div class="card-body d-flex flex-column">
-                            @if ($dish->image)
-                                @if (Str::startsWith($dish->image, 'http'))
-                                    <img src="{{ $dish->image }}" alt="" height="150px" class="rounded">
+                    <div class="card menu-card col-auto my-3 content" style="width: 18rem;">
+                        <div class="card-body d-flex flex-column w-100">
+
+                            {{-- immagine + titolo + categoria + dettagli --}}
+                            <div class="w-100" style="margin-bottom: auto">
+
+                                {{-- immagine --}}
+                                @if ($dish->image)
+                                    @if (Str::startsWith($dish->image, 'http'))
+                                        <div style="width: 100%; height: 150px; background-image: url({{ $dish->image }}); background-size: cover; background-position: center">
+                                            
+                                        </div>
+                                    @else
+                                        <div style="width: 100%; height: 150px; background-image: url({{ asset("storage/$dish->image") }}); background-size: cover; background-position: center">
+                                            
+                                        </div>
+                                    @endif
                                 @else
-                                    <img src="{{ asset("storage/$dish->image") }}" alt="" height="150px"
-                                        class="rounded">
+                                    <div style="width: 100%; height: 150px; background-image: url('https://2csolution.it/wp-content/themes/consultix/images/no-image-found-360x260.png'); background-size: cover; background-position: center">
+                                        
+                                    </div>
                                 @endif
-                            @else
-                                <img src="https://2csolution.it/wp-content/themes/consultix/images/no-image-found-360x260.png"
-                                    alt="nessuna immagine trovata" height="150px" class="rounded">
-                            @endif
+    
+                                {{-- categoria --}}
+                                <h5 class="card-title font-weight-bold text-center mt-2">{{ $dish->name }}</h5>
+                                <p class="text-capitalize text-center badge badge-pill badge-deliveboo w-50 align-self-center">
+                                    Categoria: {{ $dish->Dishcategory->name }}</p>
 
-                            <h5 class="card-title font-weight-bold text-center mt-2">{{ $dish->name }}</h5>
-                            <p class="text-capitalize text-center badge badge-pill badge-deliveboo w-50 align-self-center">
-                                Categoria: {{ $dish->Dishcategory->name }}</p>
+                                {{-- ingredienti --}}
+                                @if ($dish->ingredients)
+                                    <h6 class="card-subtitle mb-2 text-muted">Ingredienti: {{ $dish->ingredients }}</h6>
+                                @endif
+    
+                                {{-- descrizione --}}
+                                @if ($dish->description)
+                                    <h6 class="card-subtitle mb-2 text-muted">Descrizione: {{ $dish->description }}</h6>
+                                @endif
 
-                            @if ($dish->ingredients)
-                                <h6 class="card-subtitle mb-2 text-muted">Ingredienti: {{ $dish->ingredients }}</h6>
-                            @endif
-                            @if ($dish->description)
-                                <h6 class="card-subtitle mb-2 text-muted">Descrizione: {{ $dish->description }}</h6>
-                            @endif
-                            <p class="card-text text-right">€ {{ $dish->price }}</p>
-
-                            <div class="d-flex justify-content-around">
-                                <a href="{{ route('admin.dishes.show', $dish->id) }}"
-                                    class="btn btn-outline-success">Vedi</a>
-                                <a href="{{ route('admin.dishes.edit', $dish->id) }}"
-                                    class="btn btn-outline-primary">Modifica</a>
-                                <form action="{{ route('admin.dishes.destroy', $dish->id) }}"
-                                    class="d-inline-block delete-form" data-name="{{ $dish->name }}"method="POST">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="submit" class="btn btn-outline-danger" value="Elimina">
-                                </form>
                             </div>
+
+
+                            {{-- prezzo + pulsanti --}}
+                            <div>
+
+                                {{-- prezzo --}}
+                                <p class="card-text text-right"><b>€ {{ $dish->price }}</b></p>
+    
+                                {{-- pulsanti --}}
+                                <div class="d-flex justify-content-around align-items-end" style="height: auto">
+                                    <a href="{{ route('admin.dishes.show', $dish->id) }}"
+                                        class="btn show-button"><i class="fa-solid fa-eye"></i></a>
+                                    <a href="{{ route('admin.dishes.edit', $dish->id) }}"
+                                        class="btn edit-button"><i class="fa-solid fa-pen-to-square"></i></a>
+                                    <form action="{{ route('admin.dishes.destroy', $dish->id) }}"
+                                        class="d-inline-block delete-form" data-name="{{ $dish->name }}" method="POST" style="margin-bottom: auto">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn delete-button" value="Elimina"><i class="fa-solid fa-trash-can"></i></button>
+                                    </form>
+                                </div>
+
+                            </div>
+
+
                         </div>
                     </div>
                 @endif
@@ -95,3 +125,71 @@
         </div>
     </div>
 @endsection
+
+<style>
+    html {
+    height:100%;
+}
+
+body {
+    margin:0;
+}
+
+.bg {
+    animation:slide 3s ease-in-out infinite alternate;
+    background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+    bottom:0;
+    left:-50%;
+    opacity:.5;
+    position:fixed;
+    right:-50%;
+    top:0;
+    z-index:-1;
+}
+
+.bg2 {
+    animation-direction:alternate-reverse;
+    animation-duration:4s;
+}
+
+.bg3 {
+    animation-duration:5s;
+}
+
+.content {
+    background-color:rgba(255,255,255,.8);
+    border-radius:.25em;
+    box-shadow:0 0 .25em rgba(0,0,0,.25);
+    box-sizing:border-box;
+    /* left:50%; */
+    padding:5vmin;
+    position:fixed;
+    text-align:center;
+    top:50%;
+    /* transform:translate(-50%, -50%); */
+}
+
+@keyframes slide {
+    0% {
+    transform:translateX(-25%);
+    }
+    100% {
+    transform:translateX(25%);
+    }
+}
+
+#new-dish-btn {
+    background-color: #e98c22;
+    color: white;
+}
+
+.btn-cerca-vedi {
+    border: 1px solid #e98c22;
+    color: #e98c22;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 6px 12px;
+    margin-bottom: 0;
+}
+</style>
