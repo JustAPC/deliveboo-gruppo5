@@ -161,12 +161,10 @@ body {
     border-radius:.25em;
     box-shadow:0 0 .25em rgba(0,0,0,.25);
     box-sizing:border-box;
-    /* left:50%; */
     padding:5vmin;
     position:fixed;
     text-align:center;
     top:50%;
-    /* transform:translate(-50%, -50%); */
 }
 
 @keyframes slide {
@@ -191,5 +189,26 @@ body {
     font-size: 14px;
     padding: 6px 12px;
     margin-bottom: 0;
+}
+
+.show-button {
+    background-color: #78d04f!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
+}
+
+.edit-button {
+    background-color: #49afca!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
+}
+
+.delete-button {
+    background-color: #e98c22!important;
+    color: white!important;
+    display: flex!important;
+    align-items: center!important;
 }
 </style>
