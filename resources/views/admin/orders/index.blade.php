@@ -6,6 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.16.6/dist/sweetalert2.all.min.js"></script>
 @endsection
 
+{{-- messaggio di conferma eliminazione --}}
 @section('content')
     @if (session('message-delete'))
         <div class="alert alert-success fs-5">
@@ -23,12 +24,12 @@
         <div class="bg bg3"></div>
 
         {{-- searchbar superiore --}}
-        <div class="d-flex justify-content-between">
-            <a href="{{ route('admin.orders.create') }}" id="new-order-btn" class="btn btn-success">Aggiungi un nuovo ordine</a>
-            <form class="form-inline mr-3" method="GET" action="{{ route('admin.orders.index') }}" style="margin-bottom: 0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Cerca per id" name="id">
-                <button class="btn btn-outline-success my-2 mx-3 my-sm-0" id="btn-cerca-vedi" type="submit">Search</button>
-                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit" id="btn-cerca-vedi" name="">
+        <div class="d-flex flex-wrap row-cols-md-2 mt-5 mx-auto justify-content-around align-items-center mb-4">
+            <a href="{{ route('admin.orders.create') }}" id="new-order-btn" class="btn col-sm-1 col-md-3 m-2">Aggiungi un nuovo ordine</a>
+            <form class="form-inline col-sm-1 col-md-8 d-flex justify-content-between" method="GET" action="{{ route('admin.orders.index') }}" style="margin-bottom: 0">
+                <input class="form-control col-md-7 col-sm-12 m-1" type="search" placeholder="Cerca per id" name="id">
+                <button class="btn btn-outline-success col-md-2 col-xs-6 m-1" id="btn-cerca-vedi" type="submit">Search</button>
+                <button class="btn btn-outline-primary col-md-2 col-xs-6 m-1" type="submit" id="btn-cerca-vedi" name="">
                     Vedi tutti</button>
             </form>
         </div>
@@ -99,7 +100,7 @@
 
 
         @empty
-            <h1>Non ci sono ordini</h1>
+            <h1 class="text-white m-5 text-center">Nessun ordine soddisfa il criterio di ricerca</h1>
         @endforelse
 
     </div>
@@ -163,13 +164,21 @@
 }
 
 #btn-cerca-vedi {
-    border: 1px solid #e98c22;
+    border: 2px solid #e98c22;
     color: #e98c22;
+    font-weight: bold;
     background-color: white;
     border-radius: 5px;
     font-size: 14px;
     padding: 6px 12px;
     margin-bottom: 0;
+}
+
+#btn-cerca-vedi:hover {
+    border: 2px solid white;
+    font-weight: bold;
+    color: white;
+    background-color: #e98c22;
 }
 
 .show-button {
