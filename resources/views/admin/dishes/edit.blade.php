@@ -24,9 +24,10 @@
 
         <h1 class="mb-5 pt-5">Modifica il piatto</h1>
 
-        <form action="{{ route('admin.dishes.store') }}" method="POST" enctype="multipart/form-data" class="needs-validation"
+        <form action="{{ route('admin.dishes.update', $dish->id) }}" method="POST" enctype="multipart/form-data" class="needs-validation"
             novalidate>
             @csrf
+            @method('PUT')
             {{-- Riga nome --}}
             <div class="form-group floating">
                 <input type="text" id="name" name="name" required value="{{ old('name', $dish->name) }}"
