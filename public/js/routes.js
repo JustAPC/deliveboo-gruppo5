@@ -2844,22 +2844,22 @@ var render = function render() {
         }
       }
     }, [_vm._v("\r\n                          Rimuovi\r\n                        ")])])]);
-  }), 0), _vm._v(" "), _c("div", {
+  }), 0), _vm._v(" "), _vm._m(0)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)])]);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
     staticClass: "d-flex flex-column py-2"
   }, [_c("h3", {
     staticClass: "px-3 pb-3 text-center",
     attrs: {
       id: "totalPrice"
     }
-  }), _vm._v(" "), _vm.carrello.length ? _c("router-link", {
-    staticClass: "btn btn-success align-self-center",
-    attrs: {
-      to: "/checkout"
-    }
-  }, [_vm._v("Vai al Checkout")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)])]);
-};
-
-var staticRenderFns = [];
+  })]);
+}];
 render._withStripped = true;
 
 
