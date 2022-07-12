@@ -5,8 +5,8 @@
       :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }"
     >
       <div class="restaurant-infos">
-        <div class="text-center">
-          <h2>{{ restaurant.name }}</h2>
+          <div class="text-center">
+              <h2>{{ restaurant.name }}</h2>
           <span
             v-for="category in restaurant.users_type"
             :key="category.id"
@@ -20,22 +20,29 @@
         <p>{{ restaurant.phone_number }}</p>
       </div>
     </div>
+
     <main>
+      <aside class="position-fixed" v-if="switchPage == 1">
+        <div v-for="(category, i) in uniqueDishCategory" :key="i">
+            <a :href="'#category-' + category.id + 'redirect'" >{{category.name}}</a>
+        </div>
+      </aside>
+
       <div class="container">
         <div class="pt-5">
             <div class="switcher">
-                <div @click="showMenu()">
-                <span :class="{'activePage': switchPage == 1}">Menu</span>
+                <div @click="showMenu()" class="col-5">
+                <span :class="{'activePage': switchPage == 1}" class="text-center">Menu</span>
                 </div>
-                <div @click="showInfos()">
-                    <span :class="{'activePage': switchPage == 2}">Info</span>
+                <div @click="showInfos()" class="col-5">
+                    <span :class="{'activePage': switchPage == 2}" class="text-center">Info</span>
                 </div>
             </div>
         </div>
         <div class="d-flex" v-if="switchPage == 1">
           <div class="col-8">
             <ul v-for="(category, i) in uniqueDishCategory" :key="i">
-              <h1 class="py-5">{{ category.name }}</h1>
+              <h1 class="py-5" :id="'category-' + category.id + 'redirect'">{{ category.name }}</h1>
               <li
                 v-for="(dish, i) in dishes"
                 :key="i"
@@ -83,7 +90,10 @@
                       </div>
                     </div>
                 </div>
-            <div><h3 id="totalPrice" class="px-3 pb-3"></h3></div>
+            <div>
+                <h3 id="totalPrice" class="px-3 pb-3"></h3>
+                <router-link class="btn btn-success align-self-center" to="/checkout" v-if="carrello.length">Vai al Checkout</router-link>
+            </div>
             </div>
           </div>
         </div>
@@ -100,7 +110,7 @@ import OpeningDays from "../partials/OpeningDays.vue";
 
   export default {
     name: "RestaurantShow",
-    components: { OpeningDays },
+    components: { OpeningDays},
     props: {},
     data() {
       return {
@@ -244,12 +254,12 @@ import OpeningDays from "../partials/OpeningDays.vue";
   }
 
 .switcher {
-    display: flex;
-    justify-content: center;
-    width: 50%;
     margin: 0 auto;
     border: 1px solid black;
     border-radius: 2rem;
+    display: flex;
+    text-align: center;
+    justify-content: center;
     div {
         cursor: pointer;
         padding: 15px 25%;
@@ -271,10 +281,22 @@ import OpeningDays from "../partials/OpeningDays.vue";
 }
 
   main {
-    background-image: url("../../../images/blob-scene-haikei.svg");
+    background-image: url("../../../images/333.svg");
     background-size: cover;
+    background-position: center;
     padding-top: 100px;
     min-height: 1000px;
+  }
+
+  aside {
+    left: 300px;
+    a {
+        color: black;
+        font-size: 1.2rem;
+    }
+    div {
+        margin: 10px 0;
+    }
   }
 
   h2 {
