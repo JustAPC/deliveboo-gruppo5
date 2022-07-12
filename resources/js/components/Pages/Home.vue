@@ -28,12 +28,13 @@
     z-index: 2;
   }
   .content {
-    background-image: url("../../../images/BG-3.svg");
+    background-image: url("../../../images/111.svg");
     width: 100%;
     height: 100%;
     background-size: cover;
     z-index: 1;
     position: relative;
+    background-position: center;
   }
   .hero {
     background-image: url("../../../images/FOODDELIVERY-thumb.png");

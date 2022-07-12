@@ -24,4 +24,10 @@ Route::namespace('Api')->group(function () {
     Route::get('/restaurant/{id}', 'UserController@show');
     Route::get('/types', 'TypeController@index');
     Route::get('/types/{id}', 'TypeController@show');
+    Route::resource('/payments', 'PaymentController')
+    ->only('index', 'store');
+    Route::get('/checkout', 'CheckoutController@store');
+    
+    
+
 });
