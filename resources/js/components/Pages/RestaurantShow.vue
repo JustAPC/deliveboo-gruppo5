@@ -28,24 +28,28 @@
       </div>
 
       <div class="d-flex" v-if="switchPage == 1">
-        <aside class="col-3">
+        <aside class="col-3 d-none d-lg-block">
           <div class="categories">
-            <div v-for="(category, i) in uniqueDishCategory" :key="i">
-              <a :href="'#category-' + category.id + 'redirect'">{{ category.name }}</a>
-            </div>
+            <a
+              v-for="(category, i) in uniqueDishCategory"
+              :key="i"
+              :href="'#category-' + category.id + '-redirect'"
+            >
+              {{ category.name }}
+            </a>
           </div>
         </aside>
 
-        <div class="col-6">
+        <div class="col-lg-6 col-8">
           <ul v-for="(category, i) in uniqueDishCategory" :key="i" class="p-0">
-            <h1 class="py-5" :id="'category-' + category.id + 'redirect'">
+            <h1 class="category-title" :id="'category-' + category.id + '-redirect'">
               {{ category.name }}
             </h1>
             <li
               v-for="(dish, i) in dishes"
               :key="i"
               v-if="category.id == dish.dishcategory_id"
-              class="dish-card"
+              class="dish-card flex-column flex-md-row"
               :id="'add-to-cart-' + dish.id"
               @click="addToCart(dish)"
             >
@@ -55,14 +59,38 @@
                 <p class="price-menu">{{ dish.price }}€</p>
               </div>
               <div>
-                <img :src="dish.image" alt="" width="200px" class="p-3" />
+                <img :src="dish.image" alt="" width="200px" class="p-3 img-fluid" />
                 <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
               </div>
             </li>
           </ul>
         </div>
 
-        <div class="col-3">
+        <div class="col-lg-3 col-4">
+          <div class="dropdown categories-top d-lg-none d-block">
+            <button
+              class="btn dropdown-button dropdown-toggle"
+              type="button"
+              id="dropdownMenu2"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+            >
+              Categorie
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+              <ul class="p-0 m-0">
+                <li
+                  v-for="(category, i) in uniqueDishCategory"
+                  :key="i"
+                  class="d-inline-block dropdown-item"
+                >
+                  <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+
           <div class="cart d-flex flex-column">
             <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
             <div class="cart-plates">
@@ -79,7 +107,7 @@
                     class="quantity"
                     min="1"
                     value="1"
-                    @change="updatePrice(item.price, item.id)"
+                    @change="updateQuantity(item.price, item.id)"
                   />
                   <button
                     class="btn btn-danger"
@@ -174,7 +202,7 @@
           "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
       },
 
-      updatePrice(price, id) {
+      updateQuantity(price, id) {
         let quantityText = document.getElementById(`quantity-cart-item-${id}`);
         let quantity = document.getElementById(`quantity-input-${id}`).value;
         let totalPriceText = document.getElementById("totalPrice");
@@ -252,7 +280,7 @@
     box-shadow: 2px 2px 10px black;
     .text-center {
       border-bottom: 1px solid grey;
-
+      margin-bottom: 20px;
       span {
         font-size: 1.1em;
       }
@@ -307,7 +335,7 @@
     background-image: url("../../../images/333.svg");
     background-size: cover;
     background-position: center;
-    padding-top: 100px;
+    padding-top: 140px;
     min-height: 1000px;
   }
 
@@ -320,14 +348,34 @@
       top: 85px;
     }
     a {
+      display: block;
       color: black;
       font-size: 1.2rem;
+      padding: 10px 0;
+      &:hover {
+        color: #34c0c9;
+      }
     }
     div {
       margin: 10px 0;
     }
   }
 
+  .categories-top {
+    position: sticky;
+    top: 80px;
+    z-index: 100;
+    margin-top: 50px;
+    a {
+      color: #34c0c9;
+    }
+  }
+
+  .dropdown-button {
+    background-color: #3490dc;
+    color: black;
+    border: 1px solid black;
+  }
   h2 {
     font-weight: 1000;
     padding: 10px 0;
@@ -345,6 +393,10 @@
     }
   }
 
+  .category-title {
+    padding: 3rem 1rem;
+    color: #34c0c9;
+  }
   .dish-card {
     display: flex;
     justify-content: space-between;
@@ -401,5 +453,18 @@
   }
   .quantity {
     width: 50px;
+  }
+
+  @media screen and (min-width: 0) and (max-width: 550px) {
+    .switcher {
+      width: 75%;
+    }
+  }
+
+  @media screen and (min-width: 0) and (max-width: 992px) {
+    .cart {
+      top: 150px;
+      margin-top: 75px;
+    }
   }
 </style>
