@@ -128,11 +128,7 @@ deleteForms.forEach(function (element) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
-module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
-=======
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
->>>>>>> sistemazione-show
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\deleteAlert.js */"./resources/js/deleteAlert.js");
 
 
 /***/ })

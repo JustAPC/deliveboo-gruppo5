@@ -123,7 +123,10 @@
               <h3 id="totalPrice" class="px-3 pb-3"></h3>
               <router-link
                 class="btn btn-success align-self-center"
-                to="/checkout"
+                :to="{
+                  name: 'checkout',
+                  params: { restaurant_id: restaurant.id, prezzo: prezzoTotale },
+                }"
                 v-if="carrello.length"
               >
                 Vai al Checkout
@@ -156,7 +159,7 @@
         uniqueDishCategory: [],
         unique: [],
         switchPage: 1,
-        totalPrice: "",
+        prezzoTotale: "",
       };
     },
     methods: {
@@ -199,7 +202,7 @@
         this.cartSelectedDishes.push(singleDish);
         let totalPriceText = document.getElementById("totalPrice");
         totalPriceText.innerHTML =
-          "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
+          "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
       },
 
       updateQuantity(price, id) {
@@ -219,7 +222,7 @@
           }
         }
         totalPriceText.innerHTML =
-          "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
+          "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
       },
 
       removeFromCart(e) {
@@ -234,16 +237,16 @@
           totalPriceText.innerHTML = "";
         } else {
           totalPriceText.innerHTML =
-            "Prezzo totale: " + this.prezzoTotale(this.cartSelectedDishes) + "€";
+            "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
         }
       },
 
-      prezzoTotale(array) {
-        let prezzoTotale = 0;
+      totalPrice(array) {
+        this.prezzoTotale = 0;
         for (let i = 0; i < array.length; i++) {
-          prezzoTotale += parseFloat(array[i].total_price);
+          this.prezzoTotale += parseFloat(array[i].total_price);
         }
-        return prezzoTotale.toFixed(2);
+        return this.prezzoTotale.toFixed(2);
       },
 
       showMenu() {
