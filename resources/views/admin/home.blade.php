@@ -18,7 +18,7 @@
                 <h1 class="">{{ $user->restaurant_name }}</h1>
                 <div class="d-flex justify-content-center mb-3">
                     @foreach ($user->UsersType as $type)
-                    <span class="badge badge-primary">{{$type->name}}</span>
+                    <span class="badge badge-primary mr-3">{{$type->name}}</span>
                     @endforeach
                 </div>
 
