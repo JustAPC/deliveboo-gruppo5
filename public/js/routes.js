@@ -2608,8 +2608,32 @@ var render = function render() {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
     }, [_vm._v("\r\n            " + _vm._s(category.name) + "\r\n          ")]);
-  })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", [_vm.switchPage == 1 ? _c("aside", {
-    staticClass: "position-fixed"
+  })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", [_c("div", {
+    staticClass: "switcher"
+  }, [_c("a", {
+    "class": {
+      activePage: _vm.switchPage == 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.showMenu();
+      }
+    }
+  }, [_vm._v("Menu")]), _vm._v(" "), _c("a", {
+    "class": {
+      activePage: _vm.switchPage == 2
+    },
+    on: {
+      click: function click($event) {
+        return _vm.showInfos();
+      }
+    }
+  }, [_vm._v("Info")])]), _vm._v(" "), _vm.switchPage == 1 ? _c("div", {
+    staticClass: "d-flex"
+  }, [_c("aside", {
+    staticClass: "col-3"
+  }, [_c("div", {
+    staticClass: "categories"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
     return _c("div", {
       key: i
@@ -2618,49 +2642,18 @@ var render = function render() {
         href: "#category-" + category.id + "redirect"
       }
     }, [_vm._v(_vm._s(category.name))])]);
-  }), 0) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "container"
-  }, [_c("div", {
-    staticClass: "pt-5"
-  }, [_c("div", {
-    staticClass: "switcher"
-  }, [_c("div", {
-    staticClass: "col-5",
-    on: {
-      click: function click($event) {
-        return _vm.showMenu();
-      }
-    }
-  }, [_c("span", {
-    staticClass: "text-center",
-    "class": {
-      activePage: _vm.switchPage == 1
-    }
-  }, [_vm._v("Menu")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-5",
-    on: {
-      click: function click($event) {
-        return _vm.showInfos();
-      }
-    }
-  }, [_c("span", {
-    staticClass: "text-center",
-    "class": {
-      activePage: _vm.switchPage == 2
-    }
-  }, [_vm._v("Info")])])])]), _vm._v(" "), _vm.switchPage == 1 ? _c("div", {
-    staticClass: "d-flex"
-  }, [_c("div", {
-    staticClass: "col-8"
+  }), 0)]), _vm._v(" "), _c("div", {
+    staticClass: "col-6"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
     return _c("ul", {
-      key: i
+      key: i,
+      staticClass: "p-0"
     }, [_c("h1", {
       staticClass: "py-5",
       attrs: {
         id: "category-" + category.id + "redirect"
       }
-    }, [_vm._v(_vm._s(category.name))]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+    }, [_vm._v("\r\n              " + _vm._s(category.name) + "\r\n            ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
         staticClass: "dish-card",
@@ -2684,7 +2677,7 @@ var render = function render() {
       })])]) : _vm._e();
     })], 2);
   }), 0), _vm._v(" "), _c("div", {
-    staticClass: "col-4"
+    staticClass: "col-3"
   }, [_c("div", {
     staticClass: "cart d-flex flex-column"
   }, [_c("h2", {
@@ -2695,7 +2688,7 @@ var render = function render() {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\r\n                    " + _vm._s(item.name) + "\r\n                    "), _c("span", {
+    }, [_c("p", [_vm._v("\r\n                  " + _vm._s(item.name) + "\r\n                  "), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
@@ -2728,7 +2721,7 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\r\n                      Rimuovi\r\n                    ")])])]);
+    }, [_vm._v("\r\n                    Rimuovi\r\n                  ")])])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "d-flex flex-column py-2"
   }, [_c("h3", {
@@ -2741,7 +2734,7 @@ var render = function render() {
     attrs: {
       to: "/checkout"
     }
-  }, [_vm._v("\r\n                  Vai al Checkout\r\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)])]);
+  }, [_vm._v("\r\n                Vai al Checkout\r\n              ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]);
 };
 
 var staticRenderFns = [];
@@ -27558,7 +27551,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.switcher[data-v-18e02810] {\n  margin: 0 auto;\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  text-align: center;\n  justify-content: center;\n}\n.switcher div[data-v-18e02810] {\n  cursor: pointer;\n  padding: 15px 25%;\n  letter-spacing: 3px;\n  font-weight: bold;\n  font-size: 1.1rem;\n}\n.switcher div:hover span[data-v-18e02810] {\n  border-bottom: 5px solid #34c0c9;\n  padding-bottom: 13px;\n  color: #34c0c9;\n}\n.activePage[data-v-18e02810] {\n  border-bottom: 5px solid #34c0c9;\n  padding-bottom: 13px;\n  color: #34c0c9;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 100px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  left: 300px;\n}\naside a[data-v-18e02810] {\n  color: black;\n  font-size: 1.2rem;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  margin-top: 160px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}", ""]);
+exports.push([module.i, ".hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 100px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  color: black;\n  font-size: 1.2rem;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}", ""]);
 
 // exports
 
