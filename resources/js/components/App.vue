@@ -1,7 +1,7 @@
 <template>
   <div>
     <Header />
-    <router-view class="content"></router-view>
+    <router-view class="data"></router-view>
   </div>
 </template>
 
@@ -15,7 +15,7 @@
 </script>
 
 <style scoped lang="scss">
-  .content {
+  .data {
     margin-top: 66px;
   }
 </style>

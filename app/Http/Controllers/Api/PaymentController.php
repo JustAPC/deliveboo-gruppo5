@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use Braintree\Gateway;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -21,14 +22,12 @@ class PaymentController extends Controller
             'publicKey' => 'mhfc7b2xkqctzsfd',
             'privateKey' => '8b56272ae0e2f8f12d16eaad7275ed6e'
         ]);
-        $clientToken = $gateway->clientToken()->generate([
-        ]);
+        $clientToken = $gateway->clientToken()->generate([]);
 
         return response()->json([
             'token' => $clientToken,
             'succes' => true
         ]);
-   
     }
 
     /**

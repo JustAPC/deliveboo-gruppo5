@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use App\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -43,9 +44,7 @@ class CheckoutController extends Controller
                 'customer_lastname' => 'required',
                 'customer_address' => 'required',
                 'customer_phone' => 'required | numeric',
-                'completed' => 'required',
                 'payment_received' => 'required',
-                'quantity' => 'required',
             ],
             [
                 'customer_name.required' => 'Il campo "Nome" è obbligatorio',
@@ -53,14 +52,13 @@ class CheckoutController extends Controller
                 'customer_address.required' => 'Il campo "Indirizzo" è obbligatorio',
                 'customer_phone.required' => 'Il campo "Numero di telefono" è obbligatorio',
                 'customer_phone.numeric' => 'Il campo "Numero di telefono" deve essere composto solamente da numeri',
-                'completed.required' => 'Il campo "Ordine completato" è obbligatorio',
                 'payment_received.required' => 'Il campo "Pagamento ricevuto" è obbligatorio',
-                'quantity.required' => 'É necessario selezionare almeno un piatto',
+
             ]
         );
 
-        
-        foreach($data as $value) {
+
+        foreach ($data as $value) {
 
             $order = new Order();
 
@@ -69,13 +67,12 @@ class CheckoutController extends Controller
             $order->total_price = $total;
 
             $order->save();
+        }
 
-            }
-            
-            return response()->json([
-                'order' => $order,
-                'success' => true,
-            ]);
+        return response()->json([
+            'order' => $order,
+            'success' => true,
+        ]);
     }
 
     /**

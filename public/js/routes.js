@@ -1917,10 +1917,12 @@ __webpack_require__.r(__webpack_exports__);
         customer_address: "",
         completed: false,
         payment_received: false,
-        //   total_price: this.$route.params.prezzo,
-        customer_phone: ""
+        total_price: this.$route.params.prezzo.toFixed(2),
+        customer_phone: "",
+        user_id: this.$route.params.restaurant_id
       },
-      carrello: ""
+      carrello: this.$route.params.carrello,
+      restaurant_name: this.$route.params.restaurant_name
     };
   },
   methods: {
@@ -1951,14 +1953,58 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _partials_Restaurants_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../partials/Restaurants.vue */ "./resources/js/components/partials/Restaurants.vue");
 /* harmony import */ var _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/BackgroundImage.vue */ "./resources/js/components/partials/BackgroundImage.vue");
+/* harmony import */ var _partials_Loader_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../partials/Loader.vue */ "./resources/js/components/partials/Loader.vue");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "Home",
   components: {
     Restaurants: _partials_Restaurants_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
-    BackgroundImage: _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    BackgroundImage: _partials_BackgroundImage_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Loader: _partials_Loader_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  },
+  data: function data() {
+    return {
+      isLoading: true
+    };
+  },
+  methods: {
+    myFunction: function myFunction() {
+      var timeout = setTimeout(this.loaderFunction, 3000);
+    },
+    loaderFunction: function loaderFunction() {
+      this.isLoading = false;
+    }
+  },
+  mounted: function mounted() {
+    this.myFunction();
   }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/OrderSummary.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pages/OrderSummary.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "OrderSummary",
+  components: {},
+  props: {},
+  data: function data() {
+    return {
+      carrello: this.$route.params.carrello,
+      ordine: this.$route.params.ordine,
+      restaurant_name: this.$route.params.restaurant_name
+    };
+  },
+  methods: {}
 });
 
 /***/ }),
@@ -1978,12 +2024,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      token: '',
+      token: "",
       inst: null,
       loading: false,
       isDisable: false,
-      cart: [],
-      order: {}
+      cart: this.$route.params.carrello,
+      order: this.$route.params.ordine,
+      restaurant_name: this.$route.params.restaurant_name
     };
   },
   components: {},
@@ -1991,27 +2038,11 @@ __webpack_require__.r(__webpack_exports__);
     fetchToken: function fetchToken() {
       var _this = this;
 
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get('/api/payments').then(function (res) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.get("/api/payments").then(function (res) {
         var token = res.data.token;
         _this.token = token;
         _this.loading = true;
         console.log(token);
-      });
-    },
-    sendToken: function sendToken(nonce) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post('http://127.0.0.1:8000/api/payments', {
-        total: this.cartOnOrder.cartTotalPrice,
-        restaurant: this.cartOnOrder.cartRestauratReference,
-        order: this.order,
-        cart: this.cartOnOrder.cartItems
-      }, {
-        params: {
-          token: nonce
-        }
-      }).then(function (res) {
-        console.log(res.data);
-      })["catch"](function (err) {
-        console.error(err);
       });
     },
     dropIn: function dropIn() {
@@ -2021,8 +2052,8 @@ __webpack_require__.r(__webpack_exports__);
 
       dropIn.create({
         authorization: this.token,
-        container: '#dropIn',
-        locale: 'it_IT'
+        container: "#dropIn",
+        locale: "it_IT"
       }, function (createErr, instance) {
         if (createErr) {
           // An error in the create call is likely due to
@@ -2047,8 +2078,6 @@ __webpack_require__.r(__webpack_exports__);
           return;
         }
 
-        _this3.sendToken(payload.nonce);
-
         _this3.loader();
 
         _this3.returnToOrderDetails();
@@ -2056,29 +2085,30 @@ __webpack_require__.r(__webpack_exports__);
         console.log(payload.nonce);
       });
     },
-    takeOrder: function takeOrder() {
-      this.order = JSON.parse(localStorage.getItem("order"));
-    },
     loader: function loader() {
       var _this4 = this;
 
       setTimeout(function () {
         _this4.loading = false;
-      }, '1000');
+      }, "1000");
     },
     returnToOrderDetails: function returnToOrderDetails() {
       var _this5 = this;
 
       setTimeout(function () {
         _this5.$router.push({
-          name: 'orders.show'
+          name: "ordersummary",
+          params: {
+            ordine: _this5.order,
+            carrello: _this5.cart,
+            restaurant_name: _this5.restaurant_name
+          }
         });
-      }, '5000');
+      }, "5000");
     }
   },
   created: function created() {
     this.fetchToken();
-    this.takeOrder();
   }
 });
 
@@ -2096,12 +2126,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _partials_OpeningDays_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../partials/OpeningDays.vue */ "./resources/js/components/partials/OpeningDays.vue");
+/* harmony import */ var _partials_Loader_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../partials/Loader.vue */ "./resources/js/components/partials/Loader.vue");
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "RestaurantShow",
   components: {
-    OpeningDays: _partials_OpeningDays_vue__WEBPACK_IMPORTED_MODULE_1__["default"]
+    OpeningDays: _partials_OpeningDays_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    Loader: _partials_Loader_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   props: {},
   data: function data() {
@@ -2114,7 +2147,8 @@ __webpack_require__.r(__webpack_exports__);
       uniqueDishCategory: [],
       unique: [],
       switchPage: 1,
-      prezzoTotale: ""
+      prezzoTotale: "",
+      isLoading: true
     };
   },
   methods: {
@@ -2126,6 +2160,8 @@ __webpack_require__.r(__webpack_exports__);
         _this.dishes = res.data.dishes;
 
         _this.getCategories();
+
+        _this.isLoading = false;
       });
     },
     getCategories: function getCategories() {
@@ -2233,6 +2269,27 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "BackgroundImage",
+  components: {},
+  props: {},
+  data: function data() {
+    return {};
+  },
+  methods: {}
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/Loader.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "Loader",
   components: {},
   props: {},
   data: function data() {
@@ -2355,7 +2412,11 @@ var render = function render() {
 
   return _c("div", {
     staticClass: "container"
-  }, [_c("form", {
+  }, [_c("div", [_c("h1", [_vm._v("RIEPILOGO ORDINE")]), _vm._v(" "), _c("p", [_vm._v("Hai ordinato i seguenti piatti:")]), _vm._v(" "), _c("ul", _vm._l(_vm.carrello, function (dish) {
+    return _c("li", {
+      key: dish.id
+    }, [_vm._v(_vm._s(dish.name))]);
+  }), 0), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h3", [_vm._v("Prezzo Totale: " + _vm._s(_vm.form.total_price) + "€")])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("form", {
     staticClass: "row",
     attrs: {
       methods: "post"
@@ -2492,7 +2553,14 @@ var render = function render() {
   })]), _vm._v(" "), _c("div", {}, [_c("router-link", {
     staticClass: "byn btn-success rounded p-2",
     attrs: {
-      to: "/payments",
+      to: {
+        name: "payments",
+        params: {
+          ordine: _vm.form,
+          carrello: _vm.carrello,
+          restaurant_name: _vm.restaurant_name
+        }
+      },
       type: "submit"
     }
   }, [_vm._v("\n          Invia\n        ")])], 1)]), _vm._v(" "), _c("div")]);
@@ -2519,7 +2587,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", {
+  return _c("div", [_vm.isLoading == true ? _c("Loader") : _c("div", [_c("div", {
     staticClass: "hero"
   }), _vm._v(" "), _c("div", {
     staticClass: "content"
@@ -2527,7 +2595,69 @@ var render = function render() {
     staticClass: "ristoranti"
   }), _vm._v(" "), _c("BackgroundImage", {
     staticClass: "bolle"
-  })], 1)]);
+  })], 1)])], 1);
+};
+
+var staticRenderFns = [];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/OrderSummary.vue?vue&type=template&id=2019892e&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pages/OrderSummary.vue?vue&type=template&id=2019892e&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("div", {
+    staticClass: "card"
+  }, [_c("h5", {
+    staticClass: "card-header"
+  }, [_vm._v("Complimenti, il tuo ordine è andato a buon fine!")]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v("Riepilogo dell'ordine:")]), _vm._v(" "), _c("h5", {
+    staticClass: "card-title"
+  }, [_vm._v(_vm._s(_vm.restaurant_name))]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("Lista dei piatti:")]), _vm._v(" "), _c("div", {
+    staticClass: "row"
+  }, _vm._l(_vm.carrello, function (piatto, i) {
+    return _c("div", {
+      key: i,
+      staticClass: "col-sm-6"
+    }, [_c("div", {
+      staticClass: "card"
+    }, [_c("div", {
+      staticClass: "card-body d-flex justify-content-between"
+    }, [_c("div", [_c("h5", {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(piatto.name))]), _vm._v(" "), _c("p", {
+      staticClass: "card-text"
+    }, [_vm._v(_vm._s(piatto.price))])]), _vm._v(" "), _c("div", [_c("img", {
+      attrs: {
+        src: piatto.image,
+        alt: "",
+        width: "50%"
+      }
+    })])])])]);
+  }), 0), _vm._v(" "), _c("a", {
+    staticClass: "btn btn-primary",
+    attrs: {
+      href: "/"
+    }
+  }, [_vm._v("Torna alla home")])])])]);
 };
 
 var staticRenderFns = [];
@@ -2560,14 +2690,14 @@ var render = function render() {
     attrs: {
       id: "dropIn"
     }
-  }, [_vm._v("\r\n                " + _vm._s(_vm.dropIn()) + "\r\n            ")]) : _vm._e(), _vm._v(" "), _c("div", [_c("button", {
+  }, [_vm._v("\n        " + _vm._s(_vm.dropIn()) + "\n      ")]) : _vm._e(), _vm._v(" "), _c("div", [_c("button", {
     staticClass: "rounded bg-viola py-1 px-3 text-white font-bold",
     on: {
       click: function click($event) {
         return _vm.confirmCta(_vm.inst);
       }
     }
-  }, [_vm._v("\r\n                    Invia\r\n                ")])])]) : _vm._e()]);
+  }, [_vm._v("\n          Invia\n        ")])])]) : _vm._e()]);
 };
 
 var staticRenderFns = [];
@@ -2591,7 +2721,7 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", {
+  return _c("div", [_vm.isLoading == true ? _c("Loader") : _c("div", [_c("div", {
     staticClass: "hero d-flex justify-content-center align-items-end",
     style: {
       backgroundImage: "url(" + _vm.restaurant.restaurant_img + ")"
@@ -2604,7 +2734,7 @@ var render = function render() {
     return _c("span", {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
-    }, [_vm._v("\n            " + _vm._s(category.name) + "\n          ")]);
+    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]);
   })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", [_c("div", {
     staticClass: "switcher"
   }, [_c("a", {
@@ -2637,7 +2767,7 @@ var render = function render() {
       attrs: {
         href: "#category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]);
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-lg-6 col-8"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
@@ -2649,7 +2779,7 @@ var render = function render() {
       attrs: {
         id: "category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
         staticClass: "dish-card flex-column flex-md-row",
@@ -2685,7 +2815,7 @@ var render = function render() {
       "aria-haspopup": "true",
       "aria-expanded": "false"
     }
-  }, [_vm._v("\n              Categorie\n            ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Categorie\n              ")]), _vm._v(" "), _c("div", {
     staticClass: "dropdown-menu",
     attrs: {
       "aria-labelledby": "dropdownMenu2"
@@ -2711,7 +2841,7 @@ var render = function render() {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\n                  " + _vm._s(item.name) + "\n                  "), _c("span", {
+    }, [_c("p", [_vm._v("\n                    " + _vm._s(item.name) + "\n                    "), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
@@ -2744,7 +2874,7 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\n                    Rimuovi\n                  ")])])]);
+    }, [_vm._v("\n                      Rimuovi\n                    ")])])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "d-flex flex-column py-2"
   }, [_c("h3", {
@@ -2759,11 +2889,13 @@ var render = function render() {
         name: "checkout",
         params: {
           restaurant_id: _vm.restaurant.id,
-          prezzo: _vm.prezzoTotale
+          restaurant_name: _vm.restaurant.name,
+          prezzo: _vm.prezzoTotale,
+          carrello: _vm.carrello
         }
       }
     }
-  }, [_vm._v("\n                Vai al Checkout\n              ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]);
+  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)])], 1);
 };
 
 var staticRenderFns = [];
@@ -2897,6 +3029,73 @@ var staticRenderFns = [function () {
   }), _vm._v(" "), _c("div", {
     staticClass: "bubble"
   })]);
+}];
+render._withStripped = true;
+
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=template&id=5eeaba55&scoped=true&":
+/*!************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/Loader.vue?vue&type=template&id=5eeaba55&scoped=true& ***!
+  \************************************************************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function render() {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _vm._m(0);
+};
+
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", [_c("h1", [_vm._v("Cooking in progress..")]), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "cooking"
+    }
+  }, [_c("div", {
+    staticClass: "bubble"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "bubble"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "bubble"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "bubble"
+  }), _vm._v(" "), _c("div", {
+    staticClass: "bubble"
+  }), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "area"
+    }
+  }, [_c("div", {
+    attrs: {
+      id: "sides"
+    }
+  }, [_c("div", {
+    attrs: {
+      id: "pan"
+    }
+  }), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "handle"
+    }
+  })]), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "pancake"
+    }
+  }, [_c("div", {
+    attrs: {
+      id: "pastry"
+    }
+  })])])])]);
 }];
 render._withStripped = true;
 
@@ -27599,7 +27798,26 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 76vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 33vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 27vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 48vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 37vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 53vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 52vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 82vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 25s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 57vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 4vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 85vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 6vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 29vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 97vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 28vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 70vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 67vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 26vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 35vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 76vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 33vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 32vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 100vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 68vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 20vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 25s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 99vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 21s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 73vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 43vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 54vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 7vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 42vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 26vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 67vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 18vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 92vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 67vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 93vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 1vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 74vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 28vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
+exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 18vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 47vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 52vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 83vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 25s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 41vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 93vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 29vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 61vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 50vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 69vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 83vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 11s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 96vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 4vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 88vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 10vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 90vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 15vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 94vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 3vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 70vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 38vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 60vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 56vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 90vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 2vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 11s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 60vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 22vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 82vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 68vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 14vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 44vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 9vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 28vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 73vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 53vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
+
+// exports
+
+
+/***/ }),
+
+/***/ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss&":
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/sass-loader/dist/cjs.js??ref--10-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-loader/lib/css-base.js */ "./node_modules/css-loader/lib/css-base.js")(false);
+// imports
+exports.push([module.i, "@import url(https://fonts.googleapis.com/css?family=Amatic+SC);", ""]);
+
+// module
+exports.push([module.i, "body[data-v-5eeaba55] {\n  background-color: #34c0c9;\n  height: 100vh;\n  width: 100vw;\n  overflow: hidden;\n}\nh1[data-v-5eeaba55] {\n  position: relative;\n  margin: 0 auto;\n  top: 25vh;\n  width: 100vw;\n  text-align: center;\n  font-family: \"Amatic SC\";\n  font-size: 6vh;\n  color: #333;\n  opacity: 0.75;\n  -webkit-animation: pulse-5eeaba55 2.5s linear infinite;\n          animation: pulse-5eeaba55 2.5s linear infinite;\n}\n#cooking[data-v-5eeaba55] {\n  position: relative;\n  margin: 0 auto;\n  top: 0;\n  width: 75vh;\n  height: 75vh;\n  overflow: hidden;\n}\n#cooking .bubble[data-v-5eeaba55] {\n  position: absolute;\n  border-radius: 100%;\n  box-shadow: 0 0 0.25vh #4d4d4d;\n  opacity: 0;\n}\n#cooking .bubble[data-v-5eeaba55]:nth-child(1) {\n  margin-top: 2.5vh;\n  left: 58%;\n  width: 2.5vh;\n  height: 2.5vh;\n  background-color: #454545;\n  -webkit-animation: bubble-5eeaba55 2s cubic-bezier(0.53, 0.16, 0.39, 0.96) infinite;\n          animation: bubble-5eeaba55 2s cubic-bezier(0.53, 0.16, 0.39, 0.96) infinite;\n}\n#cooking .bubble[data-v-5eeaba55]:nth-child(2) {\n  margin-top: 3vh;\n  left: 52%;\n  width: 2vh;\n  height: 2vh;\n  background-color: #3d3d3d;\n  -webkit-animation: bubble-5eeaba55 2s ease-in-out 0.35s infinite;\n          animation: bubble-5eeaba55 2s ease-in-out 0.35s infinite;\n}\n#cooking .bubble[data-v-5eeaba55]:nth-child(3) {\n  margin-top: 1.8vh;\n  left: 50%;\n  width: 1.5vh;\n  height: 1.5vh;\n  background-color: #333;\n  -webkit-animation: bubble-5eeaba55 1.5s cubic-bezier(0.53, 0.16, 0.39, 0.96) 0.55s infinite;\n          animation: bubble-5eeaba55 1.5s cubic-bezier(0.53, 0.16, 0.39, 0.96) 0.55s infinite;\n}\n#cooking .bubble[data-v-5eeaba55]:nth-child(4) {\n  margin-top: 2.7vh;\n  left: 56%;\n  width: 1.2vh;\n  height: 1.2vh;\n  background-color: #2b2b2b;\n  -webkit-animation: bubble-5eeaba55 1.8s cubic-bezier(0.53, 0.16, 0.39, 0.96) 0.9s infinite;\n          animation: bubble-5eeaba55 1.8s cubic-bezier(0.53, 0.16, 0.39, 0.96) 0.9s infinite;\n}\n#cooking .bubble[data-v-5eeaba55]:nth-child(5) {\n  margin-top: 2.7vh;\n  left: 63%;\n  width: 1.1vh;\n  height: 1.1vh;\n  background-color: #242424;\n  -webkit-animation: bubble-5eeaba55 1.6s ease-in-out 1s infinite;\n          animation: bubble-5eeaba55 1.6s ease-in-out 1s infinite;\n}\n#cooking #area[data-v-5eeaba55] {\n  position: absolute;\n  bottom: 0;\n  right: 0;\n  width: 50%;\n  height: 50%;\n  background-color: transparent;\n  transform-origin: 15% 60%;\n  -webkit-animation: flip-5eeaba55 2.1s ease-in-out infinite;\n          animation: flip-5eeaba55 2.1s ease-in-out infinite;\n}\n#cooking #area #sides[data-v-5eeaba55] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  transform-origin: 15% 60%;\n  -webkit-animation: switchSide-5eeaba55 2.1s ease-in-out infinite;\n          animation: switchSide-5eeaba55 2.1s ease-in-out infinite;\n}\n#cooking #area #sides #handle[data-v-5eeaba55] {\n  position: absolute;\n  bottom: 18%;\n  right: 80%;\n  width: 35%;\n  height: 20%;\n  background-color: transparent;\n  border-top: 1vh solid #333;\n  border-left: 1vh solid transparent;\n  border-radius: 100%;\n  transform: rotate(20deg) rotateX(0deg) scale(1.3, 0.9);\n}\n#cooking #area #sides #pan[data-v-5eeaba55] {\n  position: absolute;\n  bottom: 20%;\n  right: 30%;\n  width: 50%;\n  height: 8%;\n  background-color: #333;\n  border-radius: 0 0 1.4em 1.4em;\n  transform-origin: -15% 0;\n}\n#cooking #area #pancake[data-v-5eeaba55] {\n  position: absolute;\n  top: 24%;\n  width: 100%;\n  height: 100%;\n  transform: rotateX(85deg);\n  -webkit-animation: jump-5eeaba55 2.1s ease-in-out infinite;\n          animation: jump-5eeaba55 2.1s ease-in-out infinite;\n}\n#cooking #area #pancake #pastry[data-v-5eeaba55] {\n  position: absolute;\n  bottom: 26%;\n  right: 37%;\n  width: 40%;\n  height: 45%;\n  background-color: #333;\n  box-shadow: 0 0 3px 0 #333;\n  border-radius: 100%;\n  transform-origin: -20% 0;\n  -webkit-animation: fly-5eeaba55 2.1s ease-in-out infinite;\n          animation: fly-5eeaba55 2.1s ease-in-out infinite;\n}\n@-webkit-keyframes jump-5eeaba55 {\n0% {\n    top: 24%;\n    transform: rotateX(85deg);\n}\n25% {\n    top: 10%;\n    transform: rotateX(0deg);\n}\n50% {\n    top: 30%;\n    transform: rotateX(85deg);\n}\n75% {\n    transform: rotateX(0deg);\n}\n100% {\n    transform: rotateX(85deg);\n}\n}\n@keyframes jump-5eeaba55 {\n0% {\n    top: 24%;\n    transform: rotateX(85deg);\n}\n25% {\n    top: 10%;\n    transform: rotateX(0deg);\n}\n50% {\n    top: 30%;\n    transform: rotateX(85deg);\n}\n75% {\n    transform: rotateX(0deg);\n}\n100% {\n    transform: rotateX(85deg);\n}\n}\n@-webkit-keyframes flip-5eeaba55 {\n0% {\n    transform: rotate(0deg);\n}\n5% {\n    transform: rotate(-27deg);\n}\n30%, 50% {\n    transform: rotate(0deg);\n}\n55% {\n    transform: rotate(27deg);\n}\n83.3% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(0deg);\n}\n}\n@keyframes flip-5eeaba55 {\n0% {\n    transform: rotate(0deg);\n}\n5% {\n    transform: rotate(-27deg);\n}\n30%, 50% {\n    transform: rotate(0deg);\n}\n55% {\n    transform: rotate(27deg);\n}\n83.3% {\n    transform: rotate(0deg);\n}\n100% {\n    transform: rotate(0deg);\n}\n}\n@-webkit-keyframes switchSide-5eeaba55 {\n0% {\n    transform: rotateY(0deg);\n}\n50% {\n    transform: rotateY(180deg);\n}\n100% {\n    transform: rotateY(0deg);\n}\n}\n@keyframes switchSide-5eeaba55 {\n0% {\n    transform: rotateY(0deg);\n}\n50% {\n    transform: rotateY(180deg);\n}\n100% {\n    transform: rotateY(0deg);\n}\n}\n@-webkit-keyframes fly-5eeaba55 {\n0% {\n    bottom: 26%;\n    transform: rotate(0deg);\n}\n10% {\n    bottom: 40%;\n}\n50% {\n    bottom: 26%;\n    transform: rotate(-190deg);\n}\n80% {\n    bottom: 40%;\n}\n100% {\n    bottom: 26%;\n    transform: rotate(0deg);\n}\n}\n@keyframes fly-5eeaba55 {\n0% {\n    bottom: 26%;\n    transform: rotate(0deg);\n}\n10% {\n    bottom: 40%;\n}\n50% {\n    bottom: 26%;\n    transform: rotate(-190deg);\n}\n80% {\n    bottom: 40%;\n}\n100% {\n    bottom: 26%;\n    transform: rotate(0deg);\n}\n}\n@-webkit-keyframes bubble-5eeaba55 {\n0% {\n    transform: scale(0.15, 0.15);\n    top: 80%;\n    opacity: 0;\n}\n50% {\n    transform: scale(1.1, 1.1);\n    opacity: 1;\n}\n100% {\n    transform: scale(0.33, 0.33);\n    top: 60%;\n    opacity: 0;\n}\n}\n@keyframes bubble-5eeaba55 {\n0% {\n    transform: scale(0.15, 0.15);\n    top: 80%;\n    opacity: 0;\n}\n50% {\n    transform: scale(1.1, 1.1);\n    opacity: 1;\n}\n100% {\n    transform: scale(0.33, 0.33);\n    top: 60%;\n    opacity: 0;\n}\n}\n@-webkit-keyframes pulse-5eeaba55 {\n0% {\n    transform: scale(1, 1);\n    opacity: 0.25;\n}\n50% {\n    transform: scale(1.2, 1);\n    opacity: 1;\n}\n100% {\n    transform: scale(1, 1);\n    opacity: 0.25;\n}\n}\n@keyframes pulse-5eeaba55 {\n0% {\n    transform: scale(1, 1);\n    opacity: 0.25;\n}\n50% {\n    transform: scale(1.2, 1);\n    opacity: 1;\n}\n100% {\n    transform: scale(1, 1);\n    opacity: 0.25;\n}\n}", ""]);
 
 // exports
 
@@ -28280,6 +28498,36 @@ if(false) {}
 
 
 var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--10-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./BackgroundImage.vue?vue&type=style&index=0&id=873eea0a&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/BackgroundImage.vue?vue&type=style&index=0&id=873eea0a&scoped=true&lang=scss&");
+
+if(typeof content === 'string') content = [[module.i, content, '']];
+
+var transform;
+var insertInto;
+
+
+
+var options = {"hmr":true}
+
+options.transform = transform
+options.insertInto = undefined;
+
+var update = __webpack_require__(/*! ../../../../node_modules/style-loader/lib/addStyles.js */ "./node_modules/style-loader/lib/addStyles.js")(content, options);
+
+if(content.locals) module.exports = content.locals;
+
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss&":
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader!./node_modules/css-loader!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src??ref--10-2!./node_modules/sass-loader/dist/cjs.js??ref--10-3!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+
+var content = __webpack_require__(/*! !../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--10-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss& */ "./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss&");
 
 if(typeof content === 'string') content = [[module.i, content, '']];
 
@@ -44076,6 +44324,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Pages/OrderSummary.vue":
+/*!********************************************************!*\
+  !*** ./resources/js/components/Pages/OrderSummary.vue ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _OrderSummary_vue_vue_type_template_id_2019892e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./OrderSummary.vue?vue&type=template&id=2019892e&scoped=true& */ "./resources/js/components/Pages/OrderSummary.vue?vue&type=template&id=2019892e&scoped=true&");
+/* harmony import */ var _OrderSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./OrderSummary.vue?vue&type=script&lang=js& */ "./resources/js/components/Pages/OrderSummary.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _OrderSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _OrderSummary_vue_vue_type_template_id_2019892e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _OrderSummary_vue_vue_type_template_id_2019892e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "2019892e",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Pages/OrderSummary.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Pages/OrderSummary.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************!*\
+  !*** ./resources/js/components/Pages/OrderSummary.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderSummary.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/OrderSummary.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSummary_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Pages/OrderSummary.vue?vue&type=template&id=2019892e&scoped=true&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/Pages/OrderSummary.vue?vue&type=template&id=2019892e&scoped=true& ***!
+  \***************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSummary_vue_vue_type_template_id_2019892e_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../node_modules/vue-loader/lib??vue-loader-options!./OrderSummary.vue?vue&type=template&id=2019892e&scoped=true& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pages/OrderSummary.vue?vue&type=template&id=2019892e&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSummary_vue_vue_type_template_id_2019892e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_OrderSummary_vue_vue_type_template_id_2019892e_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Pages/Payment.vue":
 /*!***************************************************!*\
   !*** ./resources/js/components/Pages/Payment.vue ***!
@@ -44337,6 +44654,93 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/partials/Loader.vue":
+/*!*****************************************************!*\
+  !*** ./resources/js/components/partials/Loader.vue ***!
+  \*****************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Loader_vue_vue_type_template_id_5eeaba55_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Loader.vue?vue&type=template&id=5eeaba55&scoped=true& */ "./resources/js/components/partials/Loader.vue?vue&type=template&id=5eeaba55&scoped=true&");
+/* harmony import */ var _Loader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Loader.vue?vue&type=script&lang=js& */ "./resources/js/components/partials/Loader.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _Loader_vue_vue_type_style_index_0_id_5eeaba55_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss& */ "./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _Loader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Loader_vue_vue_type_template_id_5eeaba55_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Loader_vue_vue_type_template_id_5eeaba55_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  "5eeaba55",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/partials/Loader.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/Loader.vue?vue&type=script&lang=js&":
+/*!******************************************************************************!*\
+  !*** ./resources/js/components/partials/Loader.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib??vue-loader-options!./Loader.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss& ***!
+  \***************************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_sass_loader_dist_cjs_js_ref_10_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_style_index_0_id_5eeaba55_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader!../../../../node_modules/css-loader!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/src??ref--10-2!../../../../node_modules/sass-loader/dist/cjs.js??ref--10-3!../../../../node_modules/vue-loader/lib??vue-loader-options!./Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss& */ "./node_modules/style-loader/index.js!./node_modules/css-loader/index.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/src/index.js?!./node_modules/sass-loader/dist/cjs.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=style&index=0&id=5eeaba55&scoped=true&lang=scss&");
+/* harmony import */ var _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_sass_loader_dist_cjs_js_ref_10_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_style_index_0_id_5eeaba55_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_sass_loader_dist_cjs_js_ref_10_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_style_index_0_id_5eeaba55_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_sass_loader_dist_cjs_js_ref_10_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_style_index_0_id_5eeaba55_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_style_loader_index_js_node_modules_css_loader_index_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_src_index_js_ref_10_2_node_modules_sass_loader_dist_cjs_js_ref_10_3_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_style_index_0_id_5eeaba55_scoped_true_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+
+
+/***/ }),
+
+/***/ "./resources/js/components/partials/Loader.vue?vue&type=template&id=5eeaba55&scoped=true&":
+/*!************************************************************************************************!*\
+  !*** ./resources/js/components/partials/Loader.vue?vue&type=template&id=5eeaba55&scoped=true& ***!
+  \************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_template_id_5eeaba55_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib??ref--4-0!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??ref--6!../../../../node_modules/vue-loader/lib??vue-loader-options!./Loader.vue?vue&type=template&id=5eeaba55&scoped=true& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/partials/Loader.vue?vue&type=template&id=5eeaba55&scoped=true&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_template_id_5eeaba55_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_loaders_templateLoader_js_ref_6_node_modules_vue_loader_lib_index_js_vue_loader_options_Loader_vue_vue_type_template_id_5eeaba55_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/partials/OpeningDays.vue":
 /*!**********************************************************!*\
   !*** ./resources/js/components/partials/OpeningDays.vue ***!
@@ -44527,6 +44931,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Pages/RestaurantShow.vue */ "./resources/js/components/Pages/RestaurantShow.vue");
 /* harmony import */ var _components_Pages_Payment_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Pages/Payment.vue */ "./resources/js/components/Pages/Payment.vue");
 /* harmony import */ var _components_Pages_Checkout_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Pages/Checkout.vue */ "./resources/js/components/Pages/Checkout.vue");
+/* harmony import */ var _components_Pages_OrderSummary_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Pages/OrderSummary.vue */ "./resources/js/components/Pages/OrderSummary.vue");
 
  // import VueCarousel from "vue-carousel";
 // Vue.use(VueCarousel);
@@ -44536,23 +44941,30 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 
 
+
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: "history",
   linkActiveClass: "active",
   routes: [{
+    path: "/",
+    component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    name: "home"
+  }, {
+    path: "/restaurant/:id",
+    component: _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+    name: "restaurant-show"
+  }, {
     path: "/checkout",
     component: _components_Pages_Checkout_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     name: "checkout"
   }, {
     path: "/payments",
-    component: _components_Pages_Payment_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_Pages_Payment_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
+    name: "payments"
   }, {
-    path: "/",
-    component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
-  }, {
-    path: "/restaurant/:id",
-    component: _components_Pages_RestaurantShow_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
-    name: "restaurant-show"
+    path: "/ordersummary",
+    component: _components_Pages_OrderSummary_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
+    name: "ordersummary"
   }, {
     path: "*",
     component: _components_Pages_Home_vue__WEBPACK_IMPORTED_MODULE_2__["default"]

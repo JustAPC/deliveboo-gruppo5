@@ -64,11 +64,6 @@
         .m-b-md {
             margin-bottom: 30px;
         } */
-        body {
-            /* background-image: url('https://img.freepik.com/free-vector/white-gray-geometric-pattern-background-vector_53876-136510.jpg?w=2000'); */
-            background-image: url('../../../public/asset/images/blob-scene-haikei.png');
-            margin: 0;
-        }
     </style>
 </head>
 

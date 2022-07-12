@@ -1,153 +1,162 @@
 <template>
   <div>
-    <div
-      class="hero d-flex justify-content-center align-items-end"
-      :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }"
-    >
-      <div class="restaurant-infos">
-        <div class="text-center">
-          <h2>{{ restaurant.name }}</h2>
-          <span
-            v-for="category in restaurant.users_type"
-            :key="category.id"
-            class="badge badge-pill badge-primary mx-2 mb-4"
-          >
-            {{ category.name }}
-          </span>
-        </div>
-        <p>{{ restaurant.address }}, {{ restaurant.zip }}</p>
-        <p>{{ restaurant.city }}, {{ restaurant.state }}</p>
-        <p>{{ restaurant.phone_number }}</p>
-      </div>
-    </div>
-
-    <main>
-      <div class="switcher">
-        <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">Menu</a>
-        <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Info</a>
-      </div>
-
-      <div class="d-flex" v-if="switchPage == 1">
-        <aside class="col-3 d-none d-lg-block">
-          <div class="categories">
-            <a
-              v-for="(category, i) in uniqueDishCategory"
-              :key="i"
-              :href="'#category-' + category.id + '-redirect'"
+    <Loader v-if="isLoading == true" />
+    <div v-else>
+      <div
+        class="hero d-flex justify-content-center align-items-end"
+        :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }"
+      >
+        <div class="restaurant-infos">
+          <div class="text-center">
+            <h2>{{ restaurant.name }}</h2>
+            <span
+              v-for="category in restaurant.users_type"
+              :key="category.id"
+              class="badge badge-pill badge-primary mx-2 mb-4"
             >
               {{ category.name }}
-            </a>
+            </span>
           </div>
-        </aside>
+          <p>{{ restaurant.address }}, {{ restaurant.zip }}</p>
+          <p>{{ restaurant.city }}, {{ restaurant.state }}</p>
+          <p>{{ restaurant.phone_number }}</p>
+        </div>
+      </div>
 
-        <div class="col-lg-6 col-8">
-          <ul v-for="(category, i) in uniqueDishCategory" :key="i" class="p-0">
-            <h1 class="category-title" :id="'category-' + category.id + '-redirect'">
-              {{ category.name }}
-            </h1>
-            <li
-              v-for="(dish, i) in dishes"
-              :key="i"
-              v-if="category.id == dish.dishcategory_id"
-              class="dish-card flex-column flex-md-row"
-              :id="'add-to-cart-' + dish.id"
-              @click="addToCart(dish)"
-            >
-              <div>
-                <h5>{{ dish.name }}</h5>
-                <p>{{ dish.ingredients }}</p>
-                <p class="price-menu">{{ dish.price }}€</p>
-              </div>
-              <div>
-                <img :src="dish.image" alt="" width="200px" class="p-3 img-fluid" />
-                <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
-              </div>
-            </li>
-          </ul>
+      <main>
+        <div class="switcher">
+          <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">Menu</a>
+          <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Info</a>
         </div>
 
-        <div class="col-lg-3 col-4">
-          <div class="dropdown categories-top d-lg-none d-block">
-            <button
-              class="btn dropdown-button dropdown-toggle"
-              type="button"
-              id="dropdownMenu2"
-              data-toggle="dropdown"
-              aria-haspopup="true"
-              aria-expanded="false"
-            >
-              Categorie
-            </button>
-            <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-              <ul class="p-0 m-0">
-                <li
-                  v-for="(category, i) in uniqueDishCategory"
-                  :key="i"
-                  class="d-inline-block dropdown-item"
-                >
-                  <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
-                </li>
-              </ul>
+        <div class="d-flex" v-if="switchPage == 1">
+          <aside class="col-3 d-none d-lg-block">
+            <div class="categories">
+              <a
+                v-for="(category, i) in uniqueDishCategory"
+                :key="i"
+                :href="'#category-' + category.id + '-redirect'"
+              >
+                {{ category.name }}
+              </a>
             </div>
+          </aside>
+
+          <div class="col-lg-6 col-8">
+            <ul v-for="(category, i) in uniqueDishCategory" :key="i" class="p-0">
+              <h1 class="category-title" :id="'category-' + category.id + '-redirect'">
+                {{ category.name }}
+              </h1>
+              <li
+                v-for="(dish, i) in dishes"
+                :key="i"
+                v-if="category.id == dish.dishcategory_id"
+                class="dish-card flex-column flex-md-row"
+                :id="'add-to-cart-' + dish.id"
+                @click="addToCart(dish)"
+              >
+                <div>
+                  <h5>{{ dish.name }}</h5>
+                  <p>{{ dish.ingredients }}</p>
+                  <p class="price-menu">{{ dish.price }}€</p>
+                </div>
+                <div>
+                  <img :src="dish.image" alt="" width="200px" class="p-3 img-fluid" />
+                  <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
+                </div>
+              </li>
+            </ul>
           </div>
 
-          <div class="cart d-flex flex-column">
-            <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
-            <div class="cart-plates">
-              <div class="cart-item" v-for="(item, i) in carrello" :key="i">
-                <p>
-                  {{ item.name }}
-                  <span :id="'quantity-cart-item-' + item.id">{{ item.quantity }}</span>
-                </p>
-                <p :id="'price-cart-item- ' + item.id">{{ item.price }}€</p>
-                <div class="d-flex justify-content-between">
-                  <input
-                    :id="'quantity-input-' + item.id"
-                    type="number"
-                    class="quantity"
-                    min="1"
-                    value="1"
-                    @change="updateQuantity(item.price, item.id)"
-                  />
-                  <button
-                    class="btn btn-danger"
-                    :id="'remove-from-cart-' + item.id"
-                    @click="removeFromCart(item.id)"
+          <div class="col-lg-3 col-4">
+            <div class="dropdown categories-top d-lg-none d-block">
+              <button
+                class="btn dropdown-button dropdown-toggle"
+                type="button"
+                id="dropdownMenu2"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Categorie
+              </button>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                <ul class="p-0 m-0">
+                  <li
+                    v-for="(category, i) in uniqueDishCategory"
+                    :key="i"
+                    class="d-inline-block dropdown-item"
                   >
-                    Rimuovi
-                  </button>
+                    <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="cart d-flex flex-column">
+              <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
+              <div class="cart-plates">
+                <div class="cart-item" v-for="(item, i) in carrello" :key="i">
+                  <p>
+                    {{ item.name }}
+                    <span :id="'quantity-cart-item-' + item.id">{{ item.quantity }}</span>
+                  </p>
+                  <p :id="'price-cart-item- ' + item.id">{{ item.price }}€</p>
+                  <div class="d-flex justify-content-between">
+                    <input
+                      :id="'quantity-input-' + item.id"
+                      type="number"
+                      class="quantity"
+                      min="1"
+                      value="1"
+                      @change="updateQuantity(item.price, item.id)"
+                    />
+                    <button
+                      class="btn btn-danger"
+                      :id="'remove-from-cart-' + item.id"
+                      @click="removeFromCart(item.id)"
+                    >
+                      Rimuovi
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div class="d-flex flex-column py-2">
-              <h3 id="totalPrice" class="px-3 pb-3"></h3>
-              <router-link
-                class="btn btn-success align-self-center"
-                :to="{
-                  name: 'checkout',
-                  params: { restaurant_id: restaurant.id, prezzo: prezzoTotale },
-                }"
-                v-if="carrello.length"
-              >
-                Vai al Checkout
-              </router-link>
+              <div class="d-flex flex-column py-2">
+                <h3 id="totalPrice" class="px-3 pb-3"></h3>
+                <router-link
+                  class="btn btn-success align-self-center"
+                  :to="{
+                    name: 'checkout',
+                    params: {
+                      restaurant_id: restaurant.id,
+                      restaurant_name: restaurant.name,
+                      prezzo: prezzoTotale,
+                      carrello: carrello,
+                    },
+                  }"
+                  v-if="carrello.length"
+                >
+                  Vai al Checkout
+                </router-link>
+              </div>
             </div>
           </div>
         </div>
-      </div>
 
-      <OpeningDays v-if="switchPage == 2" />
-    </main>
+        <OpeningDays v-if="switchPage == 2" />
+      </main>
+    </div>
   </div>
 </template>
 
 <script>
   import axios from "axios";
   import OpeningDays from "../partials/OpeningDays.vue";
+  import Loader from "../partials/Loader.vue";
 
   export default {
     name: "RestaurantShow",
-    components: { OpeningDays },
+    components: { OpeningDays, Loader },
     props: {},
     data() {
       return {
@@ -160,6 +169,7 @@
         unique: [],
         switchPage: 1,
         prezzoTotale: "",
+        isLoading: true,
       };
     },
     methods: {
@@ -168,6 +178,7 @@
           this.restaurant = res.data.restaurant;
           this.dishes = res.data.dishes;
           this.getCategories();
+          this.isLoading = false;
         });
       },
 

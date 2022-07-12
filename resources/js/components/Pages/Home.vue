@@ -1,9 +1,12 @@
 <template>
   <div>
-    <div class="hero"></div>
-    <div class="content">
-      <Restaurants class="ristoranti" />
-      <BackgroundImage class="bolle" />
+    <Loader v-if="isLoading == true" />
+    <div v-else>
+      <div class="hero"></div>
+      <div class="content">
+        <Restaurants class="ristoranti" />
+        <BackgroundImage class="bolle" />
+      </div>
     </div>
   </div>
 </template>
@@ -11,10 +14,29 @@
 <script>
   import Restaurants from "../partials/Restaurants.vue";
   import BackgroundImage from "../partials/BackgroundImage.vue";
+  import Loader from "../partials/Loader.vue";
 
   export default {
     name: "Home",
-    components: { Restaurants, BackgroundImage },
+    components: { Restaurants, BackgroundImage, Loader },
+    data() {
+      return {
+        isLoading: true,
+      };
+    },
+    methods: {
+      myFunction() {
+        const timeout = setTimeout(this.loaderFunction, 3000);
+      },
+
+      loaderFunction() {
+        this.isLoading = false;
+      },
+    },
+
+    mounted() {
+      this.myFunction();
+    },
   };
 </script>
 

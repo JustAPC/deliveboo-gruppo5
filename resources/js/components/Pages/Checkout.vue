@@ -1,5 +1,18 @@
 <template>
   <div class="container">
+    <div>
+      <h1>RIEPILOGO ORDINE</h1>
+      <p>Hai ordinato i seguenti piatti:</p>
+      <ul>
+        <li v-for="dish in carrello" :key="dish.id">{{ dish.name }}</li>
+      </ul>
+
+      <hr />
+      <h3>Prezzo Totale: {{ form.total_price }}€</h3>
+    </div>
+
+    <hr />
+
     <form @submit="submitForm(onSubmit)" methods="post" class="row">
       <div class="input-group mb-3 col-6">
         <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
@@ -46,7 +59,14 @@
         />
       </div>
       <div class="">
-        <router-link to="/payments" type="submit" class="byn btn-success rounded p-2">
+        <router-link
+          :to="{
+            name: 'payments',
+            params: { ordine: form, carrello: carrello, restaurant_name: restaurant_name },
+          }"
+          type="submit"
+          class="byn btn-success rounded p-2"
+        >
           Invia
         </router-link>
       </div>
@@ -65,10 +85,12 @@
           customer_address: "",
           completed: false,
           payment_received: false,
-          //   total_price: this.$route.params.prezzo,
+          total_price: this.$route.params.prezzo.toFixed(2),
           customer_phone: "",
+          user_id: this.$route.params.restaurant_id,
         },
-        carrello: "",
+        carrello: this.$route.params.carrello,
+        restaurant_name: this.$route.params.restaurant_name,
       };
     },
     methods: {
