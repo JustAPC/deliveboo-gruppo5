@@ -60,6 +60,7 @@ class RegisterController extends Controller
             'state' => ['required', 'string'],
             'zip' => ['required', 'numeric', 'digits:5'],
             'vat' => ['required', 'numeric', 'digits:11'],
+            'types' =>['required'],
             'restaurant_name' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
@@ -97,11 +98,14 @@ class RegisterController extends Controller
                 [
                     'user_id' => $lastId,
                     'type_id' => $type,
-                ]
-            );
-        }
+                    ]
+                );
+            }
+            
+        $this->redirectTo = '/admin';
 
         return $new_user;
 
     }
+
 }

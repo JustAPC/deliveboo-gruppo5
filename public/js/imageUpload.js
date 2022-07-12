@@ -17425,7 +17425,11 @@ function getImgData() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\esercizio-finale\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+=======
+module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+>>>>>>> Register-Login-Davide
 
 
 /***/ })

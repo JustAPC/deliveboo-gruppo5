@@ -128,7 +128,11 @@ deleteForms.forEach(function (element) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\esercizio-finale\deliveboo-gruppo5\resources\js\orderDeleteAlert.js */"./resources/js/orderDeleteAlert.js");
+=======
+module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\orderDeleteAlert.js */"./resources/js/orderDeleteAlert.js");
+>>>>>>> Register-Login-Davide
 
 
 /***/ })
