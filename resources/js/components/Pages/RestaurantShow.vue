@@ -93,7 +93,7 @@
                   </div>
                 </div>
               </div>
-              <div>
+              <div class="d-flex flex-column py-2">
                 <h3 id="totalPrice" class="px-3 pb-3"></h3>
                 <router-link
                   class="btn btn-success align-self-center"
