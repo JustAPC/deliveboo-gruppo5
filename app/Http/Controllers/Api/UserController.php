@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\User;
 use App\Models\Type;
+use App\Models\Dish;
 
 class UserController extends Controller
 {
@@ -65,9 +66,15 @@ class UserController extends Controller
     {
         $restaurant = User::with(['UsersType'])->where('id', $id)->first();
 
-        $dishes = $restaurant->Dishes()->where('available', 1)->get();
 
-        return response()->json(['restaurant' => $restaurant, 'dishes' => $dishes, 'success' => true,]);
+        $dishparameters = ['available' => 1, 'user_id' => $restaurant->id];
+        $dishes = Dish::with(['Dishcategory'])->where($dishparameters)->get();
+
+        return response()->json([
+            'restaurant' => $restaurant,
+            'dishes' => $dishes,
+            'success' => true,
+        ]);
     }
 
     /**
