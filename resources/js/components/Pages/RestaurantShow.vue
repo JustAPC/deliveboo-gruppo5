@@ -22,93 +22,90 @@
     </div>
 
     <main>
-      <aside class="position-fixed" v-if="switchPage == 1">
-        <div v-for="(category, i) in uniqueDishCategory" :key="i">
-          <a :href="'#category-' + category.id + 'redirect'">{{ category.name }}</a>
-        </div>
-      </aside>
-
-      <div class="container">
-        <div class="pt-5">
-          <div class="switcher">
-            <div @click="showMenu()" class="col-5">
-              <span :class="{ activePage: switchPage == 1 }" class="text-center">Menu</span>
-            </div>
-            <div @click="showInfos()" class="col-5">
-              <span :class="{ activePage: switchPage == 2 }" class="text-center">Info</span>
-            </div>
-          </div>
-        </div>
-        <div class="d-flex" v-if="switchPage == 1">
-          <div class="col-8">
-            <ul v-for="(category, i) in uniqueDishCategory" :key="i">
-              <h1 class="py-5" :id="'category-' + category.id + 'redirect'">{{ category.name }}</h1>
-              <li
-                v-for="(dish, i) in dishes"
-                :key="i"
-                v-if="category.id == dish.dishcategory_id"
-                class="dish-card"
-                :id="'add-to-cart-' + dish.id"
-                @click="addToCart(dish)"
-              >
-                <div>
-                  <h5>{{ dish.name }}</h5>
-                  <p>{{ dish.ingredients }}</p>
-                  <p class="price-menu">{{ dish.price }}€</p>
-                </div>
-                <div>
-                  <img :src="dish.image" alt="" width="200px" class="p-3" />
-                  <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
-                </div>
-              </li>
-            </ul>
-          </div>
-
-          <div class="col-4">
-            <div class="cart d-flex flex-column">
-              <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
-              <div class="cart-plates">
-                <div class="cart-item" v-for="(item, i) in carrello" :key="i">
-                  <p>
-                    {{ item.name }}
-                    <span :id="'quantity-cart-item-' + item.id">{{ item.quantity }}</span>
-                  </p>
-                  <p :id="'price-cart-item- ' + item.id">{{ item.price }}€</p>
-                  <div class="d-flex justify-content-between">
-                    <input
-                      :id="'quantity-input-' + item.id"
-                      type="number"
-                      class="quantity"
-                      min="1"
-                      value="1"
-                      @change="updatePrice(item.price, item.id)"
-                    />
-                    <button
-                      class="btn btn-danger"
-                      :id="'remove-from-cart-' + item.id"
-                      @click="removeFromCart(item.id)"
-                    >
-                      Rimuovi
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="d-flex flex-column py-2">
-                <h3 id="totalPrice" class="px-3 pb-3"></h3>
-                <router-link
-                  class="btn btn-success align-self-center"
-                  to="/checkout"
-                  v-if="carrello.length"
-                >
-                  Vai al Checkout
-                </router-link>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <OpeningDays v-if="switchPage == 2" />
+      <div class="switcher">
+        <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">Menu</a>
+        <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Info</a>
       </div>
+
+      <div class="d-flex" v-if="switchPage == 1">
+        <aside class="col-3">
+          <div class="categories">
+            <div v-for="(category, i) in uniqueDishCategory" :key="i">
+              <a :href="'#category-' + category.id + 'redirect'">{{ category.name }}</a>
+            </div>
+          </div>
+        </aside>
+
+        <div class="col-6">
+          <ul v-for="(category, i) in uniqueDishCategory" :key="i" class="p-0">
+            <h1 class="py-5" :id="'category-' + category.id + 'redirect'">
+              {{ category.name }}
+            </h1>
+            <li
+              v-for="(dish, i) in dishes"
+              :key="i"
+              v-if="category.id == dish.dishcategory_id"
+              class="dish-card"
+              :id="'add-to-cart-' + dish.id"
+              @click="addToCart(dish)"
+            >
+              <div>
+                <h5>{{ dish.name }}</h5>
+                <p>{{ dish.ingredients }}</p>
+                <p class="price-menu">{{ dish.price }}€</p>
+              </div>
+              <div>
+                <img :src="dish.image" alt="" width="200px" class="p-3" />
+                <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <div class="col-3">
+          <div class="cart d-flex flex-column">
+            <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
+            <div class="cart-plates">
+              <div class="cart-item" v-for="(item, i) in carrello" :key="i">
+                <p>
+                  {{ item.name }}
+                  <span :id="'quantity-cart-item-' + item.id">{{ item.quantity }}</span>
+                </p>
+                <p :id="'price-cart-item- ' + item.id">{{ item.price }}€</p>
+                <div class="d-flex justify-content-between">
+                  <input
+                    :id="'quantity-input-' + item.id"
+                    type="number"
+                    class="quantity"
+                    min="1"
+                    value="1"
+                    @change="updatePrice(item.price, item.id)"
+                  />
+                  <button
+                    class="btn btn-danger"
+                    :id="'remove-from-cart-' + item.id"
+                    @click="removeFromCart(item.id)"
+                  >
+                    Rimuovi
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="d-flex flex-column py-2">
+              <h3 id="totalPrice" class="px-3 pb-3"></h3>
+              <router-link
+                class="btn btn-success align-self-center"
+                to="/checkout"
+                v-if="carrello.length"
+              >
+                Vai al Checkout
+              </router-link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <OpeningDays v-if="switchPage == 2" />
     </main>
   </div>
 </template>
@@ -262,31 +259,48 @@
     }
   }
 
-  .switcher {
-    margin: 0 auto;
-    border: 1px solid black;
-    border-radius: 2rem;
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    div {
-      cursor: pointer;
-      padding: 15px 25%;
-      letter-spacing: 3px;
-      font-weight: bold;
-      font-size: 1.1rem;
-      &:hover span {
-        border-bottom: 5px solid #34c0c9;
-        padding-bottom: 13px;
-        color: #34c0c9;
-      }
+  .activePage {
+    color: #34c0c9 !important;
+    &::after {
+      border-bottom: 4px solid #34c0c9;
+      border-radius: 2px;
+      bottom: 0px;
+      content: "";
+      left: 35%;
+      position: absolute;
+      width: 30%;
     }
   }
 
-  .activePage {
-    border-bottom: 5px solid #34c0c9;
-    padding-bottom: 13px;
-    color: #34c0c9;
+  .switcher {
+    border: 1px solid black;
+    border-radius: 2rem;
+    display: flex;
+    padding: 0;
+    text-align: center;
+    width: 50%;
+    margin: 0 auto;
+    a {
+      cursor: pointer;
+      text-decoration: none;
+      width: 50%;
+      padding: 10px 0;
+      font-size: 1.2rem;
+      color: black;
+      position: relative;
+      &:hover {
+        color: #34c0c9;
+        &::after {
+          border-bottom: 4px solid #34c0c9;
+          border-radius: 2px;
+          bottom: 0px;
+          content: "";
+          left: 35%;
+          position: absolute;
+          width: 30%;
+        }
+      }
+    }
   }
 
   main {
@@ -298,7 +312,13 @@
   }
 
   aside {
-    left: 300px;
+    margin-top: 150px;
+    text-align: right;
+    padding-right: 4%;
+    .categories {
+      position: sticky;
+      top: 85px;
+    }
     a {
       color: black;
       font-size: 1.2rem;
@@ -328,6 +348,7 @@
   .dish-card {
     display: flex;
     justify-content: space-between;
+    width: 90%;
     margin: 1.2rem 0;
     padding: 1rem;
     border: 1px solid grey;
@@ -337,13 +358,17 @@
       0 3px 6px 0 rgb(27 35 36 / 6%);
   }
   .cart {
-    margin-top: 160px;
+    width: 85%;
+    margin-top: 155px;
     max-height: 615px;
     background-color: white;
     border-radius: 1.2rem;
     min-height: 200px;
     box-shadow: 0 4px 6px 0 rgb(27 35 36 / 2%), 0 2px 12px -2px rgb(27 35 36 / 8%),
       0 3px 6px 0 rgb(27 35 36 / 6%);
+    position: -webkit-sticky;
+    position: sticky;
+    top: 85px;
   }
   .cart-plates {
     overflow: auto;
