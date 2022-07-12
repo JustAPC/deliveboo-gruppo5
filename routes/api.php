@@ -26,8 +26,8 @@ Route::namespace('Api')->group(function () {
     Route::get('/types/{id}', 'TypeController@show');
     Route::resource('/payments', 'PaymentController')
     ->only('index', 'store');
-    Route::resource('/checkout', 'CheckotController')
-    ->only('index', 'store', 'create');
+    Route::get('/checkout', 'CheckoutController@store');
+    
     
 
 });

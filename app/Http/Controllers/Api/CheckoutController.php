@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
-
+use App\Order;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -14,7 +14,9 @@ class CheckoutController extends Controller
      */
     public function index()
     {
-        //
+
+
+        return 'index';
     }
 
     /**
@@ -35,7 +37,34 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'form.customer_name' => 'required|string|max:30',
+            'form.customer_lastname' => 'required|string|max:50',
+            'form.customer_address' => 'required|email|max:50',
+            'form.completed' => 'required|boolean',
+            'form.payment_received' => 'required|boolean',
+            'form.total_price' => 'required|string|max:10',
+            'form.customer_phone' => 'required|string|max:30',
+
+        ]);
+
+        
+        foreach($data as $value) {
+
+            $order = new Order();
+
+            $order->fill($value);
+
+            $order->total_price = $total;
+
+            $order->save();
+
+            }
+            
+            return response()->json([
+                'order' => $order,
+                'success' => true,
+            ]);
     }
 
     /**
