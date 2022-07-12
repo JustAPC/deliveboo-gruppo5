@@ -87,7 +87,7 @@
                 </div>
             <div class="d-flex flex-column py-2">
               <h3 id="totalPrice" class="px-3 pb-3 text-center"></h3>
-              <router-link class="btn btn-success align-self-center" to="/payments" v-if="carrello.length">Vai al Pagamento</router-link>
+              <router-link class="btn btn-success align-self-center" to="/checkout" v-if="carrello.length">Vai al Checkout</router-link>
             </div>
             </div>
           </div>
