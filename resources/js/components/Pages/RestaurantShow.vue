@@ -45,7 +45,7 @@
                 @click="addToCart(dish)"
               >
                 <div>
-                  <p><h5>{{ dish.name }}</h5></p>
+                  <h5>{{ dish.name }}</h5>
                   <p>{{ dish.ingredients }}</p>
                   <p class="price-menu">{{ dish.price }}€</p>
                 </div>
@@ -58,7 +58,7 @@
           </div>
 
           <div class="col-4">
-            <div class="cart">
+            <div class="cart d-flex flex-column">
                 <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
                 <div class="cart-plates">
                     <div class="cart-item" v-for="(item, i) in carrello" :key="i">
@@ -81,9 +81,14 @@
                           Rimuovi
                         </button>
                       </div>
+                      
                     </div>
+                    
                 </div>
-            <div><h3 id="totalPrice" class="px-3 pb-3"></h3></div>
+            <div class="d-flex flex-column py-2">
+              <h3 id="totalPrice" class="px-3 pb-3 text-center"></h3>
+              <router-link class="btn btn-success align-self-center" to="/payments" v-if="carrello.length">Vai al Pagamento</router-link>
+            </div>
             </div>
           </div>
         </div>
