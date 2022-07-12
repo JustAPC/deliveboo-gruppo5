@@ -15,7 +15,7 @@
     <form action="{{ route('admin.orders.store') }}" method="POST">
         @csrf
 
-        <div class="container position-relative">
+        <div class="container position-relative mt-5 pt-5">
             <div class="row">
                 <div class="col-7">
                     <div>

@@ -36,10 +36,12 @@
 
         {{-- card --}}
         @forelse ($orders as $order)
-            <div class="card menu-card my-3 col-12">
-                <div class="card-body">
-                    <div class="d-flex">
-                        <div class="col-4 px-0 h-100">
+            <div class="card order-card my-3 col-12">
+                <div class="p-3 my-3">
+                    <div class="d-flex flex-wrap">
+
+                        {{-- informazioni cliente --}}
+                        <div class="col-md-3 col-xs-12 px-0 mb-4 text-center rounded">
                             <h5 class="card-title mb-4 text-uppercase"><b>id ordine:</b> {{ $order->id }}</h5>
                             <p class="card-text"><b>Cliente:</b> {{ $order->customer_name }}
                                 {{ $order->customer_lastname }}</p>
@@ -48,34 +50,29 @@
                             <p class="card-text"><b>Prezzo totale:</b> {{ $order->total_price }}€</p>
                         </div>
 
-                        <div class="col-8 right-column">
-                            <div class="mx-0 px-0 row text-center">
-                                <h4 class="col-4 mb-0">Piatto</h4>
-                                <h4 class="col-4 mb-0">Quantità</h4>
-                                <h4 class="col-4 mb-0">Prezzo</h4>
+                        {{-- piatti ordinati VERSIONE NUOVA RESPONSIVE --}}
+                        <div class="col-md-9 col-sm-12 d-flex flex-column">
+                            <div class="row text-center d-flex">
+                                <span class="col-4 font-weight-bold text-center">Piatto</span>
+                                <span class="col-4 font-weight-bold text-center">Quantità</span>
+                                <span class="col-4 font-weight-bold text-center">Prezzo</span>
                             </div>
-                            <div class="d-flex right-column-content text-center">
-                                <div class="col-4">
+                            <div class="d-flex justify-content-around text-center row">
+                                <div class="row w-100 d-flex align-items-center justify-content-center">
                                     @forelse ($order->Dishesorder as $dish)
-                                        <p>{{ $dish->name }}</p>
+                                        <span class="col-4 text-center my-1">{{ $dish->name }}</span>
+                                        <span class="col-4 text-center my-1">{{ $dish->getOriginal('pivot_quantity') }}</span>
+                                        <span class="col-4 text-center my-1">€{{ $dish->price }}</span>
                                     @empty
+                                        <span class="col-4 text-center">-</span>
+                                        <span class="col-4 text-center">-</span>
+                                        <span class="col-4 text-center">-</span>
                                     @endforelse
                                 </div>
-                                <div class="col-4">
-                                    @forelse ($order->Dishesorder as $dish)
-                                        <p>{{ $dish->getOriginal('pivot_quantity') }}</p>
-                                    @empty
-                                        -
-                                    @endforelse
-                                </div>
-                                <div class="col-4">
-                                    @forelse ($order->Dishesorder as $dish)
-                                        <p>{{ $dish->price }}€</p>
-                                    @empty
-                                    @endforelse
-                                </div>
+                                
                             </div>
                         </div>
+
                     </div>
 
                     </form>
@@ -83,7 +80,7 @@
                 </div>
 
                 {{-- Pulsanti --}}
-                <div>
+                <div class="mt-1">
                     <div class="my-3 d-flex justify-content-center" style="height: auto">
                         <a href="{{ route('admin.orders.show', $order->id) }}" class="btn show-button mx-2"><i class="fa-solid fa-eye mr-1"></i> Dettagli
                             dell'ordine</a><br>
@@ -109,8 +106,8 @@
 <style>
 
     /* Stile card */
-    .menu-card:hover{
-    transform: scale(1.05);
+    .order-card:hover{
+    transform: scale(1.02);
     box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
     transition: .3s transform cubic-bezier(.155, 1.105, .295, 1.12), .3s box-shadow, .3s -webkit-transform cubic-bezier(.155, 1.105, .295, 1.12);
 }
@@ -150,10 +147,10 @@
 
 @keyframes slide {
     0% {
-    transform:translateX(-25%);
+    transform:translateX(-15%);
     }
     100% {
-    transform:translateX(25%);
+    transform:translateX(15%);
     }
 }
 
