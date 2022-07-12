@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+
 use Braintree\Gateway;
 
 use Illuminate\Support\ServiceProvider;
@@ -24,7 +25,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        
     }
 }
-

@@ -34,10 +34,9 @@ Route::middleware('auth')
         Route::resource('dishes', 'DishController');
         Route::resource('openingdays', 'OpeningdayController');
         Route::resource('orders', 'OrderController');
-    
+        Route::get('charts', 'ChartController@index');
     });
 
 Route::get('{any?}', function () {
     return view('guest.home');
 })->where("any", ".*");
-
