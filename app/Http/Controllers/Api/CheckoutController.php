@@ -37,16 +37,27 @@ class CheckoutController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'form.customer_name' => 'required|string|max:30',
-            'form.customer_lastname' => 'required|string|max:50',
-            'form.customer_address' => 'required|email|max:50',
-            'form.completed' => 'required|boolean',
-            'form.payment_received' => 'required|boolean',
-            'form.total_price' => 'required|string|max:10',
-            'form.customer_phone' => 'required|string|max:30',
-
-        ]);
+        $request->validate(
+            [
+                'customer_name' => 'required',
+                'customer_lastname' => 'required',
+                'customer_address' => 'required',
+                'customer_phone' => 'required | numeric',
+                'completed' => 'required',
+                'payment_received' => 'required',
+                'quantity' => 'required',
+            ],
+            [
+                'customer_name.required' => 'Il campo "Nome" è obbligatorio',
+                'customer_lastname.required' => 'Il campo "Cognome" è obbligatorio',
+                'customer_address.required' => 'Il campo "Indirizzo" è obbligatorio',
+                'customer_phone.required' => 'Il campo "Numero di telefono" è obbligatorio',
+                'customer_phone.numeric' => 'Il campo "Numero di telefono" deve essere composto solamente da numeri',
+                'completed.required' => 'Il campo "Ordine completato" è obbligatorio',
+                'payment_received.required' => 'Il campo "Pagamento ricevuto" è obbligatorio',
+                'quantity.required' => 'É necessario selezionare almeno un piatto',
+            ]
+        );
 
         
         foreach($data as $value) {

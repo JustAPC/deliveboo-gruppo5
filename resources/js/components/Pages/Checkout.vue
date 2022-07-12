@@ -23,14 +23,16 @@
                         aria-describedby="inputGroup-sizing-default">
                 </div>
                 <div class="">
-                    <button type="submit"
+                    <router-link to="/payments" type="submit"
                         class=" byn btn-success rounded p-2">
                         Invia
-                    </button>
+                    </router-link>
                 </div>
 
             </form>
-
+        <div>
+           
+        </div>
 
       
     </div>
@@ -49,27 +51,28 @@
                     total_price:'',
                     customer_phone: '',
                 },
+                carrello:'',
             }
         },
         methods: {
             submitForm() {
-            axios.post('http://127.0.0.1:8000/checkout', {
-                form: this.form,
+            axios.post('http://127.0.0.1:8000/api/checkout', {
+               form: this.form,
                 
             })
             .then(res => {
                 console.log(res.data);
                 
             })
-            },
-
-            onSubmit() {
-                this.submitForm();
-                console.log(this.form);
-            },
-
+            
         },
-
+        onSubmit() {
+            this.submitForm();
+            console.log(this.form);
+        },
+        
+    },
+   
 
     }
 
