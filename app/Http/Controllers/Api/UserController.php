@@ -66,27 +66,17 @@ class UserController extends Controller
     {
         $restaurant = User::with(['UsersType'])->where('id', $id)->first();
 
-<<<<<<< HEAD
-
-        $dishparameters = ['available' => 1, 'user_id' => $restaurant->id];
-        $dishes = Dish::with(['Dishcategory'])->where($dishparameters)->get();
-
-=======
         
         $dishparameters = ['available' => 1, 'user_id' => $restaurant->id];
         $dishes = Dish::with(['Dishcategory'])->where($dishparameters)->get();
 
->>>>>>> sistemazione-show
         return response()->json([
             'restaurant' => $restaurant,
             'dishes' => $dishes,
             'success' => true,
         ]);
-<<<<<<< HEAD
-=======
 
         
->>>>>>> sistemazione-show
     }
 
     /**
