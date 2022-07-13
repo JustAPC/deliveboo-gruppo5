@@ -179,5 +179,16 @@ document.getElementById("orP").innerHTML = `${nonCompletati}`
     border-radius: 15px;
     font-size: 1.1em;
     font-weight: bold;
+    margin: 5px;
 }
+@media only screen and (max-width: 400px) {
+    .spanOrdini {
+            padding: 4px;
+    background-color: #e98c22;
+    border-radius: 10px;
+    font-size: 0.9em;
+    font-weight: bold;
+    margin: 5px;
+    }
+ }
 </style>
