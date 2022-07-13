@@ -1,7 +1,8 @@
 <template>
-  <div>
+  <div v-on:scroll="handleScroll()">
     <Loader v-if="isLoading == true" />
     <div v-else>
+      <!-- Hero e restaurant infos -->
       <div
         class="hero d-flex justify-content-center align-items-end"
         :style="{ backgroundImage: 'url(' + restaurant.restaurant_img + ')' }"
@@ -24,12 +25,25 @@
       </div>
 
       <main>
+        <!-- Switcher -->
         <div class="switcher">
           <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">Menu</a>
           <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Info</a>
         </div>
+        <!-- Categorie fino a breakpoint xl -->
+        <div id="categories-top">
+          <div class="d-lg-none d-block">
+            <ul class="d-flex justify-content-around m-0 p-0">
+              <li v-for="category in uniqueDishCategory" :key="category.id" class="py-3">
+                <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
 
+        <!-- Sezione piatti, carrello e categorie da bp xl -->
         <div class="d-flex" v-if="switchPage == 1">
+          <!-- Categorie -->
           <aside class="col-3 d-none d-lg-block">
             <div class="categories">
               <a
@@ -41,8 +55,8 @@
               </a>
             </div>
           </aside>
-
-          <div class="col-lg-6 col-8">
+          <!-- Piatti -->
+          <div class="col-xl-6 col-9 mx-auto">
             <ul v-for="(category, i) in uniqueDishCategory" :key="i" class="p-0">
               <h1 class="category-title" :id="'category-' + category.id + '-redirect'">
                 {{ category.name }}
@@ -51,7 +65,7 @@
                 v-for="(dish, i) in dishes"
                 :key="i"
                 v-if="category.id == dish.dishcategory_id"
-                class="dish-card flex-column flex-md-row"
+                class="dish-card flex-column flex-sm-row"
                 :id="'add-to-cart-' + dish.id"
                 @click="addToCart(dish)"
               >
@@ -67,33 +81,9 @@
               </li>
             </ul>
           </div>
-
-          <div class="col-lg-3 col-4">
-            <div class="dropdown categories-top d-lg-none d-block">
-              <button
-                class="btn dropdown-button dropdown-toggle"
-                type="button"
-                id="dropdownMenu2"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Categorie
-              </button>
-              <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                <ul class="p-0 m-0">
-                  <li
-                    v-for="(category, i) in uniqueDishCategory"
-                    :key="i"
-                    class="d-inline-block dropdown-item"
-                  >
-                    <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="cart d-flex flex-column">
+          <!-- Carrello -->
+          <div class="col-xl-3 d-xl-block d-none">
+            <div class="cart">
               <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
               <div class="cart-plates">
                 <div class="cart-item" v-for="(item, i) in carrello" :key="i">
@@ -109,7 +99,7 @@
                       class="quantity"
                       min="1"
                       value="1"
-                      @change="updateQuantity(item.price, item.id)"
+                      @change="updateBottomQuantity(item.price, item.id)"
                     />
                     <button
                       class="btn btn-danger"
@@ -121,10 +111,10 @@
                   </div>
                 </div>
               </div>
-              <div class="d-flex flex-column py-2">
-                <h3 id="totalPrice" class="px-3 pb-3"></h3>
+              <div class="total-price">
+                <h3 class="totalPrice pb-3"></h3>
                 <router-link
-                  class="btn btn-success align-self-center"
+                  class="btn btn-success mb-3"
                   :to="{
                     name: 'checkout',
                     params: {
@@ -143,9 +133,68 @@
           </div>
         </div>
 
+        <!-- Sezione info del ristorante -->
         <OpeningDays v-if="switchPage == 2" />
       </main>
     </div>
+
+    <!-- Carrello a partire da bp xs -->
+    <button
+      class="cart-bottom d-xl-none d-block"
+      type="button"
+      data-toggle="collapse"
+      data-target="#collapseExample"
+      aria-expanded="false"
+      aria-controls="collapseExample"
+    >
+      <div class="collapse" id="collapseExample" v-if="carrello != 0" style="min-height: 400px">
+        <table class="w-100">
+          <thead>
+            <tr>
+              <th scope="col">Piatto</th>
+              <th scope="col">Prezzo</th>
+              <th scope="col">Quantità</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-row my-2" v-for="dish in carrello" :key="dish.id">
+              <td>{{ dish.name }}</td>
+              <td>{{ dish.price }}€</td>
+              <td>
+                <input
+                  :id="'quantity-cart-bottom-item-' + dish.id"
+                  type="number"
+                  value="1"
+                  min="1"
+                  @change="updateBottomQuantity(dish.price, dish.id)"
+                />
+              </td>
+              <td>
+                <button class="btn btn-danger" @click="removeFromCart(dish.id)">Rimuovi</button>
+              </td>
+            </tr>
+          </tbody>
+          <div class="checkout">
+            <router-link
+              class="btn btn-success"
+              :to="{
+                name: 'checkout',
+                params: {
+                  restaurant_id: restaurant.id,
+                  restaurant_name: restaurant.name,
+                  prezzo: prezzoTotale,
+                  carrello: carrello,
+                },
+              }"
+              v-if="carrello.length"
+            >
+              Vai al Checkout
+            </router-link>
+          </div>
+        </table>
+      </div>
+      <div class="totalPrice">Il carrello è vuoto!</div>
+    </button>
   </div>
 </template>
 
@@ -170,6 +219,7 @@
         switchPage: 1,
         prezzoTotale: "",
         isLoading: true,
+        isUserScrolling: "",
       };
     },
     methods: {
@@ -188,7 +238,6 @@
         });
         this.uniqueDishCategory = this.dishCategories.filter((element) => {
           const isDuplicate = this.unique.includes(element.id);
-
           if (!isDuplicate) {
             this.unique.push(element.id);
 
@@ -211,15 +260,16 @@
           total_price: e.price,
         };
         this.cartSelectedDishes.push(singleDish);
-        let totalPriceText = document.getElementById("totalPrice");
-        totalPriceText.innerHTML =
-          "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+        let printTotalPrice = document.querySelectorAll(".totalPrice");
+        printTotalPrice.forEach((e) => {
+          e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+        });
       },
 
       updateQuantity(price, id) {
         let quantityText = document.getElementById(`quantity-cart-item-${id}`);
         let quantity = document.getElementById(`quantity-input-${id}`).value;
-        let totalPriceText = document.getElementById("totalPrice");
+        let printTotalPrice = document.querySelectorAll(".totalPrice");
         quantityText.innerHTML = quantity;
         let singleDish = {
           dish_id: id,
@@ -232,8 +282,27 @@
             this.cartSelectedDishes[i] = singleDish;
           }
         }
-        totalPriceText.innerHTML =
-          "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+        printTotalPrice.forEach((e) => {
+          e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+        });
+      },
+
+      updateBottomQuantity(price, id) {
+        let quantity = document.getElementById(`quantity-cart-bottom-item-${id}`).value;
+        let printTotalPrice = document.querySelectorAll(".totalPrice");
+        let singleDish = {
+          dish_id: id,
+          quantity: quantity,
+          total_price: price * quantity,
+        };
+        for (let i = 0; i < this.cartSelectedDishes.length; i++) {
+          if (this.cartSelectedDishes[i].dish_id == singleDish.dish_id) {
+            this.cartSelectedDishes[i] = singleDish;
+          }
+        }
+        printTotalPrice.forEach((e) => {
+          e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+        });
       },
 
       removeFromCart(e) {
@@ -241,14 +310,17 @@
         addButton.style.opacity = 1;
         addButton.style.pointerEvents = "auto";
         addButton.style.backgroundColor = "white";
-        let totalPriceText = document.getElementById("totalPrice");
+        let printTotalPrice = document.querySelectorAll(".totalPrice");
         this.carrello = this.carrello.filter((data) => data.id != e);
         this.cartSelectedDishes = this.cartSelectedDishes.filter((data) => data.dish_id != e);
         if (this.carrello.length == 0) {
-          totalPriceText.innerHTML = "";
+          printTotalPrice.forEach((e) => {
+            e.innerHTML = "Il carrello è vuoto!";
+          });
         } else {
-          totalPriceText.innerHTML =
-            "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+          printTotalPrice.forEach((e) => {
+            e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+          });
         }
       },
 
@@ -267,15 +339,46 @@
       showInfos() {
         this.switchPage = 2;
       },
+
+      handleScroll() {
+        this.isUserScrolling = window.scrollY > 592;
+        const categories = document.getElementById("categories-top");
+        if (this.isUserScrolling == true) {
+          categories.style.opacity = 1;
+        } else {
+          categories.style.opacity = 0;
+        }
+      },
     },
 
     mounted() {
       this.getRestaurant();
     },
+
+    created() {
+      window.addEventListener("scroll", this.handleScroll);
+    },
+
+    destroyed() {
+      window.removeEventListener("scroll", this.handleScroll);
+    },
   };
 </script>
 
 <style scoped lang="scss">
+  #categories-top {
+    position: sticky;
+    top: 66px;
+    opacity: 0;
+    background-color: #f8f9fa;
+    z-index: 100;
+    font-size: 1.2rem;
+  }
+  .total-price {
+    background-color: white;
+    text-align: center;
+    border-radius: 1.2rem;
+  }
   .hero {
     height: 400px;
     width: 100%;
@@ -467,6 +570,35 @@
   }
   .quantity {
     width: 50px;
+  }
+
+  .cart-bottom {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background-color: #34c0c9;
+    border: 0;
+    .totalPrice {
+      font-size: 1.2rem;
+      padding: 15px 0;
+      text-align: center;
+      width: 100%;
+    }
+    .checkout {
+    }
+    ul {
+      margin: 0;
+      padding: 0;
+      li {
+        margin: 0;
+        padding: 0;
+        display: inline-block;
+        p {
+          padding: 0px 20px;
+        }
+      }
+    }
   }
 
   @media screen and (min-width: 0) and (max-width: 550px) {

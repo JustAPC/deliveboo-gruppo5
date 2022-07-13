@@ -2148,7 +2148,8 @@ __webpack_require__.r(__webpack_exports__);
       unique: [],
       switchPage: 1,
       prezzoTotale: "",
-      isLoading: true
+      isLoading: true,
+      isUserScrolling: ""
     };
   },
   methods: {
@@ -2183,6 +2184,8 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     addToCart: function addToCart(e) {
+      var _this3 = this;
+
       this.carrello.push(e);
       var addButton = document.getElementById("add-to-cart-".concat(e.id));
       addButton.style.opacity = 0.7;
@@ -2194,13 +2197,17 @@ __webpack_require__.r(__webpack_exports__);
         total_price: e.price
       };
       this.cartSelectedDishes.push(singleDish);
-      var totalPriceText = document.getElementById("totalPrice");
-      totalPriceText.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+      var printTotalPrice = document.querySelectorAll(".totalPrice");
+      printTotalPrice.forEach(function (e) {
+        e.innerHTML = "Prezzo totale: " + _this3.totalPrice(_this3.cartSelectedDishes) + "€";
+      });
     },
     updateQuantity: function updateQuantity(price, id) {
+      var _this4 = this;
+
       var quantityText = document.getElementById("quantity-cart-item-".concat(id));
       var quantity = document.getElementById("quantity-input-".concat(id)).value;
-      var totalPriceText = document.getElementById("totalPrice");
+      var printTotalPrice = document.querySelectorAll(".totalPrice");
       quantityText.innerHTML = quantity;
       var singleDish = {
         dish_id: id,
@@ -2214,14 +2221,39 @@ __webpack_require__.r(__webpack_exports__);
         }
       }
 
-      totalPriceText.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+      printTotalPrice.forEach(function (e) {
+        e.innerHTML = "Prezzo totale: " + _this4.totalPrice(_this4.cartSelectedDishes) + "€";
+      });
+    },
+    updateBottomQuantity: function updateBottomQuantity(price, id) {
+      var _this5 = this;
+
+      var quantity = document.getElementById("quantity-cart-bottom-item-".concat(id)).value;
+      var printTotalPrice = document.querySelectorAll(".totalPrice");
+      var singleDish = {
+        dish_id: id,
+        quantity: quantity,
+        total_price: price * quantity
+      };
+
+      for (var i = 0; i < this.cartSelectedDishes.length; i++) {
+        if (this.cartSelectedDishes[i].dish_id == singleDish.dish_id) {
+          this.cartSelectedDishes[i] = singleDish;
+        }
+      }
+
+      printTotalPrice.forEach(function (e) {
+        e.innerHTML = "Prezzo totale: " + _this5.totalPrice(_this5.cartSelectedDishes) + "€";
+      });
     },
     removeFromCart: function removeFromCart(e) {
+      var _this6 = this;
+
       var addButton = document.getElementById("add-to-cart-".concat(e));
       addButton.style.opacity = 1;
       addButton.style.pointerEvents = "auto";
       addButton.style.backgroundColor = "white";
-      var totalPriceText = document.getElementById("totalPrice");
+      var printTotalPrice = document.querySelectorAll(".totalPrice");
       this.carrello = this.carrello.filter(function (data) {
         return data.id != e;
       });
@@ -2230,9 +2262,13 @@ __webpack_require__.r(__webpack_exports__);
       });
 
       if (this.carrello.length == 0) {
-        totalPriceText.innerHTML = "";
+        printTotalPrice.forEach(function (e) {
+          e.innerHTML = "Il carrello è vuoto!";
+        });
       } else {
-        totalPriceText.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
+        printTotalPrice.forEach(function (e) {
+          e.innerHTML = "Prezzo totale: " + _this6.totalPrice(_this6.cartSelectedDishes) + "€";
+        });
       }
     },
     totalPrice: function totalPrice(array) {
@@ -2249,10 +2285,26 @@ __webpack_require__.r(__webpack_exports__);
     },
     showInfos: function showInfos() {
       this.switchPage = 2;
+    },
+    handleScroll: function handleScroll() {
+      this.isUserScrolling = window.scrollY > 592;
+      var categories = document.getElementById("categories-top");
+
+      if (this.isUserScrolling == true) {
+        categories.style.opacity = 1;
+      } else {
+        categories.style.opacity = 0;
+      }
     }
   },
   mounted: function mounted() {
     this.getRestaurant();
+  },
+  created: function created() {
+    window.addEventListener("scroll", this.handleScroll);
+  },
+  destroyed: function destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
   }
 });
 
@@ -2721,7 +2773,13 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_vm.isLoading == true ? _c("Loader") : _c("div", [_c("div", {
+  return _c("div", {
+    on: {
+      scroll: function scroll($event) {
+        return _vm.handleScroll();
+      }
+    }
+  }, [_vm.isLoading == true ? _c("Loader") : _c("div", [_c("div", {
     staticClass: "hero d-flex justify-content-center align-items-end",
     style: {
       backgroundImage: "url(" + _vm.restaurant.restaurant_img + ")"
@@ -2755,7 +2813,24 @@ var render = function render() {
         return _vm.showInfos();
       }
     }
-  }, [_vm._v("Info")])]), _vm._v(" "), _vm.switchPage == 1 ? _c("div", {
+  }, [_vm._v("Info")])]), _vm._v(" "), _c("div", {
+    attrs: {
+      id: "categories-top"
+    }
+  }, [_c("div", {
+    staticClass: "d-lg-none d-block"
+  }, [_c("ul", {
+    staticClass: "d-flex justify-content-around m-0 p-0"
+  }, _vm._l(_vm.uniqueDishCategory, function (category) {
+    return _c("li", {
+      key: category.id,
+      staticClass: "py-3"
+    }, [_c("a", {
+      attrs: {
+        href: "#category-" + category.id + "-redirect"
+      }
+    }, [_vm._v(_vm._s(category.name))])]);
+  }), 0)])]), _vm._v(" "), _vm.switchPage == 1 ? _c("div", {
     staticClass: "d-flex"
   }, [_c("aside", {
     staticClass: "col-3 d-none d-lg-block"
@@ -2769,7 +2844,7 @@ var render = function render() {
       }
     }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]);
   }), 0)]), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-6 col-8"
+    staticClass: "col-xl-6 col-9 mx-auto"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
     return _c("ul", {
       key: i,
@@ -2782,7 +2857,7 @@ var render = function render() {
     }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
-        staticClass: "dish-card flex-column flex-md-row",
+        staticClass: "dish-card flex-column flex-sm-row",
         attrs: {
           id: "add-to-cart-" + dish.id
         },
@@ -2803,36 +2878,9 @@ var render = function render() {
       })])]) : _vm._e();
     })], 2);
   }), 0), _vm._v(" "), _c("div", {
-    staticClass: "col-lg-3 col-4"
+    staticClass: "col-xl-3 d-xl-block d-none"
   }, [_c("div", {
-    staticClass: "dropdown categories-top d-lg-none d-block"
-  }, [_c("button", {
-    staticClass: "btn dropdown-button dropdown-toggle",
-    attrs: {
-      type: "button",
-      id: "dropdownMenu2",
-      "data-toggle": "dropdown",
-      "aria-haspopup": "true",
-      "aria-expanded": "false"
-    }
-  }, [_vm._v("\n                Categorie\n              ")]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu",
-    attrs: {
-      "aria-labelledby": "dropdownMenu2"
-    }
-  }, [_c("ul", {
-    staticClass: "p-0 m-0"
-  }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
-    return _c("li", {
-      key: i,
-      staticClass: "d-inline-block dropdown-item"
-    }, [_c("a", {
-      attrs: {
-        href: "#category-" + category.id + "-redirect"
-      }
-    }, [_vm._v(_vm._s(category.name))])]);
-  }), 0)])]), _vm._v(" "), _c("div", {
-    staticClass: "cart d-flex flex-column"
+    staticClass: "cart"
   }, [_c("h2", {
     staticClass: "text-center border-bottom border-dark"
   }, [_vm._v("Il tuo carrello")]), _vm._v(" "), _c("div", {
@@ -2861,7 +2909,7 @@ var render = function render() {
       },
       on: {
         change: function change($event) {
-          return _vm.updateQuantity(item.price, item.id);
+          return _vm.updateBottomQuantity(item.price, item.id);
         }
       }
     }), _vm._v(" "), _c("button", {
@@ -2876,14 +2924,11 @@ var render = function render() {
       }
     }, [_vm._v("\n                      Rimuovi\n                    ")])])]);
   }), 0), _vm._v(" "), _c("div", {
-    staticClass: "d-flex flex-column py-2"
+    staticClass: "total-price"
   }, [_c("h3", {
-    staticClass: "px-3 pb-3",
-    attrs: {
-      id: "totalPrice"
-    }
+    staticClass: "totalPrice pb-3"
   }), _vm._v(" "), _vm.carrello.length ? _c("router-link", {
-    staticClass: "btn btn-success align-self-center",
+    staticClass: "btn btn-success mb-3",
     attrs: {
       to: {
         name: "checkout",
@@ -2895,10 +2940,87 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)])], 1);
+  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _c("button", {
+    staticClass: "cart-bottom d-xl-none d-block",
+    attrs: {
+      type: "button",
+      "data-toggle": "collapse",
+      "data-target": "#collapseExample",
+      "aria-expanded": "false",
+      "aria-controls": "collapseExample"
+    }
+  }, [_vm.carrello != 0 ? _c("div", {
+    staticClass: "collapse",
+    staticStyle: {
+      "min-height": "400px"
+    },
+    attrs: {
+      id: "collapseExample"
+    }
+  }, [_c("table", {
+    staticClass: "w-100"
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.carrello, function (dish) {
+    return _c("tr", {
+      key: dish.id,
+      staticClass: "table-row my-2"
+    }, [_c("td", [_vm._v(_vm._s(dish.name))]), _vm._v(" "), _c("td", [_vm._v(_vm._s(dish.price) + "€")]), _vm._v(" "), _c("td", [_c("input", {
+      attrs: {
+        id: "quantity-cart-bottom-item-" + dish.id,
+        type: "number",
+        value: "1",
+        min: "1"
+      },
+      on: {
+        change: function change($event) {
+          return _vm.updateBottomQuantity(dish.price, dish.id);
+        }
+      }
+    })]), _vm._v(" "), _c("td", [_c("button", {
+      staticClass: "btn btn-danger",
+      on: {
+        click: function click($event) {
+          return _vm.removeFromCart(dish.id);
+        }
+      }
+    }, [_vm._v("Rimuovi")])])]);
+  }), 0), _vm._v(" "), _c("div", {
+    staticClass: "checkout"
+  }, [_vm.carrello.length ? _c("router-link", {
+    staticClass: "btn btn-success",
+    attrs: {
+      to: {
+        name: "checkout",
+        params: {
+          restaurant_id: _vm.restaurant.id,
+          restaurant_name: _vm.restaurant.name,
+          prezzo: _vm.prezzoTotale,
+          carrello: _vm.carrello
+        }
+      }
+    }
+  }, [_vm._v("\n              Vai al Checkout\n            ")]) : _vm._e()], 1)])]) : _vm._e(), _vm._v(" "), _c("div", {
+    staticClass: "totalPrice"
+  }, [_vm._v("Il carrello è vuoto!")])])], 1);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("thead", [_c("tr", [_c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Piatto")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Prezzo")]), _vm._v(" "), _c("th", {
+    attrs: {
+      scope: "col"
+    }
+  }, [_vm._v("Quantità")])])]);
+}];
 render._withStripped = true;
 
 
@@ -3125,7 +3247,7 @@ var staticRenderFns = [function () {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "text-center pt-5 mt-5 w-50 mx-auto"
+    staticClass: "text-center pt-5 mt-5 col-12 col-md-10 col-xl-8 mx-auto"
   }, [_c("h1", [_vm._v("Giorni di Apertura")]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("ul", [_c("li", {
     staticClass: "d-flex justify-content-between"
   }, [_c("p", [_vm._v("Lunedì")]), _vm._v(" "), _c("p", [_vm._v("12:00 - 22:00")])]), _vm._v(" "), _c("li", {
@@ -3172,13 +3294,13 @@ var render = function render() {
     staticClass: "pl-5"
   }, [_c("button", {
     staticClass: "font-bold py-1 px-3 mb-3 border-2 button-colors rounded",
-    "class": _vm.active ? "text-white" : "text-deliveroo",
+    "class": _vm.active ? "text-white" : "",
     on: {
       click: function click($event) {
         return _vm.setActive();
       }
     }
-  }, [_vm._v("\r\n            Categorie\r\n          ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n            Categorie\n          ")])]), _vm._v(" "), _c("div", {
     staticClass: "w-75 pr-5"
   }, [_vm.active ? _c("div", {
     staticClass: "bg-color-full"
@@ -3258,10 +3380,10 @@ var render = function render() {
       return _c("p", {
         key: type.id,
         staticClass: "card-text"
-      }, [_vm._v("\r\n                " + _vm._s(type.name) + "\r\n              ")]);
+      }, [_vm._v("\n                " + _vm._s(type.name) + "\n              ")]);
     }), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\r\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\r\n              ")]), _vm._v(" "), _c("p", {
+    }, [_vm._v("\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\n              ")]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_c("small", {
       staticClass: "text-muted"
@@ -27779,7 +27901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  margin-bottom: 20px;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  display: block;\n  color: black;\n  font-size: 1.2rem;\n  padding: 10px 0;\n}\naside a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\n.categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 80px;\n  z-index: 100;\n  margin-top: 50px;\n}\n.categories-top a[data-v-18e02810] {\n  color: #34c0c9;\n}\n.dropdown-button[data-v-18e02810] {\n  background-color: #3490dc;\n  color: black;\n  border: 1px solid black;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.category-title[data-v-18e02810] {\n  padding: 3rem 1rem;\n  color: #34c0c9;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}\n@media screen and (min-width: 0) and (max-width: 550px) {\n.switcher[data-v-18e02810] {\n    width: 75%;\n}\n}\n@media screen and (min-width: 0) and (max-width: 992px) {\n.cart[data-v-18e02810] {\n    top: 150px;\n    margin-top: 75px;\n}\n}", ""]);
+exports.push([module.i, "#categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 66px;\n  opacity: 0;\n  background-color: #f8f9fa;\n  z-index: 100;\n  font-size: 1.2rem;\n}\n.total-price[data-v-18e02810] {\n  background-color: white;\n  text-align: center;\n  border-radius: 1.2rem;\n}\n.hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  margin-bottom: 20px;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  display: block;\n  color: black;\n  font-size: 1.2rem;\n  padding: 10px 0;\n}\naside a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\n.categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 80px;\n  z-index: 100;\n  margin-top: 50px;\n}\n.categories-top a[data-v-18e02810] {\n  color: #34c0c9;\n}\n.dropdown-button[data-v-18e02810] {\n  background-color: #3490dc;\n  color: black;\n  border: 1px solid black;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.category-title[data-v-18e02810] {\n  padding: 3rem 1rem;\n  color: #34c0c9;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}\n.cart-bottom[data-v-18e02810] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  background-color: #34c0c9;\n  border: 0;\n}\n.cart-bottom .totalPrice[data-v-18e02810] {\n  font-size: 1.2rem;\n  padding: 15px 0;\n  text-align: center;\n  width: 100%;\n}\n.cart-bottom ul[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n}\n.cart-bottom ul li[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n  display: inline-block;\n}\n.cart-bottom ul li p[data-v-18e02810] {\n  padding: 0px 20px;\n}\n@media screen and (min-width: 0) and (max-width: 550px) {\n.switcher[data-v-18e02810] {\n    width: 75%;\n}\n}\n@media screen and (min-width: 0) and (max-width: 992px) {\n.cart[data-v-18e02810] {\n    top: 150px;\n    margin-top: 75px;\n}\n}", ""]);
 
 // exports
 
@@ -27798,7 +27920,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 56vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 84vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 37vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 55vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 93vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 69vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 83vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 37vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 69vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 96vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 10vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 62vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 99vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 17vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 83vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 6vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 18vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 21s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 58vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 24s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 65vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 100vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 68vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 2vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 40vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 73vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 95vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 61vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 94vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 74vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 60vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 11s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 94vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 22vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 25s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 10vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 93vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 11s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 4vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 82vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 92vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 72vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 70vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
+exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 97vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 1vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 21s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 87vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 100vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 91vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 26vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 42vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 62vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 79vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 36s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 93vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 32vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 50vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 42vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 60vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 25s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 19s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 92vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 36s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 24vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 24vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 36vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 98vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 37s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 86vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 33vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 36s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 31vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 100vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 52vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 9vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 32s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 38vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 34vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 46vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 36s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 27vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 85vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 19s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 80vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 34vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 28s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 38vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
 
 // exports
 
