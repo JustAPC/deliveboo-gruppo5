@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container py-5">
       
         <!-- <div>
             <h1>RIEPILOGO ORDINE</h1>
@@ -13,8 +13,7 @@
             <h3>Prezzo Totale: {{ form.total_price }}€</h3>
         </div> -->
 
-        <hr />
-        <div class="card">
+        <div class="card ">
             <div class="card-header bg_blu text-white font_size">
                 Compila il seguente form per la spedizione
             </div>
@@ -80,7 +79,11 @@
                             </div>
                         </div>
                         <div class="col-12 text-center">
-                            <button  @click="validazione()"  class="btn btn-primary" type="submit">invia</button>
+                            <router-link  
+                            :to="{
+                            name: 'payments',
+                            params: { ordine: form, carrello: carrello, restaurant_name: restaurant_name },}"
+                            @click="validazione()"  class="btn btn-primary" type="submit">invia</router-link>
                            
                         </div>
                     </form>

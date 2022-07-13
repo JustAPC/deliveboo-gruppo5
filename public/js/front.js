@@ -2512,8 +2512,8 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
-    staticClass: "container"
-  }, [_c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "container py-5"
+  }, [_c("div", {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header bg_blu text-white font_size"
@@ -2664,9 +2664,17 @@ var render = function render() {
     staticClass: "invalid-feedback"
   }, [_vm._v("\r\n                                Inserire numero di telefono\r\n                            ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "col-12 text-center"
-  }, [_c("button", {
+  }, [_c("router-link", {
     staticClass: "btn btn-primary",
     attrs: {
+      to: {
+        name: "payments",
+        params: {
+          ordine: _vm.form,
+          carrello: _vm.carrello,
+          restaurant_name: _vm.restaurant_name
+        }
+      },
       type: "submit"
     },
     on: {
@@ -2674,7 +2682,7 @@ var render = function render() {
         return _vm.validazione();
       }
     }
-  }, [_vm._v("invia")])])])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("invia")])], 1)])])])]), _vm._v(" "), _c("div", {
     staticClass: "card text-center border_circle mt-5"
   }, [_c("div", {
     staticClass: "card-header bg_blu font-weight-bolder text-white font_size"
