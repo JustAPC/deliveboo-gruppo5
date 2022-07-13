@@ -27,7 +27,7 @@
                         <div class="d-flex flex-wrap col-md-12">
 
                             <div class="col-md-6 col-sm-6">
-                                <label class="mr-3" for="customer_name">Nome:</label>
+                                <label class="mr-4" for="customer_name">Nome:</label>
                                 <input type="text" id="customer_name" name="customer_name"
                                     value="{{ old('customer_name', $order->customer_name) }}">
                             </div>
@@ -46,13 +46,13 @@
                         <div class="form-group d-flex flex-wrap col-md-12 col-sm-12">
 
                             <div class="col-md-6 col-sm-12">
-                                <label for="name">Indirizzo:</label>
+                                <label class="mr-2" for="name">Indirizzo:</label>
                                 <input type="text" id="customer_address" name="customer_address"
                                     value="{{ old('customer_address', $order->customer_address) }}">
                             </div>
 
                             <div class="col-md-6 col-sm-12">
-                                <label for="name">Telefono:</label>
+                                <label class="mr-2" for="name">Telefono:</label>
                                 <input type="text" id="customer_phone" name="customer_phone"
                                     value="{{ old('customer_phone', $order->customer_phone) }}">
                             </div>
