@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Charts\OrdersChart;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ChartController extends Controller
 {
@@ -20,24 +21,46 @@ class ChartController extends Controller
     public function index()
     {
         $currentUserId = Auth::id();
-        $orders = Order::where('user_id', '=', $currentUserId)->orderBy('created_at')->pluck('created_at', 'total_price');
 
-        $days = $orders->values();
-        $single_prices = $orders->keys();
-        $correctDays = [];
+        $orders = Order::where('user_id', '=', $currentUserId)->select(
+            DB::raw("(sum(total_price)) as total_price"),
+            DB::raw("DATE_FORMAT(created_at, '%m-%Y') as month_year")
+        )
+            ->orderBy('created_at')
+            ->groupBy(DB::raw("DATE_FORMAT(created_at, '%m-%Y')"))
+            ->get();
 
-        foreach ($days as $day) {
-            $correctDay = '';
-            $correctDay = Str::limit($day, 10, '');
-            $correctDays[] = $correctDay;
-        }
+        $dates = [];
+        $prices = [];
 
-        $chart = new OrdersChart;
-        $chart->labels($correctDays);
+        foreach ($orders as $order) {
+            $dates[] = $order->month_year;
+            $prices[] = $order->total_price;
+        };
 
-        $chart->dataset('Vendita giornaliera', 'bar', $single_prices);
+        $yearSales2022 = new OrdersChart;
+        $yearSales2022->labels($dates);
 
-        return view('admin.charts.index', compact('chart'));
+        $yearSales2022->dataset('Vendita mensile', 'bar', $prices)->options([
+            'backgroundColor' => [
+                'rgba(255, 99, 132, 0.2)',
+                'rgba(255, 159, 64, 0.2)',
+                'rgba(255, 205, 86, 0.2)',
+                'rgba(75, 192, 192, 0.2)',
+                'rgba(54, 162, 235, 0.2)',
+                'rgba(153, 102, 255, 0.2)',
+            ],
+            'borderColor' => [
+                'rgb(255, 99, 132)',
+                'rgb(255, 159, 64)',
+                'rgb(255, 205, 86)',
+                'rgb(75, 192, 192)',
+                'rgb(54, 162, 235)',
+                'rgb(153, 102, 255)',
+            ],
+        ]);
+
+        return view('admin.charts.index', compact('yearSales2022'));
     }
 
     /**
