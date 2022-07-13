@@ -11154,6 +11154,15 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   border-radius: 15px;
   margin: 20px 3px 20px 3px;
 }
+.contenitoreRegistrazione .barraRegisterRisto {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  background-color: white;
+  padding: 5px;
+  border-radius: 15px;
+  margin: 20px 3px 20px 3px;
+}
 .contenitoreRegistrazione input {
   background-color: rgba(0, 153, 255, 0.168);
   border: 1px solid cyan;
@@ -11167,9 +11176,11 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .contenitoreRegistrazione .submitRegister {
   background-color: #09f;
   color: white;
-  padding: 6px;
+  padding: 7px;
   border-radius: 10px;
   font-size: 1.2em;
+  border: 3px solid rgba(255, 255, 255, 0.327);
+  margin-top: 15px;
 }
 .contenitoreRegistrazione .bg {
   -webkit-animation: slide 3s ease-in-out infinite alternate;

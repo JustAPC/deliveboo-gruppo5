@@ -99,7 +99,7 @@
         </div>
 
         {{-- Tipo di ristorante --}}
-        <div class="barraRegister">
+        <div class="barraRegisterRisto">
             <p>Categorie</p>
             <div class="border p-2">
                 @foreach ($types as $type)
