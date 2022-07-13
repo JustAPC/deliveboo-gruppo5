@@ -29,13 +29,13 @@
     <h1 class="text-center text-white p-4" style="font-size: 3.5rem">{{ Auth::user()->restaurant_name }}</h1>
 
     {{-- searchbar superiore --}}
-    <div class="d-flex flex-wrap row-cols-md-2 w-75 mx-auto flex-wrap justify-content-around align-items-center mb-4">
-        <a id="new-dish-btn" href="{{ route('admin.dishes.create') }}" class="btn col-sm-1 col-md-2">Aggiungi un nuovo
+    <div class="d-flex flex-wrap row-cols-md-2 w-75 mx-auto justify-content-around align-items-center mb-4">
+        <a id="new-dish-btn" href="{{ route('admin.dishes.create') }}" class="btn col-sm-1 col-md-2 m-2">Aggiungi un nuovo
             piatto</a>
-        <form class="d-flex justify-content-between align-items-center my-auto" method="GET" action="{{ route('admin.dishes.index') }}">
-            <input class="form-control col-md-7 col-sm-12" type="search" placeholder="Cerca un piatto..." name="name">
-            <button class="btn-cerca-vedi col-md-2 col-sm-12 ml-2" type="submit">Cerca</button>
-            <button class="btn-cerca-vedi col-md-2 col-sm-12 ml-2" type="submit" name="">Vedi tutti</button>
+        <form class="form-inline d-flex justify-content-between align-items-center my-auto" method="GET" action="{{ route('admin.dishes.index') }}">
+            <input class="form-control col-md-7 col-sm-12 m-1" type="search" placeholder="Cerca un piatto..." name="name">
+            <button class="btn col-md-2 col-xs-6 m-1" id="btn-cerca-vedi" type="submit">Cerca</button>
+            <button class="btn col-md-2 col-xs-6 m-1" id="btn-cerca-vedi" type="submit" name="">Vedi tutti</button>
         </form>
     </div>
 
@@ -181,14 +181,22 @@ body {
     color: white;
 }
 
-.btn-cerca-vedi {
-    border: 1px solid #e98c22;
+#btn-cerca-vedi {
+    border: 2px solid #e98c22;
+    font-weight: bold;
     color: #e98c22;
     background-color: white;
     border-radius: 5px;
     font-size: 14px;
     padding: 6px 12px;
     margin-bottom: 0;
+}
+
+#btn-cerca-vedi:hover {
+    border: 2px solid white!important;
+    font-weight: bold!important;
+    color: white!important;
+    background-color: #e98c22!important;
 }
 
 .show-button {
