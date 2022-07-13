@@ -67,7 +67,7 @@
                                 Inserire numero di telefono
                             </div>
                         </div>
-                        <div class="col-12 ">
+                        <div class="col-12 text-center my-3">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
                                 <label class="form-check-label" for="invalidCheck">
@@ -79,11 +79,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-12">
-                            <router-link :to="{
-            name: 'payments',
-            params: { ordine: form, carrello: carrello, restaurant_name: restaurant_name },
-          }" @click="validazione()"  class="btn btn-primary disabled" type="submit">invia</router-link>
+                        <div class="col-12 text-center">
+                            <button  @click="validazione()"  class="btn btn-primary" type="submit">invia</button>
                            
                         </div>
                     </form>
