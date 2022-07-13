@@ -11,8 +11,14 @@
             font-weight: bold;
             color: white;
         }
+        h1 {
+            width: 100%;
+        }
         .formRegister {
-            width: 60%;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
         }
         *{
             border: 0px;
@@ -23,11 +29,11 @@
                 .barraRegister {
                     display: flex;
                     flex-direction: column;
-        
+                    width: 45%;
                     background-color: white;
                     padding: 5px;
                     border-radius: 15px;
-                    margin: 30px 3px 30px 3px;
+                    margin: 20px 3px 20px 3px;
         
                 }
                 input {
@@ -76,10 +82,11 @@
         }
 
 @media only screen and (max-width: 500px) {
-    .formRegister {
-        width: 85%;
-    }
+    .barraRegister {
+            width: 90%;
+            margin: 7px 3px 7px 3px;
 }
 
 }
 
+}

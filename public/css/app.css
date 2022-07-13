@@ -11131,8 +11131,14 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   font-weight: bold;
   color: white;
 }
+.contenitoreRegistrazione h1 {
+  width: 100%;
+}
 .contenitoreRegistrazione .formRegister {
-  width: 60%;
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .contenitoreRegistrazione * {
   border: 0px;
@@ -11142,10 +11148,11 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .contenitoreRegistrazione .barraRegister {
   display: flex;
   flex-direction: column;
+  width: 45%;
   background-color: white;
   padding: 5px;
   border-radius: 15px;
-  margin: 30px 3px 30px 3px;
+  margin: 20px 3px 20px 3px;
 }
 .contenitoreRegistrazione input {
   background-color: rgba(0, 153, 255, 0.168);
@@ -11189,7 +11196,8 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   }
 }
 @media only screen and (max-width: 500px) {
-  .contenitoreRegistrazione .formRegister {
-    width: 85%;
+  .contenitoreRegistrazione .barraRegister {
+    width: 90%;
+    margin: 7px 3px 7px 3px;
   }
 }
