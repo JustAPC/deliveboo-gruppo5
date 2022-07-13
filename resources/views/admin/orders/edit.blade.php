@@ -144,6 +144,9 @@
                 </div>
             </div>
 
+
+            <input type="text" name="total_price" id="prezzoTotaleDB" value="" style="display: none">
+
             {{-- submit --}}
             <button type="submit" id="btn-invia" class="btn m-5">Invia</button>
 
