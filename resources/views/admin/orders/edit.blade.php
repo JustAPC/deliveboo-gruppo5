@@ -46,13 +46,13 @@
                         <div class="form-group d-flex flex-wrap col-md-12 col-sm-12">
 
                             <div class="col-md-6 col-sm-12">
-                                <label class="mr-2" for="name">Indirizzo:</label>
+                                <label class="mr-2" for="customer_address">Indirizzo:</label>
                                 <input type="text" id="customer_address" name="customer_address"
                                     value="{{ old('customer_address', $order->customer_address) }}">
                             </div>
 
                             <div class="col-md-6 col-sm-12">
-                                <label class="mr-2" for="name">Telefono:</label>
+                                <label class="mr-2" for="customer_phone">Telefono:</label>
                                 <input type="text" id="customer_phone" name="customer_phone"
                                     value="{{ old('customer_phone', $order->customer_phone) }}">
                             </div>
@@ -128,9 +128,9 @@
                     <h2>Carrello</h2>
 
                     <div class="row d-flex">
-                        <span class="col-8 font-weight-bold">Piatto</span>
+                        <span class="col-8 font-weight-bold">Articolo</span>
                         <span class="col-1 text-center font-weight-bold">Prezzo</span>
-                        <span class="col-3 text-center font-weight-bold">Quantità</span>
+                        <span class="col-3 text-center font-weight-bold">Qt.</span>
                     </div>
                     
                     <div class="cart">
