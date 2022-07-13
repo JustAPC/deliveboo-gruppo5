@@ -1,20 +1,107 @@
 <template>
-  <div class="container">
-    <div>
-      <h1>RIEPILOGO ORDINE</h1>
-      
-      <p>Hai ordinato i seguenti piatti:</p>
-      <ul>
-        <li v-for="dish in carrello" :key="dish.id">{{ dish.name }}</li>
-      </ul>
+    <div class="container">
+        <div>
+            <h1>RIEPILOGO ORDINE</h1>
 
-      <hr />
-      <h3>Prezzo Totale: {{ form.total_price }}€</h3>
-    </div>
+            <p>Hai ordinato i seguenti piatti:</p>
+            <ul>
+                <li v-for="dish in carrello" :key="dish.id">{{ dish.name }}</li>
+            </ul>
 
-    <hr />
+            <hr />
+            <h3>Prezzo Totale: {{ form.total_price }}€</h3>
+        </div>
 
-    <form @submit="submitForm(onSubmit)" methods="post" class="row">
+        <hr />
+        <div class="card">
+            <div class="card-header bg_blu text-white font_size">
+                Compila il seguente form per la spedizione
+            </div>
+            <div class="card-body">
+                <blockquote class="blockquote mb-0">
+                    <form class="row g-3 needs-validation" novalidate>
+                        <div class="col-md-4">
+                            <label for="validationCustom01" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="validationCustom01" v-model="form.customer_name"
+                                required>
+                            <div class="valid-feedback">
+                                Inserito correttamente
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserisci il nome
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <label for="validationCustom02" class="form-label">Cognome</label>
+                            <input type="text" class="form-control" id="validationCustom02"
+                                v-model="form.customer_lastname" required>
+                            <div class="valid-feedback">
+                                Inserito correttamente
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserisci il cognome
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="validationCustom03" class="form-label">Indirizzo</label>
+                            <input type="text" class="form-control" id="validationCustom03"
+                                v-model="form.customer_address" required>
+                            <div class="valid-feedback">
+                                Inserito correttamente
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserire indirizzo
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <label for="validationCustom05" class="form-label">Telefono</label>
+                            <input type="text" class="form-control" id="validationCustom05"
+                                v-model="form.customer_phone" required>
+                            <div class="valid-feedback">
+                                Inserito correttamente
+                            </div>
+                            <div class="invalid-feedback">
+                                Inserire numero di telefono
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="invalidCheck" required>
+                                <label class="form-check-label" for="invalidCheck">
+                                    Accetta termini e condizioni
+                                </label>
+                                <div class="valid-feedback">
+                                    Inserito correttamente
+                                </div>
+                                <div class="invalid-feedback">
+                                    Devi accettare termini e condizioni
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                              <router-link
+                              @click="validazione()"
+                              
+                                :to="{
+                                  name: 'payments',
+                                  params: { ordine: form, carrello: carrello, restaurant_name: restaurant_name },
+                                }"
+                                type="submit"
+                                class="byn btn-success rounded p-2"
+                              >
+                                Invia
+                              </router-link>
+                            
+                        </div>
+                    </form>
+                </blockquote>
+            </div>
+        </div>
+
+
+        <!-- <form @submit="submitForm(onSubmit)" methods="post" class="row">
       <div class="input-group mb-3 col-6">
         <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
         <input
@@ -24,6 +111,7 @@
           class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
+          required
         />
       </div>
       <div class="input-group mb-3 col-6">
@@ -35,6 +123,7 @@
           class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
+          required
         />
       </div>
       <div class="input-group mb-3 col-8">
@@ -46,6 +135,7 @@
           class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
+          required
         />
       </div>
       <div class="input-group mb-3 col-4">
@@ -57,6 +147,7 @@
           class="form-control"
           aria-label="Sizing example input"
           aria-describedby="inputGroup-sizing-default"
+          required
         />
       </div>
       <div class="">
@@ -71,49 +162,83 @@
           Invia
         </router-link>
       </div>
-    </form>
-    <div></div>
-  </div>
+    </form> -->
+
+    </div>
 </template>
 
 <script>
-  export default {
-    data() {
-      return {
-        form: {
-          customer_name: "",
-          customer_lastname: "",
-          customer_address: "",
-          completed: false,
-          payment_received: false,
-          total_price: this.$route.params.prezzo.toFixed(2),
-          customer_phone: "",
-          user_id: this.$route.params.restaurant_id,
+    export default {
+        data() {
+            return {
+                form: {
+                    customer_name: "",
+                    customer_lastname: "",
+                    customer_address: "",
+                    completed: false,
+                    payment_received: false,
+                    total_price: this.$route.params.prezzo.toFixed(2),
+                    customer_phone: "",
+                    user_id: this.$route.params.restaurant_id,
+                },
+                carrello: this.$route.params.carrello,
+                restaurant_name: this.$route.params.restaurant_name,
+            };
         },
-        carrello: this.$route.params.carrello,
-        restaurant_name: this.$route.params.restaurant_name,
-      };
-    },
-    methods: {
-      submitForm() {
-        axios
-          .post("http://127.0.0.1:8000/api/checkout", {
-            form: this.form,
-          })
-          .then((res) => {
-            console.log(res.data);
-          });
-      },
-      onSubmit() {
-        this.submitForm();
-        console.log(this.form);
-      },
-    },
-  };
+        methods: {
+            submitForm() {
+                axios
+                    .post("http://127.0.0.1:8000/api/checkout", {
+                        form: this.form,
+                    })
+                    .then((res) => {
+                        console.log(res.data);
+                    });
+            },
+            onSubmit() {
+                this.submitForm();
+                console.log(this.form);
+            },
+            validazione() {
+
+                (() => {
+                    'use strict'
+
+                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                    const forms = document.querySelectorAll('.needs-validation')
+
+                    // Loop over them and prevent submission
+                    Array.from(forms).forEach(form => {
+                        form.addEventListener('submit', event => {
+                            if (!form.checkValidity()) {
+                                event.preventDefault()
+                                event.stopPropagation()
+                            }
+
+                            form.classList.add('was-validated')
+                            
+                        }, false)
+                        
+                    })
+                    
+                })()
+            },
+        },
+    };
+
 </script>
 
 <style lang="scss" scoped>
-  .form-wrapper {
-    min-height: calc((100vh - 62px) - 341px);
-  }
+    .form-wrapper {
+        min-height: calc((100vh - 62px) - 341px);
+    }
+
+    .bg_blu {
+        background-color: #34c0c9;
+    }
+
+    .font_size {
+        font-size: 2em;
+    }
+
 </style>

@@ -1936,6 +1936,24 @@ __webpack_require__.r(__webpack_exports__);
     onSubmit: function onSubmit() {
       this.submitForm();
       console.log(this.form);
+    },
+    validazione: function validazione() {
+      (function () {
+        'use strict'; // Fetch all the forms we want to apply custom Bootstrap validation styles to
+
+        var forms = document.querySelectorAll('.needs-validation'); // Loop over them and prevent submission
+
+        Array.from(forms).forEach(function (form) {
+          form.addEventListener('submit', function (event) {
+            if (!form.checkValidity()) {
+              event.preventDefault();
+              event.stopPropagation();
+            }
+
+            form.classList.add('was-validated');
+          }, false);
+        });
+      })();
     }
   }
 });
@@ -2424,22 +2442,25 @@ var render = function render() {
     return _c("li", {
       key: dish.id
     }, [_vm._v(_vm._s(dish.name))]);
-  }), 0), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h3", [_vm._v("Prezzo Totale: " + _vm._s(_vm.form.total_price) + "€")])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("form", {
-    staticClass: "row",
+  }), 0), _vm._v(" "), _c("hr"), _vm._v(" "), _c("h3", [_vm._v("Prezzo Totale: " + _vm._s(_vm.form.total_price) + "€")])]), _vm._v(" "), _c("hr"), _vm._v(" "), _c("div", {
+    staticClass: "card"
+  }, [_c("div", {
+    staticClass: "card-header bg_blu text-white font_size"
+  }, [_vm._v("\r\n                Compila il seguente form per la spedizione\r\n            ")]), _vm._v(" "), _c("div", {
+    staticClass: "card-body"
+  }, [_c("blockquote", {
+    staticClass: "blockquote mb-0"
+  }, [_c("form", {
+    staticClass: "row g-3 needs-validation",
     attrs: {
-      methods: "post"
-    },
-    on: {
-      submit: function submit($event) {
-        return _vm.submitForm(_vm.onSubmit);
-      }
+      novalidate: ""
     }
   }, [_c("div", {
-    staticClass: "input-group mb-3 col-6"
-  }, [_c("span", {
-    staticClass: "input-group-text",
+    staticClass: "col-md-4"
+  }, [_c("label", {
+    staticClass: "form-label",
     attrs: {
-      id: "inputGroup-sizing-default"
+      "for": "validationCustom01"
     }
   }, [_vm._v("Nome")]), _vm._v(" "), _c("input", {
     directives: [{
@@ -2450,10 +2471,9 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      id: "name",
       type: "text",
-      "aria-label": "Sizing example input",
-      "aria-describedby": "inputGroup-sizing-default"
+      id: "validationCustom01",
+      required: ""
     },
     domProps: {
       value: _vm.form.customer_name
@@ -2465,12 +2485,16 @@ var render = function render() {
         _vm.$set(_vm.form, "customer_name", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "input-group mb-3 col-6"
-  }, [_c("span", {
-    staticClass: "input-group-text",
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("\r\n                                Inserito correttamente\r\n                            ")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\r\n                                Inserisci il nome\r\n                            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-4"
+  }, [_c("label", {
+    staticClass: "form-label",
     attrs: {
-      id: "inputGroup-sizing-default"
+      "for": "validationCustom02"
     }
   }, [_vm._v("Cognome")]), _vm._v(" "), _c("input", {
     directives: [{
@@ -2481,10 +2505,9 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      id: "name",
       type: "text",
-      "aria-label": "Sizing example input",
-      "aria-describedby": "inputGroup-sizing-default"
+      id: "validationCustom02",
+      required: ""
     },
     domProps: {
       value: _vm.form.customer_lastname
@@ -2496,12 +2519,16 @@ var render = function render() {
         _vm.$set(_vm.form, "customer_lastname", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "input-group mb-3 col-8"
-  }, [_c("span", {
-    staticClass: "input-group-text",
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("\r\n                                Inserito correttamente\r\n                            ")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\r\n                                Inserisci il cognome\r\n                            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6"
+  }, [_c("label", {
+    staticClass: "form-label",
     attrs: {
-      id: "inputGroup-sizing-default"
+      "for": "validationCustom03"
     }
   }, [_vm._v("Indirizzo")]), _vm._v(" "), _c("input", {
     directives: [{
@@ -2512,10 +2539,9 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      id: "name",
       type: "text",
-      "aria-label": "Sizing example input",
-      "aria-describedby": "inputGroup-sizing-default"
+      id: "validationCustom03",
+      required: ""
     },
     domProps: {
       value: _vm.form.customer_address
@@ -2527,12 +2553,16 @@ var render = function render() {
         _vm.$set(_vm.form, "customer_address", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {
-    staticClass: "input-group mb-3 col-4"
-  }, [_c("span", {
-    staticClass: "input-group-text",
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("\r\n                                Inserito correttamente\r\n                            ")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\r\n                                Inserire indirizzo\r\n                            ")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-3"
+  }, [_c("label", {
+    staticClass: "form-label",
     attrs: {
-      id: "inputGroup-sizing-default"
+      "for": "validationCustom05"
     }
   }, [_vm._v("Telefono")]), _vm._v(" "), _c("input", {
     directives: [{
@@ -2543,10 +2573,9 @@ var render = function render() {
     }],
     staticClass: "form-control",
     attrs: {
-      id: "name",
       type: "text",
-      "aria-label": "Sizing example input",
-      "aria-describedby": "inputGroup-sizing-default"
+      id: "validationCustom05",
+      required: ""
     },
     domProps: {
       value: _vm.form.customer_phone
@@ -2558,7 +2587,13 @@ var render = function render() {
         _vm.$set(_vm.form, "customer_phone", $event.target.value);
       }
     }
-  })]), _vm._v(" "), _c("div", {}, [_c("router-link", {
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("\r\n                                Inserito correttamente\r\n                            ")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\r\n                                Inserire numero di telefono\r\n                            ")])]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c("div", {
+    staticClass: "col-12"
+  }, [_c("router-link", {
     staticClass: "byn btn-success rounded p-2",
     attrs: {
       to: {
@@ -2570,11 +2605,42 @@ var render = function render() {
         }
       },
       type: "submit"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.validazione();
+      }
     }
-  }, [_vm._v("\r\n          Invia\r\n        ")])], 1)]), _vm._v(" "), _c("div")]);
+  }, [_vm._v("\r\n                                Invia\r\n                              ")])], 1)])])])])]);
 };
 
-var staticRenderFns = [];
+var staticRenderFns = [function () {
+  var _vm = this,
+      _c = _vm._self._c;
+
+  return _c("div", {
+    staticClass: "col-12"
+  }, [_c("div", {
+    staticClass: "form-check"
+  }, [_c("input", {
+    staticClass: "form-check-input",
+    attrs: {
+      type: "checkbox",
+      value: "",
+      id: "invalidCheck",
+      required: ""
+    }
+  }), _vm._v(" "), _c("label", {
+    staticClass: "form-check-label",
+    attrs: {
+      "for": "invalidCheck"
+    }
+  }, [_vm._v("\r\n                                    Accetta termini e condizioni\r\n                                ")]), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("\r\n                                    Inserito correttamente\r\n                                ")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("\r\n                                    Devi accettare termini e condizioni\r\n                                ")])])]);
+}];
 render._withStripped = true;
 
 
@@ -27788,7 +27854,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".form-wrapper[data-v-e4880c08] {\n  min-height: calc(100vh - 62px - 341px);\n}", ""]);
+exports.push([module.i, ".form-wrapper[data-v-e4880c08] {\n  min-height: calc(100vh - 62px - 341px);\n}\n.bg_blu[data-v-e4880c08] {\n  background-color: #34c0c9;\n}\n.font_size[data-v-e4880c08] {\n  font-size: 2em;\n}", ""]);
 
 // exports
 
