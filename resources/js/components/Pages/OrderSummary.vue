@@ -1,45 +1,43 @@
 <template>
-    <div>
-        <div class="card p-0 m-auto container" >
-            <h5 class="card-header">Complimenti, il tuo ordine è andato a buon fine!</h5>
-            <div class="card-body">
-                <h5 class="card-title">Riepilogo dell'ordine:</h5>
-                <h5 class="card-title">{{ restaurant_name }}</h5>
-                <p class="card-text">Lista dei piatti:</p>
+    <div class="container">
+        <div class="switcher">
+            <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">I Tuoi Dati</a>
+            <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Piatti Ordinati</a>
+        </div>
+        <div v-if="switchPage == 1">
+            <div class="card text-center">
+                
+                <div class="card-body">
+                  <h5 class="card-title">I tuoi Dati</h5>
+                    <p class="card-text">Nome: <span>{{ordine.customer_name}}</span></p>
+                    <p class="card-text">Cognome: <span>{{ordine.customer_lastname}}</span></p>
+                     <p class="card-text">Via: <span>{{ordine.customer_address}}</span></p>
+                     <p class="card-text">Numero Telefonico: <span>{{ordine.customer_phone}}</span></p>
 
-                <div class="row">
-                    <div class="card mb-3 mx-3" style="max-width: 540px;" v-for="(piatto, i) in carrello" :key="i">
-                        <div class="row g-0">
-                            <div class="col-md-4 d-flex align-items-center" >
-                                <img :src="piatto.image" class="img-fluid rounded-start" alt="...">
-                            </div>
-                            <div class="col-md-8">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ piatto.name }}</h5>
-                                    <p class="card-text">{{ piatto.price }}€</p>
-                                    
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="col-sm-6" v-for="(piatto, i) in carrello" :key="i">
-                        <div class="card">
-                            <div class="card-body d-flex justify-content-between">
-                                <div>
-                                    <h5 class="card-title">{{ piatto.name }}</h5>
-                                    <p class="card-text">{{ piatto.price }}</p>
-                                </div>
-                                <div>
-                                    <img :src="piatto.image" alt="" width="50%" />
-                                </div>
-                            </div>
-                        </div>
-                    </div> -->
                 </div>
-
-                <a href="/" class="btn btn-primary">Torna alla home</a>
+                
             </div>
         </div>
+        <div v-if="switchPage == 2">
+            <div class="card text-center">
+  <div class="card-header">
+    Featured
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">Piatti Ordinati</h5>
+    <div>
+      
+    </div>
+  </div>
+  <div class="card-footer text-muted">
+    2 days ago
+  </div>
+</div>
+        </div>
+
+
+
+
     </div>
 </template>
 
@@ -53,9 +51,18 @@
                 carrello: this.$route.params.carrello,
                 ordine: this.$route.params.ordine,
                 restaurant_name: this.$route.params.restaurant_name,
+                switchPage: 1,
             };
         },
-        methods: {},
+        methods: {
+            showMenu() {
+                this.switchPage = 1;
+            },
+
+            showInfos() {
+                this.switchPage = 2;
+            },
+        },
     };
 
 </script>

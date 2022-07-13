@@ -2,6 +2,7 @@
   <div class="container">
     <div>
       <h1>RIEPILOGO ORDINE</h1>
+      
       <p>Hai ordinato i seguenti piatti:</p>
       <ul>
         <li v-for="dish in carrello" :key="dish.id">{{ dish.name }}</li>

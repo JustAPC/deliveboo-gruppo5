@@ -2021,10 +2021,18 @@ __webpack_require__.r(__webpack_exports__);
     return {
       carrello: this.$route.params.carrello,
       ordine: this.$route.params.ordine,
-      restaurant_name: this.$route.params.restaurant_name
+      restaurant_name: this.$route.params.restaurant_name,
+      switchPage: 1
     };
   },
-  methods: {}
+  methods: {
+    showMenu: function showMenu() {
+      this.switchPage = 1;
+    },
+    showInfos: function showInfos() {
+      this.switchPage = 2;
+    }
+  }
 });
 
 /***/ }),
@@ -2680,52 +2688,41 @@ var render = function render() {
   var _vm = this,
       _c = _vm._self._c;
 
-  return _c("div", [_c("div", {
-    staticClass: "card p-0 m-auto container"
-  }, [_c("h5", {
-    staticClass: "card-header"
-  }, [_vm._v("Complimenti, il tuo ordine è andato a buon fine!")]), _vm._v(" "), _c("div", {
-    staticClass: "card-body"
-  }, [_c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v("Riepilogo dell'ordine:")]), _vm._v(" "), _c("h5", {
-    staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.restaurant_name))]), _vm._v(" "), _c("p", {
-    staticClass: "card-text"
-  }, [_vm._v("Lista dei piatti:")]), _vm._v(" "), _c("div", {
-    staticClass: "row"
-  }, _vm._l(_vm.carrello, function (piatto, i) {
-    return _c("div", {
-      key: i,
-      staticClass: "card mb-3 mx-3",
-      staticStyle: {
-        "max-width": "540px"
+  return _c("div", {
+    staticClass: "container"
+  }, [_c("div", {
+    staticClass: "switcher"
+  }, [_c("a", {
+    "class": {
+      activePage: _vm.switchPage == 1
+    },
+    on: {
+      click: function click($event) {
+        return _vm.showMenu();
       }
-    }, [_c("div", {
-      staticClass: "row g-0"
-    }, [_c("div", {
-      staticClass: "col-md-4 d-flex align-items-center"
-    }, [_c("img", {
-      staticClass: "img-fluid rounded-start",
-      attrs: {
-        src: piatto.image,
-        alt: "..."
-      }
-    })]), _vm._v(" "), _c("div", {
-      staticClass: "col-md-8"
-    }, [_c("div", {
-      staticClass: "card-body"
-    }, [_c("h5", {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(piatto.name))]), _vm._v(" "), _c("p", {
-      staticClass: "card-text"
-    }, [_vm._v(_vm._s(piatto.price) + "€")])])])])]);
-  }), 0), _vm._v(" "), _c("a", {
-    staticClass: "btn btn-primary",
-    attrs: {
-      href: "/"
     }
-  }, [_vm._v("Torna alla home")])])])]);
+  }, [_vm._v("I Tuoi Dati")]), _vm._v(" "), _c("a", {
+    "class": {
+      activePage: _vm.switchPage == 2
+    },
+    on: {
+      click: function click($event) {
+        return _vm.showInfos();
+      }
+    }
+  }, [_vm._v("Piatti Ordinati")])]), _vm._v(" "), _vm.switchPage == 1 ? _c("div", [_c("div", {
+    staticClass: "card text-center"
+  }, [_c("div", {
+    staticClass: "card-body"
+  }, [_c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("Nome: "), _c("span", [_vm._v(_vm._s(_vm.ordine.customer_name))])]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("Cognome: "), _c("span", [_vm._v(_vm._s(_vm.ordine.customer_lastname))])]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("Via: "), _c("span", [_vm._v(_vm._s(_vm.ordine.customer_address))])]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("Numero Telefonico: "), _c("span", [_vm._v(_vm._s(_vm.ordine.customer_phone))])])])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("div") : _vm._e()]);
 };
 
 var staticRenderFns = [];
