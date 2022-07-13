@@ -151,7 +151,7 @@
 
         {{-- Button registe --}}
         
-            <div class="">
+            <div class="divRegister">
                 <button type="submit" class="submitRegister">
                     {{ __('Register') }}
                 </button>

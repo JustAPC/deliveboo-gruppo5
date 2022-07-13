@@ -11159,6 +11159,11 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   border: 1px solid cyan;
   border-radius: 10px;
 }
+.contenitoreRegistrazione .divRegister {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
 .contenitoreRegistrazione .submitRegister {
   background-color: #09f;
   color: white;
