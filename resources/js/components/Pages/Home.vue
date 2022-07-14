@@ -49,7 +49,7 @@
   .hero {
     background-image: url("../../../images/FOODDELIVERY-thumb.png");
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: bottom;
     background-attachment: fixed;
     background-size: cover;
     height: 635px;
