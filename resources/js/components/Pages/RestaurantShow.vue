@@ -1,5 +1,5 @@
 <template>
-  <div v-on:scroll="handleScroll()">
+  <div v-on:scroll="handleScroll()" class="bimbo34" id="">
     <Loader v-if="isLoading == true" />
     <div v-else>
       <!-- Hero e restaurant infos -->
@@ -24,11 +24,11 @@
         </div>
       </div>
 
-      <main>
+      <main id="speriamoBene" class="backgroundBig">
         <!-- Switcher -->
         <div class="switcher">
-          <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">Menu</a>
-          <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Info</a>
+          <a :class="{ activePage: switchPage == 1 }" @click="showMenu(), backgroundBig()" id="menuZ1">Menu</a>
+          <a :class="{ activePage: switchPage == 2 }" @click="showInfos(), backgroundSmall()" id="infoZ1">Info</a>
         </div>
         <!-- Categorie fino a breakpoint xl -->
         <div id="categories-top" class="categories-hidden">
@@ -227,6 +227,15 @@
       };
     },
     methods: {
+      backgroundSmall(){
+        let backgroundPage = document.getElementById("speriamoBene");
+        backgroundPage.classList.remove("backgroundBig");
+        backgroundPage.classList.add("backgroundSmall");
+      },backgroundBig(){
+        let backgroundPage = document.getElementById("speriamoBene");
+        backgroundPage.classList.remove("backgroundSmall");
+        backgroundPage.classList.add("backgroundBig");
+      },
       getRestaurant() {
         axios.get(`http://127.0.0.1:8000/api/restaurants/${this.$route.params.id}`).then((res) => {
           this.restaurant = res.data.restaurant;
@@ -452,14 +461,23 @@
       }
     }
   }
-
-  main {
+  .backgroundBig {
     background-image: url("../../../images/333.svg");
     background-size: cover;
     background-position: center;
     padding-top: 140px;
     min-height: 1000px;
   }
+  .backgroundSmall{
+    background-image: url("../../../images/111.svg");
+    background-size: cover;
+    background-position: center;
+    padding-top: 140px;
+    min-height: 1000px;
+  }
+  
+  
+  
 
   aside {
     margin-top: 150px;

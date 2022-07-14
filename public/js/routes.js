@@ -2176,6 +2176,16 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
+    backgroundSmall: function backgroundSmall() {
+      var backgroundPage = document.getElementById("speriamoBene");
+      backgroundPage.classList.remove("backgroundBig");
+      backgroundPage.classList.add("backgroundSmall");
+    },
+    backgroundBig: function backgroundBig() {
+      var backgroundPage = document.getElementById("speriamoBene");
+      backgroundPage.classList.remove("backgroundSmall");
+      backgroundPage.classList.add("backgroundBig");
+    },
     getRestaurant: function getRestaurant() {
       var _this = this;
 
@@ -3069,6 +3079,10 @@ var render = function render() {
       _c = _vm._self._c;
 
   return _c("div", {
+    staticClass: "bimbo34",
+    attrs: {
+      id: ""
+    },
     on: {
       scroll: function scroll($event) {
         return _vm.handleScroll();
@@ -3087,25 +3101,36 @@ var render = function render() {
     return _c("span", {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
-    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]);
-  })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", [_c("div", {
+    }, [_vm._v("\r\n              " + _vm._s(category.name) + "\r\n            ")]);
+  })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", {
+    staticClass: "backgroundBig",
+    attrs: {
+      id: "speriamoBene"
+    }
+  }, [_c("div", {
     staticClass: "switcher"
   }, [_c("a", {
     "class": {
       activePage: _vm.switchPage == 1
     },
+    attrs: {
+      id: "menuZ1"
+    },
     on: {
       click: function click($event) {
-        return _vm.showMenu();
+        _vm.showMenu(), _vm.backgroundBig();
       }
     }
   }, [_vm._v("Menu")]), _vm._v(" "), _c("a", {
     "class": {
       activePage: _vm.switchPage == 2
     },
+    attrs: {
+      id: "infoZ1"
+    },
     on: {
       click: function click($event) {
-        return _vm.showInfos();
+        _vm.showInfos(), _vm.backgroundSmall();
       }
     }
   }, [_vm._v("Info")])]), _vm._v(" "), _c("div", {
@@ -3138,7 +3163,7 @@ var render = function render() {
       attrs: {
         href: "#category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]);
+    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-6 col-sm-9 mx-auto"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
@@ -3150,7 +3175,7 @@ var render = function render() {
       attrs: {
         id: "category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
         staticClass: "dish-card flex-column flex-sm-row",
@@ -3185,7 +3210,7 @@ var render = function render() {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\n                    " + _vm._s(item.name) + "\n                    "), _c("span", {
+    }, [_c("p", [_vm._v("\r\n                    " + _vm._s(item.name) + "\r\n                    "), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
@@ -3218,7 +3243,7 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\n                      Rimuovi\n                    ")])])]);
+    }, [_vm._v("\r\n                      Rimuovi\r\n                    ")])])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "total-price"
   }, [_c("h3", {
@@ -3237,7 +3262,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
+  }, [_vm._v("\r\n                  Vai al Checkout\r\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
     staticClass: "collapse dishes-bottom",
     attrs: {
       id: "collapseExample"
@@ -3297,7 +3322,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\n            Vai al Checkout\n          ")]) : _vm._e()], 1)])])], 1);
+  }, [_vm._v("\r\n            Vai al Checkout\r\n          ")]) : _vm._e()], 1)])])], 1);
 };
 
 var staticRenderFns = [function () {
@@ -28217,7 +28242,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#categories-top[data-v-18e02810] {\n  position: fixed;\n  width: 100%;\n  top: 66px;\n  z-index: 100;\n  font-size: 1.2rem;\n}\n.total-price[data-v-18e02810] {\n  background-color: white;\n  text-align: center;\n  border-radius: 1.2rem;\n}\n.hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  margin-bottom: 20px;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  display: block;\n  color: black;\n  font-size: 1.2rem;\n  padding: 10px 0;\n}\naside a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\n.dropdown-button[data-v-18e02810] {\n  background-color: #3490dc;\n  color: black;\n  border: 1px solid black;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.category-title[data-v-18e02810] {\n  padding: 3rem 1rem;\n  color: #34c0c9;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}\n.collapse[data-v-18e02810] {\n  z-index: 100;\n}\n.cart-bottom[data-v-18e02810] {\n  width: 100%;\n  height: 83px;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  background-color: #34c0c9;\n  border: 0;\n}\n.cart-bottom .totalPrice[data-v-18e02810] {\n  font-size: 1.2rem;\n  padding: 15px 0;\n  text-align: center;\n}\n.cart-bottom ul[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n}\n.cart-bottom ul li[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n  display: inline-block;\n}\n.cart-bottom ul li p[data-v-18e02810] {\n  padding: 0px 20px;\n}\n.dishes-bottom[data-v-18e02810] {\n  overflow: auto;\n  max-height: 397px;\n  position: fixed;\n  bottom: 82px;\n  left: 0;\n  right: 0;\n  background-color: #34c0c9;\n}\n.cart-table[data-v-18e02810] {\n  width: 90%;\n  margin: 20px auto;\n  text-align: center;\n}\n.cart-table-body[data-v-18e02810] {\n  width: 100%;\n  max-height: 300px;\n  overflow-y: scroll;\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n}\n.cart-table-body[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.quantity-bottom[data-v-18e02810] {\n  width: 50px !important;\n}\n.categories-visible[data-v-18e02810] {\n  opacity: 1;\n  background-color: #f8f9fa;\n  transition: opacity 0.7s;\n}\n.categories-hidden[data-v-18e02810] {\n  opacity: 0;\n  background-color: transparent;\n  transition: opacity 0.5s, background-color 0.5s;\n}\n@media screen and (min-width: 0) and (max-width: 576px) {\n.switcher[data-v-18e02810] {\n    width: 75%;\n}\n.dish-card[data-v-18e02810] {\n    margin: 20px auto;\n}\n}\n@media screen and (min-width: 0) and (max-width: 992px) {\n.cart[data-v-18e02810] {\n    top: 150px;\n    margin-top: 75px;\n}\n}", ""]);
+exports.push([module.i, "#categories-top[data-v-18e02810] {\n  position: fixed;\n  width: 100%;\n  top: 66px;\n  z-index: 100;\n  font-size: 1.2rem;\n}\n.total-price[data-v-18e02810] {\n  background-color: white;\n  text-align: center;\n  border-radius: 1.2rem;\n}\n.hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  margin-bottom: 20px;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.backgroundBig[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\n.backgroundSmall[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/111.svg */ "./resources/images/111.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  display: block;\n  color: black;\n  font-size: 1.2rem;\n  padding: 10px 0;\n}\naside a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\n.dropdown-button[data-v-18e02810] {\n  background-color: #3490dc;\n  color: black;\n  border: 1px solid black;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.category-title[data-v-18e02810] {\n  padding: 3rem 1rem;\n  color: #34c0c9;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}\n.collapse[data-v-18e02810] {\n  z-index: 100;\n}\n.cart-bottom[data-v-18e02810] {\n  width: 100%;\n  height: 83px;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  background-color: #34c0c9;\n  border: 0;\n}\n.cart-bottom .totalPrice[data-v-18e02810] {\n  font-size: 1.2rem;\n  padding: 15px 0;\n  text-align: center;\n}\n.cart-bottom ul[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n}\n.cart-bottom ul li[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n  display: inline-block;\n}\n.cart-bottom ul li p[data-v-18e02810] {\n  padding: 0px 20px;\n}\n.dishes-bottom[data-v-18e02810] {\n  overflow: auto;\n  max-height: 397px;\n  position: fixed;\n  bottom: 82px;\n  left: 0;\n  right: 0;\n  background-color: #34c0c9;\n}\n.cart-table[data-v-18e02810] {\n  width: 90%;\n  margin: 20px auto;\n  text-align: center;\n}\n.cart-table-body[data-v-18e02810] {\n  width: 100%;\n  max-height: 300px;\n  overflow-y: scroll;\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n}\n.cart-table-body[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.quantity-bottom[data-v-18e02810] {\n  width: 50px !important;\n}\n.categories-visible[data-v-18e02810] {\n  opacity: 1;\n  background-color: #f8f9fa;\n  transition: opacity 0.7s;\n}\n.categories-hidden[data-v-18e02810] {\n  opacity: 0;\n  background-color: transparent;\n  transition: opacity 0.5s, background-color 0.5s;\n}\n@media screen and (min-width: 0) and (max-width: 576px) {\n.switcher[data-v-18e02810] {\n    width: 75%;\n}\n.dish-card[data-v-18e02810] {\n    margin: 20px auto;\n}\n}\n@media screen and (min-width: 0) and (max-width: 992px) {\n.cart[data-v-18e02810] {\n    top: 150px;\n    margin-top: 75px;\n}\n}", ""]);
 
 // exports
 
