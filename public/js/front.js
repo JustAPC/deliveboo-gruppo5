@@ -2197,12 +2197,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     backgroundSmall: function backgroundSmall() {
-      var backgroundPage = document.getElementById("speriamoBene");
+      var backgroundPage = document.getElementById("menu-bg");
       backgroundPage.classList.remove("backgroundBig");
       backgroundPage.classList.add("backgroundSmall");
     },
     backgroundBig: function backgroundBig() {
-      var backgroundPage = document.getElementById("speriamoBene");
+      var backgroundPage = document.getElementById("menu-bg");
       backgroundPage.classList.remove("backgroundSmall");
       backgroundPage.classList.add("backgroundBig");
     },
@@ -3162,11 +3162,11 @@ var render = function render() {
     return _c("span", {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
-    }, [_vm._v("\r\n              " + _vm._s(category.name) + "\r\n            ")]);
+    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]);
   })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", {
     staticClass: "backgroundBig",
     attrs: {
-      id: "speriamoBene"
+      id: "menu-bg"
     }
   }, [_c("div", {
     staticClass: "switcher"
@@ -3182,7 +3182,7 @@ var render = function render() {
         _vm.showMenu(), _vm.backgroundBig();
       }
     }
-  }, [_vm._v("Menu")]), _vm._v(" "), _c("a", {
+  }, [_vm._v("\n            Menu\n          ")]), _vm._v(" "), _c("a", {
     "class": {
       activePage: _vm.switchPage == 2
     },
@@ -3194,7 +3194,7 @@ var render = function render() {
         _vm.showInfos(), _vm.backgroundSmall();
       }
     }
-  }, [_vm._v("Info")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n            Info\n          ")])]), _vm._v(" "), _c("div", {
     staticClass: "categories-hidden",
     attrs: {
       id: "categories-top"
@@ -3224,7 +3224,7 @@ var render = function render() {
       attrs: {
         href: "#category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]);
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-6 col-sm-9 mx-auto"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
@@ -3236,7 +3236,7 @@ var render = function render() {
       attrs: {
         id: "category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
         staticClass: "dish-card flex-column flex-sm-row",
@@ -3271,7 +3271,7 @@ var render = function render() {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\r\n                    " + _vm._s(item.name) + "\r\n                    "), _c("span", {
+    }, [_c("p", [_vm._v("\n                    " + _vm._s(item.name) + "\n                    "), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
@@ -3304,7 +3304,7 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\r\n                      Rimuovi\r\n                    ")])])]);
+    }, [_vm._v("\n                      Rimuovi\n                    ")])])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "total-price"
   }, [_c("h3", {
@@ -3323,7 +3323,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\r\n                  Vai al Checkout\r\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
+  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
     staticClass: "collapse dishes-bottom",
     attrs: {
       id: "collapseExample"
@@ -3383,7 +3383,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\r\n            Vai al Checkout\r\n          ")]) : _vm._e()], 1)])])], 1);
+  }, [_vm._v("\n            Vai al Checkout\n          ")]) : _vm._e()], 1)])])], 1);
 };
 
 var staticRenderFns = [function () {

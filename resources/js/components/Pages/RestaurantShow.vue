@@ -24,11 +24,23 @@
         </div>
       </div>
 
-      <main id="speriamoBene" class="backgroundBig">
+      <main id="menu-bg" class="backgroundBig">
         <!-- Switcher -->
         <div class="switcher">
-          <a :class="{ activePage: switchPage == 1 }" @click="showMenu(), backgroundBig()" id="menuZ1">Menu</a>
-          <a :class="{ activePage: switchPage == 2 }" @click="showInfos(), backgroundSmall()" id="infoZ1">Info</a>
+          <a
+            :class="{ activePage: switchPage == 1 }"
+            @click="showMenu(), backgroundBig()"
+            id="menuZ1"
+          >
+            Menu
+          </a>
+          <a
+            :class="{ activePage: switchPage == 2 }"
+            @click="showInfos(), backgroundSmall()"
+            id="infoZ1"
+          >
+            Info
+          </a>
         </div>
         <!-- Categorie fino a breakpoint xl -->
         <div id="categories-top" class="categories-hidden">
@@ -227,12 +239,13 @@
       };
     },
     methods: {
-      backgroundSmall(){
-        let backgroundPage = document.getElementById("speriamoBene");
+      backgroundSmall() {
+        let backgroundPage = document.getElementById("menu-bg");
         backgroundPage.classList.remove("backgroundBig");
         backgroundPage.classList.add("backgroundSmall");
-      },backgroundBig(){
-        let backgroundPage = document.getElementById("speriamoBene");
+      },
+      backgroundBig() {
+        let backgroundPage = document.getElementById("menu-bg");
         backgroundPage.classList.remove("backgroundSmall");
         backgroundPage.classList.add("backgroundBig");
       },
@@ -468,16 +481,13 @@
     padding-top: 140px;
     min-height: 1000px;
   }
-  .backgroundSmall{
+  .backgroundSmall {
     background-image: url("../../../images/111.svg");
     background-size: cover;
     background-position: center;
     padding-top: 140px;
     min-height: 1000px;
   }
-  
-  
-  
 
   aside {
     margin-top: 150px;
