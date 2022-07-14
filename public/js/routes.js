@@ -2615,7 +2615,7 @@ var render = function render() {
       },
       type: "submit"
     }
-  }, [_vm._v("\n          Invia\n        ")])], 1)]), _vm._v(" "), _c("div")]);
+  }, [_vm._v("\r\n          Invia\r\n        ")])], 1)]), _vm._v(" "), _c("div")]);
 };
 
 var staticRenderFns = [];
@@ -2909,7 +2909,7 @@ var render = function render() {
       },
       on: {
         change: function change($event) {
-          return _vm.updateBottomQuantity(item.price, item.id);
+          return _vm.updateQuantity(item.price, item.id);
         }
       }
     }), _vm._v(" "), _c("button", {
@@ -2940,26 +2940,16 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _c("button", {
-    staticClass: "cart-bottom d-xl-none d-block",
-    attrs: {
-      type: "button",
-      "data-toggle": "collapse",
-      "data-target": "#collapseExample",
-      "aria-expanded": "false",
-      "aria-controls": "collapseExample"
-    }
-  }, [_vm.carrello != 0 ? _c("div", {
-    staticClass: "collapse",
-    staticStyle: {
-      "min-height": "400px"
-    },
+  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
+    staticClass: "collapse dishes-bottom",
     attrs: {
       id: "collapseExample"
     }
   }, [_c("table", {
-    staticClass: "w-100"
-  }, [_vm._m(0), _vm._v(" "), _c("tbody", _vm._l(_vm.carrello, function (dish) {
+    staticClass: "cart-table"
+  }, [_vm._m(0), _vm._v(" "), _c("tbody", {
+    staticClass: "cart-table-body"
+  }, _vm._l(_vm.carrello, function (dish) {
     return _c("tr", {
       key: dish.id,
       staticClass: "table-row my-2"
@@ -2984,9 +2974,20 @@ var render = function render() {
         }
       }
     }, [_vm._v("Rimuovi")])])]);
-  }), 0), _vm._v(" "), _c("div", {
-    staticClass: "checkout"
-  }, [_vm.carrello.length ? _c("router-link", {
+  }), 0)])]) : _vm._e(), _vm._v(" "), _c("button", {
+    staticClass: "cart-bottom d-xl-none d-block",
+    attrs: {
+      type: "button",
+      "data-toggle": "collapse",
+      "data-target": "#collapseExample",
+      "aria-expanded": "false",
+      "aria-controls": "collapseExample"
+    }
+  }, [_c("div", {
+    staticClass: "d-flex justify-content-around align-items-center"
+  }, [_c("div", {
+    staticClass: "totalPrice"
+  }, [_vm._v("Il carrello è vuoto!")]), _vm._v(" "), _c("div", {}, [_vm.carrello.length ? _c("router-link", {
     staticClass: "btn btn-success",
     attrs: {
       to: {
@@ -2999,9 +3000,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\n              Vai al Checkout\n            ")]) : _vm._e()], 1)])]) : _vm._e(), _vm._v(" "), _c("div", {
-    staticClass: "totalPrice"
-  }, [_vm._v("Il carrello è vuoto!")])])], 1);
+  }, [_vm._v("\n            Vai al Checkout\n          ")]) : _vm._e()], 1)])])], 1);
 };
 
 var staticRenderFns = [function () {
@@ -3301,7 +3300,7 @@ var render = function render() {
         return _vm.setActive();
       }
     }
-  }, [_vm._v("\n            Categorie\n          ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\r\n            Categorie\r\n          ")])]), _vm._v(" "), _c("div", {
     staticClass: "w-75 pr-5"
   }, [_vm.active ? _c("div", {
     staticClass: "bg-color-full"
@@ -3381,10 +3380,10 @@ var render = function render() {
       return _c("p", {
         key: type.id,
         staticClass: "card-text"
-      }, [_vm._v("\n                " + _vm._s(type.name) + "\n              ")]);
+      }, [_vm._v("\r\n                " + _vm._s(type.name) + "\r\n              ")]);
     }), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\n              ")]), _vm._v(" "), _c("p", {
+    }, [_vm._v("\r\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\r\n              ")]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_c("small", {
       staticClass: "text-muted"
@@ -27902,7 +27901,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "#categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 66px;\n  opacity: 0;\n  background-color: #f8f9fa;\n  z-index: 100;\n  font-size: 1.2rem;\n}\n.total-price[data-v-18e02810] {\n  background-color: white;\n  text-align: center;\n  border-radius: 1.2rem;\n}\n.hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  margin-bottom: 20px;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  display: block;\n  color: black;\n  font-size: 1.2rem;\n  padding: 10px 0;\n}\naside a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\n.categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 80px;\n  z-index: 100;\n  margin-top: 50px;\n}\n.categories-top a[data-v-18e02810] {\n  color: #34c0c9;\n}\n.dropdown-button[data-v-18e02810] {\n  background-color: #3490dc;\n  color: black;\n  border: 1px solid black;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.category-title[data-v-18e02810] {\n  padding: 3rem 1rem;\n  color: #34c0c9;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}\n.collapse[data-v-18e02810] {\n  z-index: 100;\n}\n.cart-bottom[data-v-18e02810] {\n  width: 100%;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  background-color: #34c0c9;\n  border: 0;\n}\n.cart-bottom .totalPrice[data-v-18e02810] {\n  font-size: 1.2rem;\n  padding: 15px 0;\n  text-align: center;\n  width: 100%;\n}\n.cart-bottom ul[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n}\n.cart-bottom ul li[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n  display: inline-block;\n}\n.cart-bottom ul li p[data-v-18e02810] {\n  padding: 0px 20px;\n}\n.quantity-bottom[data-v-18e02810] {\n  width: 50px !important;\n}\n@media screen and (min-width: 0) and (max-width: 550px) {\n.switcher[data-v-18e02810] {\n    width: 75%;\n}\n}\n@media screen and (min-width: 0) and (max-width: 992px) {\n.cart[data-v-18e02810] {\n    top: 150px;\n    margin-top: 75px;\n}\n}", ""]);
+exports.push([module.i, "#categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 66px;\n  opacity: 0;\n  background-color: #f8f9fa;\n  z-index: 100;\n  font-size: 1.2rem;\n}\n.total-price[data-v-18e02810] {\n  background-color: white;\n  text-align: center;\n  border-radius: 1.2rem;\n}\n.hero[data-v-18e02810] {\n  height: 400px;\n  width: 100%;\n  background-position: center;\n  background-size: cover;\n}\n.restaurant-infos[data-v-18e02810] {\n  min-width: 35%;\n  max-width: 80%;\n  left: 35%;\n  background-color: white;\n  padding: 50px;\n  border-radius: 1.5rem;\n  margin-bottom: -80px;\n  box-shadow: 2px 2px 10px black;\n}\n.restaurant-infos .text-center[data-v-18e02810] {\n  border-bottom: 1px solid grey;\n  margin-bottom: 20px;\n}\n.restaurant-infos .text-center span[data-v-18e02810] {\n  font-size: 1.1em;\n}\n.activePage[data-v-18e02810] {\n  color: #34c0c9 !important;\n}\n.activePage[data-v-18e02810]::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\n.switcher[data-v-18e02810] {\n  border: 1px solid black;\n  border-radius: 2rem;\n  display: flex;\n  padding: 0;\n  text-align: center;\n  width: 50%;\n  margin: 0 auto;\n}\n.switcher a[data-v-18e02810] {\n  cursor: pointer;\n  text-decoration: none;\n  width: 50%;\n  padding: 10px 0;\n  font-size: 1.2rem;\n  color: black;\n  position: relative;\n}\n.switcher a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\n.switcher a[data-v-18e02810]:hover::after {\n  border-bottom: 4px solid #34c0c9;\n  border-radius: 2px;\n  bottom: 0px;\n  content: \"\";\n  left: 35%;\n  position: absolute;\n  width: 30%;\n}\nmain[data-v-18e02810] {\n  background-image: url(" + escape(__webpack_require__(/*! ../../../images/333.svg */ "./resources/images/333.svg")) + ");\n  background-size: cover;\n  background-position: center;\n  padding-top: 140px;\n  min-height: 1000px;\n}\naside[data-v-18e02810] {\n  margin-top: 150px;\n  text-align: right;\n  padding-right: 4%;\n}\naside .categories[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\naside a[data-v-18e02810] {\n  display: block;\n  color: black;\n  font-size: 1.2rem;\n  padding: 10px 0;\n}\naside a[data-v-18e02810]:hover {\n  color: #34c0c9;\n}\naside div[data-v-18e02810] {\n  margin: 10px 0;\n}\n.categories-top[data-v-18e02810] {\n  position: -webkit-sticky;\n  position: sticky;\n  top: 80px;\n  z-index: 100;\n  margin-top: 50px;\n}\n.categories-top a[data-v-18e02810] {\n  color: #34c0c9;\n}\n.dropdown-button[data-v-18e02810] {\n  background-color: #3490dc;\n  color: black;\n  border: 1px solid black;\n}\nh2[data-v-18e02810] {\n  font-weight: 1000;\n  padding: 10px 0;\n}\nh1[data-v-18e02810] {\n  font-weight: 1000;\n}\nul li[data-v-18e02810] {\n  list-style-type: none;\n  cursor: pointer;\n}\nul li h5[data-v-18e02810] {\n  font-weight: 1000;\n}\n.category-title[data-v-18e02810] {\n  padding: 3rem 1rem;\n  color: #34c0c9;\n}\n.dish-card[data-v-18e02810] {\n  display: flex;\n  justify-content: space-between;\n  width: 90%;\n  margin: 1.2rem 0;\n  padding: 1rem;\n  border: 1px solid grey;\n  background-color: white;\n  border-radius: 1.2rem;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n}\n.cart[data-v-18e02810] {\n  width: 85%;\n  margin-top: 155px;\n  max-height: 615px;\n  background-color: white;\n  border-radius: 1.2rem;\n  min-height: 200px;\n  box-shadow: 0 4px 6px 0 rgba(27, 35, 36, 0.02), 0 2px 12px -2px rgba(27, 35, 36, 0.08), 0 3px 6px 0 rgba(27, 35, 36, 0.06);\n  position: -webkit-sticky;\n  position: sticky;\n  top: 85px;\n}\n.cart-plates[data-v-18e02810] {\n  overflow: auto;\n  max-height: 495px;\n  overflow-y: scroll;\n  -ms-overflow-style: none;\n  scrollbar-width: none;\n}\n.cart-plates[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.cart-item[data-v-18e02810] {\n  padding: 0 1.2rem;\n  border-bottom: 1px solid black;\n  padding-bottom: 20px;\n  margin-bottom: 20px;\n  font-size: 1.2em;\n}\n.cart-item p[data-v-18e02810] {\n  font-weight: 1000;\n}\n.cart-item span[data-v-18e02810] {\n  background-color: #34c0c9;\n  margin-left: 10px;\n  padding: 2px 6px;\n  border-radius: 50%;\n}\n.price-menu[data-v-18e02810] {\n  font-weight: 1000;\n}\n.quantity[data-v-18e02810] {\n  width: 50px;\n}\n.collapse[data-v-18e02810] {\n  z-index: 100;\n}\n.cart-bottom[data-v-18e02810] {\n  width: 100%;\n  height: 83px;\n  position: fixed;\n  bottom: 0;\n  left: 0;\n  background-color: #34c0c9;\n  border: 0;\n}\n.cart-bottom .totalPrice[data-v-18e02810] {\n  font-size: 1.2rem;\n  padding: 15px 0;\n  text-align: center;\n}\n.cart-bottom ul[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n}\n.cart-bottom ul li[data-v-18e02810] {\n  margin: 0;\n  padding: 0;\n  display: inline-block;\n}\n.cart-bottom ul li p[data-v-18e02810] {\n  padding: 0px 20px;\n}\n.dishes-bottom[data-v-18e02810] {\n  overflow: auto;\n  height: 397px;\n  position: fixed;\n  bottom: 82px;\n  left: 0;\n  right: 0;\n  background-color: #34c0c9;\n}\n.cart-table[data-v-18e02810] {\n  width: 90%;\n  margin: 20px auto;\n  text-align: center;\n}\n.cart-table-body[data-v-18e02810] {\n  width: 100%;\n  max-height: 300px;\n  overflow-y: scroll;\n  -ms-overflow-style: none; /* IE and Edge */\n  scrollbar-width: none; /* Firefox */\n}\n.cart-table-body[data-v-18e02810]::-webkit-scrollbar {\n  display: none;\n}\n.quantity-bottom[data-v-18e02810] {\n  width: 50px !important;\n}\n@media screen and (min-width: 0) and (max-width: 550px) {\n.switcher[data-v-18e02810] {\n    width: 75%;\n}\n}\n@media screen and (min-width: 0) and (max-width: 992px) {\n.cart[data-v-18e02810] {\n    top: 150px;\n    margin-top: 75px;\n}\n}", ""]);
 
 // exports
 

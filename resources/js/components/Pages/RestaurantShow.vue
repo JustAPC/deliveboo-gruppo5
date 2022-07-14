@@ -99,7 +99,7 @@
                       class="quantity"
                       min="1"
                       value="1"
-                      @change="updateBottomQuantity(item.price, item.id)"
+                      @change="updateQuantity(item.price, item.id)"
                     />
                     <button
                       class="btn btn-danger"
@@ -139,6 +139,37 @@
     </div>
 
     <!-- Carrello a partire da bp xs -->
+
+    <div class="collapse dishes-bottom" id="collapseExample" v-if="carrello != 0">
+      <table class="cart-table">
+        <thead>
+          <tr>
+            <th scope="col">Piatto</th>
+            <th scope="col">Prezzo</th>
+            <th scope="col">Quantità</th>
+          </tr>
+        </thead>
+        <tbody class="cart-table-body">
+          <tr class="table-row my-2" v-for="dish in carrello" :key="dish.id">
+            <td>{{ dish.name }}</td>
+            <td>{{ dish.price }}€</td>
+            <td>
+              <input
+                class="quantity-bottom"
+                :id="'quantity-cart-bottom-item-' + dish.id"
+                type="number"
+                value="1"
+                min="1"
+                @change="updateBottomQuantity(dish.price, dish.id)"
+              />
+            </td>
+            <td>
+              <button class="btn btn-danger" @click="removeFromCart(dish.id)">Rimuovi</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <button
       class="cart-bottom d-xl-none d-block"
       type="button"
@@ -147,54 +178,26 @@
       aria-expanded="false"
       aria-controls="collapseExample"
     >
-      <div class="collapse" id="collapseExample" v-if="carrello != 0" style="min-height: 400px">
-        <table class="w-100">
-          <thead>
-            <tr>
-              <th scope="col">Piatto</th>
-              <th scope="col">Prezzo</th>
-              <th scope="col">Quantità</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="table-row my-2" v-for="dish in carrello" :key="dish.id">
-              <td>{{ dish.name }}</td>
-              <td>{{ dish.price }}€</td>
-              <td>
-                <input
-                  class="quantity-bottom"
-                  :id="'quantity-cart-bottom-item-' + dish.id"
-                  type="number"
-                  value="1"
-                  min="1"
-                  @change="updateBottomQuantity(dish.price, dish.id)"
-                />
-              </td>
-              <td>
-                <button class="btn btn-danger" @click="removeFromCart(dish.id)">Rimuovi</button>
-              </td>
-            </tr>
-          </tbody>
-          <div class="checkout">
-            <router-link
-              class="btn btn-success"
-              :to="{
-                name: 'checkout',
-                params: {
-                  restaurant_id: restaurant.id,
-                  restaurant_name: restaurant.name,
-                  prezzo: prezzoTotale,
-                  carrello: carrello,
-                },
-              }"
-              v-if="carrello.length"
-            >
-              Vai al Checkout
-            </router-link>
-          </div>
-        </table>
+      <div class="d-flex justify-content-around align-items-center">
+        <div class="totalPrice">Il carrello è vuoto!</div>
+        <div class="">
+          <router-link
+            class="btn btn-success"
+            :to="{
+              name: 'checkout',
+              params: {
+                restaurant_id: restaurant.id,
+                restaurant_name: restaurant.name,
+                prezzo: prezzoTotale,
+                carrello: carrello,
+              },
+            }"
+            v-if="carrello.length"
+          >
+            Vai al Checkout
+          </router-link>
+        </div>
       </div>
-      <div class="totalPrice">Il carrello è vuoto!</div>
     </button>
   </div>
 </template>
@@ -578,6 +581,7 @@
   }
   .cart-bottom {
     width: 100%;
+    height: 83px;
     position: fixed;
     bottom: 0;
     left: 0;
@@ -587,7 +591,6 @@
       font-size: 1.2rem;
       padding: 15px 0;
       text-align: center;
-      width: 100%;
     }
     ul {
       margin: 0;
@@ -603,6 +606,31 @@
     }
   }
 
+  .dishes-bottom {
+    overflow: auto;
+    height: 397px;
+    position: fixed;
+    bottom: 82px;
+    left: 0;
+    right: 0;
+    background-color: #34c0c9;
+  }
+
+  .cart-table {
+    width: 90%;
+    margin: 20px auto;
+    text-align: center;
+  }
+  .cart-table-body {
+    width: 100%;
+    max-height: 300px;
+    overflow-y: scroll;
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
   .quantity-bottom {
     width: 50px !important;
   }
