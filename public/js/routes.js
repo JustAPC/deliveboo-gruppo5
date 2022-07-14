@@ -2072,8 +2072,6 @@ __webpack_require__.r(__webpack_exports__);
 
       instance.requestPaymentMethod(function (requestPaymentMethodErr, payload) {
         if (requestPaymentMethodErr) {
-          // No payment method is available.
-          // An appropriate error will be shown in the UI.
           console.error(requestPaymentMethodErr);
           return;
         }
