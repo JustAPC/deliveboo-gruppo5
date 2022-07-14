@@ -5,7 +5,7 @@
         <div class="bg"></div>
         <div class="bg bg2"></div>
         <div class="bg bg3"></div>
-        {{-- <h1 class="">Registrazione</h1> --}}
+
         <form method="POST" action="{{ route('register') }}" class="needs-validation formRegister" novalidate>
             @csrf
             <h1 class="titoloRegistrazione">Registrazione</h1>
