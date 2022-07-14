@@ -11051,8 +11051,6 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   border: 0;
 }
 .containerLogin .barraLogin {
-  display: flex;
-  flex-direction: column;
   background-color: white;
   padding: 5px;
   border-radius: 15px;
@@ -11061,16 +11059,16 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 .containerLogin .submitLogin {
   background-color: #09f;
   color: white;
-  padding: 3px;
+  padding: 5px 10px;
   border-radius: 10px;
 }
 .containerLogin input[type=email] {
-  background-color: #3CBC8D;
+  background-color: #3cbc8d;
   color: white;
   width: 100%;
 }
 .containerLogin input[type=password] {
-  background-color: #3CBC8D;
+  background-color: #3cbc8d;
   color: white;
   width: 100%;
 }
