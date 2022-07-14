@@ -8,7 +8,7 @@
     {{-- <h1 class="">Registrazione</h1> --}}
     <form method="POST" action="{{ route('register') }}" class="needs-validation formRegister" novalidate>
         @csrf
-        <h1 class="titoloRegistrazione">Registrazione</h1>
+        <h1 class="titoloRegistrazione">Registrazione Puzza</h1>
         {{-- Nome Utente --}}
         <div class="barraRegister">
             <label for="name">{{ __('Nome del ristoratore') }}</label>
