@@ -16,7 +16,7 @@
         </div>
     @endif
 
-    <div class="container p-5">
+    <div class="container p-2">
 
         {{-- background animato --}}
         <div class="bg"></div>
@@ -24,12 +24,12 @@
         <div class="bg bg3"></div>
 
         {{-- searchbar superiore --}}
-        <div class="d-flex flex-wrap row-cols-md-2 mt-5 mx-auto justify-content-around align-items-center mb-4">
-            <a href="{{ route('admin.orders.create') }}" id="new-order-btn" class="btn col-sm-1 col-md-3 m-2">Aggiungi un nuovo ordine</a>
-            <form class="form-inline col-sm-1 col-md-8 d-flex justify-content-between" method="GET" action="{{ route('admin.orders.index') }}" style="margin-bottom: 0">
-                <input class="form-control col-md-7 col-sm-12 m-1" type="search" placeholder="Cerca per id" name="id">
-                <button class="btn btn-outline-success col-md-2 col-xs-6 m-1" id="btn-cerca-vedi" type="submit">Search</button>
-                <button class="btn btn-outline-primary col-md-2 col-xs-6 m-1" type="submit" id="btn-cerca-vedi" name="">
+        <div class="d-flex flex-column flex-md-row py-5 mt-5 px-2">
+            <a href="{{ route('admin.orders.create') }}" id="new-order-btn" class="btn col-12 col-md-4 mb-2 mr-2">Aggiungi un nuovo ordine</a>
+            <form class="form-inline col-12 col-md-8 d-flex justify-content-between p-0" method="GET" action="{{ route('admin.orders.index') }}" style="margin-bottom: 0">
+                <input class="form-control col-12 col-md-3 mb-2" type="search" placeholder="Cerca per id" name="id">
+                <button class="btn btn-outline-success col-12 col-md-4 mb-2" id="btn-cerca-vedi" type="submit">Search</button>
+                <button class="btn btn-outline-primary col-12 col-md-4 mb-2" type="submit" id="btn-cerca-vedi" name="">
                     Vedi tutti</button>
             </form>
         </div>
@@ -53,15 +53,15 @@
                         {{-- piatti ordinati VERSIONE NUOVA RESPONSIVE --}}
                         <div class="col-md-9 col-sm-12 d-flex flex-column">
                             <div class="row text-center d-flex">
-                                <span class="col-4 font-weight-bold text-center">Piatto</span>
-                                <span class="col-4 font-weight-bold text-center">Quantità</span>
+                                <span class="col-5 font-weight-bold text-left">Piatto</span>
+                                <span class="col-3 font-weight-bold text-center">Qt.</span>
                                 <span class="col-4 font-weight-bold text-center">Prezzo</span>
                             </div>
                             <div class="d-flex justify-content-around text-center row">
                                 <div class="row w-100 d-flex align-items-center justify-content-center">
                                     @forelse ($order->Dishesorder as $dish)
-                                        <span class="col-4 text-center my-1">{{ $dish->name }}</span>
-                                        <span class="col-4 text-center my-1">{{ $dish->getOriginal('pivot_quantity') }}</span>
+                                        <span class="col-5 text-left my-1">{{ $dish->name }}</span>
+                                        <span class="col-3 text-center my-1">{{ $dish->getOriginal('pivot_quantity') }}</span>
                                         <span class="col-4 text-center my-1">€{{ $dish->price }}</span>
                                     @empty
                                         <span class="col-4 text-center">-</span>
@@ -80,17 +80,17 @@
                 </div>
 
                 {{-- Pulsanti --}}
-                <div class="mt-1">
-                    <div class="my-3 d-flex justify-content-center" style="height: auto">
+                <div class="mt-1 px-4">
+                    <div class="my-3 d-flex flex-column flex-sm-row justify-content-center" style="height: auto">
                         <a href="{{ route('admin.orders.show', $order->id) }}" class="btn show-button mx-2"><i class="fa-solid fa-eye mr-1"></i> Dettagli
                             dell'ordine</a><br>
                         <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn edit-button mx-2"><i class="fa-solid fa-pen-to-square mr-1"></i> Modifica
                             l'ordine</a><br>
-                        <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form"
+                        <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form mx-2"
                             data-name="{{ $order->id }}" method="POST" style="margin-bottom: auto">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn delete-button mx-2" value="Elimina l'ordine"><i class="fa-solid fa-trash-can mr-1"></i> Elimina l'ordine</button>
+                            <button type="submit" class="btn delete-button w-100" value="Elimina l'ordine"><i class="fa-solid fa-trash-can mr-1"></i> Elimina l'ordine</button>
                     </div>
                 </div>
             </div>

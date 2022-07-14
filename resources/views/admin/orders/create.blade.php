@@ -21,67 +21,66 @@
 
         <div class="container d-flex flex-column mt-5 pt-5">
             <div class="row d-flex content">
-                <div class="col-md-6 col-sm-12">
+
+                {{-- Form + lista piatti --}}
+                <div class="col-12 col-lg-6">
 
                     {{-- sezione cliente --}}
 
                     <h3 class="my-2">Cliente</h3>
-
+                    
                     {{-- riga nome + cognome --}}
-                    <div class="form-row">
-                        <div class="d-flex flex-wrap col-md-12">
+                        <div class="d-flex flex-column flex-sm-row">
 
-                            <div class="col-md-6 col-sm-6">
-                                <label class="mr-4" for="customer_name">Nome:</label>
+                            <div class="mb-2 mr-3">
+                                <div><label class="mr-4" for="customer_name">Nome</label></div>
                                 <input type="text" id="customer_name" name="customer_name" value="{{ old('customer_name') }}">
                             </div>
 
-                            <div class="col-md-6 col-sm-6">
-                                <label for="name">Cognome:</label>
+                            <div class="mb-2 mr-3">
+                                <div><label for="name">Cognome</label></div>
                                 <input type="text" id="customer_lastname" name="customer_lastname"
                                     value="{{ old('customer_lastname') }}">
                             </div>
 
                         </div>
-                    </div>
 
                     {{-- riga indirizzo + numero di telefono --}}
-                    <div class="form-row">
-                        <div class="form-group d-flex flex-wrap col-md-12 col-sm-12">
+                        <div class="d-flex flex-column flex-sm-row">
 
-                            <div class="col-md-6 col-sm-12">
-                                <label class="mr-2" for="customer_address">Indirizzo:</label>
+                            <div class="mb-2 mr-3">
+                                <div><label class="mr-2" for="customer_address">Indirizzo:</label></div>
                                 <input type="text" id="customer_address" name="customer_address"
                                     value="{{ old('customer_address') }}">
                             </div>
 
-                            <div class="col-md-6 col-sm-12">
-                                <label class="mr-2" for="name">Telefono:</label>
+                            <div class="mb-2 mr-3">
+                                <div><label class="mr-2" for="name">Telefono</label></div>
                                 <input type="text" id="customer_phone" name="customer_phone"
                                     value="{{ old('customer_phone') }}">
                             </div>
 
                         </div>
-                    </div>
 
                     {{-- riga completato + pagato --}}
-                    <div class="form-group d-flex form-row">
-                        <div class="col-md-6">
-                            <span>Ordine completato:</span>
+                    <div>
+                        <div class="mb-2">
+                            <div>Ordine completato</div>
                             <select name="completed" id="completed">
                                 <option value="1">Si</option>
                                 <option value="0">No</option>
                             </select>
                         </div>
     
-                        <div class="col-md-6">
-                            <span>Pagamento ricevuto:</span>
+                        <div class="mb-2">
+                            <div>Pagamento ricevuto</div>
                             <select name="payment_received" id="payment_received">
                                 <option value="1">Si</option>
                                 <option value="0">No</option>
                             </select>
                         </div>
                     </div>
+                        
 
                     {{-- Selezione piatti --}}
                     <div class="d-flex flex-column flex-wrap">
@@ -97,19 +96,19 @@
                                 @foreach ($dishes as $dish)
                                     @if ($dish->dishcategory_id == $category->id)
 
-                                        <div class="row px-5">
+                                        <div class="d-flex align-items mb-2">
                                             <input type="checkbox" class="form-check-input" id="dish-checkbox-{{ $dish->id }}"
                                                 name="dishes[]" value="{{ $dish->id }}"
                                                 onchange="addToCart({{ $dish->id }})"
                                                 @if (in_array($dish->id, old('dishes', []))) checked @endif>
 
-                                            <span class="col-8" id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
+                                            <span class="col-7 pl-0" id="dish-{{ $dish->id }}">{{ $dish->name }}</span>
             
-                                            <span class="col-2 text-center" id="dish-{{ $dish->id }}-price">{{ $dish->price }}€</span>
+                                            <span class="col-3 text-center" id="dish-{{ $dish->id }}-price">{{ $dish->price }}€</span>
             
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <input type="number" name="quantity[]" id="dish-quantity-{{ $dish->id }}" disabled
-                                                    style="width: 60px" min="1" value="1"
+                                                    style="width: 40px" min="1" value="1"
                                                     onchange="updateCart({{ $dish->id }})">
                                             </div>
                                         </div>
@@ -123,20 +122,20 @@
                 </div>
 
                 {{-- carrello --}}
-                <div class="col-md-6 d-flex flex-column h-auto col-sm-12 bg_deliveboo rounded p-4">
+                <div class="col-12 col-lg-6 d-flex flex-column h-auto col-sm-12 bg_deliveboo rounded p-4">
                     <h2>Carrello</h2>
 
-                    <div class="row d-flex">
+                    <div class="row">
                         <span class="col-8 font-weight-bold">Articolo</span>
-                        <span class="col-1 text-center font-weight-bold">Prezzo</span>
-                        <span class="col-3 text-center font-weight-bold">Qt.</span>
+                        <span class="col-1 text-center font-weight-bold pl-0">Prezzo</span>
+                        <span class="col-1 offset-1 text-center font-weight-bold">Qt.</span>
                     </div>
 
                     <div class="cart">
 
                     </div>
 
-                    <div class="d-flex h-100 justify-content-end">
+                    <div class="d-flex h-100 justify-content-end mt-3">
                         <h4 class="mr-1 align-self-end">Totale carrello:</h4>
                         <h4 id="prezzoTotale" class="font-weight-bold mr-1 align-self-end"></h4>
                         <h4 id="prezzoTotale"></h4>
@@ -181,7 +180,7 @@
                 document.querySelector(".cart").innerHTML +=
                     `<div class="cart-item row my-1" id="item-${e}">
                     <span class="col-8 dish-name-${e}">${dishName}</span>
-                    <span class="col-2 dish-price-${e}">${singlePrice}</span>
+                    <span class="col-2 dish-price-${e} pl-0">${singlePrice}</span>
                     <span class="col-2 dish-quantity-${e}">${quantity}</span>
                 </div>`;
                 stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€";
@@ -219,7 +218,7 @@
 
                 dishquantity.remove();
                 cartItem.innerHTML +=
-                    `<span class="dish-quantity-${e}">Quantità: ${quantity}</span>`;
+                    `<span class="col-2 dish-quantity-${e}">${quantity}</span>`;
                 stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€"
                 totalPriceDB.value = totalPrice(selectedDishes);
             } else {
