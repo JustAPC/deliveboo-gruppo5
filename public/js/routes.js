@@ -1915,14 +1915,18 @@ __webpack_require__.r(__webpack_exports__);
         customer_name: "",
         customer_lastname: "",
         customer_address: "",
+        customer_city: "",
+        customer_zip: "",
+        customer_phone: "",
+        customer_email: "",
         completed: false,
         payment_received: false,
         total_price: this.$route.params.prezzo.toFixed(2),
-        customer_phone: "",
         user_id: this.$route.params.restaurant_id
       },
       carrello: this.$route.params.carrello,
-      restaurant_name: this.$route.params.restaurant_name
+      restaurant_name: this.$route.params.restaurant_name,
+      restaurant_email: this.$route.params.restaurant_email
     };
   },
   methods: {
@@ -1940,12 +1944,15 @@ __webpack_require__.r(__webpack_exports__);
     validation: function validation() {
       var nome = document.getElementById("validationCustom01").value;
       var cognome = document.getElementById("validationCustom02").value;
-      var indirizzo = document.getElementById("validationCustom03").value;
+      var email = document.getElementById("validationCustom03").value;
       var telefono = document.getElementById("validationCustom04").value;
-      var submit = document.getElementById("submit-button");
+      var city = document.getElementById("validationCustom05").value;
+      var cap = document.getElementById("validationCustom06").value;
+      var address = document.getElementById("validationCustom07").value;
       var terms = document.getElementById("terms");
+      var submit = document.getElementById("submit-button");
 
-      if (nome != 0 && cognome != 0 && indirizzo != 0 && telefono >= 9 && terms.checked == true) {
+      if (nome != 0 && cognome != 0 && email != 0 && telefono.length >= 9 && city != 0 && cap.length == 5 && address != 0 && terms.checked == true) {
         submit.classList.remove("disabled");
       } else {
         submit.classList.add("disabled");
@@ -2006,6 +2013,7 @@ __webpack_require__.r(__webpack_exports__);
       carrello: this.$route.params.carrello,
       ordine: this.$route.params.ordine,
       restaurant_name: this.$route.params.restaurant_name,
+      restaurant_email: this.$route.params.restaurant_email,
       switchPage: 1
     };
   },
@@ -2044,7 +2052,8 @@ __webpack_require__.r(__webpack_exports__);
       isDisable: false,
       cart: this.$route.params.carrello,
       order: this.$route.params.ordine,
-      restaurant_name: this.$route.params.restaurant_name
+      restaurant_name: this.$route.params.restaurant_name,
+      restaurant_email: this.$route.params.restaurant_email
     };
   },
   components: {
@@ -2114,7 +2123,8 @@ __webpack_require__.r(__webpack_exports__);
           params: {
             ordine: _this5.order,
             carrello: _this5.cart,
-            restaurant_name: _this5.restaurant_name
+            restaurant_name: _this5.restaurant_name,
+            restaurant_email: _this5.restaurant_email
           }
         });
       }, "5000");
@@ -2483,7 +2493,7 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header bg_blu text-white font_size"
-  }, [_vm._v("\r\n        Compila il seguente form per la spedizione\r\n      ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        Compila il seguente form per la spedizione\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("blockquote", {
     staticClass: "blockquote mb-0"
@@ -2493,7 +2503,7 @@ var render = function render() {
       novalidate: ""
     }
   }, [_c("div", {
-    staticClass: "col-md-6"
+    staticClass: "col-md-6 pb-3"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
@@ -2516,6 +2526,9 @@ var render = function render() {
       value: _vm.form.customer_name
     },
     on: {
+      change: function change($event) {
+        return _vm.validation();
+      },
       input: function input($event) {
         if ($event.target.composing) return;
 
@@ -2527,7 +2540,7 @@ var render = function render() {
   }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
     staticClass: "invalid-feedback"
   }, [_vm._v("Inserisci il nome")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-6"
+    staticClass: "col-md-6 pb-3"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
@@ -2564,18 +2577,18 @@ var render = function render() {
   }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
     staticClass: "invalid-feedback"
   }, [_vm._v("Inserisci il cognome")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-8"
+    staticClass: "col-md-6 pb-3"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
       "for": "validationCustom03"
     }
-  }, [_vm._v("Indirizzo")]), _vm._v(" "), _c("input", {
+  }, [_vm._v("Email")]), _vm._v(" "), _c("input", {
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: _vm.form.customer_address,
-      expression: "form.customer_address"
+      value: _vm.form.customer_email,
+      expression: "form.customer_email"
     }],
     staticClass: "form-control",
     attrs: {
@@ -2584,7 +2597,7 @@ var render = function render() {
       required: ""
     },
     domProps: {
-      value: _vm.form.customer_address
+      value: _vm.form.customer_email
     },
     on: {
       change: function change($event) {
@@ -2593,7 +2606,7 @@ var render = function render() {
       input: function input($event) {
         if ($event.target.composing) return;
 
-        _vm.$set(_vm.form, "customer_address", $event.target.value);
+        _vm.$set(_vm.form, "customer_email", $event.target.value);
       }
     }
   }), _vm._v(" "), _c("div", {
@@ -2601,7 +2614,7 @@ var render = function render() {
   }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
     staticClass: "invalid-feedback"
   }, [_vm._v("Inserire indirizzo")])]), _vm._v(" "), _c("div", {
-    staticClass: "col-md-4"
+    staticClass: "col-md-6 pb-3"
   }, [_c("label", {
     staticClass: "form-label",
     attrs: {
@@ -2638,6 +2651,117 @@ var render = function render() {
   }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
     staticClass: "invalid-feedback"
   }, [_vm._v("Inserire numero di telefono")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 pb-3"
+  }, [_c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "validationCustom05"
+    }
+  }, [_vm._v("Città")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_city,
+      expression: "form.customer_city"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "validationCustom05",
+      required: ""
+    },
+    domProps: {
+      value: _vm.form.customer_city
+    },
+    on: {
+      change: function change($event) {
+        return _vm.validation();
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.form, "customer_city", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Inserisci il nome")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-6 pb-3"
+  }, [_c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "validationCustom06"
+    }
+  }, [_vm._v("CAP")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_zip,
+      expression: "form.customer_zip"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "validationCustom06",
+      required: ""
+    },
+    domProps: {
+      value: _vm.form.customer_zip
+    },
+    on: {
+      change: function change($event) {
+        return _vm.validation();
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.form, "customer_zip", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Inserisci il cognome")])]), _vm._v(" "), _c("div", {
+    staticClass: "col-md-12 pb-3"
+  }, [_c("label", {
+    staticClass: "form-label",
+    attrs: {
+      "for": "validationCustom07"
+    }
+  }, [_vm._v("Indirizzo")]), _vm._v(" "), _c("input", {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: _vm.form.customer_address,
+      expression: "form.customer_address"
+    }],
+    staticClass: "form-control",
+    attrs: {
+      type: "text",
+      id: "validationCustom07",
+      required: ""
+    },
+    domProps: {
+      value: _vm.form.customer_address
+    },
+    on: {
+      change: function change($event) {
+        return _vm.validation();
+      },
+      input: function input($event) {
+        if ($event.target.composing) return;
+
+        _vm.$set(_vm.form, "customer_address", $event.target.value);
+      }
+    }
+  }), _vm._v(" "), _c("div", {
+    staticClass: "valid-feedback"
+  }, [_vm._v("Inserito correttamente")]), _vm._v(" "), _c("div", {
+    staticClass: "invalid-feedback"
+  }, [_vm._v("Inserire indirizzo")])]), _vm._v(" "), _c("div", {
     staticClass: "col-12 text-center my-3"
   }, [_c("div", {
     staticClass: "form-check"
@@ -2672,16 +2796,17 @@ var render = function render() {
         params: {
           ordine: _vm.form,
           carrello: _vm.carrello,
-          restaurant_name: _vm.restaurant_name
+          restaurant_name: _vm.restaurant_name,
+          restaurant_email: _vm.restaurant_email
         }
       },
       type: "submit"
     }
-  }, [_vm._v("\r\n                Invia\r\n              ")])], 1)])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Invia\n              ")])], 1)])])])]), _vm._v(" "), _c("div", {
     staticClass: "card text-center border_circle mt-5"
   }, [_c("div", {
     staticClass: "card-header bg_blu font-weight-bolder text-white font_size"
-  }, [_vm._v("\r\n        " + _vm._s(_vm.restaurant_name) + "\r\n      ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        " + _vm._s(_vm.restaurant_name) + "\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "row justify-content-around"
@@ -2773,7 +2898,7 @@ var render = function render() {
     staticClass: "container"
   }, [_c("h1", {
     staticClass: "text-deliveboo text-center mt-5 pt-5"
-  }, [_vm._v("Complimenti! il tuo ordine è andato a buon fine")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n      Complimenti! il tuo ordine è andato a buon fine\n    ")]), _vm._v(" "), _c("div", {
     staticClass: "switcher mt-5"
   }, [_c("a", {
     "class": {
@@ -2803,19 +2928,27 @@ var render = function render() {
     staticClass: "card-title font-weight-bolder text-white font_size"
   }, [_vm._v("I tuoi Dati")]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("Nome: "), _c("span", {
+  }, [_vm._v("\n            Nome:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_name))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("Cognome: "), _c("span", {
+  }, [_vm._v("\n            Cognome:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_lastname))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("Indirizzo: "), _c("span", {
+  }, [_vm._v("\n            Indirizzo:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_address))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("Numero Telefonico: "), _c("span", {
+  }, [_vm._v("\n            CAP:\n            "), _c("span", {
+    staticClass: "font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.ordine.customer_zip))])]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("\n            Città:\n            "), _c("span", {
+    staticClass: "font-weight-bold"
+  }, [_vm._v(_vm._s(_vm.ordine.customer_city))])]), _vm._v(" "), _c("p", {
+    staticClass: "card-text"
+  }, [_vm._v("\n            Numero Telefonico:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_phone))])])])]), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-center mt-3"
@@ -2824,13 +2957,13 @@ var render = function render() {
     attrs: {
       to: "/home"
     }
-  }, [_vm._v("\r\n              Torna alla Home\r\n            ")])], 1)]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("div", {
+  }, [_vm._v("Torna alla Home")])], 1)]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("div", {
     staticClass: "mt-5"
   }, [_c("div", {
     staticClass: "card text-center border_circle"
   }, [_c("div", {
     staticClass: "card-header bg_blu font-weight-bolder text-white font_size"
-  }, [_vm._v("\r\n                    Piatti Ordinati\r\n                ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n          Piatti Ordinati\n        ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "row justify-content-around"
@@ -2869,7 +3002,7 @@ var render = function render() {
     attrs: {
       to: "/home"
     }
-  }, [_vm._v("\r\n              Torna alla Home\r\n            ")])], 1)]) : _vm._e()]);
+  }, [_vm._v("Torna alla Home")])], 1)]) : _vm._e()]);
 };
 
 var staticRenderFns = [];
@@ -2902,7 +3035,7 @@ var render = function render() {
     attrs: {
       id: "dropIn"
     }
-  }, [_vm._v("\r\n        " + _vm._s(_vm.dropIn()) + "\r\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        " + _vm._s(_vm.dropIn()) + "\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_c("button", {
     staticClass: "btn btn-deliveboo rounded bg-viola mt-4 py-1 px-3 text-white font-bold",
@@ -2911,7 +3044,7 @@ var render = function render() {
         return _vm.confirmCta(_vm.inst);
       }
     }
-  }, [_vm._v("\r\n          Invia\r\n        ")])])]) : _vm._e()], 1);
+  }, [_vm._v("\n          Invia\n        ")])])]) : _vm._e()], 1);
 };
 
 var staticRenderFns = [];
@@ -2954,7 +3087,7 @@ var render = function render() {
     return _c("span", {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
-    }, [_vm._v("\r\n              " + _vm._s(category.name) + "\r\n            ")]);
+    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]);
   })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", [_c("div", {
     staticClass: "switcher"
   }, [_c("a", {
@@ -3005,7 +3138,7 @@ var render = function render() {
       attrs: {
         href: "#category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]);
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-6 col-sm-9 mx-auto"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
@@ -3017,7 +3150,7 @@ var render = function render() {
       attrs: {
         id: "category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
         staticClass: "dish-card flex-column flex-sm-row",
@@ -3052,7 +3185,7 @@ var render = function render() {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\r\n                    " + _vm._s(item.name) + "\r\n                    "), _c("span", {
+    }, [_c("p", [_vm._v("\n                    " + _vm._s(item.name) + "\n                    "), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
@@ -3085,7 +3218,7 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\r\n                      Rimuovi\r\n                    ")])])]);
+    }, [_vm._v("\n                      Rimuovi\n                    ")])])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "total-price"
   }, [_c("h3", {
@@ -3099,11 +3232,12 @@ var render = function render() {
           restaurant_id: _vm.restaurant.id,
           restaurant_name: _vm.restaurant.name,
           prezzo: _vm.prezzoTotale,
-          carrello: _vm.carrello
+          carrello: _vm.carrello,
+          restaurant_email: _vm.restaurant.email
         }
       }
     }
-  }, [_vm._v("\r\n                  Vai al Checkout\r\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
+  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
     staticClass: "collapse dishes-bottom",
     attrs: {
       id: "collapseExample"
@@ -3163,7 +3297,7 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\r\n            Vai al Checkout\r\n          ")]) : _vm._e()], 1)])])], 1);
+  }, [_vm._v("\n            Vai al Checkout\n          ")]) : _vm._e()], 1)])])], 1);
 };
 
 var staticRenderFns = [function () {

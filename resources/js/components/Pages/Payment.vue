@@ -8,7 +8,10 @@
       </div>
 
       <div class="d-flex justify-content-center">
-        <button class="btn btn-deliveboo rounded bg-viola mt-4 py-1 px-3 text-white font-bold" @click="confirmCta(inst)">
+        <button
+          class="btn btn-deliveboo rounded bg-viola mt-4 py-1 px-3 text-white font-bold"
+          @click="confirmCta(inst)"
+        >
           Invia
         </button>
       </div>
@@ -29,6 +32,7 @@
         cart: this.$route.params.carrello,
         order: this.$route.params.ordine,
         restaurant_name: this.$route.params.restaurant_name,
+        restaurant_email: this.$route.params.restaurant_email,
       };
     },
     components: { Loader },
@@ -91,6 +95,7 @@
               ordine: this.order,
               carrello: this.cart,
               restaurant_name: this.restaurant_name,
+              restaurant_email: this.restaurant_email,
             },
           });
         }, "5000");

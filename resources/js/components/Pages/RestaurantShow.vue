@@ -121,6 +121,7 @@
                       restaurant_name: restaurant.name,
                       prezzo: prezzoTotale,
                       carrello: carrello,
+                      restaurant_email: restaurant.email,
                     },
                   }"
                   v-if="carrello.length"

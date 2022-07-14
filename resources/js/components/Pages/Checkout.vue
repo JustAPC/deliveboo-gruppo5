@@ -1,6 +1,5 @@
 <template>
   <div class="container py-5">
-
     <div class="card">
       <div class="card-header bg_blu text-white font_size">
         Compila il seguente form per la spedizione
@@ -8,7 +7,7 @@
       <div class="card-body">
         <blockquote class="blockquote mb-0">
           <form class="row g-3 needs-validation" novalidate>
-            <div class="col-md-6">
+            <div class="col-md-6 pb-3">
               <label for="validationCustom01" class="form-label">Nome</label>
               <input
                 type="text"
@@ -16,11 +15,12 @@
                 id="validationCustom01"
                 v-model="form.customer_name"
                 required
+                @change="validation()"
               />
               <div class="valid-feedback">Inserito correttamente</div>
               <div class="invalid-feedback">Inserisci il nome</div>
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 pb-3">
               <label for="validationCustom02" class="form-label">Cognome</label>
               <input
                 type="text"
@@ -34,13 +34,13 @@
               <div class="invalid-feedback">Inserisci il cognome</div>
             </div>
 
-            <div class="col-md-8">
-              <label for="validationCustom03" class="form-label">Indirizzo</label>
+            <div class="col-md-6 pb-3">
+              <label for="validationCustom03" class="form-label">Email</label>
               <input
                 type="text"
                 class="form-control"
                 id="validationCustom03"
-                v-model="form.customer_address"
+                v-model="form.customer_email"
                 required
                 @change="validation()"
               />
@@ -48,7 +48,7 @@
               <div class="invalid-feedback">Inserire indirizzo</div>
             </div>
 
-            <div class="col-md-4">
+            <div class="col-md-6 pb-3">
               <label for="validationCustom04" class="form-label">Telefono</label>
               <input
                 type="text"
@@ -60,6 +60,47 @@
               />
               <div class="valid-feedback">Inserito correttamente</div>
               <div class="invalid-feedback">Inserire numero di telefono</div>
+            </div>
+
+            <div class="col-md-6 pb-3">
+              <label for="validationCustom05" class="form-label">Città</label>
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom05"
+                v-model="form.customer_city"
+                required
+                @change="validation()"
+              />
+              <div class="valid-feedback">Inserito correttamente</div>
+              <div class="invalid-feedback">Inserisci il nome</div>
+            </div>
+            <div class="col-md-6 pb-3">
+              <label for="validationCustom06" class="form-label">CAP</label>
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom06"
+                v-model="form.customer_zip"
+                required
+                @change="validation()"
+              />
+              <div class="valid-feedback">Inserito correttamente</div>
+              <div class="invalid-feedback">Inserisci il cognome</div>
+            </div>
+
+            <div class="col-md-12 pb-3">
+              <label for="validationCustom07" class="form-label">Indirizzo</label>
+              <input
+                type="text"
+                class="form-control"
+                id="validationCustom07"
+                v-model="form.customer_address"
+                required
+                @change="validation()"
+              />
+              <div class="valid-feedback">Inserito correttamente</div>
+              <div class="invalid-feedback">Inserire indirizzo</div>
             </div>
             <div class="col-12 text-center my-3">
               <div class="form-check">
@@ -81,7 +122,12 @@
                 id="submit-button"
                 :to="{
                   name: 'payments',
-                  params: { ordine: form, carrello: carrello, restaurant_name: restaurant_name },
+                  params: {
+                    ordine: form,
+                    carrello: carrello,
+                    restaurant_name: restaurant_name,
+                    restaurant_email: restaurant_email,
+                  },
                 }"
                 class="btn btn-primary disabled"
                 type="submit"
@@ -123,7 +169,6 @@
         <p>Prezzo Totale: € {{ form.total_price }}</p>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -135,14 +180,18 @@
           customer_name: "",
           customer_lastname: "",
           customer_address: "",
+          customer_city: "",
+          customer_zip: "",
+          customer_phone: "",
+          customer_email: "",
           completed: false,
           payment_received: false,
           total_price: this.$route.params.prezzo.toFixed(2),
-          customer_phone: "",
           user_id: this.$route.params.restaurant_id,
         },
         carrello: this.$route.params.carrello,
         restaurant_name: this.$route.params.restaurant_name,
+        restaurant_email: this.$route.params.restaurant_email,
       };
     },
     methods: {
@@ -159,15 +208,26 @@
         this.submitForm();
         console.log(this.form);
       },
-
       validation() {
         const nome = document.getElementById("validationCustom01").value;
         const cognome = document.getElementById("validationCustom02").value;
-        const indirizzo = document.getElementById("validationCustom03").value;
+        const email = document.getElementById("validationCustom03").value;
         const telefono = document.getElementById("validationCustom04").value;
-        const submit = document.getElementById("submit-button");
+        const city = document.getElementById("validationCustom05").value;
+        const cap = document.getElementById("validationCustom06").value;
+        const address = document.getElementById("validationCustom07").value;
         const terms = document.getElementById("terms");
-        if (nome != 0 && cognome != 0 && indirizzo != 0 && telefono >= 9 && terms.checked == true) {
+        const submit = document.getElementById("submit-button");
+        if (
+          nome != 0 &&
+          cognome != 0 &&
+          email != 0 &&
+          telefono.length >= 9 &&
+          city != 0 &&
+          cap.length == 5 &&
+          address != 0 &&
+          terms.checked == true
+        ) {
           submit.classList.remove("disabled");
         } else {
           submit.classList.add("disabled");
