@@ -7,7 +7,7 @@
         <div class="pl-5">
           <button
             @click="setActive()"
-            :class="active ? 'text-white' : 'text-deliveroo'"
+            :class="active ? 'text-white' : ''"
             class="font-bold py-1 px-3 mb-3 border-2 button-colors rounded"
           >
             Categorie

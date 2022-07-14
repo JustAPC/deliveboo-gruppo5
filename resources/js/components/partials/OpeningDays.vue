@@ -1,5 +1,5 @@
 <template>
-  <div class="text-center pt-5 mt-5 w-50 mx-auto">
+  <div class="text-center pt-5 mt-5 col-12 col-md-10 col-xl-8 mx-auto">
     <h1>Giorni di Apertura</h1>
     <hr />
     <ul>
