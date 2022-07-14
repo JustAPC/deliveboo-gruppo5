@@ -1,5 +1,8 @@
 <template>
     <div class="container">
+
+        <h1 class="text-deliveboo text-center mt-5 pt-5">Complimenti! il tuo ordine è andato a buon fine</h1>
+
         <div class="switcher mt-5">
             <a :class="{ activePage: switchPage == 1 }" @click="showMenu()">I Tuoi Dati</a>
             <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Piatti Ordinati</a>
@@ -39,7 +42,7 @@
                                 <div class="col-md-8">
                                     <div class="card-body">
                                         <h5 class="card-title">{{ piatto.name }}</h5>
-                                        <p class="card-text">{{ piatto.price }}€</p>
+                                        <p class="card-text">€ {{ piatto.price }}</p>
 
                                     </div>
                                 </div>
@@ -48,7 +51,7 @@
                     </div>
                 </div>
                 <div class="card-footer bg_blu font-weight-bolder text-white font_size">
-                    <p>Prezzo Totale: {{ordine.total_price}}</p>
+                    <p>Prezzo Totale: € {{ordine.total_price}}</p>
                 </div>
             </div>
             <div class="d-flex justify-content-center mt-3">

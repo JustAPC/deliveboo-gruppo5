@@ -1,12 +1,14 @@
 <template>
   <div class="payment-wrapper justify-center flex items-center py-3 px-4">
-    <div class="container max-w-sm" v-if="loading">
+    <Loader v-if="loading == true" />
+
+    <div class="container max-w-sm" v-if="loading == false">
       <div id="dropIn" class="drop-shadow-xl dropin" v-if="token">
         {{ dropIn() }}
       </div>
 
-      <div>
-        <button class="rounded bg-viola py-1 px-3 text-white font-bold" @click="confirmCta(inst)">
+      <div class="d-flex justify-content-center">
+        <button class="btn btn-deliveboo rounded bg-viola mt-4 py-1 px-3 text-white font-bold" @click="confirmCta(inst)">
           Invia
         </button>
       </div>
@@ -15,6 +17,7 @@
 </template>
 <script>
   import axios from "axios";
+  import Loader from "../partials/Loader.vue";
 
   export default {
     data() {
@@ -28,14 +31,13 @@
         restaurant_name: this.$route.params.restaurant_name,
       };
     },
-    components: {},
+    components: { Loader },
 
     methods: {
       fetchToken() {
         axios.get("/api/payments").then((res) => {
           const { token } = res.data;
           this.token = token;
-          this.loading = true;
           console.log(token);
         });
       },
@@ -72,7 +74,7 @@
             return;
           }
 
-          this.loader();
+          //   this.loader();
           this.returnToOrderDetails();
           console.log(payload.nonce);
         });
@@ -83,6 +85,7 @@
         }, "1000");
       },
       returnToOrderDetails() {
+        this.loading = true;
         setTimeout(() => {
           this.$router.push({
             name: "ordersummary",

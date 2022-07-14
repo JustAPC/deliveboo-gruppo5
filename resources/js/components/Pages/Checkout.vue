@@ -1,16 +1,5 @@
 <template>
   <div class="container py-5">
-    <!-- <div>
-            <h1>RIEPILOGO ORDINE</h1>
-
-            <p>Hai ordinato i seguenti piatti:</p>
-            <ul>
-                <li v-for="dish in carrello" :key="dish.id">{{ dish.name }}</li>
-            </ul>
-
-            <hr />
-            <h3>Prezzo Totale: {{ form.total_price }}€</h3>
-        </div> -->
 
     <div class="card">
       <div class="card-header bg_blu text-white font_size">
@@ -123,7 +112,7 @@
               <div class="col-md-8">
                 <div class="card-body">
                   <h5 class="card-title">{{ dish.name }}</h5>
-                  <p class="card-text">{{ dish.price }}€</p>
+                  <p class="card-text">€ {{ dish.price }}</p>
                 </div>
               </div>
             </div>
@@ -131,72 +120,10 @@
         </div>
       </div>
       <div class="card-footer bg_blu font-weight-bolder text-white font_size">
-        <p>Prezzo Totale: {{ form.total_price }}</p>
+        <p>Prezzo Totale: € {{ form.total_price }}</p>
       </div>
     </div>
 
-    <!-- <form @submit="submitForm(onSubmit)" methods="post" class="row">
-      <div class="input-group mb-3 col-6">
-        <span class="input-group-text" id="inputGroup-sizing-default">Nome</span>
-        <input
-          v-model="form.customer_name"
-          id="name"
-          type="text"
-          class="form-control"
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-default"
-          required
-        />
-      </div>
-      <div class="input-group mb-3 col-6">
-        <span class="input-group-text" id="inputGroup-sizing-default">Cognome</span>
-        <input
-          v-model="form.customer_lastname"
-          id="name"
-          type="text"
-          class="form-control"
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-default"
-          required
-        />
-      </div>
-      <div class="input-group mb-3 col-8">
-        <span class="input-group-text" id="inputGroup-sizing-default">Indirizzo</span>
-        <input
-          v-model="form.customer_address"
-          id="name"
-          type="text"
-          class="form-control"
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-default"
-          required
-        />
-      </div>
-      <div class="input-group mb-3 col-4">
-        <span class="input-group-text" id="inputGroup-sizing-default">Telefono</span>
-        <input
-          v-model="form.customer_phone"
-          id="name"
-          type="text"
-          class="form-control"
-          aria-label="Sizing example input"
-          aria-describedby="inputGroup-sizing-default"
-          required
-        />
-      </div>
-      <div class="">
-        <router-link
-          :to="{
-            name: 'payments',
-            params: { ordine: form, carrello: carrello, restaurant_name: restaurant_name },
-          }"
-          type="submit"
-          class="byn btn-success rounded p-2"
-        >
-          Invia
-        </router-link>
-      </div>
-    </form> -->
   </div>
 </template>
 
@@ -210,7 +137,7 @@
           customer_address: "",
           completed: false,
           payment_received: false,
-          total_price: this.$route.params.prezzo,
+          total_price: this.$route.params.prezzo.toFixed(2),
           customer_phone: "",
           user_id: this.$route.params.restaurant_id,
         },
