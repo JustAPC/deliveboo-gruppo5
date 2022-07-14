@@ -191,17 +191,16 @@
     flex-wrap: wrap;
     gap: 20px;
   }
+  // Modifico la scrollbar nel dropdown
   .ks-cboxtags::-webkit-scrollbar {
     width: 10px;
     height: 10px;
     }
   .ks-cboxtags::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.3); 
     border-radius: 10px;
 }
   .ks-cboxtags::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 1px rgba(0,0,0,0.5); 
 }
 
   ul.ks-cboxtags li label {
@@ -260,12 +259,7 @@
     border: 2px solid rgba(68, 0, 99, 0.6);
   }
 
-  /* The heart of the matter */
-// .testimonial-group > .row {
-//   display: block;
-//   overflow-x: auto;
-//   white-space: nowrap;
-// }
+// Effetto overflow del dropdown
 .testimonial-group {
   .row {
   display: block;
