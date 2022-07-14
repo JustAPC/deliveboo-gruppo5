@@ -17,9 +17,9 @@
                     </div>
 
                     <div class="text-center">
-                        <h1 class="font-italic">Bottega 35</h1>
+                        <h1 class="font-italic">{{ Auth::user()->restaurant_name }}</h1>
                         <div class="d-flex justify-content-center mb-3 badgeTesto">
-                            <span class="badge badge-primary mr-3 badge-pill">Pizzeria</span>
+                            {{-- <span class="badge badge-primary mr-3 badge-pill">Pizzeria</span> --}}
                         </div>
 
                         <p class="d-flex justify-content-center">
