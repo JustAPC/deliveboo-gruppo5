@@ -162,6 +162,7 @@
               <td>{{ dish.price }}€</td>
               <td>
                 <input
+                  class="quantity-bottom"
                   :id="'quantity-cart-bottom-item-' + dish.id"
                   type="number"
                   value="1"
@@ -572,6 +573,9 @@
     width: 50px;
   }
 
+  .collapse {
+    z-index: 100;
+  }
   .cart-bottom {
     width: 100%;
     position: fixed;
@@ -585,8 +589,6 @@
       text-align: center;
       width: 100%;
     }
-    .checkout {
-    }
     ul {
       margin: 0;
       padding: 0;
@@ -599,6 +601,10 @@
         }
       }
     }
+  }
+
+  .quantity-bottom {
+    width: 50px !important;
   }
 
   @media screen and (min-width: 0) and (max-width: 550px) {
