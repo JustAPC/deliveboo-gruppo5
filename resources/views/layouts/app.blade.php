@@ -32,17 +32,6 @@
             color: #00ccbc;
             font-weight: bold;
         }
-
-        #loginRegister{
-            color: #00ccbc;
-    font-weight: bold;
-        }
-
-        #loginlogin{
-            color: #00ccbc;
-    font-weight: bold;
-        }
-
     </style>
 </head>
 
@@ -73,11 +62,11 @@
                         <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
-                                <a class="nav-link colorLogin" href="{{ route('login') }}" id="loginlogin">{{ __('Login') }}</a>
+                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
                                 <li class="nav-item">
-                                    <a class="nav-link colorLogin" href="{{ route('register') }}" id="loginRegister">{{ __('Register') }}</a>
+                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                                 </li>
                             @endif
                         @else
