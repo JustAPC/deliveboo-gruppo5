@@ -37322,17 +37322,6 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/sass/_create.dishes.scss":
-/*!********************************************!*\
-  !*** ./resources/sass/_create.dishes.scss ***!
-  \********************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -37344,52 +37333,15 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
 /***/ }),
 
-/***/ "./resources/sass/orderIndex.scss":
-/*!****************************************!*\
-  !*** ./resources/sass/orderIndex.scss ***!
-  \****************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/partials/bgMulticolor.scss":
-/*!***************************************************!*\
-  !*** ./resources/sass/partials/bgMulticolor.scss ***!
-  \***************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ "./resources/sass/partials/registrazione.scss":
-/*!****************************************************!*\
-  !*** ./resources/sass/partials/registrazione.scss ***!
-  \****************************************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-
 /***/ 0:
-/*!****************************************************************************************************************************************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/_create.dishes.scss ./resources/sass/orderIndex.scss ./resources/sass/partials/registrazione.scss ./resources/sass/partials/bgMulticolor.scss ***!
-  \****************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\_create.dishes.scss */"./resources/sass/_create.dishes.scss");
-__webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\orderIndex.scss */"./resources/sass/orderIndex.scss");
-__webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\partials\registrazione.scss */"./resources/sass/partials/registrazione.scss");
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\partials\bgMulticolor.scss */"./resources/sass/partials/bgMulticolor.scss");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
