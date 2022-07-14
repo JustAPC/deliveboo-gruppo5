@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api;
+
 use Braintree\Gateway;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -18,17 +19,15 @@ class PaymentController extends Controller
         $gateway = new \Braintree\Gateway([
             'environment' => 'sandbox',
             'merchantId' => '456xjr3ymrw8q5r4',
-            'publicKey' => 'mhfc7b2xkqctzsfd',
-            'privateKey' => '8b56272ae0e2f8f12d16eaad7275ed6e'
+            'publicKey' => '5pmvzmdqq5f7zdmw',
+            'privateKey' => 'df8a1b1980cc47082cf3a88e8705aff2'
         ]);
-        $clientToken = $gateway->clientToken()->generate([
-        ]);
+        $clientToken = $gateway->clientToken()->generate([]);
 
         return response()->json([
             'token' => $clientToken,
             'succes' => true
         ]);
-   
     }
 
     /**
@@ -59,7 +58,7 @@ class PaymentController extends Controller
 
         //return $restaurantSlug;
 
-       
+
 
         //return $user;
 
