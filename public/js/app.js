@@ -37373,11 +37373,11 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\sass\app.scss */"./resources/sass/app.scss");
-__webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\sass\_create.dishes.scss */"./resources/sass/_create.dishes.scss");
-__webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\sass\orderIndex.scss */"./resources/sass/orderIndex.scss");
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\sass\partials\bgMulticolor.scss */"./resources/sass/partials/bgMulticolor.scss");
+__webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\sass\_create.dishes.scss */"./resources/sass/_create.dishes.scss");
+__webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\sass\orderIndex.scss */"./resources/sass/orderIndex.scss");
+module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\sass\partials\bgMulticolor.scss */"./resources/sass/partials/bgMulticolor.scss");
 
 
 /***/ })
