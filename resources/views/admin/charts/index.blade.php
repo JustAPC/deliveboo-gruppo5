@@ -5,7 +5,7 @@
     <div class="bg bg2"></div>
     <div class="bg bg3"></div>
 
-    <div class="container">
+    <div class="container pt-5">
         <h1 class="py-5">Statistiche</h1>
 
         <div id="year-2022" class="bg-light">
