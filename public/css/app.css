@@ -11022,7 +11022,8 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
 }
 .pannello-slide #posto-immagine p {
   position: absolute;
-  bottom: -5%;
+  bottom: 0;
+  margin-bottom: 0;
   width: 100%;
   text-align: center;
   color: white;
