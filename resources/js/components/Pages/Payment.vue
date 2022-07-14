@@ -9,7 +9,7 @@
 
       <div class="d-flex justify-content-center">
         <button
-          class="btn btn-deliveboo rounded bg-viola mt-4 py-1 px-3 text-white font-bold"
+          class="btn btn-invia rounded mt-4 py-1 px-3 text-white font-bold"
           @click="confirmCta(inst)"
         >
           Invia
@@ -117,6 +117,10 @@
 
     .dropin {
       filter: drop-shadow(2px 4px 8px #57534e);
+    }
+
+    .btn-invia {
+      background-color: #34c0c9;
     }
   }
 </style>

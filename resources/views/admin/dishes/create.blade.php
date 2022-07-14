@@ -18,7 +18,9 @@
         </div>
     @endif
 
-
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
 
     <div class="container mt-5 pt-5 ">
 
@@ -91,13 +93,13 @@
                         Seleziona una categoria
                     </div>
 
-                    
+
                 </div>
             </div>
 
             {{-- riga immagine caricamento file + url --}}
             <div class="form-row d-flex align-items-center">
-                <div class="form-group col-md-4">
+                <div class="form-group col-md-4 my-5">
                     <input id="myfiles" name="image" type="file" accept="image/*">
                     <button id="file_remove" class="btn btn-outline-deliveboo mt-3" disabled>Rimuovi</button>
                     <div id="img-preview" class="pt-5"></div>
