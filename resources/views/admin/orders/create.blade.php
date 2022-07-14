@@ -88,7 +88,7 @@
                         <h3 class="my-2">Seleziona gli articoli</h3>
                         
                         @foreach ($dishcategories as $category)
-                            <div class="d-flex flex-column">
+                            <div class="col-12 d-flex flex-column">
             
                                 {{-- Nome della categoria dei piatti --}}
                                 <h5 class="text-capitalize mt-2">{{ $category->name }}</h5>
