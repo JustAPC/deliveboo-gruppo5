@@ -189,8 +189,8 @@
                 document.querySelector(".cart").innerHTML +=
                     `<div class="cart-item row my-1" id="item-${e}">
                     <span class="col-8 dish-name-${e}">${dishName}</span>
-                    <span class="col-2 dish-price-${e}">${price}</span>
-                    <span class="col-2 dish-quantity-${e}">${quantity}</span>
+                    <span class="col-2 dish-price-${e} text-center p-0">${price}</span>
+                    <span class="col-2 dish-quantity-${e} text-center p-0">${quantity}</span>
                 </div>`;
                 stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€";
             }
@@ -218,8 +218,8 @@
                 document.querySelector(".cart").innerHTML +=
                     `<div class="cart-item row my-1" id="item-${e}">
                     <span class="col-8 dish-name-${e}">${dishName}</span>
-                    <span class="col-2 dish-price-${e}">${singlePrice}</span>
-                    <span class="col-2 dish-quantity-${e}">${quantity}</span>
+                    <span class="col-2 dish-price-${e} text-center p-0">${singlePrice}</span>
+                    <span class="col-2 dish-quantity-${e} text-center p-0">${quantity}</span>
                 </div>`;
                 stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€";
                 totalPriceDB.value = totalPrice(selectedDishes);

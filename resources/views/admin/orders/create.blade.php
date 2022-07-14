@@ -127,7 +127,7 @@
 
                     <div class="row">
                         <span class="col-8 font-weight-bold">Articolo</span>
-                        <span class="col-1 text-center font-weight-bold">Prezzo</span>
+                        <span class="col-1 text-center font-weight-bold pl-0">Prezzo</span>
                         <span class="col-1 offset-1 text-center font-weight-bold">Qt.</span>
                     </div>
 
@@ -180,7 +180,7 @@
                 document.querySelector(".cart").innerHTML +=
                     `<div class="cart-item row my-1" id="item-${e}">
                     <span class="col-8 dish-name-${e}">${dishName}</span>
-                    <span class="col-2 dish-price-${e}">${singlePrice}</span>
+                    <span class="col-2 dish-price-${e} pl-0">${singlePrice}</span>
                     <span class="col-2 dish-quantity-${e}">${quantity}</span>
                 </div>`;
                 stampaPrezzo.innerHTML = totalPrice(selectedDishes) + "€";
