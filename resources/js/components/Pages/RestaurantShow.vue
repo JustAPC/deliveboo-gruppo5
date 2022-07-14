@@ -599,7 +599,7 @@
 
   .dishes-bottom {
     overflow: auto;
-    height: 397px;
+    max-height: 397px;
     position: fixed;
     bottom: 82px;
     left: 0;
