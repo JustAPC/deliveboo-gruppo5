@@ -48,14 +48,14 @@
     </div> --}}
 
     {{-- card come in index ordini --}}
-    <div class="container mt-5">
+    <div class="container mt-5 p-2">
         <div class="row">
             <div class="card order-card my-5 col-12">
                 <div class="p-3 my-3">
                     <div class="d-flex flex-wrap">
         
                         {{-- informazioni cliente --}}
-                        <div class="col-md-5 col-xs-12 px-0 mb-4 rounded">
+                        <div class="col-md-4 col-xs-12 px-0 mb-4 rounded">
                             <h5 class="card-title mb-4 text-uppercase"><b>id ordine:</b> {{ $order->id }}</h5>
                             <p class="card-text"><b>Cliente:</b> {{ $order->customer_name }}
                                 {{ $order->customer_lastname }}</p>
@@ -65,18 +65,18 @@
                         </div>
         
                         {{-- piatti ordinati VERSIONE NUOVA RESPONSIVE --}}
-                        <div class="col-md-7 col-12 d-flex flex-column">
+                        <div class="col-md-8 col-12 d-flex flex-column px-0">
                             <div class="row d-flex">
                                 <span class="col-6 col-md-8 font-weight-bold">Piatto</span>
-                                <span class="col-3 col-md-2 font-weight-bold">Quantità</span>
-                                <span class="col-3 col-md-2 font-weight-bold">Prezzo</span>
+                                <span class="col-2 col-md-2 font-weight-bold">Qt.</span>
+                                <span class="col-4 col-md-2 font-weight-bold">Prezzo</span>
                             </div>
                             <div class="d-flex justify-content-around row">
                                 <div class="row w-100 d-flex align-items-center justify-content-center">
                                     @forelse ($order->Dishesorder as $dish)
                                         <span class="col-md-8 col-6 my-1 display-inline-block">{{ $dish->name }}</span>
-                                        <span class="col-md-2 col-3 my-1 display-inline-block">{{ $dish->getOriginal('pivot_quantity') }}</span>
-                                        <span class="col-md-2 col-3 my-1 display-inline-block">€{{ $dish->price }}</span>
+                                        <span class="col-md-2 col-2 my-1 display-inline-block">{{ $dish->getOriginal('pivot_quantity') }}</span>
+                                        <span class="col-md-2 col-4 my-1 display-inline-block">€{{ $dish->price }}</span>
                                     @empty
                                         <span class="col-md-8 col-6 display-inline-block">-</span>
                                         <span class="col-md-2 col-3 display-inline-block">-</span>
@@ -96,7 +96,7 @@
                 {{-- Pulsanti --}}
                 <div class="mt-1">
                     <div class="my-3 d-flex justify-content-center" style="height: auto">
-                        <a href="{{ route('admin.orders.index') }}" class="btn back-button mx-2"><i class="fa-solid fa-circle-arrow-left mr-1"></i></i> Indietro</a>
+                        <a href="{{ route('admin.orders.index') }}" class="btn back-button d-none d-sm-block mx-2"><i class="fa-solid fa-circle-arrow-left mr-1"></i></i> Indietro</a>
                         <a href="{{ route('admin.orders.edit', $order->id) }}" class="btn edit-button mx-2"><i class="fa-solid fa-pen-to-square mr-1"></i> Modifica
                             l'ordine</a><br>
                         <form action="{{ route('admin.orders.destroy', $order->id) }}" class="d-inline-block delete-form"
@@ -158,8 +158,8 @@
 .back-button {
     background-color: #78d04f!important;
     color: white!important;
-    display: flex!important;
-    align-items: center!important;
+    /* display: flex!important; */
+    /* align-items: center!important; */
 }
 .back-button:hover {
     background-color: transparent!important;
