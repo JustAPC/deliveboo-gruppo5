@@ -31,10 +31,10 @@
           <a :class="{ activePage: switchPage == 2 }" @click="showInfos()">Info</a>
         </div>
         <!-- Categorie fino a breakpoint xl -->
-        <div id="categories-top">
+        <div id="categories-top" class="categories-hidden">
           <div class="d-lg-none d-block">
-            <ul class="d-flex justify-content-around m-0 p-0">
-              <li v-for="category in uniqueDishCategory" :key="category.id" class="py-3">
+            <ul class="d-flex justify-content-around flex-wrap m-0 p-0">
+              <li v-for="category in uniqueDishCategory" :key="category.id" class="py-1 px-3">
                 <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
               </li>
             </ul>
@@ -56,7 +56,7 @@
             </div>
           </aside>
           <!-- Piatti -->
-          <div class="col-xl-6 col-9 mx-auto">
+          <div class="col-xl-6 col-sm-9 mx-auto">
             <ul v-for="(category, i) in uniqueDishCategory" :key="i" class="p-0">
               <h1 class="category-title" :id="'category-' + category.id + '-redirect'">
                 {{ category.name }}
@@ -348,9 +348,11 @@
         this.isUserScrolling = window.scrollY > 592;
         const categories = document.getElementById("categories-top");
         if (this.isUserScrolling == true) {
-          categories.style.opacity = 1;
+          categories.classList.remove("categories-hidden");
+          categories.classList.add("categories-visible");
         } else {
-          categories.style.opacity = 0;
+          categories.classList.remove("categories-visible");
+          categories.classList.add("categories-hidden");
         }
       },
     },
@@ -371,10 +373,9 @@
 
 <style scoped lang="scss">
   #categories-top {
-    position: sticky;
+    position: fixed;
+    width: 100%;
     top: 66px;
-    opacity: 0;
-    background-color: #f8f9fa;
     z-index: 100;
     font-size: 1.2rem;
   }
@@ -479,16 +480,6 @@
     }
     div {
       margin: 10px 0;
-    }
-  }
-
-  .categories-top {
-    position: sticky;
-    top: 80px;
-    z-index: 100;
-    margin-top: 50px;
-    a {
-      color: #34c0c9;
     }
   }
 
@@ -635,9 +626,25 @@
     width: 50px !important;
   }
 
-  @media screen and (min-width: 0) and (max-width: 550px) {
+  .categories-visible {
+    opacity: 1;
+    background-color: #f8f9fa;
+    transition: opacity 0.7s;
+  }
+
+  .categories-hidden {
+    opacity: 0;
+    background-color: transparent;
+    transition: opacity 0.5s, background-color 0.5s;
+  }
+
+  @media screen and (min-width: 0) and (max-width: 576px) {
     .switcher {
       width: 75%;
+    }
+
+    .dish-card {
+      margin: 20px auto;
     }
   }
 
