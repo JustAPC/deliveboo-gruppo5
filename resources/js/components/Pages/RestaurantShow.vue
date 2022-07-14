@@ -76,7 +76,6 @@
                 </div>
                 <div>
                   <img :src="dish.image" alt="" width="200px" class="p-3 img-fluid" />
-                  <!-- <img :src="`../../../../public/storage/${dish.image}`" alt="" width="200px" /> -->
                 </div>
               </li>
             </ul>
