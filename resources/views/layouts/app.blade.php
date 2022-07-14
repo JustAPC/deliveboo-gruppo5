@@ -37,7 +37,8 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm" style="position: fixed; top: 0; width: 100%; z-index: 2">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm"
+            style="position: fixed; top: 0; width: 100%; z-index: 2">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Deliveboo') }} --}}
@@ -85,7 +86,8 @@
                                     <a class="dropdown-item" href="{{ route('admin.orders.index') }}">Riepilogo degli
                                         ordini</a>
 
-                                    <a class="dropdown-item" href="{{ route('admin.home') }}">Le mie statistiche</a>
+                                    <a class="dropdown-item" href="/admin/charts">Le mie
+                                        statistiche</a>
 
                                     {{-- OPZIONE PER GIORNI DI APERTURA, SE LI INSERIAMO --}}
                                     {{-- <a class="dropdown-item" href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a> --}}

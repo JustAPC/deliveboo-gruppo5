@@ -34,7 +34,7 @@ Route::middleware('auth')
         Route::resource('dishes', 'DishController');
         Route::resource('openingdays', 'OpeningdayController');
         Route::resource('orders', 'OrderController');
-        Route::get('charts', 'ChartController@index');
+        Route::get('charts', 'ChartController@index')->name('charts');
     });
 
 Route::get('{any?}', function () {
