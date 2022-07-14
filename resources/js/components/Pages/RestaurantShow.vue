@@ -34,7 +34,7 @@
         <div id="categories-top" class="categories-hidden">
           <div class="d-lg-none d-block">
             <ul class="d-flex justify-content-around flex-wrap m-0 p-0">
-              <li v-for="category in uniqueDishCategory" :key="category.id" class="py-1 px-3">
+              <li v-for="category in uniqueDishCategory" :key="category.id" class="pt-1 pb-2 px-3">
                 <a :href="'#category-' + category.id + '-redirect'">{{ category.name }}</a>
               </li>
             </ul>

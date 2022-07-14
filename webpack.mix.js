@@ -19,10 +19,6 @@ mix
   .js("resources/js/deleteAlert.js", "public/js")
   .js("resources/js/orderDeleteAlert.js", "public/js")
   .sass("resources/sass/app.scss", "public/css")
-  .sass("resources/sass/_create.dishes.scss", "public/css")
-  .sass("resources/sass/orderIndex.scss", "public/css")
-  .sass("resources/sass/partials/registrazione.scss", "public/css")
-  .sass("resources/sass/partials/bgMulticolor.scss", "public/css")
   .options({
     processCssUrls: false,
   });

@@ -21,22 +21,10 @@
     components: { Restaurants, BackgroundImage, Loader },
     data() {
       return {
-        isLoading: true,
+        isLoading: false,
       };
     },
-    methods: {
-      myFunction() {
-        const timeout = setTimeout(this.loaderFunction, 3000);
-      },
-
-      loaderFunction() {
-        this.isLoading = false;
-      },
-    },
-
-    mounted() {
-      this.myFunction();
-    },
+    methods: {},
   };
 </script>
 
