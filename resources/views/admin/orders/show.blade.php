@@ -158,8 +158,8 @@
 .back-button {
     background-color: #78d04f!important;
     color: white!important;
-    /* display: flex!important; */
-    /* align-items: center!important; */
+    display: flex!important;
+    align-items: center!important;
 }
 .back-button:hover {
     background-color: transparent!important;

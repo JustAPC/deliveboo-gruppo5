@@ -20,12 +20,14 @@
         </div>
     @endif
 
-    <div class="container mt-5 pt-5 mb-5 d-flex flex-column justify-content-center">
+    <div class="container my-5 pt-5  d-flex flex-column justify-content-center">
 
         {{-- background animato --}}
         <div class="bg"></div>
         <div class="bg bg2"></div>
         <div class="bg bg3"></div>
+
+
         <div class="content">
 
             {{-- nome piatto --}}
@@ -34,7 +36,7 @@
             <div class="row">
     
                 {{-- immagine --}}
-                <div class="col-sm-12 col-md-5">
+                <div class="col-12 col-lg-4">
                     @if ($dish->image)
                         @if (Str::startsWith($dish->image, 'http'))
                             <img src="{{ $dish->image }}" width="100%" alt=""  class="rounded">
@@ -47,7 +49,7 @@
                 </div>
     
                 {{-- colonna a destra --}}
-                <div class="col-sm-12 col-md-7 d-flex flex-column justify-content-between">
+                <div class="col-12 col-lg-8 d-flex flex-column">
     
                     {{-- dettagli --}}
                     <div class="d-flex flex-column align-items-center dettagli-show">
@@ -64,13 +66,13 @@
     
                     {{-- bottoni --}}
                     <div class="d-flex justify-content-around" style="height: 3.5rem">
-                        <a href="{{ route('admin.dishes.edit', $dish->id) }}" class="btn edit-button"><i class="fa-solid fa-pen-to-square mr-1"></i> Modifica</a>
-                        <form action="{{ route('admin.dishes.destroy', $dish->id) }}" class="delete-form h-100" data-name="{{ $dish->name }}"method="POST">
+                        <a href="{{ route('admin.dishes.edit', $dish->id) }}" class="btn edit-button mr-1"><i class="fa-solid fa-pen-to-square mr-1"></i> Modifica</a>
+                        <form action="{{ route('admin.dishes.destroy', $dish->id) }}" class="delete-form h-100 mr-1" data-name="{{ $dish->name }}"method="POST">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn delete-button h-100" value="Delete"><i class="fa-solid fa-trash-can mr-1"></i> Elimina</button>
                         </form>
-                        <a href="{{ route('admin.dishes.index') }}" class="btn back-button"><i class="fa-solid fa-circle-arrow-left mr-1"></i></i> Indietro</a>
+                        <a href="{{ route('admin.dishes.index') }}" class="btn back-button mr-1"><i class="fa-solid fa-circle-arrow-left mr-1"></i></i> Indietro</a>
                     </div>
                 </div>
             </div>
