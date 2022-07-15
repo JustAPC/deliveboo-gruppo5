@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('guest.home');
 });
 
+Route::post('/ordersummary', 'Api\OrderSubmitController@orderSubmit');
 
 
 Auth::routes();

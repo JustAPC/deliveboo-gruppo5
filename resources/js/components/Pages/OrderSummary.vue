@@ -81,6 +81,8 @@
 </template>
 
 <script>
+  import axios from "axios";
+
   export default {
     name: "OrderSummary",
     components: {},
@@ -102,6 +104,31 @@
       showInfos() {
         this.switchPage = 2;
       },
+
+      orderApi() {
+        axios
+          .post("/ordersummary", {
+            user_id: this.ordine.user_id,
+            customer_name: this.ordine.customer_name,
+            customer_lastname: this.ordine.customer_lastname,
+            customer_address: this.ordine.customer_address,
+            completed: this.ordine.completed,
+            payment_received: this.ordine.payment_received,
+            total_price: this.ordine.total_price,
+            customer_phone: this.ordine.customer_phone,
+          })
+          .then((res) => {
+            console.log(res);
+            // this.order.reset();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      },
+    },
+
+    mounted() {
+      this.orderApi();
     },
   };
 </script>

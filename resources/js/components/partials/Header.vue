@@ -24,7 +24,7 @@
             <li class="nav-item">
               <router-link class="nav-link" to="/">Home</router-link>
             </li>
-            
+
             <li class="nav-item">
               <a class="nav-link" href="/admin">Sei un ristorante?</a>
             </li>
@@ -45,7 +45,7 @@
   .logo {
     height: 50px;
   }
-  .text-logo{
+  .text-logo {
     font-weight: bolder;
     color: #00ccbc;
   }

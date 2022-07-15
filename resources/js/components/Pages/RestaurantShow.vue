@@ -152,7 +152,7 @@
 
     <!-- Carrello a partire da bp xs -->
 
-    <div class="collapse dishes-bottom" id="collapseExample" v-if="carrello != 0">
+    <div class="collapse dishes-bottom d-xl-none" id="collapseExample" v-if="carrello != 0">
       <table class="cart-table">
         <thead>
           <tr>
@@ -202,6 +202,7 @@
                 restaurant_name: restaurant.name,
                 prezzo: prezzoTotale,
                 carrello: carrello,
+                piatti: cartSelectedDishes,
               },
             }"
             v-if="carrello.length"
@@ -290,6 +291,7 @@
         printTotalPrice.forEach((e) => {
           e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
         });
+        console.log(this.cartSelectedDishes);
       },
 
       updateQuantity(price, id) {
@@ -311,6 +313,7 @@
         printTotalPrice.forEach((e) => {
           e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
         });
+        console.log(this.cartSelectedDishes);
       },
 
       updateBottomQuantity(price, id) {
@@ -329,6 +332,7 @@
         printTotalPrice.forEach((e) => {
           e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
         });
+        console.log(this.cartSelectedDishes);
       },
 
       removeFromCart(e) {
@@ -348,6 +352,7 @@
             e.innerHTML = "Prezzo totale: " + this.totalPrice(this.cartSelectedDishes) + "€";
           });
         }
+        console.log(this.cartSelectedDishes);
       },
 
       totalPrice(array) {

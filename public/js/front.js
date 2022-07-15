@@ -2024,6 +2024,9 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "OrderSummary",
   components: {},
@@ -2043,7 +2046,26 @@ __webpack_require__.r(__webpack_exports__);
     },
     showInfos: function showInfos() {
       this.switchPage = 2;
+    },
+    orderApi: function orderApi() {
+      axios__WEBPACK_IMPORTED_MODULE_0___default.a.post("/ordersummary", {
+        user_id: this.ordine.user_id,
+        customer_name: this.ordine.customer_name,
+        customer_lastname: this.ordine.customer_lastname,
+        customer_address: this.ordine.customer_address,
+        completed: this.ordine.completed,
+        payment_received: this.ordine.payment_received,
+        total_price: this.ordine.total_price,
+        customer_phone: this.ordine.customer_phone
+      }).then(function (res) {
+        console.log(res); // this.order.reset();
+      })["catch"](function (error) {
+        console.log(error);
+      });
     }
+  },
+  mounted: function mounted() {
+    this.orderApi();
   }
 });
 
@@ -2254,6 +2276,7 @@ __webpack_require__.r(__webpack_exports__);
       printTotalPrice.forEach(function (e) {
         e.innerHTML = "Prezzo totale: " + _this3.totalPrice(_this3.cartSelectedDishes) + "€";
       });
+      console.log(this.cartSelectedDishes);
     },
     updateQuantity: function updateQuantity(price, id) {
       var _this4 = this;
@@ -2277,6 +2300,7 @@ __webpack_require__.r(__webpack_exports__);
       printTotalPrice.forEach(function (e) {
         e.innerHTML = "Prezzo totale: " + _this4.totalPrice(_this4.cartSelectedDishes) + "€";
       });
+      console.log(this.cartSelectedDishes);
     },
     updateBottomQuantity: function updateBottomQuantity(price, id) {
       var _this5 = this;
@@ -2298,6 +2322,7 @@ __webpack_require__.r(__webpack_exports__);
       printTotalPrice.forEach(function (e) {
         e.innerHTML = "Prezzo totale: " + _this5.totalPrice(_this5.cartSelectedDishes) + "€";
       });
+      console.log(this.cartSelectedDishes);
     },
     removeFromCart: function removeFromCart(e) {
       var _this6 = this;
@@ -2323,6 +2348,8 @@ __webpack_require__.r(__webpack_exports__);
           e.innerHTML = "Prezzo totale: " + _this6.totalPrice(_this6.cartSelectedDishes) + "€";
         });
       }
+
+      console.log(this.cartSelectedDishes);
     },
     totalPrice: function totalPrice(array) {
       this.prezzoTotale = 0;
@@ -2564,7 +2591,7 @@ var render = function render() {
     staticClass: "card"
   }, [_c("div", {
     staticClass: "card-header bg_blu text-white font_size"
-  }, [_vm._v("\r\n        Compila il seguente form per la spedizione\r\n      ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        Compila il seguente form per la spedizione\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("blockquote", {
     staticClass: "blockquote mb-0"
@@ -2873,11 +2900,11 @@ var render = function render() {
       },
       type: "submit"
     }
-  }, [_vm._v("\r\n                Invia\r\n              ")])], 1)])])])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n                Invia\n              ")])], 1)])])])]), _vm._v(" "), _c("div", {
     staticClass: "card text-center border_circle mt-5"
   }, [_c("div", {
     staticClass: "card-header bg_blu font-weight-bolder text-white font_size"
-  }, [_vm._v("\r\n        " + _vm._s(_vm.restaurant_name) + "\r\n      ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        " + _vm._s(_vm.restaurant_name) + "\n      ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "row justify-content-around"
@@ -2969,7 +2996,7 @@ var render = function render() {
     staticClass: "container"
   }, [_c("h1", {
     staticClass: "text-deliveboo text-center mt-5 pt-5"
-  }, [_vm._v("\r\n      Complimenti! il tuo ordine è andato a buon fine\r\n    ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n      Complimenti! il tuo ordine è andato a buon fine\n    ")]), _vm._v(" "), _c("div", {
     staticClass: "switcher mt-5"
   }, [_c("a", {
     "class": {
@@ -2999,27 +3026,27 @@ var render = function render() {
     staticClass: "card-title font-weight-bolder text-white font_size"
   }, [_vm._v("I tuoi Dati")]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("\r\n            Nome:\r\n            "), _c("span", {
+  }, [_vm._v("\n            Nome:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_name))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("\r\n            Cognome:\r\n            "), _c("span", {
+  }, [_vm._v("\n            Cognome:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_lastname))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("\r\n            Indirizzo:\r\n            "), _c("span", {
+  }, [_vm._v("\n            Indirizzo:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_address))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("\r\n            CAP:\r\n            "), _c("span", {
+  }, [_vm._v("\n            CAP:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_zip))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("\r\n            Città:\r\n            "), _c("span", {
+  }, [_vm._v("\n            Città:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_city))])]), _vm._v(" "), _c("p", {
     staticClass: "card-text"
-  }, [_vm._v("\r\n            Numero Telefonico:\r\n            "), _c("span", {
+  }, [_vm._v("\n            Numero Telefonico:\n            "), _c("span", {
     staticClass: "font-weight-bold"
   }, [_vm._v(_vm._s(_vm.ordine.customer_phone))])])])]), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-center mt-3"
@@ -3034,7 +3061,7 @@ var render = function render() {
     staticClass: "card text-center border_circle"
   }, [_c("div", {
     staticClass: "card-header bg_blu font-weight-bolder text-white font_size"
-  }, [_vm._v("\r\n          Piatti Ordinati\r\n        ")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n          Piatti Ordinati\n        ")]), _vm._v(" "), _c("div", {
     staticClass: "card-body"
   }, [_c("div", {
     staticClass: "row justify-content-around"
@@ -3106,7 +3133,7 @@ var render = function render() {
     attrs: {
       id: "dropIn"
     }
-  }, [_vm._v("\r\n        " + _vm._s(_vm.dropIn()) + "\r\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n        " + _vm._s(_vm.dropIn()) + "\n      ")]) : _vm._e(), _vm._v(" "), _c("div", {
     staticClass: "d-flex justify-content-center"
   }, [_c("button", {
     staticClass: "btn btn-invia rounded mt-4 py-1 px-3 text-white font-bold",
@@ -3115,7 +3142,7 @@ var render = function render() {
         return _vm.confirmCta(_vm.inst);
       }
     }
-  }, [_vm._v("\r\n          Invia\r\n        ")])])]) : _vm._e()], 1);
+  }, [_vm._v("\n          Invia\n        ")])])]) : _vm._e()], 1);
 };
 
 var staticRenderFns = [];
@@ -3162,7 +3189,7 @@ var render = function render() {
     return _c("span", {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
-    }, [_vm._v("\r\n              " + _vm._s(category.name) + "\r\n            ")]);
+    }, [_vm._v("\n              " + _vm._s(category.name) + "\n            ")]);
   })], 2), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.address) + ", " + _vm._s(_vm.restaurant.zip))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.city) + ", " + _vm._s(_vm.restaurant.state))]), _vm._v(" "), _c("p", [_vm._v(_vm._s(_vm.restaurant.phone_number))])])]), _vm._v(" "), _c("main", {
     staticClass: "backgroundBig",
     attrs: {
@@ -3182,7 +3209,7 @@ var render = function render() {
         _vm.showMenu(), _vm.backgroundBig();
       }
     }
-  }, [_vm._v("\r\n            Menu\r\n          ")]), _vm._v(" "), _c("a", {
+  }, [_vm._v("\n            Menu\n          ")]), _vm._v(" "), _c("a", {
     "class": {
       activePage: _vm.switchPage == 2
     },
@@ -3194,7 +3221,7 @@ var render = function render() {
         _vm.showInfos(), _vm.backgroundSmall();
       }
     }
-  }, [_vm._v("\r\n            Info\r\n          ")])]), _vm._v(" "), _c("div", {
+  }, [_vm._v("\n            Info\n          ")])]), _vm._v(" "), _c("div", {
     staticClass: "categories-hidden",
     attrs: {
       id: "categories-top"
@@ -3224,7 +3251,7 @@ var render = function render() {
       attrs: {
         href: "#category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]);
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]);
   }), 0)]), _vm._v(" "), _c("div", {
     staticClass: "col-xl-6 col-sm-9 mx-auto"
   }, _vm._l(_vm.uniqueDishCategory, function (category, i) {
@@ -3236,7 +3263,7 @@ var render = function render() {
       attrs: {
         id: "category-" + category.id + "-redirect"
       }
-    }, [_vm._v("\r\n                " + _vm._s(category.name) + "\r\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
+    }, [_vm._v("\n                " + _vm._s(category.name) + "\n              ")]), _vm._v(" "), _vm._l(_vm.dishes, function (dish, i) {
       return category.id == dish.dishcategory_id ? _c("li", {
         key: i,
         staticClass: "dish-card flex-column flex-sm-row",
@@ -3271,7 +3298,7 @@ var render = function render() {
     return _c("div", {
       key: i,
       staticClass: "cart-item"
-    }, [_c("p", [_vm._v("\r\n                    " + _vm._s(item.name) + "\r\n                    "), _c("span", {
+    }, [_c("p", [_vm._v("\n                    " + _vm._s(item.name) + "\n                    "), _c("span", {
       attrs: {
         id: "quantity-cart-item-" + item.id
       }
@@ -3304,7 +3331,7 @@ var render = function render() {
           return _vm.removeFromCart(item.id);
         }
       }
-    }, [_vm._v("\r\n                      Rimuovi\r\n                    ")])])]);
+    }, [_vm._v("\n                      Rimuovi\n                    ")])])]);
   }), 0), _vm._v(" "), _c("div", {
     staticClass: "total-price"
   }, [_c("h3", {
@@ -3323,8 +3350,8 @@ var render = function render() {
         }
       }
     }
-  }, [_vm._v("\r\n                  Vai al Checkout\r\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
-    staticClass: "collapse dishes-bottom",
+  }, [_vm._v("\n                  Vai al Checkout\n                ")]) : _vm._e()], 1)])])]) : _vm._e(), _vm._v(" "), _vm.switchPage == 2 ? _c("OpeningDays") : _vm._e()], 1)]), _vm._v(" "), _vm.carrello != 0 ? _c("div", {
+    staticClass: "collapse dishes-bottom d-xl-none",
     attrs: {
       id: "collapseExample"
     }
@@ -3379,11 +3406,12 @@ var render = function render() {
           restaurant_id: _vm.restaurant.id,
           restaurant_name: _vm.restaurant.name,
           prezzo: _vm.prezzoTotale,
-          carrello: _vm.carrello
+          carrello: _vm.carrello,
+          piatti: _vm.cartSelectedDishes
         }
       }
     }
-  }, [_vm._v("\r\n            Vai al Checkout\r\n          ")]) : _vm._e()], 1)])])], 1);
+  }, [_vm._v("\n            Vai al Checkout\n          ")]) : _vm._e()], 1)])])], 1);
 };
 
 var staticRenderFns = [function () {
@@ -28425,7 +28453,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 75vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 47vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 26vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 57vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 66vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 51vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 88vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 14vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 19vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 13vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 49s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 15vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 25vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 79vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 15vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 23vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 32vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 32vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 18vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 80vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 19vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 10vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 100vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 16s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 12s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 17vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 62vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 41vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 10s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 10vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 3vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 22s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 60vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 63vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 9vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 21s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 80vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 38vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 11vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 76vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 22vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 21vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 19s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 35vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 50vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 62vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 25s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 64vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
+exports.push([module.i, ".bubbles[data-v-873eea0a] {\n  position: absolute;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  top: 0;\n  left: 0;\n}\n.bubble[data-v-873eea0a] {\n  position: absolute;\n  left: var(--bubble-left-offset);\n  bottom: -75%;\n  display: block;\n  width: var(--bubble-radius);\n  height: var(--bubble-radius);\n  border-radius: 50%;\n  -webkit-animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n          animation: float-up-873eea0a var(--bubble-float-duration) var(--bubble-float-delay) ease-in infinite;\n}\n.bubble[data-v-873eea0a]::before {\n  position: absolute;\n  content: \"\";\n  top: 0;\n  left: 0;\n  width: 100%;\n  height: 100%;\n  background: rgba(52, 192, 201, 0.5);\n  border-radius: inherit;\n  -webkit-animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n          animation: var(--bubble-sway-type) var(--bubble-sway-duration) var(--bubble-sway-delay) ease-in-out alternate infinite;\n}\n.bubble[data-v-873eea0a]:nth-child(0) {\n  --bubble-left-offset: 49vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(1) {\n  --bubble-left-offset: 5vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(2) {\n  --bubble-left-offset: 80vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(3) {\n  --bubble-left-offset: 23vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(4) {\n  --bubble-left-offset: 82vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(5) {\n  --bubble-left-offset: 9vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 33s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(6) {\n  --bubble-left-offset: 84vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(7) {\n  --bubble-left-offset: 31vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 26s;\n  --bubble-sway-duration: 7s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(8) {\n  --bubble-left-offset: 86vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(9) {\n  --bubble-left-offset: 29vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 30s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(10) {\n  --bubble-left-offset: 7vw;\n  --bubble-radius: 8vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(11) {\n  --bubble-left-offset: 71vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 35s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(12) {\n  --bubble-left-offset: 32vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(13) {\n  --bubble-left-offset: 90vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 34s;\n  --bubble-sway-duration: 5s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(14) {\n  --bubble-left-offset: 27vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(15) {\n  --bubble-left-offset: 30vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 48s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(16) {\n  --bubble-left-offset: 15vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(17) {\n  --bubble-left-offset: 89vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(18) {\n  --bubble-left-offset: 18vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(19) {\n  --bubble-left-offset: 44vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 38s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(20) {\n  --bubble-left-offset: 93vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(21) {\n  --bubble-left-offset: 21vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 23s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(22) {\n  --bubble-left-offset: 68vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 13s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(23) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 27s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(24) {\n  --bubble-left-offset: 80vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(25) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 20s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(26) {\n  --bubble-left-offset: 91vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 47s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(27) {\n  --bubble-left-offset: 88vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(28) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 45s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(29) {\n  --bubble-left-offset: 92vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 43s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(30) {\n  --bubble-left-offset: 45vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(31) {\n  --bubble-left-offset: 12vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(32) {\n  --bubble-left-offset: 78vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(33) {\n  --bubble-left-offset: 20vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(34) {\n  --bubble-left-offset: 21vw;\n  --bubble-radius: 3vw;\n  --bubble-float-duration: 31s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(35) {\n  --bubble-left-offset: 54vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 29s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(36) {\n  --bubble-left-offset: 74vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 39s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(37) {\n  --bubble-left-offset: 16vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(38) {\n  --bubble-left-offset: 75vw;\n  --bubble-radius: 9vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(39) {\n  --bubble-left-offset: 27vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 14s;\n  --bubble-sway-duration: 4s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(40) {\n  --bubble-left-offset: 70vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 50s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(41) {\n  --bubble-left-offset: 69vw;\n  --bubble-radius: 5vw;\n  --bubble-float-duration: 41s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(42) {\n  --bubble-left-offset: 39vw;\n  --bubble-radius: 2vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 8s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(43) {\n  --bubble-left-offset: 50vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 40s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(44) {\n  --bubble-left-offset: 80vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 44s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(45) {\n  --bubble-left-offset: 54vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 42s;\n  --bubble-sway-duration: 3s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(46) {\n  --bubble-left-offset: 54vw;\n  --bubble-radius: 1vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 9s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(47) {\n  --bubble-left-offset: 60vw;\n  --bubble-radius: 10vw;\n  --bubble-float-duration: 46s;\n  --bubble-sway-duration: 1s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(48) {\n  --bubble-left-offset: 100vw;\n  --bubble-radius: 6vw;\n  --bubble-float-duration: 17s;\n  --bubble-sway-duration: 2s;\n  --bubble-float-delay: 1s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-right-to-left;\n}\n.bubble[data-v-873eea0a]:nth-child(49) {\n  --bubble-left-offset: 43vw;\n  --bubble-radius: 4vw;\n  --bubble-float-duration: 18s;\n  --bubble-sway-duration: 6s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 1s;\n  --bubble-sway-type: sway-left-to-right;\n}\n.bubble[data-v-873eea0a]:nth-child(50) {\n  --bubble-left-offset: 0vw;\n  --bubble-radius: 7vw;\n  --bubble-float-duration: 15s;\n  --bubble-sway-duration: 10s;\n  --bubble-float-delay: 0s;\n  --bubble-sway-delay: 0s;\n  --bubble-sway-type: sway-left-to-right;\n}\n@-webkit-keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@keyframes float-up-873eea0a {\nto {\n    transform: translateY(-1000vh);\n}\n}\n@-webkit-keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@keyframes sway-left-to-right-873eea0a {\nfrom {\n    transform: translateX(-100%);\n}\nto {\n    transform: translateX(100%);\n}\n}\n@-webkit-keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}\n@keyframes sway-right-to-left-873eea0a {\nfrom {\n    transform: translateX(100%);\n}\nto {\n    transform: translateX(-100%);\n}\n}", ""]);
 
 // exports
 
@@ -46239,7 +46267,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\front.js */"./resources/js/front.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\front.js */"./resources/js/front.js");
 
 
 /***/ })

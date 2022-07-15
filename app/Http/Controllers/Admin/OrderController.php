@@ -126,9 +126,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        if(Auth::id() == $order->user_id){
+        if (Auth::id() == $order->user_id) {
             return view('admin.orders.show', compact('order'));
-        }else{
+        } else {
             return view('errors.notFound');
         }
     }
@@ -141,7 +141,7 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        if(Auth::id() == $order->user_id){
+        if (Auth::id() == $order->user_id) {
             $currentUserId = Auth::id();
             // Lista dei piatti del ristorante loggato
             $dishes = Dish::where('user_id', '=', $currentUserId)->get();
@@ -152,16 +152,15 @@ class OrderController extends Controller
                 if (!in_array($dish['dishcategory_id'], $dishcategoriesArray)) {
                     array_push($dishcategoriesArray, $dish['dishcategory_id']);
                 }
-        }
+            }
 
-        $dishcategories = Dishcategory::whereIn('id', $dishcategoriesArray)->get();
+            $dishcategories = Dishcategory::whereIn('id', $dishcategoriesArray)->get();
 
-        // Array con lista dei piatti dell'ordine
-        $dishesChecked = $order->Dishesorder->pluck('id')->toArray();
+            // Array con lista dei piatti dell'ordine
+            $dishesChecked = $order->Dishesorder->pluck('id')->toArray();
 
-        return view('admin.orders.edit', compact('order', 'dishes', 'dishcategories', 'dishesChecked'));
-        
-        }else{
+            return view('admin.orders.edit', compact('order', 'dishes', 'dishcategories', 'dishesChecked'));
+        } else {
             return view('errors.notFound');
         }
     }
