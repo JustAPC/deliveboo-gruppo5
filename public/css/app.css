@@ -11176,6 +11176,9 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   padding: 0px;
   margin: 5px, 2px, 5px, 2px;
 }
+.contenitoreRegistrazione #required-fields {
+  color: rgba(0, 0, 0, 0.9);
+}
 .contenitoreRegistrazione .barraRegister {
   display: flex;
   flex-direction: column;
@@ -11198,6 +11201,8 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   background-color: rgba(0, 153, 255, 0.168);
   border: 1px solid cyan;
   border-radius: 10px;
+  height: 40px;
+  padding-left: 10px;
 }
 .contenitoreRegistrazione .divRegister {
   width: 100%;
@@ -11224,6 +11229,14 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   right: -50%;
   top: 0;
   z-index: -1;
+}
+.contenitoreRegistrazione .image-remove-button {
+  color: black;
+  background-color: #78d04f;
+  padding: 10px 15px;
+}
+.contenitoreRegistrazione .formRegister input[type=text] {
+  height: 40px;
 }
 .contenitoreRegistrazione .bg2 {
   animation-direction: alternate-reverse;

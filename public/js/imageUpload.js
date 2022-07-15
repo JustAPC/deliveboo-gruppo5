@@ -17425,15 +17425,7 @@ function getImgData() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-<<<<<<< HEAD
 module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
-=======
-<<<<<<< HEAD
-module.exports = __webpack_require__(/*! C:\Users\PC GAMING\Desktop\progetto finale giusto\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
-=======
-module.exports = __webpack_require__(/*! C:\Users\david\Desktop\Progetto finale\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
->>>>>>> categorie-Davide
->>>>>>> 313c2ef4c79e5685fc1cfc2da02d0dde45f71a2d
 
 
 /***/ })
