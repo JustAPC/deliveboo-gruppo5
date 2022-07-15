@@ -33,6 +33,7 @@
         order: this.$route.params.ordine,
         restaurant_name: this.$route.params.restaurant_name,
         restaurant_email: this.$route.params.restaurant_email,
+        piatti: this.$route.params.piatti,
       };
     },
     components: { Loader },
@@ -96,6 +97,7 @@
               carrello: this.cart,
               restaurant_name: this.restaurant_name,
               restaurant_email: this.restaurant_email,
+              piatti: this.piatti,
             },
           });
         }, "5000");

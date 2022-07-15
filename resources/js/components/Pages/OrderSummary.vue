@@ -93,6 +93,7 @@
         ordine: this.$route.params.ordine,
         restaurant_name: this.$route.params.restaurant_name,
         restaurant_email: this.$route.params.restaurant_email,
+        piatti: this.$route.params.piatti,
         switchPage: 1,
       };
     },
@@ -116,6 +117,7 @@
             payment_received: this.ordine.payment_received,
             total_price: this.ordine.total_price,
             customer_phone: this.ordine.customer_phone,
+            piatti: this.piatti,
           })
           .then((res) => {
             console.log(res);

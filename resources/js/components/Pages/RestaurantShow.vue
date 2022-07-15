@@ -134,6 +134,7 @@
                       prezzo: prezzoTotale,
                       carrello: carrello,
                       restaurant_email: restaurant.email,
+                      piatti: cartSelectedDishes,
                     },
                   }"
                   v-if="carrello.length"

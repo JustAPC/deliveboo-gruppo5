@@ -127,6 +127,7 @@
                     carrello: carrello,
                     restaurant_name: restaurant_name,
                     restaurant_email: restaurant_email,
+                    piatti: piatti,
                   },
                 }"
                 class="btn btn-primary disabled"
@@ -189,6 +190,7 @@
           total_price: this.$route.params.prezzo.toFixed(2),
           user_id: this.$route.params.restaurant_id,
         },
+        piatti: this.$route.params.piatti,
         carrello: this.$route.params.carrello,
         restaurant_name: this.$route.params.restaurant_name,
         restaurant_email: this.$route.params.restaurant_email,

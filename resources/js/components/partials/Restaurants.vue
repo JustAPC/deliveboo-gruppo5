@@ -1,34 +1,30 @@
 <template>
   <div>
-    <div class="container pt-5"></div>
-
     <div class="container-fluid pt-5">
-      <div class="drop-down-menu mb-10 d-flex flex-column ">
-        <div class="pl-5">
+      <div class="drop-down-menu mb-10 d-flex flex-column">
+        <div class="pl-5 text-center">
           <button
             @click="setActive()"
             :class="active ? 'text-white' : ''"
-            class="font-bold py-1 px-3 mb-3 border-2 button-colors rounded"
+            class="font-bold py-1 px-3 my-5 border-2 button-colors rounded"
           >
             Categorie
           </button>
         </div>
-        <div class="w-100">
-          <div v-if="active" class="bg-color-full testimonial-group">
-            <ul class="ks-cboxtags text-stone-500 row">
-              <li v-for="type in types" :key="type.id" class="col-6 col-sm-4 col-md-3 col-lg-2">
-                <input
-                  type="checkbox"
-                  @change="check($event)"
-                  v-model="checkedTypes"
-                  :value="type.id"
-                  :id="type.name"
-                />
+        <div v-if="active" class="col-xl-10 col-12 mx-auto bg-color-full mt-2 mb-5">
+          <ul class="ks-cboxtags text-stone-500 row m-0">
+            <li v-for="type in types" :key="type.id" class="col-6 col-sm-4 col-md-3 col-lg-2">
+              <input
+                type="checkbox"
+                @change="check($event)"
+                v-model="checkedTypes"
+                :value="type.id"
+                :id="type.name"
+              />
 
-                <label :for="type.name" class="justify-content-center">{{ type.name }}</label>
-              </li>
-            </ul>
-          </div>
+              <label :for="type.name" class="justify-content-center">{{ type.name }}</label>
+            </li>
+          </ul>
         </div>
       </div>
       <div class="row justify-content-center">
@@ -127,6 +123,7 @@
     background-color: #34c0c9;
     color: white;
     border: 0;
+    font-size: 1.5rem;
   }
   .restaurant-card {
     transition: transform 350ms;
@@ -147,8 +144,16 @@
     z-index: 3;
   }
   .bg-color-full {
-    background-color: white;
+    background-color: #78d04f;
     border-radius: 1.3rem !important;
+    .row {
+      display: block;
+      overflow-x: scroll;
+      white-space: nowrap;
+      li {
+        display: inline-block;
+      }
+    }
   }
 
   .drop-down-menu button {
@@ -195,13 +200,13 @@
   .ks-cboxtags::-webkit-scrollbar {
     width: 10px;
     height: 10px;
-    }
+  }
   .ks-cboxtags::-webkit-scrollbar-track {
     border-radius: 10px;
-}
+  }
   .ks-cboxtags::-webkit-scrollbar-thumb {
     border-radius: 10px;
-}
+  }
 
   ul.ks-cboxtags li label {
     display: flex;
@@ -258,17 +263,4 @@
   ul.ks-cboxtags li input[type="checkbox"]:focus + label {
     border: 2px solid rgba(68, 0, 99, 0.6);
   }
-
-// Effetto overflow del dropdown
-.testimonial-group {
-  .row {
-  display: block;
-  overflow-x: scroll;
-  white-space: nowrap;
-    li{
-        display: inline-block;
-    }
-  }
-}
-
 </style>
