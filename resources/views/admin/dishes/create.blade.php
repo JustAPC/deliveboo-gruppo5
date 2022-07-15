@@ -101,7 +101,7 @@
             <div class="form-row d-flex align-items-center">
                 <div class="form-group col-md-4 my-5">
                     <input id="myfiles" name="image" type="file" accept="image/*">
-                    <button id="file_remove" class="btn btn-outline-deliveboo mt-3" disabled>Rimuovi</button>
+                    <button id="file_remove" class="btn btn-orange mt-3" disabled>Rimuovi</button>
                     <div id="img-preview" class="pt-5"></div>
                 </div>
                 <div class="form-group col-md-8">
@@ -112,7 +112,7 @@
 
             {{-- submit button --}}
             <div class="form-group mt-5 d-flex justify-content-center">
-                <button type="submit" class="btn btn-deliveboo w-25 h-75">Invia</button>
+                <button type="submit" class="btn btn-orange w-25 h-75">Invia</button>
             </div>
 
         </form>

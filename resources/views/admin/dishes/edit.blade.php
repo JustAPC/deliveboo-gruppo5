@@ -18,14 +18,16 @@
         </div>
     @endif
 
-
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
 
     <div class="container mt-5 pt-5 ">
 
         <h1 class="mb-5 pt-5">Modifica il piatto</h1>
 
-        <form action="{{ route('admin.dishes.update', $dish->id) }}" method="POST" enctype="multipart/form-data" class="needs-validation"
-            novalidate>
+        <form action="{{ route('admin.dishes.update', $dish->id) }}" method="POST" enctype="multipart/form-data"
+            class="needs-validation" novalidate>
             @csrf
             @method('PUT')
             {{-- Riga nome --}}
@@ -47,8 +49,8 @@
                 </div>
 
                 <div class="form-group floating col-md-8">
-                    <input type="text" id="ingredients" name="ingredients" required value="{{ old('ingredients', $dish->ingredients) }}"
-                        class="form-control floating">
+                    <input type="text" id="ingredients" name="ingredients" required
+                        value="{{ old('ingredients', $dish->ingredients) }}" class="form-control floating">
                     <div class="invalid-feedback">
                         Inserisci gli ingredienti
                     </div>
@@ -64,8 +66,8 @@
                 </div>
 
                 <div class="form-group floating col-md-2">
-                    <input type="number" step=".01" id="price" name="price" required value="{{ old('price', $dish->price) }}"
-                        class="form-control floating">
+                    <input type="number" step=".01" id="price" name="price" required
+                        value="{{ old('price', $dish->price) }}" class="form-control floating">
                     <div class="invalid-feedback">
                         Inserisci il prezzo
                     </div>
@@ -76,8 +78,8 @@
             {{-- riga descrizione + categoria piatto --}}
             <div class="form-row">
                 <div class="form-group floating col-md-8">
-                    <input type="text" id="description" name="description" value="{{ old('description', $dish->description) }}"
-                        class="form-control floating">
+                    <input type="text" id="description" name="description"
+                        value="{{ old('description', $dish->description) }}" class="form-control floating">
                     <label for="description">Descrizione:</label>
                 </div>
 
@@ -85,16 +87,16 @@
                     <select name="dishcategory_id" id="dishcategory_id" class="form-control floating" required>
                         <option disabled selected value="">Scegli una categoria...</option>
                         @foreach ($dishcategories as $category)
-                        <option @if (old('dishcategory_id', $dish->dishcategory_id) == $category->id) selected @endif value="{{ $category->id }}">
-                            {{ $category->name }}
-                        </option>
+                            <option @if (old('dishcategory_id', $dish->dishcategory_id) == $category->id) selected @endif value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
                         @endforeach
                     </select>
                     <div class="invalid-feedback">
                         Seleziona una categoria
                     </div>
 
-                    
+
                 </div>
             </div>
 
@@ -102,7 +104,7 @@
             <div class="form-row d-flex align-items-center">
                 <div class="form-group col-md-4">
                     <input id="myfiles" name="image" type="file" accept="image/*">
-                    <button id="file_remove" class="btn btn-outline-deliveboo mt-3" disabled>Rimuovi</button>
+                    <button id="file_remove" class="btn btn-orange mt-3" disabled>Rimuovi</button>
                     <div id="img-preview" class="pt-5"></div>
                 </div>
                 <div class="form-group col-md-8">
@@ -113,7 +115,7 @@
 
             {{-- submit button --}}
             <div class="form-group mt-5 d-flex justify-content-center">
-                <button type="submit" class="btn btn-deliveboo w-25 h-75">Invia</button>
+                <button type="submit" class="btn btn-orange w-25 h-75">Invia</button>
             </div>
 
         </form>
