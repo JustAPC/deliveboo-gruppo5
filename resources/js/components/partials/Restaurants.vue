@@ -3,7 +3,7 @@
     <div class="container pt-5"></div>
 
     <div class="container-fluid pt-5">
-      <div class="drop-down-menu mb-10 d-flex justify-content-between">
+      <div class="drop-down-menu mb-10 d-flex flex-column ">
         <div class="pl-5">
           <button
             @click="setActive()"
@@ -13,10 +13,10 @@
             Categorie
           </button>
         </div>
-        <div class="w-75 pr-5">
-          <div v-if="active" class="bg-color-full">
-            <ul class="ks-cboxtags text-stone-500">
-              <li v-for="type in types" :key="type.id">
+        <div class="w-100">
+          <div v-if="active" class="bg-color-full testimonial-group">
+            <ul class="ks-cboxtags text-stone-500 row">
+              <li v-for="type in types" :key="type.id" class="col-6 col-sm-4 col-md-3 col-lg-2">
                 <input
                   type="checkbox"
                   @change="check($event)"
@@ -25,7 +25,7 @@
                   :id="type.name"
                 />
 
-                <label :for="type.name">{{ type.name }}</label>
+                <label :for="type.name" class="justify-content-center">{{ type.name }}</label>
               </li>
             </ul>
           </div>
@@ -191,6 +191,17 @@
     flex-wrap: wrap;
     gap: 20px;
   }
+  // Modifico la scrollbar nel dropdown
+  .ks-cboxtags::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    }
+  .ks-cboxtags::-webkit-scrollbar-track {
+    border-radius: 10px;
+}
+  .ks-cboxtags::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+}
 
   ul.ks-cboxtags li label {
     display: flex;
@@ -247,4 +258,17 @@
   ul.ks-cboxtags li input[type="checkbox"]:focus + label {
     border: 2px solid rgba(68, 0, 99, 0.6);
   }
+
+// Effetto overflow del dropdown
+.testimonial-group {
+  .row {
+  display: block;
+  overflow-x: scroll;
+  white-space: nowrap;
+    li{
+        display: inline-block;
+    }
+  }
+}
+
 </style>

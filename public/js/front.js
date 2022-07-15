@@ -3784,7 +3784,7 @@ var render = function render() {
   }), _vm._v(" "), _c("div", {
     staticClass: "container-fluid pt-5"
   }, [_c("div", {
-    staticClass: "drop-down-menu mb-10 d-flex justify-content-between"
+    staticClass: "drop-down-menu mb-10 d-flex flex-column"
   }, [_c("div", {
     staticClass: "pl-5"
   }, [_c("button", {
@@ -3796,14 +3796,15 @@ var render = function render() {
       }
     }
   }, [_vm._v("\r\n            Categorie\r\n          ")])]), _vm._v(" "), _c("div", {
-    staticClass: "w-75 pr-5"
+    staticClass: "w-100"
   }, [_vm.active ? _c("div", {
-    staticClass: "bg-color-full"
+    staticClass: "bg-color-full testimonial-group"
   }, [_c("ul", {
-    staticClass: "ks-cboxtags text-stone-500"
+    staticClass: "ks-cboxtags text-stone-500 row"
   }, _vm._l(_vm.types, function (type) {
     return _c("li", {
-      key: type.id
+      key: type.id,
+      staticClass: "col-6 col-sm-4 col-md-3 col-lg-2"
     }, [_c("input", {
       directives: [{
         name: "model",
@@ -3842,6 +3843,7 @@ var render = function render() {
         }]
       }
     }), _vm._v(" "), _c("label", {
+      staticClass: "justify-content-center",
       attrs: {
         "for": type.name
       }
@@ -28529,7 +28531,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\na[data-v-1370f4f8]:hover {\n  text-decoration: none;\n}\na:hover .card-title[data-v-1370f4f8] {\n  color: #34c0c9;\n  text-decoration: underline;\n}\n.button-colors[data-v-1370f4f8] {\n  background-color: #34c0c9;\n  color: white;\n  border: 0;\n}\n.restaurant-card[data-v-1370f4f8] {\n  transition: transform 350ms;\n}\n.restaurant-card div[data-v-1370f4f8] {\n  color: black;\n}\n.restaurant-card[data-v-1370f4f8]:hover {\n  transform: scale(1.1);\n  transition: transform 150ms;\n  box-shadow: 0px 0px 25px #34c0c9;\n}\n.drop-down-menu[data-v-1370f4f8] {\n  z-index: 3;\n}\n.bg-color-full[data-v-1370f4f8] {\n  background-color: white;\n  border-radius: 1.3rem !important;\n}\n.drop-down-menu button[data-v-1370f4f8] {\n  transition: all 0.3s ease-in-out;\n}\n.drop-down-menu div[data-v-1370f4f8] {\n  -webkit-animation: opacity-1370f4f8 0.5s linear;\n          animation: opacity-1370f4f8 0.5s linear;\n}\n.drop-down-menu li[data-v-1370f4f8] {\n  transition: transform 250ms;\n}\n.drop-down-menu li[data-v-1370f4f8]:hover {\n  transition: transform 250ms;\n  transform: translateY(-6px);\n}\n@-webkit-keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\nul.ks-cboxtags[data-v-1370f4f8] {\n  list-style: none;\n  padding: 20px;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 20px;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  display: flex;\n  align-items: center;\n  background-color: rgba(255, 255, 255, 0.9);\n  border: 2px solid rgba(139, 139, 139, 0.3);\n  border-radius: 25px;\n  white-space: nowrap;\n  margin: 3px 0px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  padding: 8px 12px;\n  cursor: pointer;\n}\nul.ks-cboxtags li label[data-v-1370f4f8]::before {\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  font-weight: 900;\n  font-size: 12px;\n  padding: 2px 6px 2px 2px;\n  content: \"\\292B\";\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8]::before {\n  content: \"\\2713\";\n  transform: rotate(-360deg);\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8] {\n  border: 2px solid #440063;\n  background-color: #00ccbc;\n  color: #fff;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  display: absolute;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  position: absolute;\n  opacity: 0;\n}\nul.ks-cboxtags li input[type=checkbox]:focus + label[data-v-1370f4f8] {\n  border: 2px solid rgba(68, 0, 99, 0.6);\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\na[data-v-1370f4f8]:hover {\n  text-decoration: none;\n}\na:hover .card-title[data-v-1370f4f8] {\n  color: #34c0c9;\n  text-decoration: underline;\n}\n.button-colors[data-v-1370f4f8] {\n  background-color: #34c0c9;\n  color: white;\n  border: 0;\n}\n.restaurant-card[data-v-1370f4f8] {\n  transition: transform 350ms;\n}\n.restaurant-card div[data-v-1370f4f8] {\n  color: black;\n}\n.restaurant-card[data-v-1370f4f8]:hover {\n  transform: scale(1.1);\n  transition: transform 150ms;\n  box-shadow: 0px 0px 25px #34c0c9;\n}\n.drop-down-menu[data-v-1370f4f8] {\n  z-index: 3;\n}\n.bg-color-full[data-v-1370f4f8] {\n  background-color: white;\n  border-radius: 1.3rem !important;\n}\n.drop-down-menu button[data-v-1370f4f8] {\n  transition: all 0.3s ease-in-out;\n}\n.drop-down-menu div[data-v-1370f4f8] {\n  -webkit-animation: opacity-1370f4f8 0.5s linear;\n          animation: opacity-1370f4f8 0.5s linear;\n}\n.drop-down-menu li[data-v-1370f4f8] {\n  transition: transform 250ms;\n}\n.drop-down-menu li[data-v-1370f4f8]:hover {\n  transition: transform 250ms;\n  transform: translateY(-6px);\n}\n@-webkit-keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\nul.ks-cboxtags[data-v-1370f4f8] {\n  list-style: none;\n  padding: 20px;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 20px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar {\n  width: 10px;\n  height: 10px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar-track {\n  border-radius: 10px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar-thumb {\n  border-radius: 10px;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  display: flex;\n  align-items: center;\n  background-color: rgba(255, 255, 255, 0.9);\n  border: 2px solid rgba(139, 139, 139, 0.3);\n  border-radius: 25px;\n  white-space: nowrap;\n  margin: 3px 0px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  padding: 8px 12px;\n  cursor: pointer;\n}\nul.ks-cboxtags li label[data-v-1370f4f8]::before {\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  font-weight: 900;\n  font-size: 12px;\n  padding: 2px 6px 2px 2px;\n  content: \"\\292B\";\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8]::before {\n  content: \"\\2713\";\n  transform: rotate(-360deg);\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8] {\n  border: 2px solid #440063;\n  background-color: #00ccbc;\n  color: #fff;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  display: absolute;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  position: absolute;\n  opacity: 0;\n}\nul.ks-cboxtags li input[type=checkbox]:focus + label[data-v-1370f4f8] {\n  border: 2px solid rgba(68, 0, 99, 0.6);\n}\n.testimonial-group .row[data-v-1370f4f8] {\n  display: block;\n  overflow-x: scroll;\n  white-space: nowrap;\n}\n.testimonial-group .row li[data-v-1370f4f8] {\n  display: inline-block;\n}", ""]);
 
 // exports
 
