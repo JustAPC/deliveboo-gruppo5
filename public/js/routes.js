@@ -3721,13 +3721,13 @@ var render = function render() {
           }
         }
       }
-    }, [_c("img", {
+    }, [restaurant.restaurant_img ? _c("img", {
       staticClass: "card-img-top img-fluid pt-2",
       attrs: {
         src: restaurant.restaurant_img,
         alt: "..."
       }
-    }), _vm._v(" "), _c("div", {
+    }) : _vm._e(), _vm._v(" "), _c("div", {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
