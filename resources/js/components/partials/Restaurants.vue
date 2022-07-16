@@ -16,7 +16,7 @@
             <li v-for="type in types" :key="type.id" class="col-6 col-sm-4 col-md-3 col-lg-2">
               <input
                 type="checkbox"
-                @change="check($event)"
+                @change="check($event), filtroJava(type.id)"
                 v-model="checkedTypes"
                 :value="type.id"
                 :id="type.name"
@@ -28,9 +28,10 @@
         </div>
       </div>
       <div class="row justify-content-center">
+        
         <div
           class="card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
-          v-for="restaurant in restaurants"
+          v-for="restaurant in arrayRistoranti"
           :key="restaurant.id"
         >
           <router-link :to="{ name: 'restaurant-show', params: { id: restaurant.id } }">
@@ -76,6 +77,16 @@
         restaurants: [],
         checkedTypes: [],
         active: false,
+        idRestaurants: [],
+        idPonte: [],
+        filter: [],
+        removeType: "",
+        infoRestaurant: [],
+        valorePonte: [],
+        restaurantFiltrati: [],
+        arrayRistoranti: [],
+        stato: true,
+        
       };
     },
     methods: {
@@ -84,6 +95,7 @@
           const { restaurants, types } = res.data;
           this.restaurants = restaurants;
           this.types = types;
+          this.arrayRistoranti = this.restaurants;
         });
       },
       typeFiltering(type) {
@@ -106,7 +118,75 @@
         } else {
           this.typeFiltering(this.checkedTypes);
         }
-      },
+      },inizio(){
+        this.arrayRistoranti = this.restaurants
+        console.log(this.arrayRistoranti)
+        
+      },filtroJava(idTipo){
+      
+      //creiamo un array degli id dei tipi che risponda ai cambiamenti
+      if(this.filter.includes(idTipo) == false){
+        this.filter.push(idTipo)
+      } else {
+       this.removeType = this.filter.indexOf(idTipo);
+       this.filter.splice(this.removeType, 1)
+      }
+      
+     // console.log(this.filter) //funziona
+
+      //creiamo un array coi nomi e gli id dei ristoranti
+      this.restaurants.forEach(element => {
+        this.valorePonte = [];
+        this.valorePonte.push(element.name)
+        element.users_type.forEach(singolo => {
+          this.valorePonte.push(singolo.id)
+        });
+        this.infoRestaurant.push(this.valorePonte)
+      });
+      
+     // console.log(this.infoRestaurant) //funziona
+      
+      //creiamo un array filtrata che racchiuda i nomi dei ristoranti
+      //che non hanno almeno uno dei filter
+      this.restaurantFiltrati = 0;
+      this.restaurantFiltrati = [];
+      if(this.filter.length > 1){
+        this.filter.forEach(element => {
+          this.infoRestaurant.forEach(item => {
+            if((item.includes(element) == false) && (this.restaurantFiltrati.includes(item[0]) == false )){
+              this.restaurantFiltrati.push(item[0])
+            }
+          });
+        });
+      } else {
+        this.infoRestaurant.forEach(item => {
+            if((item.includes(this.filter[0]) == false) && (this.restaurantFiltrati.includes(item[0]) == false )){
+              this.restaurantFiltrati.push(item[0])
+            }
+          });
+      }
+      //creiamo la lista vera e propria
+      this.arrayRistoranti = 0;
+      this.arrayRistoranti = [];
+      
+      this.restaurants.forEach(element => {
+        this.stato = true;
+        this.restaurantFiltrati.forEach(item => {
+          if(element.name == item){
+            this.stato = false;
+          }
+        });
+        if(this.stato == true){
+          this.arrayRistoranti.push(element)
+        }
+        
+      });
+     console.log(this.arrayRistoranti);
+    
+
+
+    },
+
       setActive() {
         this.active = !this.active;
       },
