@@ -182,7 +182,7 @@
         
       });
      console.log(this.arrayRistoranti);
-    
+     window.scroll(0,1000)
 
 
     },

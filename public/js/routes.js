@@ -2580,6 +2580,7 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       console.log(this.arrayRistoranti);
+      window.scroll(0, 1000);
     },
     setActive: function setActive() {
       this.active = !this.active;
