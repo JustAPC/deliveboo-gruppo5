@@ -2578,6 +2578,7 @@ __webpack_require__.r(__webpack_exports__);
       }); // console.log(this.infoRestaurant) //funziona
       //creiamo un array filtrata che racchiuda i nomi dei ristoranti
       //che non hanno almeno uno dei filter
+      //azzeriamo a ogni ciclo l'array
 
       this.restaurantFiltrati = 0;
       this.restaurantFiltrati = [];
@@ -2596,7 +2597,9 @@ __webpack_require__.r(__webpack_exports__);
             _this3.restaurantFiltrati.push(item[0]);
           }
         });
-      } //creiamo la lista vera e propria
+      } // console.log(this.restaurantFiltrati) // funziona
+      //creiamo la lista vera e propria
+      //azzeriamo a ogni ciclo l'array
 
 
       this.arrayRistoranti = 0;
@@ -2613,9 +2616,10 @@ __webpack_require__.r(__webpack_exports__);
         if (_this3.stato == true) {
           _this3.arrayRistoranti.push(element);
         }
-      });
-      console.log(this.arrayRistoranti);
-      window.scroll(0, 1000);
+      }); // console.log(this.arrayRistoranti); // funziona
+      //facciamo in modo che centri i piatti e che non torni su il punto di vista
+
+      window.scroll(0, 800);
     },
     setActive: function setActive() {
       this.active = !this.active;

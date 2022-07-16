@@ -148,6 +148,7 @@
       
       //creiamo un array filtrata che racchiuda i nomi dei ristoranti
       //che non hanno almeno uno dei filter
+      //azzeriamo a ogni ciclo l'array
       this.restaurantFiltrati = 0;
       this.restaurantFiltrati = [];
       if(this.filter.length > 1){
@@ -165,7 +166,11 @@
             }
           });
       }
+     // console.log(this.restaurantFiltrati) // funziona
+
+
       //creiamo la lista vera e propria
+      //azzeriamo a ogni ciclo l'array
       this.arrayRistoranti = 0;
       this.arrayRistoranti = [];
       
@@ -181,8 +186,11 @@
         }
         
       });
-     console.log(this.arrayRistoranti);
-     window.scroll(0,1000)
+
+    // console.log(this.arrayRistoranti); // funziona
+
+    //facciamo in modo che centri i piatti e che non torni su il punto di vista
+     window.scroll(0,800)
 
 
     },
