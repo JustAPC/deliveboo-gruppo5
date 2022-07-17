@@ -44,7 +44,7 @@
               alt="..."
             />
             <div class="card-body">
-              <h5 class="card-title">{{ restaurant.name }}</h5>
+              <h5 class="card-title">{{ restaurant.restaurant_name }}</h5>
               <p v-for="type in restaurants.users_type" :key="type.id" class="card-text">
                 {{ type.name }}
               </p>

@@ -3277,7 +3277,7 @@ var render = function render() {
     staticClass: "restaurant-infos"
   }, [_c("div", {
     staticClass: "text-center"
-  }, [_c("h2", [_vm._v(_vm._s(_vm.restaurant.name))]), _vm._v(" "), _vm._l(_vm.restaurant.users_type, function (category) {
+  }, [_c("h2", [_vm._v(_vm._s(_vm.restaurant.restaurant_name))]), _vm._v(" "), _vm._l(_vm.restaurant.users_type, function (category) {
     return _c("span", {
       key: category.id,
       staticClass: "badge badge-pill badge-primary mx-2 mb-4"
@@ -3886,7 +3886,7 @@ var render = function render() {
         return _vm.setActive();
       }
     }
-  }, [_vm._v("\r\n            Categorie\r\n          ")])]), _vm._v(" "), _vm.active ? _c("div", {
+  }, [_vm._v("\n            Categorie\n          ")])]), _vm._v(" "), _vm.active ? _c("div", {
     staticClass: "col-xl-10 px-0 col-12 mx-auto bg-color-full mt-2 mb-5"
   }, [_c("ul", {
     staticClass: "ks-cboxtags text-stone-500 row m-0"
@@ -3969,14 +3969,14 @@ var render = function render() {
       staticClass: "card-body"
     }, [_c("h5", {
       staticClass: "card-title"
-    }, [_vm._v(_vm._s(restaurant.name))]), _vm._v(" "), _vm._l(_vm.restaurants.users_type, function (type) {
+    }, [_vm._v(_vm._s(restaurant.restaurant_name))]), _vm._v(" "), _vm._l(_vm.restaurants.users_type, function (type) {
       return _c("p", {
         key: type.id,
         staticClass: "card-text"
-      }, [_vm._v("\r\n                " + _vm._s(type.name) + "\r\n              ")]);
+      }, [_vm._v("\n                " + _vm._s(type.name) + "\n              ")]);
     }), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\r\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\r\n              ")]), _vm._v(" "), _c("p", {
+    }, [_vm._v("\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\n              ")]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_c("small", {
       staticClass: "text-muted"

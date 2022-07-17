@@ -9,7 +9,7 @@
       >
         <div class="restaurant-infos">
           <div class="text-center">
-            <h2>{{ restaurant.name }}</h2>
+            <h2>{{ restaurant.restaurant_name }}</h2>
             <span
               v-for="category in restaurant.users_type"
               :key="category.id"
