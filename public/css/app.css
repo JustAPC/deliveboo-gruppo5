@@ -11298,6 +11298,11 @@ body.swal2-toast-shown .swal2-container.swal2-bottom-end, body.swal2-toast-shown
   align-items: center;
   position: relative;
 }
+.contenitoreRegistrazione input::-webkit-outer-spin-button,
+.contenitoreRegistrazione input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
 .contenitoreRegistrazione .titoloRegistrazione {
   font-weight: bold;
   color: white;
