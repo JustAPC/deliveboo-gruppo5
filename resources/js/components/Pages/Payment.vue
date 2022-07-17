@@ -7,9 +7,10 @@
         {{ dropIn() }}
       </div>
 
+      <h2 class="text-center mt-5 text-deliveboo">Stai pagando € {{ total_price }}</h2>
       <div class="d-flex justify-content-center">
         <button
-          class="btn btn-invia rounded mt-4 py-1 px-3 text-white font-bold"
+          class="btn btn-invia rounded mt-3 py-1 px-3 text-white font-bold"
           @click="confirmCta(inst)"
         >
           Invia
@@ -34,6 +35,7 @@
         restaurant_name: this.$route.params.restaurant_name,
         restaurant_email: this.$route.params.restaurant_email,
         piatti: this.$route.params.piatti,
+        total_price: this.$route.params.ordine.total_price,
       };
     },
     components: { Loader },
