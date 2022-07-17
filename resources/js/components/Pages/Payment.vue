@@ -7,7 +7,7 @@
         {{ dropIn() }}
       </div>
 
-      <h2 class="text-center mt-5 text-deliveboo">Stai pagando € {{total_price_payment}}</h2>
+      <h2 class="text-center mt-4 text-deliveboo">Stai pagando € {{total_price_payment}}</h2>
 
       <div class="d-flex justify-content-center">
         <button
