@@ -11,9 +11,9 @@
             Categorie
           </button>
         </div>
-        <div v-if="active" class="col-xl-10 col-12 mx-auto bg-color-full mt-2 mb-5">
+        <div v-if="active" class="col-xl-10 px-0 col-12 mx-auto bg-color-full mt-2 mb-5">
           <ul class="ks-cboxtags text-stone-500 row m-0">
-            <li v-for="type in types" :key="type.id" class="col-6 col-sm-4 col-md-3 col-lg-2">
+            <li v-for="type in types" :key="type.id" class="col-8 col-sm-4 col-md-3 col-lg-2">
               <input
                 type="checkbox"
                 @change="check($event), filtroJava(type.id)"
@@ -28,7 +28,9 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        
+        <p v-if="arrayRistoranti.length < 1" class="ifNiente">
+          Non ci sono ristoranti con le categorie selezionate
+        </p>
         <div
           class="card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
           v-for="restaurant in arrayRistoranti"
@@ -86,7 +88,6 @@
         restaurantFiltrati: [],
         arrayRistoranti: [],
         stato: true,
-        
       };
     },
     methods: {
@@ -118,82 +119,84 @@
         } else {
           this.typeFiltering(this.checkedTypes);
         }
-      },inizio(){
-        this.arrayRistoranti = this.restaurants
-        console.log(this.arrayRistoranti)
-        
-      },filtroJava(idTipo){
-      
-      //creiamo un array degli id dei tipi che risponda ai cambiamenti
-      if(this.filter.includes(idTipo) == false){
-        this.filter.push(idTipo)
-      } else {
-       this.removeType = this.filter.indexOf(idTipo);
-       this.filter.splice(this.removeType, 1)
-      }
-      
-     // console.log(this.filter) //funziona
+      },
+      inizio() {
+        this.arrayRistoranti = this.restaurants;
+        console.log(this.arrayRistoranti);
+      },
+      filtroJava(idTipo) {
+        //creiamo un array degli id dei tipi che risponda ai cambiamenti
+        if (this.filter.includes(idTipo) == false) {
+          this.filter.push(idTipo);
+        } else {
+          this.removeType = this.filter.indexOf(idTipo);
+          this.filter.splice(this.removeType, 1);
+        }
 
-      //creiamo un array coi nomi e gli id dei ristoranti
-      this.restaurants.forEach(element => {
-        this.valorePonte = [];
-        this.valorePonte.push(element.name)
-        element.users_type.forEach(singolo => {
-          this.valorePonte.push(singolo.id)
+        // console.log(this.filter) //funziona
+
+        //creiamo un array coi nomi e gli id dei ristoranti
+        this.restaurants.forEach((element) => {
+          this.valorePonte = [];
+          this.valorePonte.push(element.name);
+          element.users_type.forEach((singolo) => {
+            this.valorePonte.push(singolo.id);
+          });
+          this.infoRestaurant.push(this.valorePonte);
         });
-        this.infoRestaurant.push(this.valorePonte)
-      });
-      
-     // console.log(this.infoRestaurant) //funziona
-      
-      //creiamo un array filtrata che racchiuda i nomi dei ristoranti
-      //che non hanno almeno uno dei filter
-      //azzeriamo a ogni ciclo l'array
-      this.restaurantFiltrati = 0;
-      this.restaurantFiltrati = [];
-      if(this.filter.length > 1){
-        this.filter.forEach(element => {
-          this.infoRestaurant.forEach(item => {
-            if((item.includes(element) == false) && (this.restaurantFiltrati.includes(item[0]) == false )){
-              this.restaurantFiltrati.push(item[0])
+
+        // console.log(this.infoRestaurant) //funziona
+
+        //creiamo un array filtrata che racchiuda i nomi dei ristoranti
+        //che non hanno almeno uno dei filter
+        //azzeriamo a ogni ciclo l'array
+        this.restaurantFiltrati = 0;
+        this.restaurantFiltrati = [];
+        if (this.filter.length > 1) {
+          this.filter.forEach((element) => {
+            this.infoRestaurant.forEach((item) => {
+              if (
+                item.includes(element) == false &&
+                this.restaurantFiltrati.includes(item[0]) == false
+              ) {
+                this.restaurantFiltrati.push(item[0]);
+              }
+            });
+          });
+        } else {
+          this.infoRestaurant.forEach((item) => {
+            if (
+              item.includes(this.filter[0]) == false &&
+              this.restaurantFiltrati.includes(item[0]) == false
+            ) {
+              this.restaurantFiltrati.push(item[0]);
             }
           });
-        });
-      } else {
-        this.infoRestaurant.forEach(item => {
-            if((item.includes(this.filter[0]) == false) && (this.restaurantFiltrati.includes(item[0]) == false )){
-              this.restaurantFiltrati.push(item[0])
+        }
+        // console.log(this.restaurantFiltrati) // funziona
+
+        //creiamo la lista vera e propria
+        //azzeriamo a ogni ciclo l'array
+        this.arrayRistoranti = 0;
+        this.arrayRistoranti = [];
+
+        this.restaurants.forEach((element) => {
+          this.stato = true;
+          this.restaurantFiltrati.forEach((item) => {
+            if (element.name == item) {
+              this.stato = false;
             }
           });
-      }
-     // console.log(this.restaurantFiltrati) // funziona
-
-
-      //creiamo la lista vera e propria
-      //azzeriamo a ogni ciclo l'array
-      this.arrayRistoranti = 0;
-      this.arrayRistoranti = [];
-      
-      this.restaurants.forEach(element => {
-        this.stato = true;
-        this.restaurantFiltrati.forEach(item => {
-          if(element.name == item){
-            this.stato = false;
+          if (this.stato == true) {
+            this.arrayRistoranti.push(element);
           }
         });
-        if(this.stato == true){
-          this.arrayRistoranti.push(element)
-        }
-        
-      });
 
-    // console.log(this.arrayRistoranti); // funziona
+        // console.log(this.arrayRistoranti); // funziona
 
-    //facciamo in modo che centri i piatti e che non torni su il punto di vista
-     window.scroll(0,800)
-
-
-    },
+        //facciamo in modo che centri i piatti e che non torni su il punto di vista
+        window.scroll(0, 800);
+      },
 
       setActive() {
         this.active = !this.active;
@@ -355,5 +358,16 @@
 
   ul.ks-cboxtags li input[type="checkbox"]:focus + label {
     border: 2px solid rgba(68, 0, 99, 0.6);
+  }
+
+  .ifNiente {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    padding: 12px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: white;
+    font-size: 1.2em;
+    text-align: center;
   }
 </style>
