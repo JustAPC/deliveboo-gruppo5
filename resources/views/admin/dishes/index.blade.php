@@ -7,14 +7,11 @@
 
 @section('content')
 
-    @if (Auth::user()->restaurant_img)
-        @if (Str::startsWith(Auth::user()->restaurant_img, 'http'))
-            <img src="{{ Auth::user()->restaurant_img }}" alt="{{ Auth::user()->restaurant_name }}" width="100%"
-                margin="-50px">
-        @else
-            <img src="{{ asset('storage/Auth::user()->restaurant_img') }}" alt="{{ Auth::user()->restaurant_name }}"
-                width="100%" margin="-50px">
-        @endif
+    @if (Str::startsWith($restaurant->restaurant_img, 'http'))
+        <img src="{{ $restaurant->restaurant_img }}" alt="{{ $restaurant->restaurant_name }}" width="100%" margin="-50px">
+    @else
+        <img src="{{ asset("storage/$restaurant->restaurant_img") }}" alt="{{ Auth::user()->restaurant_name }}"
+            width="100%" margin="-50px">
     @endif
 
     @if (session('message-delete'))

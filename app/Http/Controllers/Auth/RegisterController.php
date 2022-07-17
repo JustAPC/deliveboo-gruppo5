@@ -62,7 +62,7 @@ class RegisterController extends Controller
             'state' => ['required', 'string'],
             'zip' => ['required', 'numeric', 'digits:5'],
             'vat' => ['required', 'numeric', 'digits:11'],
-            'types' =>['required'],
+            'types' => ['required'],
             'restaurant_name' => ['required', 'string'],
             'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
@@ -75,37 +75,29 @@ class RegisterController extends Controller
      * @return \App\User
      */
     protected function create(array $data)
-    {   
-
+    {
         if (Str::startsWith($data['restaurant_img'], 'http')) {
-            $img_url = $data['restaurant_img']; 
-        } 
-        else {
-            $img_stored = $data['restaurant_img'];
+            $img_url = $data['restaurant_img'];
+            $data['restaurant_img'] = $img_url;
+        } else {
+            $img_stored = Storage::put('restaurant_images', $data['restaurant_img']);
+            $data['restaurant_img'] = $img_stored;
         }
 
         $new_user = User::create(
-        [
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'phone_number' => $data['phone_number'],
-            'address' => $data['address'],
-            'city' => $data['city'],
-            'state' => $data['state'],
-            'zip' => $data['zip'],
-            'vat' => $data['vat'],
-            'restaurant_name' => $data['restaurant_name'],
-            // 'restaurant_img' => $data['restaurant_img'],
-            if (Str::startsWith($data['restaurant_img'], 'http')) {
-                'restaurant_img'->$img_url
-            } 
-            else {
-                $img_stored = storage::put('restaurant_images', $data['restaurant_img']);
-                $data['restaurant_img'] = $img_stored;
-                'restaurant_img'->$img_stored
-            }
-            'password' => Hash::make($data['password']),
-        ]
+            [
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone_number' => $data['phone_number'],
+                'address' => $data['address'],
+                'city' => $data['city'],
+                'state' => $data['state'],
+                'zip' => $data['zip'],
+                'vat' => $data['vat'],
+                'restaurant_name' => $data['restaurant_name'],
+                'restaurant_img' => $data['restaurant_img'],
+                'password' => Hash::make($data['password']),
+            ]
         );
 
         // Ultimo id dello user creata
@@ -116,14 +108,12 @@ class RegisterController extends Controller
                 [
                     'user_id' => $lastId,
                     'type_id' => $type,
-                    ]
-                );
-            }
-            
+                ]
+            );
+        }
+
         $this->redirectTo = '/admin';
 
         return $new_user;
-
     }
-
 }

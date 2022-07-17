@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Dish;
 use App\Models\Dishcategory;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -23,7 +24,8 @@ class Dishcontroller extends Controller
     public function index(Request $request)
     {
         $currentUserId = Auth::user()->id;
-        
+        $restaurant = Auth::user();
+
         if ($request->has('name')) {
             $name = $request->query('name');
 
@@ -35,7 +37,7 @@ class Dishcontroller extends Controller
             $dishes = Dish::where('user_id', '=', $currentUserId)->get();
         }
 
-        return view('admin.dishes.index', compact('dishes'));
+        return view('admin.dishes.index', compact('dishes', 'restaurant'));
     }
 
     /**
@@ -101,9 +103,9 @@ class Dishcontroller extends Controller
      */
     public function show(Dish $dish)
     {
-        if(Auth::id() == $dish->user_id){
+        if (Auth::id() == $dish->user_id) {
             return view('admin.dishes.show', compact('dish'));
-        }else{
+        } else {
             return view('errors.notFound');
         }
     }
@@ -116,13 +118,12 @@ class Dishcontroller extends Controller
      */
     public function edit(Dish $dish)
     {
-        if(Auth::id() == $dish->user_id){
+        if (Auth::id() == $dish->user_id) {
             $dishcategories = Dishcategory::all();
             return view('admin.dishes.edit', compact('dish', 'dishcategories'));
-        }else{
+        } else {
             return view('errors.notFound');
         }
-        
     }
 
     /**

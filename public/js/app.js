@@ -37340,8 +37340,8 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
