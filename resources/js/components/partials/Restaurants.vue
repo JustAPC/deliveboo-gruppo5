@@ -27,10 +27,10 @@
           </ul>
         </div>
       </div>
-      <div class="row justify-content-center">
-        <p v-if="arrayRistoranti.length < 1" class="ifNiente">
-          Non ci sono ristoranti con le categorie selezionate
-        </p>
+      <div class="row justify-content-center" style="min-height: 500px">
+        <div v-if="arrayRistoranti.length < 1" class="pt-5">
+          <span class="ifNiente">Non ci sono ristoranti con le categorie selezionate</span>
+        </div>
         <div
           class="card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
           v-for="restaurant in arrayRistoranti"
@@ -364,7 +364,7 @@
     margin-top: 50px;
     margin-bottom: 100px;
     padding: 12px;
-    border: 2px solid black;
+    border: 2px solid #440063;
     border-radius: 15px;
     background-color: white;
     font-size: 1.2em;

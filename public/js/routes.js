@@ -3741,7 +3741,7 @@ var render = function render() {
         return _vm.setActive();
       }
     }
-  }, [_vm._v("\r\n            Categorie\r\n          ")])]), _vm._v(" "), _vm.active ? _c("div", {
+  }, [_vm._v("\n            Categorie\n          ")])]), _vm._v(" "), _vm.active ? _c("div", {
     staticClass: "col-xl-10 px-0 col-12 mx-auto bg-color-full mt-2 mb-5"
   }, [_c("ul", {
     staticClass: "ks-cboxtags text-stone-500 row m-0"
@@ -3793,10 +3793,15 @@ var render = function render() {
       }
     }, [_vm._v(_vm._s(type.name))])]);
   }), 0)]) : _vm._e()]), _vm._v(" "), _c("div", {
-    staticClass: "row justify-content-center"
-  }, [_vm.arrayRistoranti.length < 1 ? _c("p", {
+    staticClass: "row justify-content-center",
+    staticStyle: {
+      "min-height": "500px"
+    }
+  }, [_vm.arrayRistoranti.length < 1 ? _c("div", {
+    staticClass: "pt-5"
+  }, [_c("span", {
     staticClass: "ifNiente"
-  }, [_vm._v("\r\n          Non ci sono ristoranti con le categorie selezionate\r\n        ")]) : _vm._e(), _vm._v(" "), _vm._l(_vm.arrayRistoranti, function (restaurant) {
+  }, [_vm._v("Non ci sono ristoranti con le categorie selezionate")])]) : _vm._e(), _vm._v(" "), _vm._l(_vm.arrayRistoranti, function (restaurant) {
     return _c("div", {
       key: restaurant.id,
       staticClass: "card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
@@ -3823,10 +3828,10 @@ var render = function render() {
       return _c("p", {
         key: type.id,
         staticClass: "card-text"
-      }, [_vm._v("\r\n                " + _vm._s(type.name) + "\r\n              ")]);
+      }, [_vm._v("\n                " + _vm._s(type.name) + "\n              ")]);
     }), _vm._v(" "), _c("p", {
       staticClass: "card-text"
-    }, [_vm._v("\r\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\r\n              ")]), _vm._v(" "), _c("p", {
+    }, [_vm._v("\n                Indirizzo: " + _vm._s(restaurant.address) + ", " + _vm._s(restaurant.zip) + " ," + _vm._s(restaurant.city) + "\n              ")]), _vm._v(" "), _c("p", {
       staticClass: "card-text"
     }, [_c("small", {
       staticClass: "text-muted"
@@ -28439,7 +28444,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "@charset \"UTF-8\";\na[data-v-1370f4f8]:hover {\n  text-decoration: none;\n}\na:hover .card-title[data-v-1370f4f8] {\n  color: #34c0c9;\n  text-decoration: underline;\n}\n.button-colors[data-v-1370f4f8] {\n  background-color: #34c0c9;\n  color: white;\n  border: 0;\n  font-size: 1.5rem;\n}\n.restaurant-card[data-v-1370f4f8] {\n  transition: transform 350ms;\n}\n.restaurant-card div[data-v-1370f4f8] {\n  color: black;\n}\n.restaurant-card[data-v-1370f4f8]:hover {\n  transform: scale(1.1);\n  transition: transform 150ms;\n  box-shadow: 0px 0px 25px #34c0c9;\n}\n.drop-down-menu[data-v-1370f4f8] {\n  z-index: 3;\n}\n.bg-color-full[data-v-1370f4f8] {\n  background-color: #78d04f;\n  border-radius: 1.3rem !important;\n}\n.bg-color-full .row[data-v-1370f4f8] {\n  display: block;\n  overflow-x: scroll;\n  white-space: nowrap;\n}\n.bg-color-full .row li[data-v-1370f4f8] {\n  display: inline-block;\n}\n.drop-down-menu button[data-v-1370f4f8] {\n  transition: all 0.3s ease-in-out;\n}\n.drop-down-menu div[data-v-1370f4f8] {\n  -webkit-animation: opacity-1370f4f8 0.5s linear;\n          animation: opacity-1370f4f8 0.5s linear;\n}\n.drop-down-menu li[data-v-1370f4f8] {\n  transition: transform 250ms;\n}\n.drop-down-menu li[data-v-1370f4f8]:hover {\n  transition: transform 250ms;\n  transform: translateY(-6px);\n}\n@-webkit-keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\nul.ks-cboxtags[data-v-1370f4f8] {\n  list-style: none;\n  padding: 20px;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 20px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar {\n  width: 10px;\n  height: 10px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar-track {\n  border-radius: 10px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar-thumb {\n  border-radius: 10px;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  display: flex;\n  align-items: center;\n  background-color: rgba(255, 255, 255, 0.9);\n  border: 2px solid rgba(139, 139, 139, 0.3);\n  border-radius: 25px;\n  white-space: nowrap;\n  margin: 3px 0px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  padding: 8px 12px;\n  cursor: pointer;\n}\nul.ks-cboxtags li label[data-v-1370f4f8]::before {\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  font-weight: 900;\n  font-size: 12px;\n  padding: 2px 6px 2px 2px;\n  content: \"\\292B\";\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8]::before {\n  content: \"\\2713\";\n  transform: rotate(-360deg);\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8] {\n  border: 2px solid #440063;\n  background-color: #00ccbc;\n  color: #fff;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  display: absolute;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  position: absolute;\n  opacity: 0;\n}\nul.ks-cboxtags li input[type=checkbox]:focus + label[data-v-1370f4f8] {\n  border: 2px solid rgba(68, 0, 99, 0.6);\n}\n.ifNiente[data-v-1370f4f8] {\n  margin-top: 50px;\n  margin-bottom: 100px;\n  padding: 12px;\n  border: 2px solid black;\n  border-radius: 15px;\n  background-color: white;\n  font-size: 1.2em;\n  text-align: center;\n}", ""]);
+exports.push([module.i, "@charset \"UTF-8\";\na[data-v-1370f4f8]:hover {\n  text-decoration: none;\n}\na:hover .card-title[data-v-1370f4f8] {\n  color: #34c0c9;\n  text-decoration: underline;\n}\n.button-colors[data-v-1370f4f8] {\n  background-color: #34c0c9;\n  color: white;\n  border: 0;\n  font-size: 1.5rem;\n}\n.restaurant-card[data-v-1370f4f8] {\n  transition: transform 350ms;\n}\n.restaurant-card div[data-v-1370f4f8] {\n  color: black;\n}\n.restaurant-card[data-v-1370f4f8]:hover {\n  transform: scale(1.1);\n  transition: transform 150ms;\n  box-shadow: 0px 0px 25px #34c0c9;\n}\n.drop-down-menu[data-v-1370f4f8] {\n  z-index: 3;\n}\n.bg-color-full[data-v-1370f4f8] {\n  background-color: #78d04f;\n  border-radius: 1.3rem !important;\n}\n.bg-color-full .row[data-v-1370f4f8] {\n  display: block;\n  overflow-x: scroll;\n  white-space: nowrap;\n}\n.bg-color-full .row li[data-v-1370f4f8] {\n  display: inline-block;\n}\n.drop-down-menu button[data-v-1370f4f8] {\n  transition: all 0.3s ease-in-out;\n}\n.drop-down-menu div[data-v-1370f4f8] {\n  -webkit-animation: opacity-1370f4f8 0.5s linear;\n          animation: opacity-1370f4f8 0.5s linear;\n}\n.drop-down-menu li[data-v-1370f4f8] {\n  transition: transform 250ms;\n}\n.drop-down-menu li[data-v-1370f4f8]:hover {\n  transition: transform 250ms;\n  transform: translateY(-6px);\n}\n@-webkit-keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\n@keyframes opacity-1370f4f8 {\n0% {\n    opacity: 0;\n}\n50% {\n    opacity: 0.5;\n}\n100% {\n    opacity: 1;\n}\n}\nul.ks-cboxtags[data-v-1370f4f8] {\n  list-style: none;\n  padding: 20px;\n  display: flex;\n  align-items: center;\n  flex-wrap: wrap;\n  gap: 20px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar {\n  width: 10px;\n  height: 10px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar-track {\n  border-radius: 10px;\n}\n.ks-cboxtags[data-v-1370f4f8]::-webkit-scrollbar-thumb {\n  border-radius: 10px;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  display: flex;\n  align-items: center;\n  background-color: rgba(255, 255, 255, 0.9);\n  border: 2px solid rgba(139, 139, 139, 0.3);\n  border-radius: 25px;\n  white-space: nowrap;\n  margin: 3px 0px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n          user-select: none;\n  -webkit-tap-highlight-color: transparent;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li label[data-v-1370f4f8] {\n  padding: 8px 12px;\n  cursor: pointer;\n}\nul.ks-cboxtags li label[data-v-1370f4f8]::before {\n  font-style: normal;\n  font-variant: normal;\n  text-rendering: auto;\n  -webkit-font-smoothing: antialiased;\n  font-weight: 900;\n  font-size: 12px;\n  padding: 2px 6px 2px 2px;\n  content: \"\\292B\";\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8]::before {\n  content: \"\\2713\";\n  transform: rotate(-360deg);\n  transition: transform 0.3s ease-in-out;\n}\nul.ks-cboxtags li input[type=checkbox]:checked + label[data-v-1370f4f8] {\n  border: 2px solid #440063;\n  background-color: #00ccbc;\n  color: #fff;\n  transition: all 0.2s;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  display: absolute;\n}\nul.ks-cboxtags li input[type=checkbox][data-v-1370f4f8] {\n  position: absolute;\n  opacity: 0;\n}\nul.ks-cboxtags li input[type=checkbox]:focus + label[data-v-1370f4f8] {\n  border: 2px solid rgba(68, 0, 99, 0.6);\n}\n.ifNiente[data-v-1370f4f8] {\n  margin-top: 50px;\n  margin-bottom: 100px;\n  padding: 12px;\n  border: 2px solid #440063;\n  border-radius: 15px;\n  background-color: white;\n  font-size: 1.2em;\n  text-align: center;\n}", ""]);
 
 // exports
 
