@@ -47,7 +47,7 @@ class OrdersTableSeeder extends Seeder
 
         for ($i = 1; $i < 11; $i++) {
             for ($x = 0; $x < count($names); $x++) {
-                $order_creation = $faker->dateTimeThisYear();
+                $order_creation = $faker->dateTimeBetween('-1 year', '');
 
                 $order = new Order();
 
