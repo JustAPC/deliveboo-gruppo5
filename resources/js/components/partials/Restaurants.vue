@@ -28,12 +28,14 @@
         </div>
       </div>
       <div class="row justify-content-center">
-        
+        <p v-if="arrayRistoranti.length < 1" class="ifNiente">Non ci sono ristoranti con le categorie selezionate</p>
         <div
           class="card mx-5 my-5 restaurant-card col-s-12 col-md-4 col-lg-3"
           v-for="restaurant in arrayRistoranti"
           :key="restaurant.id"
         >
+
+        
           <router-link :to="{ name: 'restaurant-show', params: { id: restaurant.id } }">
             <img
               v-if="restaurant.restaurant_img"
@@ -355,5 +357,16 @@
 
   ul.ks-cboxtags li input[type="checkbox"]:focus + label {
     border: 2px solid rgba(68, 0, 99, 0.6);
+  }
+
+  .ifNiente{
+    margin-top: 50px;
+    margin-bottom: 100px;
+    padding: 12px;
+    border: 2px solid black;
+    border-radius: 15px;
+    background-color: white;
+    font-size: 1.2em;
+    text-align: center;
   }
 </style>
