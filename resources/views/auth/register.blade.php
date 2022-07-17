@@ -9,7 +9,8 @@
             {{-- <h1 class="">Registrazione</h1> --}}
             <h1 class="titoloRegistrazione">Registrazione</h1>
             <span id="required-fields">I campi contrassegnati con (*) sono obbligatori.</span>
-            <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}" class="needs-validation formRegister" novalidate>
+            <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}"
+                class="needs-validation formRegister" novalidate>
                 @csrf
                 {{-- Nome Utente --}}
                 <div class="barraRegister">

@@ -53,19 +53,22 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone_number' => ['required', 'numeric', 'digits_between:9,10'],
-            'address' => ['required', 'string'],
-            'city' => ['required', 'string'],
-            'state' => ['required', 'string'],
-            'zip' => ['required', 'numeric', 'digits:5'],
-            'vat' => ['required', 'numeric', 'digits:11'],
-            'types' => ['required'],
-            'restaurant_name' => ['required', 'string'],
-            'password' => ['required', 'string', 'min:8', 'confirmed']
-        ]);
+        return Validator::make(
+            $data,
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'phone_number' => ['required', 'numeric', 'digits_between:9,10'],
+                'address' => ['required', 'string'],
+                'city' => ['required', 'string'],
+                'state' => ['required', 'string'],
+                'zip' => ['required', 'numeric', 'digits:5'],
+                'vat' => ['required', 'numeric', 'digits:11'],
+                'types' => ['required'],
+                'restaurant_name' => ['required', 'string'],
+                'password' => ['required', 'string', 'min:8', 'confirmed']
+            ]
+        );
     }
 
     /**
