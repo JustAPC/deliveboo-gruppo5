@@ -6,7 +6,7 @@
     <div class="bg bg3"></div>
 
     <div class="container pt-5">
-        <h1 class="py-5">Vendite annuali</h1>
+        <h1 class="py-5">Vendite mensili</h1>
 
         <div id="year-2022" class="bg-light">
             {!! $yearSales2022->container() !!}
