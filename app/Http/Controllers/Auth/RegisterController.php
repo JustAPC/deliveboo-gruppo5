@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class RegisterController extends Controller
 {
@@ -74,6 +76,14 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {   
+
+        if (Str::startsWith($data['restaurant_img'], 'http')) {
+            $img_url = $data['restaurant_img']; 
+        } 
+        else {
+            $img_stored = $data['restaurant_img'];
+        }
+
         $new_user = User::create(
         [
             'name' => $data['name'],
@@ -85,7 +95,15 @@ class RegisterController extends Controller
             'zip' => $data['zip'],
             'vat' => $data['vat'],
             'restaurant_name' => $data['restaurant_name'],
-            'restaurant_img' => $data['restaurant_img'],
+            // 'restaurant_img' => $data['restaurant_img'],
+            if (Str::startsWith($data['restaurant_img'], 'http')) {
+                'restaurant_img'->$img_url
+            } 
+            else {
+                $img_stored = storage::put('restaurant_images', $data['restaurant_img']);
+                $data['restaurant_img'] = $img_stored;
+                'restaurant_img'->$img_stored
+            }
             'password' => Hash::make($data['password']),
         ]
         );

@@ -17431,7 +17431,7 @@ function getImgData() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+module.exports = __webpack_require__(/*! C:\Users\cater\Desktop\Boolean\deliveboo-gruppo5-1\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
 
 
 /***/ })

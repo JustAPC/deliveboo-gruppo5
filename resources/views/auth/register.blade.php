@@ -9,7 +9,7 @@
             {{-- <h1 class="">Registrazione</h1> --}}
             <h1 class="titoloRegistrazione">Registrazione</h1>
             <span id="required-fields">I campi contrassegnati con (*) sono obbligatori.</span>
-            <form method="POST" action="{{ route('register') }}" class="needs-validation formRegister" novalidate>
+            <form method="POST" enctype="multipart/form-data" action="{{ route('register') }}" class="needs-validation formRegister" novalidate>
                 @csrf
                 {{-- Nome Utente --}}
                 <div class="barraRegister">
@@ -151,7 +151,7 @@
 
                 {{-- Immagine ristorante --}}
                 <div class="d-flex flex-row justify-content-between barraRegister align-items-center">
-                    <input id="myfiles" name="image" type="file" accept="image/*" class="w-75">
+                    <input id="myfiles" name="restaurant_img" type="file" accept="image/*" class="w-75">
                     <button id="file_remove" class="btn image-remove-button mr-3" disabled>Rimuovi</button>
                 </div>
 
