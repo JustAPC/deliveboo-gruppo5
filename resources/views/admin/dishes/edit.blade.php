@@ -103,7 +103,7 @@
             {{-- riga immagine caricamento file + url --}}
             <div class="form-row d-flex align-items-center">
                 <div class="form-group col-md-4 position-relative">
-                    <div class="d-flex align-items-center">
+                    <div class="d-flex align-items-center" id="myfiles-container">
                         <input id="myfiles" name="image" type="file" class="inputfile" accept="image/*">
                         <label for="myfiles">
                             <figure class="text-center"><svg xmlns="http://www.w3.org/2000/svg" width="20"

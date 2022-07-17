@@ -17386,10 +17386,16 @@ fileInput.addEventListener("change", function () {
 });
 
 var inputHandler = function inputHandler(e) {
+  var container = document.getElementById("myfiles-container");
+
   if (e.target.value != 0) {
     fileInput.setAttribute("disabled", "");
+    container.style.pointerEvents = "none";
+    container.style.opacity = 0.5;
   } else if (e.target.value == 0) {
     fileInput.removeAttribute("disabled");
+    container.style.opacity = 1;
+    container.style.pointerEvents = "auto";
   }
 };
 
@@ -17425,7 +17431,7 @@ function getImgData() {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\esercizio-finale\deliveboo-gruppo5\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
+module.exports = __webpack_require__(/*! C:\Users\andre\Desktop\Laravel\deliveboo_prove\resources\js\imageUpload.js */"./resources/js/imageUpload.js");
 
 
 /***/ })
