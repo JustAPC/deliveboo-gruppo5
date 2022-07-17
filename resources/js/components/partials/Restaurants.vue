@@ -11,7 +11,7 @@
             Categorie
           </button>
         </div>
-        <div v-if="active" class="col-xl-10 col-12 mx-auto bg-color-full mt-2 mb-5">
+        <div v-if="active" class="col-xl-10 px-0 col-12 mx-auto bg-color-full mt-2 mb-5">
           <ul class="ks-cboxtags text-stone-500 row m-0">
             <li v-for="type in types" :key="type.id" class="col-8 col-sm-4 col-md-3 col-lg-2">
               <input

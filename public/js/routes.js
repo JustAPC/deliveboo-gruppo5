@@ -3739,7 +3739,7 @@ var render = function render() {
       }
     }
   }, [_vm._v("\n            Categorie\n          ")])]), _vm._v(" "), _vm.active ? _c("div", {
-    staticClass: "col-xl-10 col-12 mx-auto bg-color-full mt-2 mb-5"
+    staticClass: "col-xl-10 px-0 col-12 mx-auto bg-color-full mt-2 mb-5"
   }, [_c("ul", {
     staticClass: "ks-cboxtags text-stone-500 row m-0"
   }, _vm._l(_vm.types, function (type) {
