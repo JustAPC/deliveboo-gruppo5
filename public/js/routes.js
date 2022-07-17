@@ -2326,8 +2326,10 @@ __webpack_require__.r(__webpack_exports__);
       });
 
       if (this.carrello.length == 0) {
+        var bottomCart = document.getElementById("bottom-cart-tp");
         printTotalPrice.forEach(function (e) {
           e.innerHTML = "";
+          bottomCart.innerHTML = "Il tuo carrello è vuoto!";
         });
       } else {
         printTotalPrice.forEach(function (e) {
@@ -3324,8 +3326,8 @@ var render = function render() {
   }, [_c("h2", {
     staticClass: "text-center border-bottom border-dark"
   }, [_vm._v("Il tuo carrello")]), _vm._v(" "), _vm.carrello.length == 0 ? _c("div", [_c("h2", {
-    staticClass: "p-2 mt-5"
-  }, [_vm._v("Non ci sono piatti nel carrello")])]) : _c("div", {
+    staticClass: "mt-5 text-center"
+  }, [_vm._v("Il tuo carrello è vuoto")])]) : _c("div", {
     staticClass: "cart-plates"
   }, _vm._l(_vm.carrello, function (item, i) {
     return _c("div", {
@@ -3430,8 +3432,11 @@ var render = function render() {
   }, [_c("div", {
     staticClass: "d-flex justify-content-around align-items-center"
   }, [_c("div", {
-    staticClass: "totalPrice"
-  }), _vm._v(" "), _c("div", {}, [_vm.carrello.length ? _c("router-link", {
+    staticClass: "totalPrice",
+    attrs: {
+      id: "bottom-cart-tp"
+    }
+  }, [_vm._v("Il tuo carrello è vuoto!")]), _vm._v(" "), _c("div", {}, [_vm.carrello.length ? _c("router-link", {
     staticClass: "btn btn-success",
     attrs: {
       to: {

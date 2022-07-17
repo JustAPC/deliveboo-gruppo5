@@ -97,7 +97,7 @@
             <div class="cart">
               <h2 class="text-center border-bottom border-dark">Il tuo carrello</h2>
               <div v-if="carrello.length == 0">
-                <h2 class="p-2 mt-5">Non ci sono piatti nel carrello</h2>
+                <h2 class="mt-5 text-center">Il tuo carrello è vuoto</h2>
               </div>
               <div class="cart-plates" v-else>
                 <div class="cart-item" v-for="(item, i) in carrello" :key="i">
@@ -195,7 +195,7 @@
       aria-controls="collapseExample"
     >
       <div class="d-flex justify-content-around align-items-center">
-        <div class="totalPrice"></div>
+        <div class="totalPrice" id="bottom-cart-tp">Il tuo carrello è vuoto!</div>
         <div class="">
           <router-link
             class="btn btn-success"
@@ -348,8 +348,10 @@
         this.carrello = this.carrello.filter((data) => data.id != e);
         this.cartSelectedDishes = this.cartSelectedDishes.filter((data) => data.dish_id != e);
         if (this.carrello.length == 0) {
+          let bottomCart = document.getElementById("bottom-cart-tp");
           printTotalPrice.forEach((e) => {
             e.innerHTML = "";
+            bottomCart.innerHTML = "Il tuo carrello è vuoto!";
           });
         } else {
           printTotalPrice.forEach((e) => {
