@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,7 +18,13 @@ Route::get('/', function () {
     return view('guest.home');
 });
 
+Route::post('/ordersummary', 'Api\OrderSubmitController@orderSubmit');
+
+
 Auth::routes();
+
+Route::get('/register', 'RestaurantCategoryController@index')->name('register');
+
 
 Route::middleware('auth')
     ->prefix('admin')
@@ -27,6 +34,8 @@ Route::middleware('auth')
         Route::get('/', 'HomeController@index')->name('home');
         Route::resource('dishes', 'DishController');
         Route::resource('openingdays', 'OpeningdayController');
+        Route::resource('orders', 'OrderController');
+        Route::get('charts', 'ChartController@index')->name('charts');
     });
 
 Route::get('{any?}', function () {

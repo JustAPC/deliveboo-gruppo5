@@ -81,7 +81,7 @@
 /******/
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ({
@@ -17376,18 +17376,26 @@ var _require = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.j
 var fileInput = document.querySelector("#myfiles");
 var image_url = document.getElementById("image_url");
 var removeButton = document.getElementById("file_remove");
+var imgPreview = document.getElementById("img-preview");
 fileInput.addEventListener("change", function () {
   if (fileInput.length != 0) {
+    getImgData();
     image_url.setAttribute("disabled", "");
     removeButton.removeAttribute("disabled");
   }
 });
 
 var inputHandler = function inputHandler(e) {
+  var container = document.getElementById("myfiles-container");
+
   if (e.target.value != 0) {
     fileInput.setAttribute("disabled", "");
+    container.style.pointerEvents = "none";
+    container.style.opacity = 0.5;
   } else if (e.target.value == 0) {
     fileInput.removeAttribute("disabled");
+    container.style.opacity = 1;
+    container.style.pointerEvents = "auto";
   }
 };
 
@@ -17396,13 +17404,27 @@ image_url.addEventListener("propertychange", inputHandler);
 removeButton.addEventListener("click", function (e) {
   e.preventDefault();
   fileInput.value = "";
+  imgPreview.innerHTML = "";
   removeButton.setAttribute("disabled", "");
   image_url.removeAttribute("disabled");
 });
 
+function getImgData() {
+  var files = fileInput.files[0];
+
+  if (files) {
+    var fileReader = new FileReader();
+    fileReader.readAsDataURL(files);
+    fileReader.addEventListener("load", function () {
+      imgPreview.style.display = "block";
+      imgPreview.innerHTML = "<img src=\"" + this.result + "\" class=\"img-preview\"/>";
+    });
+  }
+}
+
 /***/ }),
 
-/***/ 1:
+/***/ 3:
 /*!*******************************************!*\
   !*** multi ./resources/js/imageUpload.js ***!
   \*******************************************/

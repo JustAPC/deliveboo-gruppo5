@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
@@ -12,11 +12,13 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
-    @yield('optionalscripts')
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -25,16 +27,24 @@
         .navbar-nav li {
             margin: 0 10px;
         }
+
+        #logo-text {
+            color: #00ccbc;
+            font-weight: bold;
+        }
     </style>
 </head>
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm"
+            style="position: fixed; top: 0; width: 100%; z-index: 2">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{-- {{ config('app.name', 'Deliveboo') }} --}}
-                    Deliveboo
+                    <img src="https://i.postimg.cc/ZYrqkY1k/Deliveboo-logo.png" alt="Deliveboo logo" width="25"
+                        height="25" class="d-inline-block align-text-top">
+                    <span id="logo-text">Deliveboo</span>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -45,8 +55,6 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li><a href="{{ route('admin.dishes.index') }}">Piatti</a></li>
-                        <li><a href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -69,16 +77,34 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    <a class="dropdown-item" href="{{ route('admin.dishes.index') }}">Il mio menu</a>
+
+                                    <a class="dropdown-item" href="{{ route('admin.dishes.create') }}">Aggiungi un nuovo
+                                        piatto</a>
+
+                                    <a class="dropdown-item" href="{{ route('admin.orders.index') }}">Riepilogo degli
+                                        ordini</a>
+
+                                    <a class="dropdown-item" href="/admin/charts">Le mie
+                                        statistiche</a>
+
+                                    {{-- OPZIONE PER GIORNI DI APERTURA, SE LI INSERIAMO --}}
+                                    {{-- <a class="dropdown-item" href="{{ route('admin.openingdays.index') }}">Giorni di apertura</a> --}}
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+                                                    document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
+
                                 </div>
+
+
                             </li>
                         @endguest
                     </ul>
@@ -86,10 +112,13 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="pt-5">
             @yield('content')
         </main>
     </div>
+
+
+    @yield('optionalscripts')
 </body>
 
 </html>

@@ -1,0 +1,75 @@
+.inputfile {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.inputfile + label {
+  max-width: 80%;
+  font-size: 1.25rem;
+  /* 20px */
+  font-weight: 700;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+  display: inline-block;
+  overflow: hidden;
+  /* 10px 20px */
+}
+
+.inputfile:focus + label,
+.inputfile.has-focus + label {
+  outline: 1px dotted #000;
+  outline: -webkit-focus-ring-color auto 5px;
+}
+
+.inputfile + label * {
+  /* pointer-events: none; */
+  /* in case of FastClick lib use */
+}
+
+.inputfile + label svg {
+  width: 1em;
+  height: 1em;
+  vertical-align: middle;
+  fill: currentColor;
+  margin-top: -0.25em;
+  /* 4px */
+  margin-right: 0.25em;
+  /* 4px */
+}
+
+.inputfile + label {
+  color: #e98c22;
+}
+
+.inputfile:focus + label,
+.inputfile.has-focus + label,
+.inputfile + label:hover {
+  color: #c4771f;
+}
+
+.inputfile + label figure {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #e98c22;
+  display: block;
+  padding: 10px;
+  margin: 0 auto 10px;
+}
+
+.inputfile:focus + label figure,
+.inputfile.has-focus + label figure,
+.inputfile + label:hover figure {
+  background-color: #c4771f;
+}
+
+.inputfile + label svg {
+  width: 30px;
+  height: 30px;
+  fill: #f1e5e6;
+}

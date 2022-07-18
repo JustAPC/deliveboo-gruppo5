@@ -2,13 +2,17 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Dish;
 use App\Models\Dishcategory;
+use App\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+
 
 class Dishcontroller extends Controller
 {
@@ -20,6 +24,7 @@ class Dishcontroller extends Controller
     public function index(Request $request)
     {
         $currentUserId = Auth::user()->id;
+        $restaurant = Auth::user();
 
         if ($request->has('name')) {
             $name = $request->query('name');
@@ -32,7 +37,7 @@ class Dishcontroller extends Controller
             $dishes = Dish::where('user_id', '=', $currentUserId)->get();
         }
 
-        return view('admin.dishes.index', compact('dishes'));
+        return view('admin.dishes.index', compact('dishes', 'restaurant'));
     }
 
     /**
@@ -55,19 +60,36 @@ class Dishcontroller extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate(
+            [
+                'name' => 'required | unique:dishes',
+                'ingredients' => 'required',
+                'available' => 'required',
+                'price' => 'required',
+                'dishcategory_id' => 'required',
+            ],
+            [
+                'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
+                'name.unique' => 'Il piatto con questo nome è già presente',
+                'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
+                'available.required' => 'Il campo "Disponibilità" è obbligatorio',
+                'price.required' => 'Il campo "Prezzo" è obbligatorio',
+                'dishcategory_id.required' => 'Il campo "Categoria Piatto" è obbligatorio',
+            ]
+        );
+
         $data = $request->all();
         $currentUserId = Auth::id();
 
         $new_dish = new Dish();
-        if (Str::startsWith($data['image'], 'dish_images')) {
-            if (array_key_exists('image', $data)) {
-                $image_url = Storage::put('dish_images', $data['image']);
-                $data['image'] = $image_url;
-            }
+        // dd($data);
+        if ($request->hasFile('image')) {
+            $image_url = $request->image->store('dish_images');
+            $data['image'] = $image_url;
         }
+
         $new_dish->fill($data);
         $new_dish->user_id = $currentUserId;
-        $new_dish->image = $data['image'];
         $new_dish->save();
 
         return redirect()->route('admin.dishes.show', $new_dish)->with('message-create', "$new_dish->name");
@@ -81,7 +103,11 @@ class Dishcontroller extends Controller
      */
     public function show(Dish $dish)
     {
-        return view('admin.dishes.show', compact('dish'));
+        if (Auth::id() == $dish->user_id) {
+            return view('admin.dishes.show', compact('dish'));
+        } else {
+            return view('errors.notFound');
+        }
     }
 
     /**
@@ -92,9 +118,12 @@ class Dishcontroller extends Controller
      */
     public function edit(Dish $dish)
     {
-        $dishcategories = Dishcategory::all();
-
-        return view('admin.dishes.edit', compact('dish', 'dishcategories'));
+        if (Auth::id() == $dish->user_id) {
+            $dishcategories = Dishcategory::all();
+            return view('admin.dishes.edit', compact('dish', 'dishcategories'));
+        } else {
+            return view('errors.notFound');
+        }
     }
 
     /**
@@ -107,15 +136,40 @@ class Dishcontroller extends Controller
     public function update(Request $request, Dish $dish)
     {
         $data = $request->all();
+
+        Validator::make(
+            $data,
+            [
+                'name' => [
+                    'required',
+                    Rule::unique('dishes')->ignore($dish->id),
+                ],
+                'ingredients' => 'required',
+                'available' => 'required',
+                'price' => 'required',
+                'dishcategory_id' => 'required',
+            ],
+            [
+                'name.required' => 'Il campo "Nome del piatto" è obbligatorio',
+                'name.unique' => 'Il piatto con questo nome è già presente',
+                'ingredients.required' => 'Il campo "Ingredienti" è obbligatorio',
+                'available.required' => 'Il campo "Disponibilità" è obbligatorio',
+                'price.required' => 'Il campo "Prezzo" è obbligatorio',
+                'dishcategory_id.required' => 'Il campo "Categoria Piatto" è obbligatorio',
+            ]
+        );
+
         // dd($data);
-        if (array_key_exists('image', $data)) {
+        if ($request->hasFile('image')) {
             if ($dish->image != null) Storage::delete($dish->image);
 
-            $image_url = Storage::put('dish_images', $data['image']);
+            $image_url = $request->image->store('dish_images');
             $data['image'] = $image_url;
             $dish->image = $data['image'];
+            $dish->update($data);
+        } else {
+            $dish->update($data);
         }
-        $dish->update($data);
 
 
         return redirect()->route('admin.dishes.show', $dish)->with('message-update', "$dish->name");
@@ -129,7 +183,8 @@ class Dishcontroller extends Controller
      */
     public function destroy(Dish $dish)
     {
-        $dish->delete();
+        $dish->available = 0;
+        $dish->update();
 
         return redirect()->route('admin.dishes.index', compact('dish'))->with('message-delete', "$dish->name");
     }
